@@ -108,7 +108,7 @@ public class GameManager : MonoBehaviour {
                         int EnemyType = Random.Range(0, 4);
                         int EnemyLocation = Random.Range(0, 4);
 
-                        StartCoroutine(RespawnEnemy(NowLevel, EnemyType, EnemyLocation));
+                        //StartCoroutine(RespawnEnemy(NowLevel, EnemyType, EnemyLocation));
                     }
                     
                 }

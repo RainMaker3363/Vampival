@@ -43,14 +43,14 @@ public class Enemy : MonoBehaviour {
         Gamestate = GameManager.Gamestate;
 
         HP = 10;
-
+        Instantiate(Corpse, this.transform.position, Quaternion.identity);
         Agent.destination = new Vector3(Target.transform.position.x, 0, Target.transform.position.z);
-
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         switch(Gamestate)
         {
             case GameState.GameIntro:
@@ -67,6 +67,8 @@ public class Enemy : MonoBehaviour {
 
             case GameState.GameStart:
                 {
+                    
+
                     //print(Controller.isGrounded);
                     targetPosOnScreen = Camera.main.WorldToScreenPoint(this.gameObject.transform.position);
 
@@ -181,6 +183,7 @@ public class Enemy : MonoBehaviour {
                 Agent.enabled = false;
             }
         }
+
     }
 
     void OnCollisionEnter(Collision collision)
@@ -195,9 +198,9 @@ public class Enemy : MonoBehaviour {
             }
             else
             {
-                Instantiate(Corpse, this.transform.position, Quaternion.identity);
-
                 Agent.enabled = false;
+
+                Instantiate(Corpse, this.transform.position, Quaternion.identity);
                 Destroy(this.gameObject);
             }
 
