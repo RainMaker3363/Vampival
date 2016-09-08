@@ -7,6 +7,7 @@ public class Cannon : MonoBehaviour {
     public float FastMoveSpeed = 40;
 
     private ViewControllMode ViewMode;
+    private GameState Gamestate;
 
     public GameObject CrossHair_Icon;
     public GameObject[] Cannons = new GameObject[2];
@@ -14,141 +15,168 @@ public class Cannon : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         ViewMode = GameManager.ViewMode;
+        Gamestate = GameManager.Gamestate;
 	}
 	
 	// Update is called once per frame
 	void Update () 
     {
-        switch (ViewMode)
+        switch (Gamestate)
         {
-            case ViewControllMode.Mouse:
+            case GameState.GameIntro:
                 {
 
-                    //Vector3 direction = new Vector3(hit.normal.x, hit.normal.y * 1, hit.normal.z);
-
-
-                    // 마우스 작업
-                    if (Input.GetKey(KeyCode.LeftArrow))
-                    {
-                        this.transform.Rotate(new Vector3(0, 90, 0), 50 * Time.deltaTime);
-                        CrossHair_Icon.transform.position += new Vector3(-1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime;
-
-                    }
-                    if (Input.GetKey(KeyCode.RightArrow))
-                    {
-                        this.transform.Rotate(new Vector3(0, -90, 0), 50 * Time.deltaTime);
-                        CrossHair_Icon.transform.position += new Vector3(1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime;
-
-                    }
-                    if (Input.GetKey(KeyCode.DownArrow))
-                    {
-                        Cannons[0].transform.Rotate(new Vector3(90, 0, 0), 30 * Time.deltaTime);
-                        Cannons[1].transform.Rotate(new Vector3(90, 0, 0), 30 * Time.deltaTime);
-
-                        CrossHair_Icon.transform.position += new Vector3(0, 0, 1.5f) * normalMoveSpeed * Time.deltaTime;
-
-                    }
-                    if (Input.GetKey(KeyCode.UpArrow))
-                    {
-                        Cannons[0].transform.Rotate(new Vector3(-90, 0, 0), 30 * Time.deltaTime);
-                        Cannons[1].transform.Rotate(new Vector3(-90, 0, 0), 30 * Time.deltaTime);
-                        CrossHair_Icon.transform.position += new Vector3(0, 0, -1.5f) * normalMoveSpeed * Time.deltaTime;
-                    }
-
-                    //if (Input.GetKey(KeyCode.DownArrow))
-                    //{
-                    //    transform.position += new Vector3(0, 0, -1.5f) * normalMoveSpeed * Time.deltaTime;
-
-                    //}
-                    //if (Input.GetKey(KeyCode.UpArrow))
-                    //{
-                    //    transform.position += new Vector3(0, 0, 1.5f) * normalMoveSpeed * Time.deltaTime;
-                    //}
-
-                    //if(Input.GetKey(KeyCode.LeftArrow))
-                    //{
-                    //    transform.position += new Vector3(-1, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
-                    //    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
-                    //    transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
-                    //    //transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
-                    //}
-                    //if (Input.GetKey(KeyCode.RightArrow))
-                    //{
-                    //    transform.position += new Vector3(1, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
-                    //    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
-                    //    transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
-                    //   // transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
-                    //}
-                    //if (Input.GetKey(KeyCode.DownArrow))
-                    //{
-                    //    transform.position += new Vector3(0, hit.normal.y, -1) * normalMoveSpeed * Time.deltaTime;
-                    //    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
-                    //    transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
-                    //    //transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
-                    //    //transform.position += (-1 * transform.forward) * normalMoveSpeed * Time.deltaTime;
-                    //}
-                    //if (Input.GetKey(KeyCode.UpArrow))
-                    //{
-                    //    transform.position += new Vector3(0, hit.normal.y, 1) * normalMoveSpeed * Time.deltaTime;
-                    //    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
-                    //    transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
-                    //    //transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
-                    //    //transform.position += transform.forward * normalMoveSpeed * Time.deltaTime;
-                    //}
                 }
                 break;
 
-            case ViewControllMode.GamePad:
+            case GameState.GamePause:
                 {
-                    // 게임 패드 작업
 
-                    if (Input.GetAxisRaw("P1_360_RightStick") == 1)
+                }
+                break;
+
+            case GameState.GameStart:
+                {
+                    switch (ViewMode)
                     {
+                        case ViewControllMode.Mouse:
+                            {
 
-                        Debug.Log("RightStick!");
+                                //Vector3 direction = new Vector3(hit.normal.x, hit.normal.y * 1, hit.normal.z);
 
-                        //rotationX +=  cameraSensitivity * Time.deltaTime;
-                        transform.position += transform.right * FastMoveSpeed * Time.deltaTime;
+
+                                // 마우스 작업
+                                if (Input.GetKey(KeyCode.LeftArrow))
+                                {
+                                    this.transform.Rotate(new Vector3(0, 90, 0), 50 * Time.deltaTime);
+                                    CrossHair_Icon.transform.position += new Vector3(-1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime;
+
+                                }
+                                if (Input.GetKey(KeyCode.RightArrow))
+                                {
+                                    this.transform.Rotate(new Vector3(0, -90, 0), 50 * Time.deltaTime);
+                                    CrossHair_Icon.transform.position += new Vector3(1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime;
+
+                                }
+                                if (Input.GetKey(KeyCode.DownArrow))
+                                {
+                                    Cannons[0].transform.Rotate(new Vector3(90, 0, 0), 30 * Time.deltaTime);
+                                    Cannons[1].transform.Rotate(new Vector3(90, 0, 0), 30 * Time.deltaTime);
+
+                                    CrossHair_Icon.transform.position += new Vector3(0, 0, 1.5f) * normalMoveSpeed * Time.deltaTime;
+
+                                }
+                                if (Input.GetKey(KeyCode.UpArrow))
+                                {
+                                    Cannons[0].transform.Rotate(new Vector3(-90, 0, 0), 30 * Time.deltaTime);
+                                    Cannons[1].transform.Rotate(new Vector3(-90, 0, 0), 30 * Time.deltaTime);
+                                    CrossHair_Icon.transform.position += new Vector3(0, 0, -1.5f) * normalMoveSpeed * Time.deltaTime;
+                                }
+
+                                //if (Input.GetKey(KeyCode.DownArrow))
+                                //{
+                                //    transform.position += new Vector3(0, 0, -1.5f) * normalMoveSpeed * Time.deltaTime;
+
+                                //}
+                                //if (Input.GetKey(KeyCode.UpArrow))
+                                //{
+                                //    transform.position += new Vector3(0, 0, 1.5f) * normalMoveSpeed * Time.deltaTime;
+                                //}
+
+                                //if(Input.GetKey(KeyCode.LeftArrow))
+                                //{
+                                //    transform.position += new Vector3(-1, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
+                                //    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                                //    transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
+                                //    //transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
+                                //}
+                                //if (Input.GetKey(KeyCode.RightArrow))
+                                //{
+                                //    transform.position += new Vector3(1, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
+                                //    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                                //    transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
+                                //   // transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
+                                //}
+                                //if (Input.GetKey(KeyCode.DownArrow))
+                                //{
+                                //    transform.position += new Vector3(0, hit.normal.y, -1) * normalMoveSpeed * Time.deltaTime;
+                                //    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                                //    transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
+                                //    //transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
+                                //    //transform.position += (-1 * transform.forward) * normalMoveSpeed * Time.deltaTime;
+                                //}
+                                //if (Input.GetKey(KeyCode.UpArrow))
+                                //{
+                                //    transform.position += new Vector3(0, hit.normal.y, 1) * normalMoveSpeed * Time.deltaTime;
+                                //    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                                //    transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
+                                //    //transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
+                                //    //transform.position += transform.forward * normalMoveSpeed * Time.deltaTime;
+                                //}
+                            }
+                            break;
+
+                        case ViewControllMode.GamePad:
+                            {
+                                // 게임 패드 작업
+
+                                if (Input.GetAxisRaw("P1_360_RightStick") == 1)
+                                {
+
+                                    Debug.Log("RightStick!");
+
+                                    //rotationX +=  cameraSensitivity * Time.deltaTime;
+                                    transform.position += transform.right * FastMoveSpeed * Time.deltaTime;
+                                }
+
+                                if (Input.GetAxisRaw("P1_360_RightStick") == -1)
+                                {
+
+                                    Debug.Log("LeftStick!");
+
+
+                                    //rotationX -= cameraSensitivity * Time.deltaTime;
+                                    //transform.position -= transform.forward * normalMoveSpeed * Time.deltaTime;
+                                    transform.position -= transform.right * FastMoveSpeed * Time.deltaTime;
+                                }
+
+                                if (Input.GetAxisRaw("P1_360_UpStick") == -1)
+                                {
+
+                                    Debug.Log("UpStick!");
+
+                                    //rotationY += cameraSensitivity * Time.deltaTime;
+                                    transform.position += new Vector3(0, 0, 1) * FastMoveSpeed * Time.deltaTime;
+
+                                }
+
+                                if (Input.GetAxisRaw("P1_360_UpStick") == 1)
+                                {
+
+                                    Debug.Log("DownStick!");
+
+                                    //rotationY -= cameraSensitivity * Time.deltaTime;
+                                    transform.position -= new Vector3(0, 0, 1) * FastMoveSpeed * Time.deltaTime;
+                                }
+
+                                //rotationY = Mathf.Clamp(rotationY, -90, 90);
+
+                                //transform.localRotation = Quaternion.AngleAxis(rotationX, Vector3.up);
+                                //transform.localRotation *= Quaternion.AngleAxis(rotationY, Vector3.left);
+
+                            }
+                            break;
                     }
+                }
+                break;
 
-                    if (Input.GetAxisRaw("P1_360_RightStick") == -1)
-                    {
-
-                        Debug.Log("LeftStick!");
-
-
-                        //rotationX -= cameraSensitivity * Time.deltaTime;
-                        //transform.position -= transform.forward * normalMoveSpeed * Time.deltaTime;
-                        transform.position -= transform.right * FastMoveSpeed * Time.deltaTime;
-                    }
-
-                    if (Input.GetAxisRaw("P1_360_UpStick") == -1)
-                    {
-
-                        Debug.Log("UpStick!");
-
-                        //rotationY += cameraSensitivity * Time.deltaTime;
-                        transform.position += new Vector3(0, 0, 1) * FastMoveSpeed * Time.deltaTime;
-
-                    }
-
-                    if (Input.GetAxisRaw("P1_360_UpStick") == 1)
-                    {
-
-                        Debug.Log("DownStick!");
-
-                        //rotationY -= cameraSensitivity * Time.deltaTime;
-                        transform.position -= new Vector3(0, 0, 1) * FastMoveSpeed * Time.deltaTime;
-                    }
-
-                    //rotationY = Mathf.Clamp(rotationY, -90, 90);
-
-                    //transform.localRotation = Quaternion.AngleAxis(rotationX, Vector3.up);
-                    //transform.localRotation *= Quaternion.AngleAxis(rotationY, Vector3.left);
+            case GameState.GameEnd:
+                {
 
                 }
                 break;
         }
+        
         
 	}
 }

@@ -4,6 +4,7 @@ using System.Collections;
 public enum GameState
 {
     GameIntro = 0,
+    GamePause,
     GameStart,
     GameEnd
 }
@@ -20,10 +21,18 @@ public class GameManager : MonoBehaviour {
     public Transform[] RespawnPoint;
     public GameObject[] Enemies;
 
+    /// <summary>
+    // 공포도의 영향을 줄 빛
+    /// </summary>
+    public Light light;
+
     private bool SpawnOn;
 
     private int NowLevel;
     private float RespawnTimer;
+
+    // 게임이 진행됨에 따라 빛의 농도를 바꿔준다.
+    private float GameTimer;
 
     static public GameState Gamestate;
     static public ViewControllMode ViewMode;
@@ -38,8 +47,11 @@ public class GameManager : MonoBehaviour {
         NowLevel = 1;
 
         RespawnTimer = 1.0f;
+        GameTimer = 0.0f;
 
-        Gamestate = GameState.GameIntro;
+        //light.intensity = 0.2f;
+
+        Gamestate = GameState.GameStart;
         ViewMode = ViewControllMode.Mouse;
     }
 
@@ -58,7 +70,26 @@ public class GameManager : MonoBehaviour {
         {
             case GameState.GameIntro:
                 {
-                    if(RespawnTimer <= 0.0f)
+                    
+                }
+                break;
+
+            case GameState.GameStart:
+                {
+                    
+                    // 빛 타이머
+                    //if(GameTimer >= 3.0f)
+                    //{
+                    //    GameTimer = 0.0f;
+                    //    light.intensity += 0.1f;
+                    //}
+                    //else
+                    //{
+                    //    GameTimer += Time.deltaTime;
+                    //}
+
+                    // 리스폰 타이머
+                    if (RespawnTimer <= 0.0f)
                     {
                         RespawnTimer = 1.0f;
 
@@ -68,8 +99,9 @@ public class GameManager : MonoBehaviour {
                     {
                         RespawnTimer -= Time.deltaTime;
                     }
-                    
-                    if(SpawnOn)
+
+                    // 리스폰을 한번씩 해준다.
+                    if (SpawnOn)
                     {
                         SpawnOn = false;
 
@@ -79,12 +111,6 @@ public class GameManager : MonoBehaviour {
                         StartCoroutine(RespawnEnemy(NowLevel, EnemyType, EnemyLocation));
                     }
                     
-                }
-                break;
-
-            case GameState.GameStart:
-                {
-
                 }
                 break;
 
