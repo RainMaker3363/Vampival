@@ -9,8 +9,8 @@ public class EnemyCorpse : MonoBehaviour {
 	void Start () {
         col = GetComponent<CapsuleCollider>();
 
-        col.height = 0.1f;
-        col.radius = 0.1f;
+        //col.height = 0.1f;
+        //col.radius = 0.1f;
 	}
 	
 	// Update is called once per frame
@@ -22,7 +22,7 @@ public class EnemyCorpse : MonoBehaviour {
     {
         if (other.transform.tag == "Enemy")
         {
-            Destroy(this.gameObject, 5.0f);
+            Destroy(this.gameObject);
         }
     }
 }

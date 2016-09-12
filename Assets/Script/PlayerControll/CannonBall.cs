@@ -19,6 +19,7 @@ public class CannonBall : MonoBehaviour {
     private Vector3 globalVelocity;
 
     private bool IsFire;
+    private bool _rotate;
 
     public GameObject AimTarget;
     public GameObject CannonPoint;
@@ -29,12 +30,13 @@ public class CannonBall : MonoBehaviour {
         ViewMode = GameManager.ViewMode;
         Gamestate = GameManager.Gamestate;
 
-        IsFire = false;
-
-        Destroy(gameObject, 3.0f);
+        Destroy(gameObject, 5.0f);
 
         AimTarget = GameObject.FindWithTag("Cannon_CrossHair");
         CannonPoint = GameObject.FindWithTag("Cannon");
+
+        IsFire = false;
+        _rotate = true;
 
 	}
 	
@@ -68,22 +70,16 @@ public class CannonBall : MonoBehaviour {
                                 //ray.GetPoint(hitdist);
                                 if (!IsFire)
                                 {
+
+
                                     targetPoint = AimTarget.transform.position;
                                     StartPoint = CannonPoint.transform.position;
 
-                                    IsFire ^= true;
+
+
+                                    IsFire = true;
                                 }
 
-                                if (Input.GetKey(KeyCode.X))
-                                {
-                                    _angle -= 2.0f;
-                                }
-                                if (Input.GetKey(KeyCode.C))
-                                {
-                                    _angle += 2.0f;
-                                }
-
-                                print(_angle);
                                 // distance between target and source
                                 dist = Vector3.Distance(StartPoint, targetPoint);
 
@@ -106,6 +102,23 @@ public class CannonBall : MonoBehaviour {
 
                                 // launch the cube by setting its initial velocity
                                 GetComponent<Rigidbody>().velocity = globalVelocity;
+
+                                if (_rotate)
+                                    transform.rotation = Quaternion.LookRotation(globalVelocity);
+
+
+
+                                //if (Input.GetKey(KeyCode.X))
+                                //{
+                                //    _angle -= 2.0f;
+                                //}
+                                //if (Input.GetKey(KeyCode.C))
+                                //{
+                                //    _angle += 2.0f;
+                                //}
+
+                                //print(_angle);
+                                
 
                             }
                             break;
@@ -173,6 +186,7 @@ public class CannonBall : MonoBehaviour {
     {
         if (collision.transform.tag == "Enemy")
         {
+            //_rotate = false;
             Destroy(this.gameObject);
         }
 

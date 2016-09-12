@@ -43,7 +43,7 @@ public class Enemy : MonoBehaviour {
         Gamestate = GameManager.Gamestate;
 
         HP = 10;
-        Instantiate(Corpse, this.transform.position, Quaternion.identity);
+        //Instantiate(Corpse, this.transform.position, Quaternion.identity);
         Agent.destination = new Vector3(Target.transform.position.x, 0, Target.transform.position.z);
     }
 
@@ -181,6 +181,7 @@ public class Enemy : MonoBehaviour {
                 Instantiate(Corpse, this.transform.position, Quaternion.identity);
 
                 Agent.enabled = false;
+                Destroy(this.gameObject);
             }
         }
 
@@ -198,9 +199,11 @@ public class Enemy : MonoBehaviour {
             }
             else
             {
+                GameManager.Fear_Parameter += 1;
                 Agent.enabled = false;
 
                 Instantiate(Corpse, this.transform.position, Quaternion.identity);
+
                 Destroy(this.gameObject);
             }
 

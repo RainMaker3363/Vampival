@@ -70,12 +70,12 @@ public class CarrySpider : MonoBehaviour {
                                 }
                                 if (Input.GetKey(KeyCode.J))
                                 {
-                                    this.transform.Rotate(new Vector3(0, -90, 0), 50 * Time.deltaTime);
+                                    this.transform.Rotate(new Vector3(0, -180, 0), 50 * Time.deltaTime);
                                     //transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
                                 }
                                 if (Input.GetKey(KeyCode.L))
                                 {
-                                    this.transform.Rotate(new Vector3(0, -90, 0), -50 * Time.deltaTime);
+                                    this.transform.Rotate(new Vector3(0, -180, 0), -50 * Time.deltaTime);
                                     //transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
                                 }
 

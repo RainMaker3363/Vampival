@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviour {
     {
         SpawnOn = false;
         NowLevel = 1;
+        Fear_Parameter = 0;
 
         RespawnTimer = 1.0f;
         GameTimer = 0.0f;
@@ -78,10 +79,10 @@ public class GameManager : MonoBehaviour {
                 {
                     
                     // 빛 타이머
-                    //if(GameTimer >= 3.0f)
+                    //if (GameTimer >= 5.0f)
                     //{
                     //    GameTimer = 0.0f;
-                    //    light.intensity += 0.1f;
+                    //    light.intensity += 0.036f;
                     //}
                     //else
                     //{
@@ -91,7 +92,7 @@ public class GameManager : MonoBehaviour {
                     // 리스폰 타이머
                     if (RespawnTimer <= 0.0f)
                     {
-                        RespawnTimer = 1.0f;
+                        RespawnTimer = 5.0f;
 
                         SpawnOn = true;
                     }
@@ -108,7 +109,7 @@ public class GameManager : MonoBehaviour {
                         int EnemyType = Random.Range(0, 4);
                         int EnemyLocation = Random.Range(0, 4);
 
-                        //StartCoroutine(RespawnEnemy(NowLevel, EnemyType, EnemyLocation));
+                        StartCoroutine(RespawnEnemy(NowLevel, EnemyType, EnemyLocation));
                     }
                     
                 }
