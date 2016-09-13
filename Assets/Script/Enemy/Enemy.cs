@@ -167,23 +167,10 @@ public class Enemy : MonoBehaviour {
     {
         if (other.transform.tag == "AttackPoint")
         { 
-            print("AGADAASFAA");
+            print("Attacked Castle !!");
         }
 
-        if (other.transform.tag == "EnemyCorpse")
-        {
-            if (HP > 0)
-            {
-                HP -= 10;
-            }
-            else
-            {
-                Instantiate(Corpse, this.transform.position, Quaternion.identity);
 
-                Agent.enabled = false;
-                Destroy(this.gameObject);
-            }
-        }
 
     }
 
@@ -191,7 +178,7 @@ public class Enemy : MonoBehaviour {
     {
         if(collision.transform.tag == "CannonBall")
         {
-            print("Hit!!");
+            //print("Hit !!");
 
             if(HP > 0)
             {
@@ -207,6 +194,23 @@ public class Enemy : MonoBehaviour {
                 Destroy(this.gameObject);
             }
 
+        }
+
+        if (collision.transform.tag == "EnemyCorpse")
+        {
+            print("Balling !!");
+
+            if (HP > 0)
+            {
+                HP -= 10;
+            }
+            else
+            {
+                Instantiate(Corpse, this.transform.position, Quaternion.identity);
+
+                Agent.enabled = false;
+                Destroy(this.gameObject);
+            }
         }
 
 

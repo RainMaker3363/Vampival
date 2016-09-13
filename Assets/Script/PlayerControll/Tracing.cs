@@ -26,7 +26,7 @@ public class Tracing : MonoBehaviour {
     void Start()
     {
         lineRenderer.SetColors(Color.red, Color.black);
-        lineRenderer.SetWidth(0.2f, 0.2f);
+        lineRenderer.SetWidth(0.3f, 0.3f);
         lineRenderer.SetVertexCount(25);
 
         AimInterPol = 0.0f;
@@ -62,8 +62,6 @@ public class Tracing : MonoBehaviour {
 
                                 if (Input.GetKeyDown(KeyCode.Space))
                                 {
-                                    print("Fire!");
-
                                     Instantiate(CannonBall, this.transform.position, Quaternion.identity);
                                 }
 
@@ -125,17 +123,22 @@ public class Tracing : MonoBehaviour {
 
                                 // Draw the arc trajectory		
                                 center = (transform.position + targetPoint) * 0.5f;
-                                center.y -= 70.0f + AimInterPol;
+                                center.y -= 18.0f + AimInterPol;
 
-                                if (Input.GetKey(KeyCode.X))
+                                if (Input.GetKey(KeyCode.DownArrow))
                                 {
-                                    AimInterPol -= 2.0f;
+                                    if (center.y <= -0.2)
+                                        AimInterPol += 1.0f * Time.deltaTime;
                                 }
-                                if (Input.GetKey(KeyCode.C))
+                                if (Input.GetKey(KeyCode.UpArrow))
                                 {
-                                    AimInterPol += 2.0f;
+                                    if (center.y <= 1) 
+                                        AimInterPol -= 1.0f * Time.deltaTime;
 
                                 }
+
+                                //print(" center.y  : " + center.y);
+
 
                                 // Determine the target rotation.  This is the rotation if the transform looks at the middle between the target object and your object.
 

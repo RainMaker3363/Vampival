@@ -28,7 +28,6 @@ public class Cannon_CrossHair_Icon : MonoBehaviour {
 
                     //Vector3 direction = new Vector3(hit.normal.x, hit.normal.y * 1, hit.normal.z);
 
-
                     // 마우스 작업
 
                     if (Input.GetKey(KeyCode.LeftArrow))

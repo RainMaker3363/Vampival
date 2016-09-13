@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour {
         RespawnTimer = 1.0f;
         GameTimer = 0.0f;
 
-        //light.intensity = 0.2f;
+        light.intensity = 0.35f;
 
         Gamestate = GameState.GameStart;
         ViewMode = ViewControllMode.Mouse;
@@ -79,20 +79,20 @@ public class GameManager : MonoBehaviour {
                 {
                     
                     // 빛 타이머
-                    //if (GameTimer >= 5.0f)
-                    //{
-                    //    GameTimer = 0.0f;
-                    //    light.intensity += 0.036f;
-                    //}
-                    //else
-                    //{
-                    //    GameTimer += Time.deltaTime;
-                    //}
+                    if (GameTimer >= 5.0f)
+                    {
+                        GameTimer = 0.0f;
+                        light.intensity += 0.036f;
+                    }
+                    else
+                    {
+                        GameTimer += Time.deltaTime;
+                    }
 
                     // 리스폰 타이머
                     if (RespawnTimer <= 0.0f)
                     {
-                        RespawnTimer = 5.0f;
+                        RespawnTimer = 3.5f;
 
                         SpawnOn = true;
                     }

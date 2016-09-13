@@ -45,23 +45,23 @@ public class Elizabat : MonoBehaviour {
                     {
                         case ViewControllMode.Mouse:
                             {
-                                targetPosOnScreen = Camera.main.WorldToScreenPoint(CameraChecker.gameObject.transform.position);
+                                targetPosOnScreen = Camera.main.WorldToScreenPoint(this.gameObject.transform.position);
                                 //Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, 100);
 
                                 //Vector3 direction = new Vector3(hit.normal.x, hit.normal.y * 1, hit.normal.z);
                                 
                                 // 화면 안에 있을 경우 처리
-                                if (targetPosOnScreen.x < Screen.width && targetPosOnScreen.x > 0 || targetPosOnScreen.y < Screen.height && targetPosOnScreen.y > 0)
-                                {
-                                    Debug.Log("Camera In : " + targetPosOnScreen);
-                                }
-                                else
-                                {
-                                    Debug.Log("Camera Out : " + targetPosOnScreen);
-                                }
+                                //if (targetPosOnScreen.x < Screen.width || targetPosOnScreen.x > 0 || targetPosOnScreen.y < Screen.height || targetPosOnScreen.y > 0)
+                                //{
+                                //    Debug.Log("Camera In : " + targetPosOnScreen);
+                                //}
+                                //else
+                                //{
+                                //    Debug.Log("Camera Out : " + targetPosOnScreen);
+                                //}
 
-                                Debug.Log("Screen.widht : " + Screen.width);
-                                Debug.Log("Screen.height : " + Screen.height);
+                                //Debug.Log("Screen.widht : " + Screen.width);
+                                //Debug.Log("Screen.height : " + Screen.height);
                                 
                                 // 마우스 작업
 

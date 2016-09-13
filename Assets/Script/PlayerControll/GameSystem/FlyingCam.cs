@@ -13,10 +13,10 @@ public class FlyingCam : MonoBehaviour {
     private float rotationX = 0.0f;
     private float rotationY = 0.0f;
 
-    private float CameraMoveMinX = -6.0f;
-    private float CameraMoveMinY = -6.0f;
-    private float CameraMoveMaxX = 6.0f;
-    private float CameraMoveMaxY = 6.0f;
+    private float CameraMoveMinX = -5.0f;
+    private float CameraMoveMinY = -5.0f;
+    private float CameraMoveMaxX = 5.0f;
+    private float CameraMoveMaxY = 5.0f;
 
     private float CameraMovingPoint = 1.0f;
     private float NowCurrentCoordX = 0.0f;
