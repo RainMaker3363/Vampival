@@ -35,7 +35,7 @@ public class FlyingCam : MonoBehaviour {
         //Cursor.visible = false;
     }
 
-    void Update()
+    void LateUpdate()
     {
         if (Input.GetKeyDown(KeyCode.End))
         {
@@ -50,44 +50,47 @@ public class FlyingCam : MonoBehaviour {
             case ViewControllMode.Mouse:
                 {
                     // 마우스 작업
+                    if(!GameManager.CommandStart)
+                    {
+                        if ((NowCurrentCoordX >= CameraMoveMinX))
+                        {
+                            if (Input.GetKey(KeyCode.A))
+                            {
+                                transform.position += new Vector3(-1, 0, 0) * normalMoveSpeed * Time.deltaTime;
+                                NowCurrentCoordX -= (CameraMovingPoint * Time.deltaTime);
+                            }
+                        }
 
-                    if ((NowCurrentCoordX >= CameraMoveMinX))
-                    {
-                        if (Input.GetKey(KeyCode.A))
+                        if ((NowCurrentCoordX <= CameraMoveMaxX))
                         {
-                            transform.position += (-1 * transform.right) * normalMoveSpeed * Time.deltaTime;
-                            NowCurrentCoordX -= (CameraMovingPoint * Time.deltaTime);
+                            if (Input.GetKey(KeyCode.D))
+                            {
+                                transform.position += new Vector3(1, 0, 0) * normalMoveSpeed * Time.deltaTime;
+                                NowCurrentCoordX += (CameraMovingPoint * Time.deltaTime);
+                                //transform.position += (-1 * transform.forward) * normalMoveSpeed * Time.deltaTime;
+                            }
                         }
-                    }
 
-                    if ((NowCurrentCoordX <= CameraMoveMaxX))
-                    {
-                        if (Input.GetKey(KeyCode.D))
+                        if ((NowCurrentCoordY <= CameraMoveMaxY))
                         {
-                            transform.position += transform.right * normalMoveSpeed * Time.deltaTime;
-                            NowCurrentCoordX += (CameraMovingPoint * Time.deltaTime);
-                            //transform.position += (-1 * transform.forward) * normalMoveSpeed * Time.deltaTime;
+                            if (Input.GetKey(KeyCode.W))
+                            {
+                                transform.position += new Vector3(0, 0, 1) * normalMoveSpeed * Time.deltaTime;
+                                NowCurrentCoordY += (CameraMovingPoint * Time.deltaTime);
+                            }
                         }
-                    }
 
-                    if ((NowCurrentCoordY <= CameraMoveMaxY))
-                    {
-                        if (Input.GetKey(KeyCode.W))
+                        if ((NowCurrentCoordY >= CameraMoveMinY))
                         {
-                            transform.position += new Vector3(0, 0, 1) * normalMoveSpeed * Time.deltaTime;
-                            NowCurrentCoordY += (CameraMovingPoint * Time.deltaTime);
+                            if (Input.GetKey(KeyCode.S))
+                            {
+                                transform.position += new Vector3(0, 0, -1) * normalMoveSpeed * Time.deltaTime;
+                                NowCurrentCoordY -= (CameraMovingPoint * Time.deltaTime);
+                                //transform.position += transform.forward * normalMoveSpeed * Time.deltaTime;
+                            }
                         }
                     }
-                    
-                    if ((NowCurrentCoordY >= CameraMoveMinY))
-                    {
-                        if (Input.GetKey(KeyCode.S))
-                        {
-                            transform.position += new Vector3(0, 0, -1) * normalMoveSpeed * Time.deltaTime;
-                            NowCurrentCoordY -= (CameraMovingPoint * Time.deltaTime);
-                            //transform.position += transform.forward * normalMoveSpeed * Time.deltaTime;
-                        }
-                    }
+                   
 
                     //print("X : " + NowCurrentCoordX);
                     //print("Y : " + NowCurrentCoordY);

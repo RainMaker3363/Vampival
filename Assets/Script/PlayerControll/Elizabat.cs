@@ -3,15 +3,29 @@ using System.Collections;
 
 public class Elizabat : MonoBehaviour {
 
+    private enum Command
+    {
+        UP = 0,
+        LEFT,
+        DOWN,
+        RIGHT
+    }
+
     public float normalMoveSpeed = 10;
     public float FastMoveSpeed = 40;
-
-    public Transform CameraChecker;
 
     private ViewControllMode ViewMode;
     private GameState Gamestate;
 
     private Vector3 targetPosOnScreen;
+
+    public GameObject CameraChecker;
+
+    private int[] CommandChart = new int[6];
+    private int[] CommandCheck = new int[6];
+    private int MaxCount;
+    private bool CommandOn;
+    private bool CommandInit;
 
     //private RaycastHit hit;
 
@@ -20,7 +34,19 @@ public class Elizabat : MonoBehaviour {
         ViewMode = GameManager.ViewMode;
         Gamestate = GameManager.Gamestate;
 
+        CommandOn = true;
+        CommandInit = false;
+
+        for (int i = 0; i < 6; i++)
+        {
+            CommandCheck[i] = -1;
+            CommandChart[i] = -1;
+        }
+
+        MaxCount = 0;
 	}
+
+    
 	
 	// Update is called once per frame
 	void Update () 
@@ -45,7 +71,8 @@ public class Elizabat : MonoBehaviour {
                     {
                         case ViewControllMode.Mouse:
                             {
-                                targetPosOnScreen = Camera.main.WorldToScreenPoint(this.gameObject.transform.position);
+                                //pushObjectBackInFrustum(this.gameObject.transform);
+
                                 //Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, 100);
 
                                 //Vector3 direction = new Vector3(hit.normal.x, hit.normal.y * 1, hit.normal.z);
@@ -62,59 +89,73 @@ public class Elizabat : MonoBehaviour {
 
                                 //Debug.Log("Screen.widht : " + Screen.width);
                                 //Debug.Log("Screen.height : " + Screen.height);
-                                
+
+                                targetPosOnScreen = Camera.main.WorldToScreenPoint(CameraChecker.transform.position);
+
+                                //targetPosOnScreen.y += -1;
+
                                 // 마우스 작업
-
-                                if (Input.GetKey(KeyCode.F))
-                                {
-                                    transform.position += new Vector3(-1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime;
-
-                                }
-                                if (Input.GetKey(KeyCode.H))
-                                {
-                                    transform.position += new Vector3(1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime;
-
-                                }
-                                if (Input.GetKey(KeyCode.G))
-                                {
-                                    transform.position += new Vector3(0, 0, -1.5f) * normalMoveSpeed * Time.deltaTime;
-
-                                }
-                                if (Input.GetKey(KeyCode.T))
-                                {
-                                    transform.position += new Vector3(0, 0, 1.5f) * normalMoveSpeed * Time.deltaTime;
-                                }
-
-                                //if(Input.GetKey(KeyCode.LeftArrow))
+                                //if ((targetPosOnScreen.x < Screen.width && targetPosOnScreen.x > 0) || (targetPosOnScreen.y > Screen.height && targetPosOnScreen.y < 0))
                                 //{
-                                //    transform.position += new Vector3(-1, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
-                                //    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
-                                //    transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
-                                //    //transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
+
+
+                                //    CameraMove = true;
+                                //    //Debug.Log("Camera In : X " + targetPosOnScreen.x + ", Y " + targetPosOnScreen.y);
                                 //}
-                                //if (Input.GetKey(KeyCode.RightArrow))
+                                //else
                                 //{
-                                //    transform.position += new Vector3(1, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
-                                //    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
-                                //    transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
-                                //   // transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
+                                //    CameraMove = false;
+                                //    //Debug.Log("Camera Out : X " + targetPosOnScreen.x + ", Y " + targetPosOnScreen.y);
                                 //}
-                                //if (Input.GetKey(KeyCode.DownArrow))
-                                //{
-                                //    transform.position += new Vector3(0, hit.normal.y, -1) * normalMoveSpeed * Time.deltaTime;
-                                //    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
-                                //    transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
-                                //    //transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
-                                //    //transform.position += (-1 * transform.forward) * normalMoveSpeed * Time.deltaTime;
-                                //}
-                                //if (Input.GetKey(KeyCode.UpArrow))
-                                //{
-                                //    transform.position += new Vector3(0, hit.normal.y, 1) * normalMoveSpeed * Time.deltaTime;
-                                //    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
-                                //    transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
-                                //    //transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
-                                //    //transform.position += transform.forward * normalMoveSpeed * Time.deltaTime;
-                                //}
+
+                                if (targetPosOnScreen.x > 0)
+                                {
+                                    if (Input.GetKey(KeyCode.F))
+                                    {
+                                        transform.Translate(new Vector3(-2, 0, 0) * normalMoveSpeed * Time.deltaTime);
+
+                                    }
+                                }
+
+                                if (targetPosOnScreen.x < Screen.width)
+                                {
+                                    if (Input.GetKey(KeyCode.H))
+                                    {
+                                        transform.Translate(new Vector3(2, 0, 0) * normalMoveSpeed * Time.deltaTime);
+
+                                    }
+                                }
+
+                                if (targetPosOnScreen.y > 0)
+                                {
+                                    if (Input.GetKey(KeyCode.G))
+                                    {
+                                        transform.Translate(new Vector3(0, -2, 0) * normalMoveSpeed * Time.deltaTime);
+
+                                    }
+                                }
+
+                                if (targetPosOnScreen.y < Screen.height)
+                                {
+                                    if (Input.GetKey(KeyCode.T))
+                                    {
+                                        transform.Translate(new Vector3(0, 2, 0) * normalMoveSpeed * Time.deltaTime);
+
+                                    }
+                                }
+
+                                //print(targetPosOnScreen);
+
+                                if(Input.GetKeyDown(KeyCode.C))
+                                {
+                                    if(CommandOn)
+                                    {   
+                                        CommandInitilization();
+
+                                        CommandOn = false;
+
+                                    }
+                                }
                             }
                             break;
 
@@ -179,4 +220,198 @@ public class Elizabat : MonoBehaviour {
                 break;
         }
 	}
+
+    public void pushObjectBackInFrustum(Transform obj)
+    {
+        Vector3 pos = Camera.main.WorldToViewportPoint(obj.position);
+
+        if (pos.x < 0f)
+            pos.x = 0f;
+
+        if (pos.x > 1f)
+            pos.x = 1f;
+
+        if (pos.y < 0f)
+            pos.y = 0f;
+
+        if (pos.y > 1f)
+            pos.y = 1f;
+
+        obj.position = Camera.main.ViewportToWorldPoint(pos);
+    }
+
+    void CommandInitilization()
+    {
+        switch (Gamestate)
+        {
+            case GameState.GameStart:
+                {
+                    int NowCommand = 0;
+                    MaxCount = Random.Range(2, 7);
+
+                    if (!CommandInit)
+                    {
+                        for (int i = 0; i < MaxCount; i++)
+                        {
+                            NowCommand = Random.Range(0, 4);
+
+
+
+                            switch (NowCommand)
+                            {
+                                case 0:
+                                    {
+                                        CommandChart[i] = (int)Command.UP;
+                                    }
+                                    break;
+
+                                case 1:
+                                    {
+                                        CommandChart[i] = (int)Command.LEFT;
+                                    }
+                                    break;
+
+                                case 2:
+                                    {
+                                        CommandChart[i] = (int)Command.DOWN;
+                                    }
+                                    break;
+
+                                case 3:
+                                    {
+                                        CommandChart[i] = (int)Command.RIGHT;
+                                    }
+                                    break;
+                            }
+
+                            print(CommandChart[i]);
+
+                        }
+
+                        CommandCheck = CommandChart;
+                        CommandInit = true;
+                    }
+
+                    print("MaxCount : " + MaxCount);
+
+                    for (int i = 0; i < MaxCount; i++)
+                    {
+                        print("CommandCheck : " + CommandCheck[i] + " CommandChart : " + CommandChart[i]);
+                    }
+
+
+                    //int Inputcommand = -1;
+                    //int currentNum = 0;
+
+                    //while(currentNum < MaxCount)
+                    //{
+                    //    if (Input.GetKeyDown(KeyCode.LeftArrow))
+                    //    {
+                    //        Inputcommand = 1;
+
+                    //        CommandCheck[currentNum] = Inputcommand;
+
+                    //        if (CommandChart[currentNum] == Inputcommand)
+                    //        {
+                    //            currentNum++;
+                    //        }
+                    //        else
+                    //        {
+                    //            for (int i = 0; i < MaxCount; i++)
+                    //            {
+                    //                CommandCheck[i] = -1;
+                    //                CommandChart[i] = -1;
+                    //            }
+
+                    //            break;
+                    //        }
+                    //    }
+                    //    else if (Input.GetKeyDown(KeyCode.RightArrow))
+                    //    {
+                    //        Inputcommand = 3;
+
+                    //        CommandCheck[currentNum] = Inputcommand;
+
+                    //        if (CommandChart[currentNum] == Inputcommand)
+                    //        {
+                    //            currentNum++;
+                    //        }
+                    //        else
+                    //        {
+                    //            for (int i = 0; i < MaxCount; i++)
+                    //            {
+                    //                CommandCheck[i] = -1;
+                    //                CommandChart[i] = -1;
+                    //            }
+
+                    //            break;
+                    //        }
+                    //    }
+                    //    else if (Input.GetKeyDown(KeyCode.DownArrow))
+                    //    {
+                    //        Inputcommand = 2;
+
+                    //        CommandCheck[currentNum] = Inputcommand;
+
+                    //        if (CommandChart[currentNum] == Inputcommand)
+                    //        {
+                    //            currentNum++;
+                    //        }
+                    //        else
+                    //        {
+                    //            for (int i = 0; i < MaxCount; i++)
+                    //            {
+                    //                CommandCheck[i] = -1;
+                    //                CommandChart[i] = -1;
+                    //            }
+
+                    //            break;
+                    //        }
+                    //    }
+                    //    else if (Input.GetKeyDown(KeyCode.UpArrow))
+                    //    {
+                    //        Inputcommand = 0;
+
+                    //        CommandCheck[currentNum] = Inputcommand;
+
+                    //        if (CommandChart[currentNum] == Inputcommand)
+                    //        {
+                    //            currentNum++;
+                    //        }
+                    //        else
+                    //        {
+
+                    //            for (int i = 0; i < MaxCount; i++)
+                    //            {
+                    //                CommandCheck[i] = -1;
+                    //                CommandChart[i] = -1;
+                    //            }
+
+
+                    //            break;
+                    //        }
+                    //    }
+
+
+                    //}
+
+                    //if(RightCommand >= MaxCount)
+                    //{
+                    //    print("Command Success!");
+                    //    CommandOn = true;
+                    //    GameManager.CommandStart = false;
+                    //    CommandInit = true;
+                    //}
+                    //else
+                    //{
+                    //    print("Command Failed!");
+                    //    CommandOn = true;
+                    //    GameManager.CommandStart = false;
+                    //    CommandInit = true;
+                    //}
+                }
+                break;
+        }
+    }
+
 }

@@ -22,6 +22,9 @@ public class CarrySpider : MonoBehaviour {
         Gamestate = GameManager.Gamestate;
 
         SpiderSpot.SetActive(true);
+
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("CarryPlayer"), true);
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyCorpse"), LayerMask.NameToLayer("CarryPlayer"), true);
 	}
 	
 	// Update is called once per frame
@@ -70,12 +73,12 @@ public class CarrySpider : MonoBehaviour {
                                 }
                                 if (Input.GetKey(KeyCode.J))
                                 {
-                                    this.transform.Rotate(new Vector3(0, -180, 0), 50 * Time.deltaTime);
+                                    this.transform.Rotate(new Vector3(0, -180, 0), 110 * Time.deltaTime);
                                     //transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
                                 }
                                 if (Input.GetKey(KeyCode.L))
                                 {
-                                    this.transform.Rotate(new Vector3(0, -180, 0), -50 * Time.deltaTime);
+                                    this.transform.Rotate(new Vector3(0, -180, 0), -110 * Time.deltaTime);
                                     //transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
                                 }
 

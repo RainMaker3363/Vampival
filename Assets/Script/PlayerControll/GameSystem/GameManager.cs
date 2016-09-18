@@ -34,6 +34,9 @@ public class GameManager : MonoBehaviour {
     // 게임이 진행됨에 따라 빛의 농도를 바꿔준다.
     private float GameTimer;
 
+    // 커맨드 입력 On / OFF 여부
+    static public bool CommandStart;
+
     static public GameState Gamestate;
     static public ViewControllMode ViewMode;
 
@@ -51,6 +54,7 @@ public class GameManager : MonoBehaviour {
         GameTimer = 0.0f;
 
         light.intensity = 0.35f;
+        CommandStart = false;
 
         Gamestate = GameState.GameStart;
         ViewMode = ViewControllMode.Mouse;
