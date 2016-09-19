@@ -93,45 +93,77 @@ public class CarrySpider : MonoBehaviour {
                             {
                                 // 게임 패드 작업
 
-                                if (Input.GetAxisRaw("P1_360_RightStick") == 1)
-                                {
 
-                                    Debug.Log("RightStick!");
+                                Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, 100);
 
-                                    //rotationX +=  cameraSensitivity * Time.deltaTime;
-                                    transform.position += transform.right * FastMoveSpeed * Time.deltaTime;
-                                }
+                                //if (Input.GetAxisRaw("P1_360_RightStick") == 1)
+                                //{
 
-                                if (Input.GetAxisRaw("P1_360_RightStick") == -1)
-                                {
+                                //    Debug.Log("RightStick!");
 
-                                    Debug.Log("LeftStick!");
+                                //    //rotationX +=  cameraSensitivity * Time.deltaTime;
+                                //    transform.position += transform.right * FastMoveSpeed * Time.deltaTime;
+                                //}
+
+                                //if (Input.GetAxisRaw("P1_360_RightStick") == -1)
+                                //{
+
+                                //    Debug.Log("LeftStick!");
 
 
-                                    //rotationX -= cameraSensitivity * Time.deltaTime;
-                                    //transform.position -= transform.forward * normalMoveSpeed * Time.deltaTime;
-                                    transform.position -= transform.right * FastMoveSpeed * Time.deltaTime;
-                                }
+                                //    //rotationX -= cameraSensitivity * Time.deltaTime;
+                                //    //transform.position -= transform.forward * normalMoveSpeed * Time.deltaTime;
+                                //    transform.position -= transform.right * FastMoveSpeed * Time.deltaTime;
+                                //}
 
-                                if (Input.GetAxisRaw("P1_360_UpStick") == -1)
+                                if (Input.GetAxisRaw("P3_360_UpStick") == -1)
                                 {
 
                                     Debug.Log("UpStick!");
 
-                                    //rotationY += cameraSensitivity * Time.deltaTime;
-                                    transform.position += new Vector3(0, 0, 1) * FastMoveSpeed * Time.deltaTime;
+                                    Dir = (Look.transform.position - this.transform.position).normalized;
+                                    transform.position += Dir * normalMoveSpeed * Time.deltaTime;
+
+                                    transform.position += new Vector3(-0.05f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
 
                                 }
 
-                                if (Input.GetAxisRaw("P1_360_UpStick") == 1)
+                                if (Input.GetAxisRaw("P3_360_UpStick") == 1)
                                 {
 
                                     Debug.Log("DownStick!");
 
-                                    //rotationY -= cameraSensitivity * Time.deltaTime;
-                                    transform.position -= new Vector3(0, 0, 1) * FastMoveSpeed * Time.deltaTime;
+                                    Dir = (Look.transform.position - this.transform.position).normalized;
+                                    transform.position -= Dir * normalMoveSpeed * Time.deltaTime;
+
+                                    transform.position += new Vector3(0.05f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
                                 }
 
+                                if (Input.GetAxisRaw("P3_360_LeftThumbStick") == 1)
+                                {
+
+                                    print("Right");
+
+                                    this.transform.Rotate(new Vector3(0, -180, 0), -110 * Time.deltaTime);
+                                    
+                                }
+
+                                if (Input.GetAxisRaw("P3_360_LeftThumbStick") == -1)
+                                {
+                                    print("Left");
+                                    this.transform.Rotate(new Vector3(0, -180, 0), 110 * Time.deltaTime);
+                                }
+
+                                //if (Input.GetAxisRaw("P1_360_UpThumbStick") == 1)
+                                //{
+                                //    print("down");
+                                //}
+
+                                //if (Input.GetAxisRaw("P1_360_UpThumbStick") == -1)
+                                //{
+                                //    print("Up");
+
+                                //}
                             }
                             break;
                     }

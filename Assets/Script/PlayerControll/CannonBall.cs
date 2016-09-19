@@ -127,44 +127,43 @@ public class CannonBall : MonoBehaviour {
                             {
                                 // 게임 패드 작업
 
-                                if (Input.GetAxisRaw("P1_360_RightStick") == 1)
+                                if (!IsFire)
                                 {
 
-                                    Debug.Log("RightStick!");
 
-                                    //rotationX +=  cameraSensitivity * Time.deltaTime;
-                                    transform.position += transform.right * FastMoveSpeed * Time.deltaTime;
+                                    targetPoint = AimTarget.transform.position;
+                                    StartPoint = CannonPoint.transform.position;
+
+
+
+                                    IsFire = true;
                                 }
 
-                                if (Input.GetAxisRaw("P1_360_RightStick") == -1)
-                                {
+                                // distance between target and source
+                                dist = Vector3.Distance(StartPoint, targetPoint);
 
-                                    Debug.Log("LeftStick!");
+                                // rotate the object to face the target
+                                // 해당 방향으로 회전하여 바라본다.
+                                transform.LookAt(targetPoint);
 
+                                // calculate initival velocity required to land the cube on target using the formula (9)
+                                float Vi = Mathf.Sqrt(dist * -Physics.gravity.y / (Mathf.Sin(Mathf.Deg2Rad * _angle * 2)));
+                                float Vy, Vz;   // y,z components of the initial velocity
 
-                                    //rotationX -= cameraSensitivity * Time.deltaTime;
-                                    //transform.position -= transform.forward * normalMoveSpeed * Time.deltaTime;
-                                    transform.position -= transform.right * FastMoveSpeed * Time.deltaTime;
-                                }
+                                Vy = Vi * Mathf.Sin(Mathf.Deg2Rad * _angle);
+                                Vz = Vi * Mathf.Cos(Mathf.Deg2Rad * _angle);
 
-                                if (Input.GetAxisRaw("P1_360_UpStick") == -1)
-                                {
+                                // create the velocity vector in local space
+                                localVelocity = new Vector3(0f, Vy, Vz);
 
-                                    Debug.Log("UpStick!");
+                                // transform it to global vector
+                                globalVelocity = transform.TransformVector(localVelocity);
 
-                                    //rotationY += cameraSensitivity * Time.deltaTime;
-                                    transform.position += new Vector3(0, 0, 1) * FastMoveSpeed * Time.deltaTime;
+                                // launch the cube by setting its initial velocity
+                                GetComponent<Rigidbody>().velocity = globalVelocity;
 
-                                }
-
-                                if (Input.GetAxisRaw("P1_360_UpStick") == 1)
-                                {
-
-                                    Debug.Log("DownStick!");
-
-                                    //rotationY -= cameraSensitivity * Time.deltaTime;
-                                    transform.position -= new Vector3(0, 0, 1) * FastMoveSpeed * Time.deltaTime;
-                                }
+                                if (_rotate)
+                                    transform.rotation = Quaternion.LookRotation(globalVelocity);
 
                             }
                             break;
@@ -185,6 +184,11 @@ public class CannonBall : MonoBehaviour {
     void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.tag == "Enemy")
+        {
+            //_rotate = false;
+            Destroy(this.gameObject);
+        }
+        if (collision.transform.tag == "Walls")
         {
             //_rotate = false;
             Destroy(this.gameObject);

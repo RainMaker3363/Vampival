@@ -158,43 +158,59 @@ public class FlyingCam : MonoBehaviour {
                 {
                     // 게임 패드 작업
 
-                    if (Input.GetAxisRaw("P1_360_RightStick") == 1)
+                    CameraCheck = Camera.main.WorldToScreenPoint(MainCameraChecker.transform.position);
+
+                    if (!GameManager.CommandStart)
                     {
+                        if ((CameraCheck.x >= 0))
+                        {
+                            if (Input.GetAxisRaw("P1_360_LeftThumbStick") == -1)
+                            {
 
-                        Debug.Log("RightStick!");
-
-                        //rotationX +=  cameraSensitivity * Time.deltaTime;
-                        transform.position += transform.right * FastMoveSpeed * Time.deltaTime;
-                    }
-
-                    if (Input.GetAxisRaw("P1_360_RightStick") == -1)
-                    {
-
-                        Debug.Log("LeftStick!");
+                                Debug.Log("LeftStick!");
 
 
-                        //rotationX -= cameraSensitivity * Time.deltaTime;
-                        //transform.position -= transform.forward * normalMoveSpeed * Time.deltaTime;
-                        transform.position -= transform.right * FastMoveSpeed * Time.deltaTime;
-                    }
+                                transform.Translate(new Vector3(-1, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                MainCameraChecker.transform.Translate(new Vector3(-1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                            }
+                        }
 
-                    if (Input.GetAxisRaw("P1_360_UpStick") == -1)
-                    {
+                        if ((CameraCheck.x <= Screen.width))
+                        {
+                            if (Input.GetAxisRaw("P1_360_LeftThumbStick") == 1)
+                            {
 
-                        Debug.Log("UpStick!");
+                                Debug.Log("RightStick!");
 
-                        //rotationY += cameraSensitivity * Time.deltaTime;
-                        transform.position += new Vector3(0, 0, 1) * FastMoveSpeed * Time.deltaTime;
-                        
-                    }
+                                transform.Translate(new Vector3(1, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                MainCameraChecker.transform.Translate(new Vector3(1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                            }
+                        }
 
-                    if (Input.GetAxisRaw("P1_360_UpStick") == 1)
-                    {
+                        if ((CameraCheck.y <= Screen.height))
+                        {
+                            if (Input.GetAxisRaw("P1_360_UpThumbStick") == -1)
+                            {
 
-                        Debug.Log("DownStick!");
+                                Debug.Log("UpStick!");
 
-                        //rotationY -= cameraSensitivity * Time.deltaTime;
-                        transform.position -= new Vector3(0, 0, 1) * FastMoveSpeed * Time.deltaTime;
+                                transform.Translate(new Vector3(0, 1, 0) * normalMoveSpeed * Time.deltaTime);
+                                MainCameraChecker.transform.Translate(new Vector3(0, 0, -2.5f) * normalMoveSpeed * Time.deltaTime);
+
+                            }
+                        }
+
+                        if ((CameraCheck.y >= 0))
+                        {
+                            if (Input.GetAxisRaw("P1_360_UpThumbStick") == 1)
+                            {
+
+                                Debug.Log("DownStick!");
+
+                                transform.Translate(new Vector3(0, -1, 0) * normalMoveSpeed * Time.deltaTime);
+                                MainCameraChecker.transform.Translate(new Vector3(0, 0, 2.5f) * normalMoveSpeed * Time.deltaTime);
+                            }
+                        }
                     }
 
                     //rotationY = Mathf.Clamp(rotationY, -90, 90);

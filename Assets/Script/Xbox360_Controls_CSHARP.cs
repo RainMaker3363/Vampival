@@ -185,6 +185,29 @@ public class Xbox360_Controls_CSHARP : MonoBehaviour {
             XaxisInUse = false;
         }
 
+        if (Input.GetAxisRaw("P1_360_LeftThumbStick") == 1)
+        {
+            
+            print("Right");
+        }
+
+        if (Input.GetAxisRaw("P1_360_LeftThumbStick") == -1)
+        {
+            print("Left");
+        }
+
+        if (Input.GetAxisRaw("P1_360_UpThumbStick") == 1)
+        {
+            print("down");
+        }
+
+        if (Input.GetAxisRaw("P1_360_UpThumbStick") == -1)
+        {
+            print("Up");
+            
+        }
+
+
         if (Input.GetAxis("P1_360_RightStick") > 0.19)
         {
 

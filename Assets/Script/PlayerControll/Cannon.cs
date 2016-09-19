@@ -138,43 +138,49 @@ public class Cannon : MonoBehaviour {
                             {
                                 // 게임 패드 작업
 
-                                if (Input.GetAxisRaw("P1_360_RightStick") == 1)
+                                if (Input.GetAxisRaw("P2_360_RightStick") == 1)
                                 {
 
                                     Debug.Log("RightStick!");
 
-                                    //rotationX +=  cameraSensitivity * Time.deltaTime;
-                                    transform.position += transform.right * FastMoveSpeed * Time.deltaTime;
+                                    this.transform.Rotate(new Vector3(0, -90, 0), 50 * Time.deltaTime);
+                                    CrossHair_Icon.transform.position += new Vector3(1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime;
                                 }
 
-                                if (Input.GetAxisRaw("P1_360_RightStick") == -1)
+                                if (Input.GetAxisRaw("P2_360_RightStick") == -1)
                                 {
 
                                     Debug.Log("LeftStick!");
 
-
-                                    //rotationX -= cameraSensitivity * Time.deltaTime;
-                                    //transform.position -= transform.forward * normalMoveSpeed * Time.deltaTime;
-                                    transform.position -= transform.right * FastMoveSpeed * Time.deltaTime;
+                                    this.transform.Rotate(new Vector3(0, 90, 0), 50 * Time.deltaTime);
+                                    CrossHair_Icon.transform.position += new Vector3(-1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime;
                                 }
 
-                                if (Input.GetAxisRaw("P1_360_UpStick") == -1)
+                                if (Input.GetAxisRaw("P2_360_UpStick") == -1)
                                 {
 
                                     Debug.Log("UpStick!");
 
-                                    //rotationY += cameraSensitivity * Time.deltaTime;
-                                    transform.position += new Vector3(0, 0, 1) * FastMoveSpeed * Time.deltaTime;
+                                    Cannons[0].transform.Rotate(new Vector3(-90, 0, 0), 30 * Time.deltaTime);
+                                    Cannons[1].transform.Rotate(new Vector3(-90, 0, 0), 30 * Time.deltaTime);
+                                    Cannons_Sub[0].transform.Rotate(new Vector3(-90, 0, 0), 30 * Time.deltaTime);
+                                    Cannons_Sub[1].transform.Rotate(new Vector3(-90, 0, 0), 30 * Time.deltaTime);
+
+                                    CrossHair_Icon.transform.position += new Vector3(0, 0, -1.5f) * normalMoveSpeed * Time.deltaTime;
 
                                 }
 
-                                if (Input.GetAxisRaw("P1_360_UpStick") == 1)
+                                if (Input.GetAxisRaw("P2_360_UpStick") == 1)
                                 {
 
                                     Debug.Log("DownStick!");
 
-                                    //rotationY -= cameraSensitivity * Time.deltaTime;
-                                    transform.position -= new Vector3(0, 0, 1) * FastMoveSpeed * Time.deltaTime;
+                                    Cannons[0].transform.Rotate(new Vector3(90, 0, 0), 30 * Time.deltaTime);
+                                    Cannons[1].transform.Rotate(new Vector3(90, 0, 0), 30 * Time.deltaTime);
+                                    Cannons_Sub[0].transform.Rotate(new Vector3(90, 0, 0), 30 * Time.deltaTime);
+                                    Cannons_Sub[1].transform.Rotate(new Vector3(90, 0, 0), 30 * Time.deltaTime);
+
+                                    CrossHair_Icon.transform.position += new Vector3(0, 0, 1.5f) * normalMoveSpeed * Time.deltaTime;
                                 }
 
                                 //rotationY = Mathf.Clamp(rotationY, -90, 90);
