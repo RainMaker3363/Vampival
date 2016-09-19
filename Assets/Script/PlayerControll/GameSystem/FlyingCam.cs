@@ -10,6 +10,10 @@ public class FlyingCam : MonoBehaviour {
     public float slowMoveFactor = 0.25f;
     public float fastMoveFactor = 3;
 
+
+    public GameObject MainCameraChecker;
+    private Vector3 CameraCheck;
+
     private float rotationX = 0.0f;
     private float rotationY = 0.0f;
 
@@ -18,11 +22,9 @@ public class FlyingCam : MonoBehaviour {
     private float CameraMoveMaxX = 5.0f;
     private float CameraMoveMaxY = 5.0f;
 
-    private float CameraMovingPoint = 1.0f;
-    private float NowCurrentCoordX = 0.0f;
-    private float NowCurrentCoordY = 0.0f;
-
-    public GameObject InterpolObject;
+    //private float CameraMovingPoint = 1.0f;
+    //private float NowCurrentCoordX = 0.0f;
+    //private float NowCurrentCoordY = 0.0f;
 
     private ViewControllMode ViewMode;
 
@@ -50,47 +52,55 @@ public class FlyingCam : MonoBehaviour {
             case ViewControllMode.Mouse:
                 {
                     // 마우스 작업
+
+                    CameraCheck = Camera.main.WorldToScreenPoint(MainCameraChecker.transform.position);
+                    
                     if(!GameManager.CommandStart)
                     {
-                        if ((NowCurrentCoordX >= CameraMoveMinX))
+                        if ((CameraCheck.x >= 0))
                         {
                             if (Input.GetKey(KeyCode.A))
                             {
-                                transform.position += new Vector3(-1, 0, 0) * normalMoveSpeed * Time.deltaTime;
-                                NowCurrentCoordX -= (CameraMovingPoint * Time.deltaTime);
+                                transform.Translate(new Vector3(-1, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                MainCameraChecker.transform.Translate(new Vector3(-1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                //NowCurrentCoordX -= (CameraMovingPoint * Time.deltaTime);
                             }
                         }
 
-                        if ((NowCurrentCoordX <= CameraMoveMaxX))
+                        if ((CameraCheck.x <= Screen.width))
                         {
                             if (Input.GetKey(KeyCode.D))
                             {
-                                transform.position += new Vector3(1, 0, 0) * normalMoveSpeed * Time.deltaTime;
-                                NowCurrentCoordX += (CameraMovingPoint * Time.deltaTime);
+                                transform.Translate(new Vector3(1, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                MainCameraChecker.transform.Translate(new Vector3(1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                //NowCurrentCoordX += (CameraMovingPoint * Time.deltaTime);
                                 //transform.position += (-1 * transform.forward) * normalMoveSpeed * Time.deltaTime;
                             }
                         }
 
-                        if ((NowCurrentCoordY <= CameraMoveMaxY))
+                        if ((CameraCheck.y <= Screen.height))
                         {
                             if (Input.GetKey(KeyCode.W))
                             {
-                                transform.position += new Vector3(0, 0, 1) * normalMoveSpeed * Time.deltaTime;
-                                NowCurrentCoordY += (CameraMovingPoint * Time.deltaTime);
+                                transform.Translate(new Vector3(0, 1, 0) * normalMoveSpeed * Time.deltaTime);
+                                MainCameraChecker.transform.Translate(new Vector3(0, 0, -2.5f) * normalMoveSpeed * Time.deltaTime);
+                                //NowCurrentCoordY += (CameraMovingPoint * Time.deltaTime);
                             }
                         }
 
-                        if ((NowCurrentCoordY >= CameraMoveMinY))
+                        if ((CameraCheck.y >= 0))
                         {
                             if (Input.GetKey(KeyCode.S))
                             {
-                                transform.position += new Vector3(0, 0, -1) * normalMoveSpeed * Time.deltaTime;
-                                NowCurrentCoordY -= (CameraMovingPoint * Time.deltaTime);
+                                transform.Translate(new Vector3(0, -1, 0) * normalMoveSpeed * Time.deltaTime);
+                                MainCameraChecker.transform.Translate(new Vector3(0, 0, 2.5f) * normalMoveSpeed * Time.deltaTime);
+                                //NowCurrentCoordY -= (CameraMovingPoint * Time.deltaTime);
                                 //transform.position += transform.forward * normalMoveSpeed * Time.deltaTime;
                             }
                         }
                     }
-                   
+
+                    print(CameraCheck);
 
                     //print("X : " + NowCurrentCoordX);
                     //print("Y : " + NowCurrentCoordY);

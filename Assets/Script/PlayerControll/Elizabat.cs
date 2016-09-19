@@ -3,14 +3,6 @@ using System.Collections;
 
 public class Elizabat : MonoBehaviour {
 
-    private enum Command
-    {
-        UP = 0,
-        LEFT,
-        DOWN,
-        RIGHT
-    }
-
     public float normalMoveSpeed = 10;
     public float FastMoveSpeed = 40;
 
@@ -22,11 +14,12 @@ public class Elizabat : MonoBehaviour {
     public GameObject CameraChecker;
 
     private int[] CommandChart = new int[6];
-    private int[] CommandCheck = new int[6];
     private int MaxCount;
     private bool CommandOn;
     private bool CommandInit;
 
+    private int Inputcommand;
+    private int currentNum;
     //private RaycastHit hit;
 
 	// Use this for initialization
@@ -39,10 +32,11 @@ public class Elizabat : MonoBehaviour {
 
         for (int i = 0; i < 6; i++)
         {
-            CommandCheck[i] = -1;
-            CommandChart[i] = -1;
+            CommandChart[i] = 0;
         }
 
+        Inputcommand = 0;
+        currentNum = 0;
         MaxCount = 0;
 	}
 
@@ -108,54 +102,61 @@ public class Elizabat : MonoBehaviour {
                                 //    //Debug.Log("Camera Out : X " + targetPosOnScreen.x + ", Y " + targetPosOnScreen.y);
                                 //}
 
-                                if (targetPosOnScreen.x > 0)
+                                if (!GameManager.CommandStart)
                                 {
-                                    if (Input.GetKey(KeyCode.F))
+                                    if (targetPosOnScreen.x > 0)
                                     {
-                                        transform.Translate(new Vector3(-2, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                        if (Input.GetKey(KeyCode.F))
+                                        {
+                                            transform.Translate(new Vector3(-2, 0, 0) * normalMoveSpeed * Time.deltaTime);
 
+                                        }
+                                    }
+
+                                    if (targetPosOnScreen.x < Screen.width)
+                                    {
+                                        if (Input.GetKey(KeyCode.H))
+                                        {
+                                            transform.Translate(new Vector3(2, 0, 0) * normalMoveSpeed * Time.deltaTime);
+
+                                        }
+                                    }
+
+                                    if (targetPosOnScreen.y > 0)
+                                    {
+                                        if (Input.GetKey(KeyCode.G))
+                                        {
+                                            transform.Translate(new Vector3(0, -2, 0) * normalMoveSpeed * Time.deltaTime);
+
+                                        }
+                                    }
+
+                                    if (targetPosOnScreen.y < Screen.height)
+                                    {
+                                        if (Input.GetKey(KeyCode.T))
+                                        {
+                                            transform.Translate(new Vector3(0, 2, 0) * normalMoveSpeed * Time.deltaTime);
+
+                                        }
+                                    }
+
+
+                                    if (Input.GetKeyDown(KeyCode.C))
+                                    {
+                                        CommandInitilization();
                                     }
                                 }
-
-                                if (targetPosOnScreen.x < Screen.width)
-                                {
-                                    if (Input.GetKey(KeyCode.H))
-                                    {
-                                        transform.Translate(new Vector3(2, 0, 0) * normalMoveSpeed * Time.deltaTime);
-
-                                    }
-                                }
-
-                                if (targetPosOnScreen.y > 0)
-                                {
-                                    if (Input.GetKey(KeyCode.G))
-                                    {
-                                        transform.Translate(new Vector3(0, -2, 0) * normalMoveSpeed * Time.deltaTime);
-
-                                    }
-                                }
-
-                                if (targetPosOnScreen.y < Screen.height)
-                                {
-                                    if (Input.GetKey(KeyCode.T))
-                                    {
-                                        transform.Translate(new Vector3(0, 2, 0) * normalMoveSpeed * Time.deltaTime);
-
-                                    }
-                                }
+                                
 
                                 //print(targetPosOnScreen);
 
-                                if(Input.GetKeyDown(KeyCode.C))
+
+                                if (GameManager.CommandStart)
                                 {
-                                    if(CommandOn)
-                                    {   
-                                        CommandInitilization();
-
-                                        CommandOn = false;
-
-                                    }
+                                    
+                                    CommandInputStart();
                                 }
+ 
                             }
                             break;
 
@@ -249,169 +250,124 @@ public class Elizabat : MonoBehaviour {
                     int NowCommand = 0;
                     MaxCount = Random.Range(2, 7);
 
-                    if (!CommandInit)
+                    for (int i = 0; i < MaxCount; i++)
                     {
-                        for (int i = 0; i < MaxCount; i++)
-                        {
-                            NowCommand = Random.Range(0, 4);
+                        NowCommand = Random.Range(1, 5);
 
+                        CommandChart[i] = NowCommand;
 
-
-                            switch (NowCommand)
-                            {
-                                case 0:
-                                    {
-                                        CommandChart[i] = (int)Command.UP;
-                                    }
-                                    break;
-
-                                case 1:
-                                    {
-                                        CommandChart[i] = (int)Command.LEFT;
-                                    }
-                                    break;
-
-                                case 2:
-                                    {
-                                        CommandChart[i] = (int)Command.DOWN;
-                                    }
-                                    break;
-
-                                case 3:
-                                    {
-                                        CommandChart[i] = (int)Command.RIGHT;
-                                    }
-                                    break;
-                            }
-
-                            print(CommandChart[i]);
-
-                        }
-
-                        CommandCheck = CommandChart;
-                        CommandInit = true;
                     }
+
+                    CommandInit = true;
+                    currentNum = 0;
 
                     print("MaxCount : " + MaxCount);
 
                     for (int i = 0; i < MaxCount; i++)
                     {
-                        print("CommandCheck : " + CommandCheck[i] + " CommandChart : " + CommandChart[i]);
+                        print(" CommandChart : " + CommandChart[i]);
                     }
 
+                    GameManager.CommandStart = true;
 
-                    //int Inputcommand = -1;
-                    //int currentNum = 0;
-
-                    //while(currentNum < MaxCount)
-                    //{
-                    //    if (Input.GetKeyDown(KeyCode.LeftArrow))
-                    //    {
-                    //        Inputcommand = 1;
-
-                    //        CommandCheck[currentNum] = Inputcommand;
-
-                    //        if (CommandChart[currentNum] == Inputcommand)
-                    //        {
-                    //            currentNum++;
-                    //        }
-                    //        else
-                    //        {
-                    //            for (int i = 0; i < MaxCount; i++)
-                    //            {
-                    //                CommandCheck[i] = -1;
-                    //                CommandChart[i] = -1;
-                    //            }
-
-                    //            break;
-                    //        }
-                    //    }
-                    //    else if (Input.GetKeyDown(KeyCode.RightArrow))
-                    //    {
-                    //        Inputcommand = 3;
-
-                    //        CommandCheck[currentNum] = Inputcommand;
-
-                    //        if (CommandChart[currentNum] == Inputcommand)
-                    //        {
-                    //            currentNum++;
-                    //        }
-                    //        else
-                    //        {
-                    //            for (int i = 0; i < MaxCount; i++)
-                    //            {
-                    //                CommandCheck[i] = -1;
-                    //                CommandChart[i] = -1;
-                    //            }
-
-                    //            break;
-                    //        }
-                    //    }
-                    //    else if (Input.GetKeyDown(KeyCode.DownArrow))
-                    //    {
-                    //        Inputcommand = 2;
-
-                    //        CommandCheck[currentNum] = Inputcommand;
-
-                    //        if (CommandChart[currentNum] == Inputcommand)
-                    //        {
-                    //            currentNum++;
-                    //        }
-                    //        else
-                    //        {
-                    //            for (int i = 0; i < MaxCount; i++)
-                    //            {
-                    //                CommandCheck[i] = -1;
-                    //                CommandChart[i] = -1;
-                    //            }
-
-                    //            break;
-                    //        }
-                    //    }
-                    //    else if (Input.GetKeyDown(KeyCode.UpArrow))
-                    //    {
-                    //        Inputcommand = 0;
-
-                    //        CommandCheck[currentNum] = Inputcommand;
-
-                    //        if (CommandChart[currentNum] == Inputcommand)
-                    //        {
-                    //            currentNum++;
-                    //        }
-                    //        else
-                    //        {
-
-                    //            for (int i = 0; i < MaxCount; i++)
-                    //            {
-                    //                CommandCheck[i] = -1;
-                    //                CommandChart[i] = -1;
-                    //            }
-
-
-                    //            break;
-                    //        }
-                    //    }
-
-
-                    //}
-
-                    //if(RightCommand >= MaxCount)
-                    //{
-                    //    print("Command Success!");
-                    //    CommandOn = true;
-                    //    GameManager.CommandStart = false;
-                    //    CommandInit = true;
-                    //}
-                    //else
-                    //{
-                    //    print("Command Failed!");
-                    //    CommandOn = true;
-                    //    GameManager.CommandStart = false;
-                    //    CommandInit = true;
-                    //}
                 }
                 break;
         }
     }
 
+    void CommandInputStart()
+    {
+        switch (Gamestate)
+        {
+            case GameState.GameStart:
+                {
+                    print("currentNum : " + currentNum);
+                    print("MaxCount : " + MaxCount);
+
+                    if (currentNum >= MaxCount)
+                    {
+                        print("Command Success!");
+                        CommandOn = true;
+                        GameManager.CommandStart = false;
+                        MaxCount = 0;
+                    }
+
+                    if (Input.GetKeyDown(KeyCode.LeftArrow))
+                    {
+                        Inputcommand = 2;
+
+                        if (CommandChart[currentNum] == Inputcommand)
+                        {
+                            currentNum++;
+                            
+                            Inputcommand = 0;
+                        }
+                        else
+                        {
+                            print("Command Failed!");
+                            
+                            GameManager.CommandStart = false;
+                            MaxCount = 0;
+                        }
+                    }
+                    else if (Input.GetKeyDown(KeyCode.RightArrow))
+                    {
+                        Inputcommand = 4;
+
+                        if (CommandChart[currentNum] == Inputcommand)
+                        {
+                            currentNum++;
+
+                            Inputcommand = 0;
+                        }
+                        else
+                        {
+                            print("Command Failed!");
+                            
+                            GameManager.CommandStart = false;
+                            MaxCount = 0;
+                        }
+                    }
+                    else if (Input.GetKeyDown(KeyCode.DownArrow))
+                    {
+                        Inputcommand = 3;
+
+                        if (CommandChart[currentNum] == Inputcommand)
+                        {
+                            currentNum++;
+
+                            Inputcommand = 0;
+                        }
+                        else
+                        {
+                            print("Command Failed!");
+                            
+                            GameManager.CommandStart = false;
+                            MaxCount = 0;
+                        }
+                    }
+                    else if (Input.GetKeyDown(KeyCode.UpArrow))
+                    {
+                        Inputcommand = 1;
+
+                        if (CommandChart[currentNum] == Inputcommand)
+                        {
+                            currentNum++;
+
+                            Inputcommand = 0;
+                        }
+                        else
+                        {
+                            print("Command Failed!");
+                            
+                            GameManager.CommandStart = false;
+                            MaxCount = 0;
+                        }
+                    }
+
+
+                }
+                break;
+        }
+    }
 }
