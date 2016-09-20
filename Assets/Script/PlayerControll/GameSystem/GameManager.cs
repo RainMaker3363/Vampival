@@ -42,6 +42,9 @@ public class GameManager : MonoBehaviour {
 
     // 공포도 수치 (게임 승패 조건)
     static public int Fear_Parameter;
+    
+    // 함락도 수치 (게임 패배 조건)
+    static public int Capture_Parameter;
 
 
     void Awake()
@@ -49,6 +52,7 @@ public class GameManager : MonoBehaviour {
         SpawnOn = false;
         NowLevel = 1;
         Fear_Parameter = 0;
+        Capture_Parameter = 0;
 
         RespawnTimer = 1.0f;
         GameTimer = 0.0f;
@@ -96,7 +100,7 @@ public class GameManager : MonoBehaviour {
                     // 리스폰 타이머
                     if (RespawnTimer <= 0.0f)
                     {
-                        RespawnTimer = 3.5f;
+                        RespawnTimer = 2.5f;
 
                         SpawnOn = true;
                     }

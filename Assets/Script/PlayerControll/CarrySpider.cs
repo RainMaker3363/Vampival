@@ -30,6 +30,14 @@ public class CarrySpider : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
+        if (Input.GetKeyDown(KeyCode.End))
+        {
+            if (ViewMode == ViewControllMode.GamePad)
+                ViewMode = ViewControllMode.Mouse;
+            else
+                ViewMode = ViewControllMode.GamePad;
+        }
+
         switch (Gamestate)
         {
             case GameState.GameIntro:

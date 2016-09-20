@@ -167,7 +167,7 @@ public class Enemy : MonoBehaviour {
     {
         if (other.transform.tag == "AttackPoint")
         { 
-            print("Attacked Castle !!");
+            //print("Attacked Castle !!");
         }
 
 
@@ -184,7 +184,7 @@ public class Enemy : MonoBehaviour {
             {
                 HP -= 10;
             }
-            else
+            else if (HP <= 0)
             {
                 GameManager.Fear_Parameter += 1;
                 Agent.enabled = false;
@@ -204,7 +204,7 @@ public class Enemy : MonoBehaviour {
             {
                 HP -= 10;
             }
-            else
+            else if(HP <= 0)
             {
                 Instantiate(Corpse, this.transform.position, Quaternion.identity);
 
@@ -212,9 +212,6 @@ public class Enemy : MonoBehaviour {
                 Destroy(this.gameObject);
             }
         }
-
-
-
     }
 
 

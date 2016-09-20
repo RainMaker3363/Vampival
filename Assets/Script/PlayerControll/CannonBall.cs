@@ -191,7 +191,7 @@ public class CannonBall : MonoBehaviour {
         if (collision.transform.tag == "Walls")
         {
             //_rotate = false;
-            Destroy(this.gameObject);
+            Destroy(this.gameObject, 0.5f);
         }
 
     }

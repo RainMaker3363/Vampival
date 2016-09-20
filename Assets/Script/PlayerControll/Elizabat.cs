@@ -45,6 +45,14 @@ public class Elizabat : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
+        if (Input.GetKeyDown(KeyCode.End))
+        {
+            if (ViewMode == ViewControllMode.GamePad)
+                ViewMode = ViewControllMode.Mouse;
+            else
+                ViewMode = ViewControllMode.GamePad;
+        }
+
         switch (Gamestate)
         {
             case GameState.GameIntro:
@@ -174,11 +182,7 @@ public class Elizabat : MonoBehaviour {
                                         {
 
                                             Debug.Log("LeftStick!");
-
-
-                                            //rotationX -= cameraSensitivity * Time.deltaTime;
-                                            //transform.position -= transform.forward * normalMoveSpeed * Time.deltaTime;
-                                            transform.position -= transform.right * FastMoveSpeed * Time.deltaTime;
+                                            transform.Translate(new Vector3(-2, 0, 0) * normalMoveSpeed * Time.deltaTime);
                                         }
                                     }
 
@@ -188,9 +192,7 @@ public class Elizabat : MonoBehaviour {
                                         {
 
                                             Debug.Log("RightStick!");
-
-                                            //rotationX +=  cameraSensitivity * Time.deltaTime;
-                                            transform.position += transform.right * FastMoveSpeed * Time.deltaTime;
+                                            transform.Translate(new Vector3(2, 0, 0) * normalMoveSpeed * Time.deltaTime);
                                         }
                                     }
 
@@ -201,8 +203,7 @@ public class Elizabat : MonoBehaviour {
 
                                             Debug.Log("DownStick!");
 
-                                            //rotationY -= cameraSensitivity * Time.deltaTime;
-                                            transform.position -= new Vector3(0, 0, 1) * FastMoveSpeed * Time.deltaTime;
+                                            transform.Translate(new Vector3(0, -2, 0) * normalMoveSpeed * Time.deltaTime);
                                         }
                                     }
 
@@ -214,8 +215,7 @@ public class Elizabat : MonoBehaviour {
 
                                             Debug.Log("UpStick!");
 
-                                            //rotationY += cameraSensitivity * Time.deltaTime;
-                                            transform.position += new Vector3(0, 0, 1) * FastMoveSpeed * Time.deltaTime;
+                                            transform.Translate(new Vector3(0, 2, 0) * normalMoveSpeed * Time.deltaTime);
 
                                         }
                                     }
@@ -309,25 +309,13 @@ public class Elizabat : MonoBehaviour {
                     {
                         case ViewControllMode.Mouse:
                             {
-                                print("currentNum : " + currentNum);
-                                print("MaxCount : " + MaxCount);
-
-                                if (currentNum >= MaxCount)
-                                {
-                                    print("Command Success!");
-
-                                    GameManager.CommandStart = false;
-                                    MaxCount = 0;
-
-                                    for (int i = 0; i < 6; i++)
-                                    {
-                                        CommandChart[i] = 0;
-                                    }
-                                }
 
                                 if (Input.GetKeyDown(KeyCode.LeftArrow))
                                 {
                                     Inputcommand = 2;
+
+                                    print("currentNum : " + currentNum);
+                                    print("MaxCount : " + MaxCount);
 
                                     if (CommandChart[currentNum] == Inputcommand)
                                     {
@@ -351,6 +339,9 @@ public class Elizabat : MonoBehaviour {
                                 else if (Input.GetKeyDown(KeyCode.RightArrow))
                                 {
                                     Inputcommand = 4;
+                                    
+                                    print("currentNum : " + currentNum);
+                                    print("MaxCount : " + MaxCount);
 
                                     if (CommandChart[currentNum] == Inputcommand)
                                     {
@@ -375,6 +366,9 @@ public class Elizabat : MonoBehaviour {
                                 {
                                     Inputcommand = 3;
 
+                                    print("currentNum : " + currentNum);
+                                    print("MaxCount : " + MaxCount);
+
                                     if (CommandChart[currentNum] == Inputcommand)
                                     {
                                         currentNum++;
@@ -398,6 +392,9 @@ public class Elizabat : MonoBehaviour {
                                 {
                                     Inputcommand = 1;
 
+                                    print("currentNum : " + currentNum);
+                                    print("MaxCount : " + MaxCount);
+
                                     if (CommandChart[currentNum] == Inputcommand)
                                     {
                                         currentNum++;
@@ -418,16 +415,7 @@ public class Elizabat : MonoBehaviour {
                                     }
                                 }
 
-
-                            }
-                            break;
-
-                        case ViewControllMode.GamePad:
-                            {
-                                print("currentNum : " + currentNum);
-                                print("MaxCount : " + MaxCount);
-
-                                if (currentNum >= MaxCount)
+                                if ((currentNum >= MaxCount) && (MaxCount != 0))
                                 {
                                     print("Command Success!");
 
@@ -439,10 +427,21 @@ public class Elizabat : MonoBehaviour {
                                         CommandChart[i] = 0;
                                     }
                                 }
+                            }
+                            break;
+
+                        case ViewControllMode.GamePad:
+                            {
+
+
+
 
                                 if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
                                 {
                                     Inputcommand = 4;
+
+                                    print("currentNum : " + currentNum);
+                                    print("MaxCount : " + MaxCount);
 
                                     if (CommandChart[currentNum] == Inputcommand)
                                     {
@@ -469,6 +468,10 @@ public class Elizabat : MonoBehaviour {
                                 {
                                     Inputcommand = 2;
 
+                                    print("currentNum : " + currentNum);
+                                    print("MaxCount : " + MaxCount);
+
+
                                     if (CommandChart[currentNum] == Inputcommand)
                                     {
                                         currentNum++;
@@ -494,6 +497,9 @@ public class Elizabat : MonoBehaviour {
                                 {
                                     Inputcommand = 1;
 
+                                    print("currentNum : " + currentNum);
+                                    print("MaxCount : " + MaxCount);
+
                                     if (CommandChart[currentNum] == Inputcommand)
                                     {
                                         currentNum++;
@@ -518,6 +524,9 @@ public class Elizabat : MonoBehaviour {
                                 {
                                     Inputcommand = 3;
 
+                                    print("currentNum : " + currentNum);
+                                    print("MaxCount : " + MaxCount);
+
                                     if (CommandChart[currentNum] == Inputcommand)
                                     {
                                         currentNum++;
@@ -538,6 +547,18 @@ public class Elizabat : MonoBehaviour {
                                     }
                                 }
 
+                                if ((currentNum >= MaxCount) && (MaxCount != 0))
+                                {
+                                    print("Command Success!");
+
+                                    GameManager.CommandStart = false;
+                                    MaxCount = 0;
+
+                                    for (int i = 0; i < 6; i++)
+                                    {
+                                        CommandChart[i] = 0;
+                                    }
+                                }
                             }
                             break;
                     }

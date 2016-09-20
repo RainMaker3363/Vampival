@@ -11,6 +11,9 @@ public class Tracing : MonoBehaviour {
 
     private float AimInterPol = 0.0f;
 
+    private bool FireReady = false;
+    private float FireTimer;
+
     private ViewControllMode ViewMode;
     private GameState Gamestate;
 
@@ -20,7 +23,6 @@ public class Tracing : MonoBehaviour {
 
 
     public GameObject AimTarget;
-
     public GameObject CannonBall;
 
     void Start()
@@ -31,12 +33,22 @@ public class Tracing : MonoBehaviour {
 
         AimInterPol = 0.0f;
 
+        FireTimer = 0.0f;
+
         ViewMode = GameManager.ViewMode;
         Gamestate = GameManager.Gamestate;
     }
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.End))
+        {
+            if (ViewMode == ViewControllMode.GamePad)
+                ViewMode = ViewControllMode.Mouse;
+            else
+                ViewMode = ViewControllMode.GamePad;
+        }
+
         switch (Gamestate)
         {
             case GameState.GameIntro:
@@ -60,8 +72,20 @@ public class Tracing : MonoBehaviour {
 
                                 // 마우스 작업
 
-                                if (Input.GetKeyDown(KeyCode.Space))
+                                // 발사 주기 체크
+                                if (FireTimer >= 0.75)
                                 {
+                                    FireReady = true;
+                                    FireTimer = 0.0f;
+                                }
+                                else
+                                {
+                                    FireTimer += Time.deltaTime;
+                                }
+
+                                if (Input.GetKeyDown(KeyCode.Space) && FireReady)
+                                {
+                                    FireReady = false;
                                     Instantiate(CannonBall, this.transform.position, Quaternion.identity);
                                 }
 
@@ -172,19 +196,32 @@ public class Tracing : MonoBehaviour {
                             {
                                 // 게임 패드 작업
 
-                                if (Input.GetAxis("P2_360_Trigger") > 0.001)
+                                // 발사 주기 체크
+                                if (FireTimer >= 0.75)
+                                {
+                                    FireReady = true;
+                                    FireTimer = 0.0f;
+                                }
+                                else
+                                {
+                                    FireTimer += Time.deltaTime;
+                                }
+
+                                if (Input.GetAxis("P2_360_Trigger") > 0.001 && FireReady)
                                 {
 
                                     Debug.Log("Right Trigger!");
 
+                                    FireReady = false;
                                     Instantiate(CannonBall, this.transform.position, Quaternion.identity);
                                 }
 
-                                if (Input.GetAxis("P2_360_Trigger") < 0)
+                                if (Input.GetAxis("P2_360_Trigger") < 0 && FireReady)
                                 {
 
                                     Debug.Log("Left Trigger!");
 
+                                    FireReady = false;
                                     Instantiate(CannonBall, this.transform.position, Quaternion.identity);
 
                                 }
