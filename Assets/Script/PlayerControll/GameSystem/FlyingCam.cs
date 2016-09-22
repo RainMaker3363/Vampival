@@ -83,7 +83,7 @@ public class FlyingCam : MonoBehaviour {
                             if (Input.GetKey(KeyCode.W))
                             {
                                 transform.Translate(new Vector3(0, 1, 0) * normalMoveSpeed * Time.deltaTime);
-                                MainCameraChecker.transform.Translate(new Vector3(0, 0, -2.5f) * normalMoveSpeed * Time.deltaTime);
+                                MainCameraChecker.transform.Translate(new Vector3(0, 0.75f, 0) * normalMoveSpeed * Time.deltaTime);
                                 //NowCurrentCoordY += (CameraMovingPoint * Time.deltaTime);
                             }
                         }
@@ -93,7 +93,7 @@ public class FlyingCam : MonoBehaviour {
                             if (Input.GetKey(KeyCode.S))
                             {
                                 transform.Translate(new Vector3(0, -1, 0) * normalMoveSpeed * Time.deltaTime);
-                                MainCameraChecker.transform.Translate(new Vector3(0, 0, 2.5f) * normalMoveSpeed * Time.deltaTime);
+                                MainCameraChecker.transform.Translate(new Vector3(0, -1, 0) * normalMoveSpeed * Time.deltaTime);
                                 //NowCurrentCoordY -= (CameraMovingPoint * Time.deltaTime);
                                 //transform.position += transform.forward * normalMoveSpeed * Time.deltaTime;
                             }

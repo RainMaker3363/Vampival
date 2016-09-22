@@ -183,12 +183,13 @@ public class CannonBall : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag == "Enemy")
+        if (collision.transform.tag.Equals("Enemy") == true)
         {
             //_rotate = false;
             Destroy(this.gameObject);
         }
-        if (collision.transform.tag == "Walls")
+
+        if (collision.transform.tag.Equals("Walls") == true)
         {
             //_rotate = false;
             Destroy(this.gameObject, 0.5f);

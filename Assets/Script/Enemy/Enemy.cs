@@ -165,7 +165,7 @@ public class Enemy : MonoBehaviour {
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.transform.tag == "AttackPoint")
+        if (other.transform.tag.Equals("AttackPoint") == true)
         { 
             //print("Attacked Castle !!");
         }
@@ -176,7 +176,7 @@ public class Enemy : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
-        if(collision.transform.tag == "CannonBall")
+        if (collision.transform.tag.Equals("CannonBall") == true) 
         {
             //print("Hit !!");
 
@@ -196,7 +196,7 @@ public class Enemy : MonoBehaviour {
 
         }
 
-        if (collision.transform.tag == "EnemyCorpse")
+        if (collision.transform.tag.Equals("EnemyCorpse") == true)
         {
             print("Balling !!");
 

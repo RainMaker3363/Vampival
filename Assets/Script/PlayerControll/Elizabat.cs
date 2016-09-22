@@ -13,8 +13,20 @@ public class Elizabat : MonoBehaviour {
 
     public GameObject CameraChecker;
 
-    private int[] CommandChart = new int[6];
-    private int MaxCount;
+    // 소닉 웨이브 커맨드 5개 (고정1 + 랜덤 4)
+    private int[] SonicWaveCommand = new int[7];
+    // 강하 공격 커맨드 3개 (고정1 + 랜덤 2)
+    private int[] DecentCommand = new int[7];
+    // 스웜 공격 커맨드 7개 (고정1 + 랜덤 6)
+    private int[] SwarmCommand = new int[7];
+    // 일식 스킬 커맨드 7개 (고정1 + 랜덤 6)
+    private int[] EclipseCommand = new int[7];
+
+    private int EclipseMaxCount;
+    private int SwarmMaxCount;
+    private int DecentMaxCount;
+    private int SonicMaxCount;
+
     private bool CommandOn;
     private bool CommandInit;
 
@@ -30,14 +42,22 @@ public class Elizabat : MonoBehaviour {
         CommandOn = true;
         CommandInit = false;
 
-        for (int i = 0; i < 6; i++)
+        SonicWaveCommand[0] = 1;
+        DecentCommand[0] = 3;
+        SwarmCommand[0] = 4;
+        EclipseCommand[0] = 2;
+
+        for (int i = 1; i < 7; i++)
         {
-            CommandChart[i] = 0;
+            SonicWaveCommand[i] = 0;
+            DecentCommand[i] = 0;
+            SwarmCommand[i] = 0;
+            EclipseCommand[i] = 0;
         }
 
         Inputcommand = 0;
         currentNum = 0;
-        MaxCount = 0;
+        
 	}
 
     
@@ -116,8 +136,8 @@ public class Elizabat : MonoBehaviour {
                                     {
                                         if (Input.GetKey(KeyCode.F))
                                         {
-                                            transform.Translate(new Vector3(-2, 0, 0) * normalMoveSpeed * Time.deltaTime);
-
+                                            transform.Translate(new Vector3(-2.5f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                            
                                         }
                                     }
 
@@ -125,8 +145,8 @@ public class Elizabat : MonoBehaviour {
                                     {
                                         if (Input.GetKey(KeyCode.H))
                                         {
-                                            transform.Translate(new Vector3(2, 0, 0) * normalMoveSpeed * Time.deltaTime);
-
+                                            transform.Translate(new Vector3(2.5f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                            
                                         }
                                     }
 
@@ -134,8 +154,8 @@ public class Elizabat : MonoBehaviour {
                                     {
                                         if (Input.GetKey(KeyCode.G))
                                         {
-                                            transform.Translate(new Vector3(0, -2, 0) * normalMoveSpeed * Time.deltaTime);
-
+                                            transform.Translate(new Vector3(0, -2.5f, 0) * normalMoveSpeed * Time.deltaTime);
+                                            
                                         }
                                     }
 
@@ -143,15 +163,34 @@ public class Elizabat : MonoBehaviour {
                                     {
                                         if (Input.GetKey(KeyCode.T))
                                         {
-                                            transform.Translate(new Vector3(0, 2, 0) * normalMoveSpeed * Time.deltaTime);
-
+                                            transform.Translate(new Vector3(0, 2.5f, 0) * normalMoveSpeed * Time.deltaTime);
+                                            
                                         }
                                     }
 
 
                                     if (Input.GetKeyDown(KeyCode.C))
                                     {
-                                        CommandInitilization();
+                                        if (Input.GetKeyDown(KeyCode.LeftArrow))
+                                        {
+                                            CommandInitilization(2);
+                                        }
+                                        else if (Input.GetKeyDown(KeyCode.RightArrow))
+                                        {
+
+                                            CommandInitilization(4);
+                                        }
+                                        else if (Input.GetKeyDown(KeyCode.DownArrow))
+                                        {
+
+                                            CommandInitilization(3);
+                                        }
+                                        else if (Input.GetKeyDown(KeyCode.UpArrow))
+                                        {
+
+                                            CommandInitilization(1);
+                                        }
+                                        
                                     }
                                 }
                                 
@@ -161,8 +200,26 @@ public class Elizabat : MonoBehaviour {
 
                                 if (GameManager.CommandStart)
                                 {
-                                    
-                                    CommandInputStart();
+
+                                    if (Input.GetKeyDown(KeyCode.LeftArrow))
+                                    {
+                                        CommandInputStart(2);
+                                    }
+                                    else if (Input.GetKeyDown(KeyCode.RightArrow))
+                                    {
+
+                                        CommandInputStart(4);
+                                    }
+                                    else if (Input.GetKeyDown(KeyCode.DownArrow))
+                                    {
+
+                                        CommandInputStart(3);
+                                    }
+                                    else if (Input.GetKeyDown(KeyCode.UpArrow))
+                                    {
+
+                                        CommandInputStart(1);
+                                    }
                                 }
  
                             }
@@ -222,11 +279,57 @@ public class Elizabat : MonoBehaviour {
 
                                     if (Input.GetButtonDown("P1_360_AButton"))
                                     {
-                                        CommandInitilization();
+                                        if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
+                                        {
+                                            CommandInitilization(4);
+                                        }
+                                        else if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
+                                        {
+
+
+                                            CommandInitilization(2);
+                                        }
+                                        else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
+                                        {
+
+                                            CommandInitilization(1);
+                                        }
+                                        else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
+                                        {
+
+
+                                            CommandInitilization(3);
+                                        }
 
                                     }
                                 }
 
+
+                                if (GameManager.CommandStart)
+                                {
+                                    if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
+                                    {
+                                        CommandInputStart(4);
+                                    }
+                                    else if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
+                                    {
+
+
+                                        CommandInputStart(2);
+                                    }
+                                    else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
+                                    {
+
+                                        CommandInputStart(1);
+                                    }
+                                    else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
+                                    {
+
+
+                                        CommandInputStart(3);
+                                    }
+
+                                }
                                 //rotationY = Mathf.Clamp(rotationY, -90, 90);
 
                                 //transform.localRotation = Quaternion.AngleAxis(rotationX, Vector3.up);
@@ -265,41 +368,134 @@ public class Elizabat : MonoBehaviour {
         obj.position = Camera.main.ViewportToWorldPoint(pos);
     }
 
-    void CommandInitilization()
+    void CommandInitilization(int SkillNumber)
     {
         switch (Gamestate)
         {
             case GameState.GameStart:
                 {
-                    int NowCommand = 0;
-                    MaxCount = Random.Range(2, 7);
 
-                    for (int i = 0; i < MaxCount; i++)
+                    switch (SkillNumber)
                     {
-                        NowCommand = Random.Range(1, 5);
+                        // 소닉 웨이브
+                        case 1:
+                            {
+                                int NowCommand = 0;
 
-                        CommandChart[i] = NowCommand;
+                                SonicMaxCount = Random.Range(2, 5);
 
+                                for (int i = 1; i < SonicMaxCount; i++)
+                                {
+                                    NowCommand = Random.Range(1, 5);
+
+                                    SonicWaveCommand[i] = NowCommand;
+                                }
+
+                                CommandInit = true;
+                                currentNum = 0;
+
+                                //print("MaxCount : " + MaxCount);
+
+                                for (int i = 1; i < SonicMaxCount; i++)
+                                {
+                                    Debug.Log(" SonicWaveCommand : " + SonicWaveCommand[i]);
+                                }
+
+                                GameManager.CommandStart = true;
+                            }
+                            break;
+
+                        // 일식
+                        case 2:
+                            {
+                                int NowCommand = 0;
+
+                                EclipseMaxCount = Random.Range(2, 7);
+
+                                for (int i = 1; i < EclipseMaxCount; i++)
+                                {
+                                    NowCommand = Random.Range(1, 5);
+
+                                    EclipseCommand[i] = NowCommand;
+                                }
+
+                                CommandInit = true;
+                                currentNum = 0;
+
+                                //print("MaxCount : " + MaxCount);
+
+                                for (int i = 1; i < EclipseMaxCount; i++)
+                                {
+                                    Debug.Log(" SonicWaveCommand : " + EclipseCommand[i]);
+                                }
+
+                                GameManager.CommandStart = true;
+                            }
+                            break;
+
+                        // 강하 공격
+                        case 3:
+                            {
+                                int NowCommand = 0;
+
+                                DecentMaxCount = Random.Range(2, 3);
+
+                                for (int i = 1; i < DecentMaxCount; i++)
+                                {
+                                    NowCommand = Random.Range(1, 5);
+
+                                    DecentCommand[i] = NowCommand;
+                                }
+
+                                CommandInit = true;
+                                currentNum = 0;
+
+                                //print("MaxCount : " + MaxCount);
+
+                                for (int i = 1; i < DecentMaxCount; i++)
+                                {
+                                    Debug.Log(" SonicWaveCommand : " + DecentCommand[i]);
+                                }
+
+                                GameManager.CommandStart = true;
+                            }
+                            break;
+                        // 스웜 공격
+                        case 4:
+                            {
+                                int NowCommand = 0;
+
+                                SwarmMaxCount = Random.Range(2, 7);
+
+                                for (int i = 1; i < SwarmMaxCount; i++)
+                                {
+                                    NowCommand = Random.Range(1, 5);
+
+                                    SwarmCommand[i] = NowCommand;
+                                }
+
+                                CommandInit = true;
+                                currentNum = 0;
+
+                                //print("MaxCount : " + MaxCount);
+
+                                for (int i = 1; i < SwarmMaxCount; i++)
+                                {
+                                    Debug.Log(" SonicWaveCommand : " + SwarmCommand[i]);
+                                }
+
+                                GameManager.CommandStart = true;
+                            }
+                            break;
                     }
 
-                    CommandInit = true;
-                    currentNum = 0;
-
-                    //print("MaxCount : " + MaxCount);
-
-                    for (int i = 0; i < MaxCount; i++)
-                    {
-                        Debug.Log(" CommandChart : " + CommandChart[i]);
-                    }
-
-                    GameManager.CommandStart = true;
 
                 }
                 break;
         }
     }
 
-    void CommandInputStart()
+    void CommandInputStart(int SkillNumber)
     {
         switch (Gamestate)
         {
@@ -309,256 +505,1003 @@ public class Elizabat : MonoBehaviour {
                     {
                         case ViewControllMode.Mouse:
                             {
-
-                                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                                switch(SkillNumber)
                                 {
-                                    Inputcommand = 2;
-
-                                    print("currentNum : " + currentNum);
-                                    print("MaxCount : " + MaxCount);
-
-                                    if (CommandChart[currentNum] == Inputcommand)
-                                    {
-                                        currentNum++;
-
-                                        Inputcommand = 0;
-                                    }
-                                    else
-                                    {
-                                        print("Command Failed!");
-
-                                        GameManager.CommandStart = false;
-                                        MaxCount = 0;
-
-                                        for (int i = 0; i < 6; i++)
+                                        // 소닉 웨이브
+                                    case 1:
                                         {
-                                            CommandChart[i] = 0;
+                                            if (Input.GetKeyDown(KeyCode.LeftArrow))
+                                            {
+                                                Inputcommand = 2;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + SonicMaxCount);
+
+                                                if (SonicWaveCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    SonicMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        SonicWaveCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+                                            else if (Input.GetKeyDown(KeyCode.RightArrow))
+                                            {
+                                                Inputcommand = 4;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + SonicMaxCount);
+
+                                                if (SonicWaveCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    SonicMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        SonicWaveCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+                                            else if (Input.GetKeyDown(KeyCode.DownArrow))
+                                            {
+                                                Inputcommand = 3;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + SonicMaxCount);
+
+                                                if (SonicWaveCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    SonicMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        SonicWaveCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+                                            else if (Input.GetKeyDown(KeyCode.UpArrow))
+                                            {
+                                                Inputcommand = 1;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + SonicMaxCount);
+
+                                                if (SonicWaveCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    SonicMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        SonicWaveCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+
+                                            if ((currentNum >= SonicMaxCount) && (SonicMaxCount != 0))
+                                            {
+                                                print("Command Success!");
+
+                                                GameManager.CommandStart = false;
+                                                SonicMaxCount = 0;
+
+                                                for (int i = 0; i < 6; i++)
+                                                {
+                                                    SonicWaveCommand[i] = 0;
+                                                }
+                                            }
                                         }
-                                    }
-                                }
-                                else if (Input.GetKeyDown(KeyCode.RightArrow))
-                                {
-                                    Inputcommand = 4;
-                                    
-                                    print("currentNum : " + currentNum);
-                                    print("MaxCount : " + MaxCount);
+                                        break;
 
-                                    if (CommandChart[currentNum] == Inputcommand)
-                                    {
-                                        currentNum++;
-
-                                        Inputcommand = 0;
-                                    }
-                                    else
-                                    {
-                                        print("Command Failed!");
-
-                                        GameManager.CommandStart = false;
-                                        MaxCount = 0;
-
-                                        for (int i = 0; i < 6; i++)
+                                        // 일식
+                                    case 2:
                                         {
-                                            CommandChart[i] = 0;
+                                            if (Input.GetKeyDown(KeyCode.LeftArrow))
+                                            {
+                                                Inputcommand = 2;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + EclipseMaxCount);
+
+                                                if (EclipseCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    EclipseMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        EclipseCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+                                            else if (Input.GetKeyDown(KeyCode.RightArrow))
+                                            {
+                                                Inputcommand = 4;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + EclipseMaxCount);
+
+                                                if (EclipseCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    EclipseMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        EclipseCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+                                            else if (Input.GetKeyDown(KeyCode.DownArrow))
+                                            {
+                                                Inputcommand = 3;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + EclipseMaxCount);
+
+                                                if (EclipseCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    EclipseMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        EclipseCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+                                            else if (Input.GetKeyDown(KeyCode.UpArrow))
+                                            {
+                                                Inputcommand = 1;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + EclipseMaxCount);
+
+                                                if (EclipseCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    EclipseMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        EclipseCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+
+                                            if ((currentNum >= EclipseMaxCount) && (EclipseMaxCount != 0))
+                                            {
+                                                print("Command Success!");
+
+                                                GameManager.CommandStart = false;
+                                                EclipseMaxCount = 0;
+
+                                                for (int i = 1; i < 6; i++)
+                                                {
+                                                    EclipseCommand[i] = 0;
+                                                }
+                                            }
                                         }
-                                    }
-                                }
-                                else if (Input.GetKeyDown(KeyCode.DownArrow))
-                                {
-                                    Inputcommand = 3;
+                                        break;
 
-                                    print("currentNum : " + currentNum);
-                                    print("MaxCount : " + MaxCount);
-
-                                    if (CommandChart[currentNum] == Inputcommand)
-                                    {
-                                        currentNum++;
-
-                                        Inputcommand = 0;
-                                    }
-                                    else
-                                    {
-                                        print("Command Failed!");
-
-                                        GameManager.CommandStart = false;
-                                        MaxCount = 0;
-
-                                        for (int i = 0; i < 6; i++)
+                                        // 강하 공격
+                                    case 3:
                                         {
-                                            CommandChart[i] = 0;
+                                            if (Input.GetKeyDown(KeyCode.LeftArrow))
+                                            {
+                                                Inputcommand = 2;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + DecentMaxCount);
+
+                                                if (DecentCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    DecentMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        DecentCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+                                            else if (Input.GetKeyDown(KeyCode.RightArrow))
+                                            {
+                                                Inputcommand = 4;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + DecentMaxCount);
+
+                                                if (DecentCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    DecentMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        DecentCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+                                            else if (Input.GetKeyDown(KeyCode.DownArrow))
+                                            {
+                                                Inputcommand = 3;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + DecentMaxCount);
+
+                                                if (DecentCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    DecentMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        DecentCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+                                            else if (Input.GetKeyDown(KeyCode.UpArrow))
+                                            {
+                                                Inputcommand = 1;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + DecentMaxCount);
+
+                                                if (DecentCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    DecentMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        DecentCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+
+                                            if ((currentNum >= DecentMaxCount) && (DecentMaxCount != 0))
+                                            {
+                                                print("Command Success!");
+
+                                                GameManager.CommandStart = false;
+                                                DecentMaxCount = 0;
+
+                                                for (int i = 1; i < 6; i++)
+                                                {
+                                                    DecentCommand[i] = 0;
+                                                }
+                                            }
                                         }
-                                    }
-                                }
-                                else if (Input.GetKeyDown(KeyCode.UpArrow))
-                                {
-                                    Inputcommand = 1;
-
-                                    print("currentNum : " + currentNum);
-                                    print("MaxCount : " + MaxCount);
-
-                                    if (CommandChart[currentNum] == Inputcommand)
-                                    {
-                                        currentNum++;
-
-                                        Inputcommand = 0;
-                                    }
-                                    else
-                                    {
-                                        print("Command Failed!");
-
-                                        GameManager.CommandStart = false;
-                                        MaxCount = 0;
-
-                                        for (int i = 0; i < 6; i++)
+                                        break;
+                                        // 스웜 공격
+                                    case 4:
                                         {
-                                            CommandChart[i] = 0;
+                                            if (Input.GetKeyDown(KeyCode.LeftArrow))
+                                            {
+                                                Inputcommand = 2;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + SwarmMaxCount);
+
+                                                if (SwarmCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    SwarmMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        SwarmCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+                                            else if (Input.GetKeyDown(KeyCode.RightArrow))
+                                            {
+                                                Inputcommand = 4;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + SwarmMaxCount);
+
+                                                if (SwarmCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    SwarmMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        SwarmCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+                                            else if (Input.GetKeyDown(KeyCode.DownArrow))
+                                            {
+                                                Inputcommand = 3;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + SwarmMaxCount);
+
+                                                if (SwarmCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    SwarmMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        SwarmCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+                                            else if (Input.GetKeyDown(KeyCode.UpArrow))
+                                            {
+                                                Inputcommand = 1;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + SwarmMaxCount);
+
+                                                if (SwarmCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    SwarmMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        SwarmCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+
+                                            if ((currentNum >= SwarmMaxCount) && (SwarmMaxCount != 0))
+                                            {
+                                                print("Command Success!");
+
+                                                GameManager.CommandStart = false;
+                                                SwarmMaxCount = 0;
+
+                                                for (int i = 1; i < 6; i++)
+                                                {
+                                                    SwarmCommand[i] = 0;
+                                                }
+                                            }
                                         }
-                                    }
+                                        break;
                                 }
-
-                                if ((currentNum >= MaxCount) && (MaxCount != 0))
-                                {
-                                    print("Command Success!");
-
-                                    GameManager.CommandStart = false;
-                                    MaxCount = 0;
-
-                                    for (int i = 0; i < 6; i++)
-                                    {
-                                        CommandChart[i] = 0;
-                                    }
-                                }
+                               
                             }
                             break;
 
                         case ViewControllMode.GamePad:
                             {
 
-
-
-
-                                if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
+                                switch (SkillNumber)
                                 {
-                                    Inputcommand = 4;
-
-                                    print("currentNum : " + currentNum);
-                                    print("MaxCount : " + MaxCount);
-
-                                    if (CommandChart[currentNum] == Inputcommand)
-                                    {
-                                        currentNum++;
-
-                                        Inputcommand = 0;
-                                    }
-                                    else
-                                    {
-                                        print("Command Failed!");
-
-                                        GameManager.CommandStart = false;
-                                        MaxCount = 0;
-
-                                        for (int i = 0; i < 6; i++)
+                                    // 소닉 웨이브
+                                    case 1:
                                         {
-                                            CommandChart[i] = 0;
+
+
+                                            if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
+                                            {
+                                                Inputcommand = 2;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + SonicMaxCount);
+
+                                                if (SonicWaveCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    SonicMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        SonicWaveCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+                                            else if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
+                                            {
+                                                Inputcommand = 4;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + SonicMaxCount);
+
+                                                if (SonicWaveCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    SonicMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        SonicWaveCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+                                            else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
+                                            {
+                                                Inputcommand = 3;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + SonicMaxCount);
+
+                                                if (SonicWaveCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    SonicMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        SonicWaveCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+                                            else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
+                                            {
+                                                Inputcommand = 1;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + SonicMaxCount);
+
+                                                if (SonicWaveCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    SonicMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        SonicWaveCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+
+                                            if ((currentNum >= SonicMaxCount) && (SonicMaxCount != 0))
+                                            {
+                                                print("Command Success!");
+
+                                                GameManager.CommandStart = false;
+                                                SonicMaxCount = 0;
+
+                                                for (int i = 0; i < 6; i++)
+                                                {
+                                                    SonicWaveCommand[i] = 0;
+                                                }
+                                            }
                                         }
-                                    }
+                                        break;
 
-                                }
-
-                                if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
-                                {
-                                    Inputcommand = 2;
-
-                                    print("currentNum : " + currentNum);
-                                    print("MaxCount : " + MaxCount);
-
-
-                                    if (CommandChart[currentNum] == Inputcommand)
-                                    {
-                                        currentNum++;
-
-                                        Inputcommand = 0;
-                                    }
-                                    else
-                                    {
-                                        print("Command Failed!");
-
-                                        GameManager.CommandStart = false;
-                                        MaxCount = 0;
-
-                                        for (int i = 0; i < 6; i++)
+                                    // 일식
+                                    case 2:
                                         {
-                                            CommandChart[i] = 0;
+                                            if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
+                                            {
+                                                Inputcommand = 2;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + EclipseMaxCount);
+
+                                                if (EclipseCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    EclipseMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        EclipseCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+                                            else if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
+                                            {
+                                                Inputcommand = 4;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + EclipseMaxCount);
+
+                                                if (EclipseCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    EclipseMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        EclipseCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+                                            else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
+                                            {
+                                                Inputcommand = 3;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + EclipseMaxCount);
+
+                                                if (EclipseCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    EclipseMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        EclipseCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+                                            else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
+                                            {
+                                                Inputcommand = 1;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + EclipseMaxCount);
+
+                                                if (EclipseCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    EclipseMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        EclipseCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+
+                                            if ((currentNum >= EclipseMaxCount) && (EclipseMaxCount != 0))
+                                            {
+                                                print("Command Success!");
+
+                                                GameManager.CommandStart = false;
+                                                EclipseMaxCount = 0;
+
+                                                for (int i = 1; i < 6; i++)
+                                                {
+                                                    EclipseCommand[i] = 0;
+                                                }
+                                            }
                                         }
-                                    }
+                                        break;
 
-                                }
-
-                                if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
-                                {
-                                    Inputcommand = 1;
-
-                                    print("currentNum : " + currentNum);
-                                    print("MaxCount : " + MaxCount);
-
-                                    if (CommandChart[currentNum] == Inputcommand)
-                                    {
-                                        currentNum++;
-
-                                        Inputcommand = 0;
-                                    }
-                                    else
-                                    {
-                                        print("Command Failed!");
-
-                                        GameManager.CommandStart = false;
-                                        MaxCount = 0;
-
-                                        for (int i = 0; i < 6; i++)
+                                    // 강하 공격
+                                    case 3:
                                         {
-                                            CommandChart[i] = 0;
+                                            if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
+                                            {
+                                                Inputcommand = 2;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + DecentMaxCount);
+
+                                                if (DecentCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    DecentMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        DecentCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+                                            else if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
+                                            {
+                                                Inputcommand = 4;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + DecentMaxCount);
+
+                                                if (DecentCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    DecentMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        DecentCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+                                            else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
+                                            {
+                                                Inputcommand = 3;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + DecentMaxCount);
+
+                                                if (DecentCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    DecentMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        DecentCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+                                            else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
+                                            {
+                                                Inputcommand = 1;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + DecentMaxCount);
+
+                                                if (DecentCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    DecentMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        DecentCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+
+                                            if ((currentNum >= DecentMaxCount) && (DecentMaxCount != 0))
+                                            {
+                                                print("Command Success!");
+
+                                                GameManager.CommandStart = false;
+                                                DecentMaxCount = 0;
+
+                                                for (int i = 1; i < 6; i++)
+                                                {
+                                                    DecentCommand[i] = 0;
+                                                }
+                                            }
                                         }
-                                    }
-                                }
-
-                                if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
-                                {
-                                    Inputcommand = 3;
-
-                                    print("currentNum : " + currentNum);
-                                    print("MaxCount : " + MaxCount);
-
-                                    if (CommandChart[currentNum] == Inputcommand)
-                                    {
-                                        currentNum++;
-
-                                        Inputcommand = 0;
-                                    }
-                                    else
-                                    {
-                                        print("Command Failed!");
-
-                                        GameManager.CommandStart = false;
-                                        MaxCount = 0;
-
-                                        for (int i = 0; i < 6; i++)
+                                        break;
+                                    // 스웜 공격
+                                    case 4:
                                         {
-                                            CommandChart[i] = 0;
+                                            if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
+                                            {
+                                                Inputcommand = 2;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + SwarmMaxCount);
+
+                                                if (SwarmCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    SwarmMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        SwarmCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+                                            else if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
+                                            {
+                                                Inputcommand = 4;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + SwarmMaxCount);
+
+                                                if (SwarmCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    SwarmMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        SwarmCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+                                            else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
+                                            {
+                                                Inputcommand = 3;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + SwarmMaxCount);
+
+                                                if (SwarmCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    SwarmMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        SwarmCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+                                            else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
+                                            {
+                                                Inputcommand = 1;
+
+                                                print("currentNum : " + currentNum);
+                                                print("MaxCount : " + SwarmMaxCount);
+
+                                                if (SwarmCommand[currentNum] == Inputcommand)
+                                                {
+                                                    currentNum++;
+
+                                                    Inputcommand = 0;
+                                                }
+                                                else
+                                                {
+                                                    print("Command Failed!");
+
+                                                    GameManager.CommandStart = false;
+                                                    SwarmMaxCount = 0;
+
+                                                    for (int i = 1; i < 6; i++)
+                                                    {
+                                                        SwarmCommand[i] = 0;
+                                                    }
+                                                }
+                                            }
+
+                                            if ((currentNum >= SwarmMaxCount) && (SwarmMaxCount != 0))
+                                            {
+                                                print("Command Success!");
+
+                                                GameManager.CommandStart = false;
+                                                SwarmMaxCount = 0;
+
+                                                for (int i = 1; i < 6; i++)
+                                                {
+                                                    SwarmCommand[i] = 0;
+                                                }
+                                            }
                                         }
-                                    }
+                                        break;
                                 }
 
-                                if ((currentNum >= MaxCount) && (MaxCount != 0))
-                                {
-                                    print("Command Success!");
 
-                                    GameManager.CommandStart = false;
-                                    MaxCount = 0;
-
-                                    for (int i = 0; i < 6; i++)
-                                    {
-                                        CommandChart[i] = 0;
-                                    }
-                                }
                             }
                             break;
                     }

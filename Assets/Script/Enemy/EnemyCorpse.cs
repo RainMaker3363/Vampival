@@ -29,7 +29,7 @@ public class EnemyCorpse : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag == "Enemy")
+        if (collision.transform.tag.Equals("Enemy") == true)
         {
             Destroy(this.gameObject, 2.0f);
 
