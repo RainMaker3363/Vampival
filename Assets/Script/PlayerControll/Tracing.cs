@@ -28,7 +28,7 @@ public class Tracing : MonoBehaviour {
     void Start()
     {
         lineRenderer.SetColors(Color.red, Color.black);
-        lineRenderer.SetWidth(0.3f, 0.3f);
+        lineRenderer.SetWidth(0.05f, 0.05f);
         lineRenderer.SetVertexCount(25);
 
         AimInterPol = 0.0f;

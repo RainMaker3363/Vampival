@@ -54,8 +54,8 @@ public class FlyingCam : MonoBehaviour {
                     // 마우스 작업
 
                     CameraCheck = Camera.main.WorldToScreenPoint(MainCameraChecker.transform.position);
-                    
-                    if(!GameManager.CommandStart)
+
+                    if ((!GameManager.Elizabat_CommandStart))
                     {
                         if ((CameraCheck.x >= 0))
                         {
@@ -160,7 +160,7 @@ public class FlyingCam : MonoBehaviour {
 
                     CameraCheck = Camera.main.WorldToScreenPoint(MainCameraChecker.transform.position);
 
-                    if (!GameManager.CommandStart)
+                    if ((!GameManager.Elizabat_CommandStart) && (!GameManager.Elizabat_SkillStart))
                     {
                         if ((CameraCheck.x >= 0))
                         {

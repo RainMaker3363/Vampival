@@ -12,8 +12,7 @@ public class Cannon : MonoBehaviour {
     //private RaycastHit hit;
 
     public GameObject CrossHair_Icon;
-    public GameObject[] Cannons = new GameObject[2];
-    public GameObject[] Cannons_Sub = new GameObject[2];
+    public GameObject[] Cannons = new GameObject[1];
 
 	// Use this for initialization
 	void Start () {
@@ -62,34 +61,28 @@ public class Cannon : MonoBehaviour {
                                 if (Input.GetKey(KeyCode.LeftArrow))
                                 {
 
-                                    this.transform.Rotate(new Vector3(0, 90, 0), 50 * Time.deltaTime);
+                                    this.transform.Rotate(new Vector3(0, 0, -90), 50 * Time.deltaTime);
                                     CrossHair_Icon.transform.position += new Vector3(-1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime;
                                     //CrossHair_Icon.transform.position += new Vector3(-1, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
 
                                 }
                                 if (Input.GetKey(KeyCode.RightArrow))
                                 {
-                                    this.transform.Rotate(new Vector3(0, -90, 0), 50 * Time.deltaTime);
+                                    this.transform.Rotate(new Vector3(0, 0, 90), 50 * Time.deltaTime);
                                     CrossHair_Icon.transform.position += new Vector3(1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime;
                                     //CrossHair_Icon.transform.position += new Vector3(1, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
 
                                 }
                                 if (Input.GetKey(KeyCode.DownArrow))
                                 {
-                                    Cannons[0].transform.Rotate(new Vector3(90, 0, 0), 30 * Time.deltaTime);
-                                    Cannons[1].transform.Rotate(new Vector3(90, 0, 0), 30 * Time.deltaTime);
-                                    Cannons_Sub[0].transform.Rotate(new Vector3(90, 0, 0), 30 * Time.deltaTime);
-                                    Cannons_Sub[1].transform.Rotate(new Vector3(90, 0, 0), 30 * Time.deltaTime);
+                                    Cannons[0].transform.Rotate(new Vector3(-90, 0, 0), 30 * Time.deltaTime);
 
                                     CrossHair_Icon.transform.position += new Vector3(0, 0, 1.5f) * normalMoveSpeed * Time.deltaTime;
                                    // CrossHair_Icon.transform.position += new Vector3(0, hit.normal.y, 1) * normalMoveSpeed * Time.deltaTime;
                                 }
                                 if (Input.GetKey(KeyCode.UpArrow))
                                 {
-                                    Cannons[0].transform.Rotate(new Vector3(-90, 0, 0), 30 * Time.deltaTime);
-                                    Cannons[1].transform.Rotate(new Vector3(-90, 0, 0), 30 * Time.deltaTime);
-                                    Cannons_Sub[0].transform.Rotate(new Vector3(-90, 0, 0), 30 * Time.deltaTime);
-                                    Cannons_Sub[1].transform.Rotate(new Vector3(-90, 0, 0), 30 * Time.deltaTime);
+                                    Cannons[0].transform.Rotate(new Vector3(90, 0, 0), 30 * Time.deltaTime);
 
                                     CrossHair_Icon.transform.position += new Vector3(0, 0, -1.5f) * normalMoveSpeed * Time.deltaTime;
                                     //CrossHair_Icon.transform.position += new Vector3(0, hit.normal.y, -1) * normalMoveSpeed * Time.deltaTime;
@@ -170,9 +163,6 @@ public class Cannon : MonoBehaviour {
                                     Debug.Log("UpStick!");
 
                                     Cannons[0].transform.Rotate(new Vector3(-90, 0, 0), 30 * Time.deltaTime);
-                                    Cannons[1].transform.Rotate(new Vector3(-90, 0, 0), 30 * Time.deltaTime);
-                                    Cannons_Sub[0].transform.Rotate(new Vector3(-90, 0, 0), 30 * Time.deltaTime);
-                                    Cannons_Sub[1].transform.Rotate(new Vector3(-90, 0, 0), 30 * Time.deltaTime);
 
                                     CrossHair_Icon.transform.position += new Vector3(0, 0, -1.5f) * normalMoveSpeed * Time.deltaTime;
 
@@ -184,9 +174,6 @@ public class Cannon : MonoBehaviour {
                                     Debug.Log("DownStick!");
 
                                     Cannons[0].transform.Rotate(new Vector3(90, 0, 0), 30 * Time.deltaTime);
-                                    Cannons[1].transform.Rotate(new Vector3(90, 0, 0), 30 * Time.deltaTime);
-                                    Cannons_Sub[0].transform.Rotate(new Vector3(90, 0, 0), 30 * Time.deltaTime);
-                                    Cannons_Sub[1].transform.Rotate(new Vector3(90, 0, 0), 30 * Time.deltaTime);
 
                                     CrossHair_Icon.transform.position += new Vector3(0, 0, 1.5f) * normalMoveSpeed * Time.deltaTime;
                                 }

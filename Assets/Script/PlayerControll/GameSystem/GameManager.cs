@@ -35,7 +35,8 @@ public class GameManager : MonoBehaviour {
     private float GameTimer;
 
     // 커맨드 입력 On / OFF 여부
-    static public bool CommandStart;
+    static public bool Elizabat_CommandStart;
+    static public bool Elizabat_SkillStart;
 
     static public GameState Gamestate;
     static public ViewControllMode ViewMode;
@@ -58,7 +59,8 @@ public class GameManager : MonoBehaviour {
         GameTimer = 0.0f;
 
         light.intensity = 0.35f;
-        CommandStart = false;
+        Elizabat_CommandStart = false;
+        Elizabat_SkillStart = false;
 
         Gamestate = GameState.GameStart;
         ViewMode = ViewControllMode.Mouse;
@@ -117,7 +119,7 @@ public class GameManager : MonoBehaviour {
                         int EnemyType = Random.Range(0, 4);
                         int EnemyLocation = Random.Range(0, 4);
 
-                        StartCoroutine(RespawnEnemy(NowLevel, EnemyType, EnemyLocation));
+                        //StartCoroutine(RespawnEnemy(NowLevel, EnemyType, EnemyLocation));
                     }
                     
                 }
