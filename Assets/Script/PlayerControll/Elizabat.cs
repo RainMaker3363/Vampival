@@ -10,20 +10,12 @@ public class Elizabat : MonoBehaviour {
     private GameState Gamestate;
 
     private bool ElizabatDecentOn;
-    private Vector3 BackupPos;
-    private Vector3 BackupDir;
-    private Vector3 TargetPos;
-
-    private Vector3 FowardAttack;
-    private Vector3 BackAttack;
-
     
     private Vector3 targetPosOnScreen;
-    private RaycastHit hit;
-    private Ray ray;
+    //private RaycastHit hit;
+    //private Ray ray;
 
     public GameObject CameraChecker;
-    public GameObject Target;
     public Camera MainCamera;
 
     // 소닉 웨이브 커맨드 5개 (고정1 + 랜덤 4)
@@ -73,9 +65,6 @@ public class Elizabat : MonoBehaviour {
 
         Inputcommand = 0;
         currentNum = 0;
-
-        BackupPos = MainCamera.transform.position;
-        BackupDir = CameraChecker.transform.position;
 	}
 
     
@@ -237,12 +226,19 @@ public class Elizabat : MonoBehaviour {
 
                                     //}
 
-                                    ElizabatDecentAttack();
-
                                     Debug.DrawLine(MainCamera.transform.position, CameraChecker.transform.position, Color.red, 5f);
                                     //print(hit.transform.position);
 
-                                    //StartCoroutine(MoveDown(MainCamera.transform, 1.0f, 10.0f));
+                                    if(ElizabatDecentOn)
+                                    {
+                                        ElizabatDecentOn = false;
+
+                                        float Dis = Vector3.Distance(CameraChecker.transform.position, MainCamera.transform.position);
+
+                                        StartCoroutine(MoveDown(MainCamera.transform, Dis, 10.0f));
+                                    }
+
+                                    
                                 }
 
                                 //print(targetPosOnScreen);
@@ -450,69 +446,27 @@ public class Elizabat : MonoBehaviour {
             pos.y = Mathf.Lerp(startPos, endPos, t);
             thisTransform.position = pos;
 
+            //yield return 0;
+        }
+
+        t = 0.0f;
+
+        while (t < 1.0f)
+        {
+            t += Time.deltaTime * rate;
+            Vector3 pos = thisTransform.position;
+            pos.y = Mathf.Lerp(endPos, startPos, t);
+            thisTransform.position = pos;
+
             yield return 0;
         }
-    }
 
-    void ElizabatDecentAttack()
-    {
+               
+
+        ElizabatDecentOn = true;
+        GameManager.Elizabat_SkillStart = false;
 
 
-        if (ElizabatDecentOn)
-        {
-            //GameManager.Elizabat_SkillStart = true;
-            ElizabatDecentOn = false;
-
-            FowardAttack = (CameraChecker.transform.localPosition - MainCamera.transform.position).normalized;
-            BackAttack = (MainCamera.transform.position - CameraChecker.transform.localPosition).normalized;
-
-            BackupPos = MainCamera.transform.position;
-
-            TargetPos = CameraChecker.transform.position;
-
-            //ray = MainCamera.toray
-
-        }
-
-        print("TargetPos : " + TargetPos);
-        print("FowardAttack : " + FowardAttack);
-        print("BackAttack : " + BackAttack);
-        print("BackupPos : " + BackupPos);
-
-        if (MainCamera.transform.position.y >= TargetPos.y)
-        {
-            // 강하 공격 판정
-            // hit는 레이가 부딪힌 물체의 정보를 가지고 있다. (위치, 판정 선 등등..)
-            if(!Physics.Linecast(MainCamera.transform.position, Target.transform.position, out hit))
-            {
-                MainCamera.transform.position += (FowardAttack * 50.0f * Time.deltaTime);
-            }
-
-        }
-        else
-        {
-            if (MainCamera.transform.position.y >= BackupPos.y)
-            {
-                GameManager.Elizabat_SkillStart = false;
-            }
-            else
-            {
-                MainCamera.transform.position -= (BackAttack * 50.0f * Time.deltaTime);
-            }
-        }
-
-            //if (hit.collider.tag == "Enemy")
-            //{
-            //    MainCamera.transform.Translate(BackAttack * 100.0f * Time.deltaTime);
-            //}
-            //else if(hit.collider.tag == "Walls")
-            //{
-            //    MainCamera.transform.Translate(BackAttack * 100.0f * Time.deltaTime);
-            //}
-            //else
-            //{
-            //    MainCamera.transform.Translate(hit.transform.position * 100.0f * Time.deltaTime);
-            //}
     }
 
     void CommandInitilization()
