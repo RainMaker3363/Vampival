@@ -72,6 +72,7 @@ public class Cannon : MonoBehaviour {
                                 {
                                     this.transform.Rotate(new Vector3(0, 0, 90), 50 * Time.deltaTime);
                                     Cannons[0].transform.Rotate(new Vector3(0, 0, 90), 50 * Time.deltaTime);
+
                                     CrossHair_Icon.transform.position += new Vector3(1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime;
                                     //CrossHair_Icon.transform.position += new Vector3(1, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
 

@@ -235,7 +235,8 @@ public class Elizabat : MonoBehaviour {
 
                                         float Dis = Vector3.Distance(CameraChecker.transform.position, MainCamera.transform.position);
 
-                                        StartCoroutine(MoveDown(MainCamera.transform, Dis, 10.0f));
+                                        StartCoroutine(DecentAttack(MainCamera.transform, CameraChecker, 10.0f));
+                                        //StartCoroutine(MoveDown(MainCamera.transform, Dis, 10.0f));
                                     }
 
                                     
@@ -448,8 +449,10 @@ public class Elizabat : MonoBehaviour {
 
             //yield return 0;
         }
+        
+        if(t >= 1.0f)
+            t = 0.0f;
 
-        t = 0.0f;
 
         while (t < 1.0f)
         {
@@ -458,14 +461,58 @@ public class Elizabat : MonoBehaviour {
             pos.y = Mathf.Lerp(endPos, startPos, t);
             thisTransform.position = pos;
 
+    
+        }
+
+
+        yield return 0;
+        ElizabatDecentOn = true;
+        GameManager.Elizabat_SkillStart = false;
+
+        //yield return 1;
+
+    }
+
+    // 강하 공격
+    IEnumerator DecentAttack(Transform thisTransform, GameObject Target, float speed)
+    {
+        float startPos = thisTransform.position.y;
+        float endPos = Target.transform.position.y;
+        float rate = 1.0f / Mathf.Abs(startPos - endPos) * speed;
+        float t = 0.0f;
+
+        thisTransform.LookAt(Target.transform.position);
+
+        while (t < 1.0f)
+        {
+            t += Time.deltaTime * rate;
+            Vector3 pos = thisTransform.position;
+            pos.y = Mathf.Lerp(startPos, endPos, t);
+            thisTransform.position = pos;
+
+            //yield return 0;
+        }
+
+        if (t >= 1.0f)
+            t = 0.0f;
+
+
+        while (t < 1.0f)
+        {
+            t += Time.deltaTime * rate;
+            Vector3 pos = thisTransform.position;
+            pos.y = Mathf.Lerp(endPos, startPos, t);
+            thisTransform.position = pos;
+
+
             yield return 0;
         }
 
-               
 
         ElizabatDecentOn = true;
         GameManager.Elizabat_SkillStart = false;
 
+        //yield return 1;
 
     }
 

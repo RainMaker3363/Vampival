@@ -8,6 +8,7 @@ public class Cannon_CrossHair_Icon : MonoBehaviour {
 
     private ViewControllMode ViewMode;
     private RaycastHit hit;
+    private Rigidbody rigid;
 
     // Use this for initialization
     void Start()
@@ -15,6 +16,9 @@ public class Cannon_CrossHair_Icon : MonoBehaviour {
 
         ViewMode = GameManager.ViewMode;
 
+        rigid = GetComponent<Rigidbody>();
+
+        rigid.AddForce(Physics.gravity * rigid.mass);
     }
 
     void Update()
@@ -33,6 +37,7 @@ public class Cannon_CrossHair_Icon : MonoBehaviour {
                     if (Input.GetKey(KeyCode.LeftArrow))
                     {
                         //transform.position += new Vector3(-0.05f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
+                        transform.position += (new Vector3(-1.0f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime);
                         transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
                         transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
                         //transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
@@ -40,6 +45,7 @@ public class Cannon_CrossHair_Icon : MonoBehaviour {
                     if (Input.GetKey(KeyCode.RightArrow))
                     {
                         //transform.position += new Vector3(0.05f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
+                        transform.position += (new Vector3(1.0f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime);
                         transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
                         transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
                         // transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
@@ -47,6 +53,7 @@ public class Cannon_CrossHair_Icon : MonoBehaviour {
                     if (Input.GetKey(KeyCode.DownArrow))
                     {
                         //transform.position += new Vector3(0, hit.normal.y, -0.05f) * normalMoveSpeed * Time.deltaTime;
+                        transform.position += (new Vector3(0, hit.normal.y, 2.0f) * normalMoveSpeed * Time.deltaTime);
                         transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
                         transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
                         //transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
@@ -55,6 +62,7 @@ public class Cannon_CrossHair_Icon : MonoBehaviour {
                     if (Input.GetKey(KeyCode.UpArrow))
                     {
                         //transform.position += new Vector3(0, hit.normal.y, 0.05f) * normalMoveSpeed * Time.deltaTime;
+                        transform.transform.position += (new Vector3(0, hit.normal.y, -2.0f) * normalMoveSpeed * Time.deltaTime);
                         transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
                         transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
                         //transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
