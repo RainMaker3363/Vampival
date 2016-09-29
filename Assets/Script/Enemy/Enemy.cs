@@ -28,7 +28,7 @@ public class Enemy : MonoBehaviour {
     private int edgeLine;
     private float degreeRange;
 
-    private int HP;
+    public int HP;
 
     void Awake()
     {
@@ -68,6 +68,13 @@ public class Enemy : MonoBehaviour {
             case GameState.GameStart:
                 {
                     
+                    if(HP <= 0)
+                    {
+                        Instantiate(Corpse, this.transform.position, Quaternion.identity);
+
+                        Agent.enabled = false;
+                        Destroy(this.gameObject);
+                    }
 
                     //print(Controller.isGrounded);
                     targetPosOnScreen = Camera.main.WorldToScreenPoint(this.gameObject.transform.position);
@@ -170,6 +177,10 @@ public class Enemy : MonoBehaviour {
             //print("Attacked Castle !!");
         }
 
+        if (other.transform.tag.Equals("Elizabat") == true)
+        {
+            print("Elizabat Attack!!");
+        }
 
     }
 

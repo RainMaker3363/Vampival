@@ -147,7 +147,7 @@ public class Tracing : MonoBehaviour {
 
                                 // Draw the arc trajectory		
                                 center = (transform.position + targetPoint) * 0.5f;
-                                center.y -= 70.0f + AimInterPol;//18.0f + AimInterPol;
+                                center.y -= 50.0f + AimInterPol;//18.0f + AimInterPol;
 
                                 if (Input.GetKey(KeyCode.DownArrow))
                                 {

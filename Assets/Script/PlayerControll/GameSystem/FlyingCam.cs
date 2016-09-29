@@ -55,9 +55,9 @@ public class FlyingCam : MonoBehaviour {
                     // 마우스 작업
 
                     CameraCheck = Camera.main.WorldToScreenPoint(MainCameraChecker.transform.position);
-                    
 
-                    if ((!GameManager.Elizabat_CommandStart))
+
+                    if ((!GameManager.Elizabat_CommandStart) && !GameManager.Elizabat_SkillStart)
                     {
                         if ((CameraCheck.x >= 0))
                         {
@@ -85,7 +85,7 @@ public class FlyingCam : MonoBehaviour {
                             if (Input.GetKey(KeyCode.W))
                             {
                                 //transform.position += new Vector3(0, ForwardDir.y, ForwardDir.z) * normalMoveSpeed * Time.deltaTime;
-                                transform.Translate(new Vector3(0, 1, 1) * normalMoveSpeed * Time.deltaTime);
+                                transform.Translate(new Vector3(0, 1, 0) * normalMoveSpeed * Time.deltaTime);
                                 MainCameraChecker.transform.Translate(new Vector3(0, 0.75f, 0) * normalMoveSpeed * Time.deltaTime);
                                 //NowCurrentCoordY += (CameraMovingPoint * Time.deltaTime);
                             }
@@ -96,7 +96,7 @@ public class FlyingCam : MonoBehaviour {
                             if (Input.GetKey(KeyCode.S))
                             {
                                 //transform.position -= new Vector3(0, ForwardDir.y, ForwardDir.z) * normalMoveSpeed * Time.deltaTime;
-                                transform.Translate(new Vector3(0, -1, -1) * normalMoveSpeed * Time.deltaTime);
+                                transform.Translate(new Vector3(0, -1, 0) * normalMoveSpeed * Time.deltaTime);
                                 MainCameraChecker.transform.Translate(new Vector3(0, -1, 0) * normalMoveSpeed * Time.deltaTime);
                                 //NowCurrentCoordY -= (CameraMovingPoint * Time.deltaTime);
                                 //transform.position += transform.forward * normalMoveSpeed * Time.deltaTime;

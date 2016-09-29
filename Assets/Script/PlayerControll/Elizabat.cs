@@ -12,7 +12,8 @@ public class Elizabat : MonoBehaviour {
     private bool ElizabatDecentOn;
     
     private Vector3 targetPosOnScreen;
-    //private RaycastHit hit;
+    private RaycastHit hit;
+    private Light light;
     //private Ray ray;
 
     public GameObject CameraChecker;
@@ -65,6 +66,8 @@ public class Elizabat : MonoBehaviour {
 
         Inputcommand = 0;
         currentNum = 0;
+
+        light = GetComponent<Light>();
 	}
 
     
@@ -139,7 +142,7 @@ public class Elizabat : MonoBehaviour {
                                 //    //Debug.Log("Camera Out : X " + targetPosOnScreen.x + ", Y " + targetPosOnScreen.y);
                                 //}
 
-                                if (!GameManager.Elizabat_CommandStart)
+                                if (!GameManager.Elizabat_CommandStart && !GameManager.Elizabat_SkillStart)
                                 {
                                     if (targetPosOnScreen.x > 0)
                                     {
@@ -220,20 +223,21 @@ public class Elizabat : MonoBehaviour {
 
                                     // 강하 공격 판정
                                     // hit는 레이가 부딪힌 물체의 정보를 가지고 있다. (위치, 판정 선 등등..)
-                                    //if (Physics.Raycast(MainCamera.transform.position, CameraChecker.transform.position, out hit, 30.0f))
+                                    //if (Physics.Raycast(MainCamera.transform.position, CameraChecker.transform.position.normalized, out hit, 30.0f))
                                     //{
 
-
+                                    //    hit.transform.position
                                     //}
 
-                                    Debug.DrawLine(MainCamera.transform.position, CameraChecker.transform.position, Color.red, 5f);
+                                    Debug.DrawRay(MainCamera.transform.position, CameraChecker.transform.position.normalized, Color.blue, 5.0f);
+                                    Debug.DrawLine(MainCamera.transform.position, CameraChecker.transform.position, Color.red, 5.0f);
                                     //print(hit.transform.position);
 
                                     if(ElizabatDecentOn)
                                     {
                                         ElizabatDecentOn = false;
 
-                                        float Dis = Vector3.Distance(CameraChecker.transform.position, MainCamera.transform.position);
+                                        //float Dis = Vector3.Distance(CameraChecker.transform.position, MainCamera.transform.position);
 
                                         StartCoroutine(DecentAttack(MainCamera.transform, CameraChecker, 10.0f));
                                         //StartCoroutine(MoveDown(MainCamera.transform, Dis, 10.0f));
@@ -440,11 +444,14 @@ public class Elizabat : MonoBehaviour {
         float rate = 1.0f / Mathf.Abs(startPos - endPos) * speed;
         float t = 0.0f;
 
+        //this.transform.LookAt()
+
         while (t < 1.0f)
         {
             t += Time.deltaTime * rate;
             Vector3 pos = thisTransform.position;
             pos.y = Mathf.Lerp(startPos, endPos, t);
+            
             thisTransform.position = pos;
 
             //yield return 0;
@@ -459,6 +466,7 @@ public class Elizabat : MonoBehaviour {
             t += Time.deltaTime * rate;
             Vector3 pos = thisTransform.position;
             pos.y = Mathf.Lerp(endPos, startPos, t);
+            
             thisTransform.position = pos;
 
     
@@ -476,42 +484,78 @@ public class Elizabat : MonoBehaviour {
     // 강하 공격
     IEnumerator DecentAttack(Transform thisTransform, GameObject Target, float speed)
     {
-        float startPos = thisTransform.position.y;
-        float endPos = Target.transform.position.y;
-        float rate = 1.0f / Mathf.Abs(startPos - endPos) * speed;
+        float startPos_Y = thisTransform.position.y;
+        float endPos_Y = Target.transform.position.y;
+        float startPos_Z = thisTransform.position.z;
+        float endPos_Z = Target.transform.position.z;
+        float startPos_X = thisTransform.position.x;
+        float endPos_X = Target.transform.position.x;
+
+        float rate = 1.0f / Mathf.Abs(startPos_Y - endPos_Y) * speed;
         float t = 0.0f;
 
-        thisTransform.LookAt(Target.transform.position);
+        //thisTransform.LookAt(Target.transform.position);
 
-        while (t < 1.0f)
+        // 강하 공격 판정
+        // hit는 레이가 부딪힌 물체의 정보를 가지고 있다. (위치, 판정 선 등등..)
+        if(Physics.Linecast(MainCamera.transform.position, CameraChecker.transform.position, out hit))
         {
-            t += Time.deltaTime * rate;
-            Vector3 pos = thisTransform.position;
-            pos.y = Mathf.Lerp(startPos, endPos, t);
-            thisTransform.position = pos;
+            if (hit.collider.tag.Equals("Walls"))
+            {
+                print("Ground");
+                //hit.collider.gameObject.GetComponent<Enemy>().HP -= 10;
+            }
 
-            //yield return 0;
+            //if(hit.collider.tag.Equals("Enemy"))
+            //{
+            //    print("Enemy Hit");
+            //    hit.collider.gameObject.GetComponent<Enemy>().HP -= 10;
+            //}
         }
 
-        if (t >= 1.0f)
-            t = 0.0f;
+        light.range = 0;
 
+        while (t < 1.0f)
+        {
+            if (Physics.Linecast(MainCamera.transform.position, CameraChecker.transform.position, out hit))
+            {
+                if (hit.collider.tag.Equals("Walls"))
+                {
+                    
+                    break;
+                }
+            }
+
+            t += Time.deltaTime * rate;
+            Vector3 pos = thisTransform.position;
+            pos.y = Mathf.Lerp(startPos_Y, endPos_Y, t);
+            pos.z = Mathf.Lerp(startPos_Z, endPos_Z, t);
+            pos.x = Mathf.Lerp(startPos_X, endPos_X, t);
+            thisTransform.position = pos;
+
+
+            //print("Pos : " + pos);
+
+        }
+
+        t = 0.0f;
 
         while (t < 1.0f)
         {
             t += Time.deltaTime * rate;
             Vector3 pos = thisTransform.position;
-            pos.y = Mathf.Lerp(endPos, startPos, t);
+            pos.y = Mathf.Lerp(endPos_Y, startPos_Y, t);
+            pos.z = Mathf.Lerp(endPos_Z, startPos_Z, t);
+            pos.x = Mathf.Lerp(endPos_X, startPos_X, t);
             thisTransform.position = pos;
 
 
             yield return 0;
         }
 
-
         ElizabatDecentOn = true;
         GameManager.Elizabat_SkillStart = false;
-
+        light.range = 200;
         //yield return 1;
 
     }
