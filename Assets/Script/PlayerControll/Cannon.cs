@@ -61,6 +61,7 @@ public class Cannon : MonoBehaviour {
                                 // 마우스 작업
 
                                 TargetDis = Vector3.Distance(CrossHair_Icon.transform.position, Cannons[0].transform.position);
+
                                 if (Input.GetKey(KeyCode.LeftArrow))
                                 {
 
@@ -95,7 +96,8 @@ public class Cannon : MonoBehaviour {
                                     //CrossHair_Icon.transform.position += new Vector3(0, hit.normal.y, -1) * normalMoveSpeed * Time.deltaTime;
                                 }
 
-                                print(this.transform.rotation.eulerAngles);
+                                //print(this.transform.rotation.eulerAngles);
+                                print(TargetDis);
                                // print("Cannons[0].rotation.x : " + Cannons[0].transform.eulerAngles.x);
                                 //print("Cannons[0].rotation.y : " + Cannons[0].transform.eulerAngles.y);
                                 //print("Cannons[0].rotation.z : " + Cannons[0].transform.eulerAngles.z);
