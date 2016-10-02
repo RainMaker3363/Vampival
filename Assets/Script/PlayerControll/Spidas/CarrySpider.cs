@@ -65,19 +65,21 @@ public class CarrySpider : MonoBehaviour {
 
                                 if (Input.GetKey(KeyCode.I))
                                 {
-                                    Dir = (Look.transform.position - this.transform.position).normalized;
-                                    transform.position += Dir * normalMoveSpeed * Time.deltaTime;
+                                    //Dir = (Look.transform.position - this.transform.position).normalized;
+                                    //transform.position += Dir * normalMoveSpeed * Time.deltaTime;
 
-                                    transform.position += new Vector3(-0.05f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
+                                    //transform.position += new Vector3(-0.05f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
 
+                                    transform.Translate(new Vector3(-1.5f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime);
                                 }
                                 if (Input.GetKey(KeyCode.K))
                                 {
-                                    Dir = (Look.transform.position - this.transform.position).normalized;
-                                    transform.position -= Dir * normalMoveSpeed * Time.deltaTime;
+                                    //Dir = (Look.transform.position - this.transform.position).normalized;
+                                    //transform.position -= Dir * normalMoveSpeed * Time.deltaTime;
 
-                                    transform.position += new Vector3(0.05f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
+                                    //transform.position += new Vector3(0.05f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
 
+                                    transform.Translate(new Vector3(1.5f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime);
                                 }
                                 if (Input.GetKey(KeyCode.J))
                                 {
