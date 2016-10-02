@@ -12,8 +12,10 @@ public class FlyingCam : MonoBehaviour {
 
 
     public GameObject MainCameraChecker;
-    
+    //public GameObject CameraDir;
+
     private Vector3 CameraCheck;
+    private float Direction;
 
     private float rotationX = 0.0f;
     private float rotationY = 0.0f;
@@ -55,7 +57,7 @@ public class FlyingCam : MonoBehaviour {
                     // 마우스 작업
 
                     CameraCheck = Camera.main.WorldToScreenPoint(MainCameraChecker.transform.position);
-
+                    //Direction = Vector3.Distance(this.gameObject.transform.position, CameraDir.transform.position);
 
                     if ((!GameManager.Elizabat_CommandStart) && !GameManager.Elizabat_SkillStart)
                     {
@@ -63,7 +65,7 @@ public class FlyingCam : MonoBehaviour {
                         {
                             if (Input.GetKey(KeyCode.A))
                             {
-                                transform.Translate(new Vector3(-1, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                transform.Translate(new Vector3(-2, 0, 0) * normalMoveSpeed * Time.deltaTime);
                                 MainCameraChecker.transform.Translate(new Vector3(-1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime);
                                 //NowCurrentCoordX -= (CameraMovingPoint * Time.deltaTime);
                             }
@@ -73,7 +75,7 @@ public class FlyingCam : MonoBehaviour {
                         {
                             if (Input.GetKey(KeyCode.D))
                             {
-                                transform.Translate(new Vector3(1, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                transform.Translate(new Vector3(2, 0, 0) * normalMoveSpeed * Time.deltaTime);
                                 MainCameraChecker.transform.Translate(new Vector3(1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime);
                                 //NowCurrentCoordX += (CameraMovingPoint * Time.deltaTime);
                                 //transform.position += (-1 * transform.forward) * normalMoveSpeed * Time.deltaTime;

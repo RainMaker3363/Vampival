@@ -187,12 +187,12 @@ public class CarrySpider : MonoBehaviour {
 	  
 	}
 
-    //void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.transform.tag == "CannonBall")
-    //    {
-    //        print("Friendly Fire!!");
-    //    }
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.tag == "CannonBall")
+        {
+            print("Friendly Fire!!");
+        }
 
-    //}
+    }
 }

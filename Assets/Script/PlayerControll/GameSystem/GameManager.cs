@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+// 게임 상태 값
 public enum GameState
 {
     GameIntro = 0,
@@ -15,6 +16,15 @@ public enum ViewControllMode
     GamePad,
     Mouse
 };
+
+// 조작할 대포 번호
+public enum CannonNumber : short
+{
+    First = 1,
+    Second,
+    Third,
+    Fourth
+}
 
 public class GameManager : MonoBehaviour {
 
@@ -34,10 +44,34 @@ public class GameManager : MonoBehaviour {
     // 게임이 진행됨에 따라 빛의 농도를 바꿔준다.
     private float GameTimer;
 
+    //===============================================================================================================================
+    // 1P 엘리자벳의 조작
+    //===============================================================================================================================
+    
     // 커맨드 입력 On / OFF 여부
     static public bool Elizabat_CommandStart;
     static public bool Elizabat_SkillStart;
 
+    static public bool Elizabat_Decent_On;
+    static public bool Elizabat_Eclipse_On;
+    static public bool Elizabat_Swarm_On;
+    static public bool Elizabat_SonicWave_On;
+
+    //===============================================================================================================================
+    // 2P 카론의 조작
+    //===============================================================================================================================
+
+    // 현재 조작하는 대포의 번호
+    static public CannonNumber CannonControl_Number;
+
+
+    //===============================================================================================================================
+    // 3P 스피다스의 조작
+    //===============================================================================================================================
+
+    //===============================================================================================================================
+    // 게임 설정 값
+    //===============================================================================================================================
     static public GameState Gamestate;
     static public ViewControllMode ViewMode;
 
@@ -46,6 +80,7 @@ public class GameManager : MonoBehaviour {
     
     // 함락도 수치 (게임 패배 조건)
     static public int Capture_Parameter;
+    private float Capture_Meter;
 
 
     void Awake()
@@ -62,8 +97,14 @@ public class GameManager : MonoBehaviour {
         Elizabat_CommandStart = false;
         Elizabat_SkillStart = false;
 
+        Elizabat_SonicWave_On = false;
+        Elizabat_Eclipse_On = false;
+        Elizabat_Decent_On = false;
+        Elizabat_Swarm_On = false;
+
         Gamestate = GameState.GameStart;
         ViewMode = ViewControllMode.Mouse;
+        CannonControl_Number = CannonNumber.First;
     }
 
 	// Update is called once per frame
@@ -76,6 +117,7 @@ public class GameManager : MonoBehaviour {
             else
                 ViewMode = ViewControllMode.GamePad;
         }
+
 
         switch(Gamestate)
         {
@@ -96,8 +138,15 @@ public class GameManager : MonoBehaviour {
                     }
                     else
                     {
-                        GameTimer += Time.deltaTime;
+                        if(Elizabat_Eclipse_On == false)
+                        {
+                            GameTimer += Time.deltaTime;
+                        }
+
                     }
+
+                    // 점령도 계산
+                    Capture_Meter = (Capture_Parameter * 0.5f);
 
                     // 리스폰 타이머
                     if (RespawnTimer <= 0.0f)
@@ -121,7 +170,33 @@ public class GameManager : MonoBehaviour {
 
                         //StartCoroutine(RespawnEnemy(NowLevel, EnemyType, EnemyLocation));
                     }
-                    
+
+
+
+                    if (Input.GetKeyDown(KeyCode.Alpha1))
+                    {
+                        if (CannonControl_Number > CannonNumber.First)
+                        {
+                            CannonControl_Number--;
+
+                        }
+                        else
+                        {
+                            CannonControl_Number = CannonNumber.Fourth;
+                        }
+
+                    }
+                    else if (Input.GetKeyDown(KeyCode.Alpha2))
+                    {
+                        if (CannonControl_Number < CannonNumber.Fourth)
+                        {
+                            CannonControl_Number++;
+                        }
+                        else
+                        {
+                            CannonControl_Number = CannonNumber.First;
+                        }
+                    }
                 }
                 break;
 

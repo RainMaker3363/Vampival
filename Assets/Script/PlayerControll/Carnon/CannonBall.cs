@@ -12,7 +12,7 @@ public class CannonBall : MonoBehaviour {
     public float normalMoveSpeed = 10;
     public float FastMoveSpeed = 40;
 
-    private float _angle = 18.0f;
+    private float _angle = 23.0f;
     private float dist;
 
     private Vector3 localVelocity;
@@ -192,7 +192,7 @@ public class CannonBall : MonoBehaviour {
         if (collision.transform.tag.Equals("Walls") == true)
         {
             //_rotate = false;
-            Destroy(this.gameObject, 0.5f);
+            //Destroy(this.gameObject, 0.5f);
         }
 
     }

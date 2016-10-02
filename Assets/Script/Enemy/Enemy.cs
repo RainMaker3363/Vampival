@@ -80,10 +80,18 @@ public class Enemy : MonoBehaviour {
                     targetPosOnScreen = Camera.main.WorldToScreenPoint(this.gameObject.transform.position);
 
                     // 화면 밖 처리
-                    if (targetPosOnScreen.x > Screen.width || targetPosOnScreen.x < 0 || targetPosOnScreen.y > Screen.height || targetPosOnScreen.y < 0)
-                    {
-                        EnemySpot.gameObject.SetActive(false);
-                        EnemyArrow.gameObject.SetActive(true);
+                    if ((targetPosOnScreen.x > Screen.width || targetPosOnScreen.x < 0 || targetPosOnScreen.y > Screen.height || targetPosOnScreen.y < 0))
+                     {
+                        if(GameManager.Elizabat_SonicWave_On == false)
+                        {
+                            EnemySpot.gameObject.SetActive(false);
+                            EnemyArrow.gameObject.SetActive(true);
+                        }
+                        else
+                        {
+                            EnemySpot.gameObject.SetActive(true);
+                            EnemyArrow.gameObject.SetActive(true);
+                        }
 
                         center = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
 
@@ -114,32 +122,40 @@ public class Enemy : MonoBehaviour {
                         EnemyArrow.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(0, 0, 10));
                         EnemyArrow.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
 
-                        //if (targetPosOnScreen.x > Screen.width)
-                        //{
-                        //    EnemyArrow.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(-25, 0, 10));
-                        //    EnemyArrow.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
-                        //}
-                        //else if (targetPosOnScreen.x < 0)
-                        //{
-                        //    EnemyArrow.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(25, 0, 10));
-                        //    EnemyArrow.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
-                        //}
-                        //else if (targetPosOnScreen.y > Screen.height)
-                        //{
-                        //    EnemyArrow.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(0, -25, 10));
-                        //    EnemyArrow.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
-                        //}
-                        //else if (targetPosOnScreen.y < 0)
-                        //{
-                        //    EnemyArrow.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(0, 25, 10));
-                        //    EnemyArrow.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
-                        //}
+                         //if (targetPosOnScreen.x > Screen.width)
+                         //{
+                         //    EnemyArrow.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(-25, 0, 10));
+                         //    EnemyArrow.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
+                         //}
+                         //else if (targetPosOnScreen.x < 0)
+                         //{
+                         //    EnemyArrow.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(25, 0, 10));
+                         //    EnemyArrow.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
+                         //}
+                         //else if (targetPosOnScreen.y > Screen.height)
+                         //{
+                         //    EnemyArrow.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(0, -25, 10));
+                         //    EnemyArrow.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
+                         //}
+                         //else if (targetPosOnScreen.y < 0)
+                         //{
+                         //    EnemyArrow.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(0, 25, 10));
+                         //    EnemyArrow.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
+                         //}
                     }
                     else
                     {
+                        if (GameManager.Elizabat_SonicWave_On == false)
+                        {
+                            EnemySpot.gameObject.SetActive(true);
+                            EnemyArrow.gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            EnemySpot.gameObject.SetActive(true);
+                            EnemyArrow.gameObject.SetActive(true);
+                        }
 
-                        EnemySpot.gameObject.SetActive(true);
-                        EnemyArrow.gameObject.SetActive(false);
                     }
 
                     //Controller.Move(new Vector3(1, 0, 1) * Time.deltaTime);
@@ -173,8 +189,12 @@ public class Enemy : MonoBehaviour {
     void OnTriggerEnter(Collider other)
     {
         if (other.transform.tag.Equals("AttackPoint") == true)
-        { 
-            //print("Attacked Castle !!");
+        {
+
+            GameManager.Capture_Parameter += 1;
+
+            Destroy(this.gameObject);
+
         }
 
         if (other.transform.tag.Equals("Elizabat") == true)
@@ -182,15 +202,17 @@ public class Enemy : MonoBehaviour {
             print("Elizabat Attack!!");
         }
 
+     
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.transform.tag.Equals("CannonBall") == true) 
+
+        if (collision.transform.tag.Equals("CannonBall") == true)
         {
             //print("Hit !!");
 
-            if(HP > 0)
+            if (HP > 0)
             {
                 HP -= 10;
             }

@@ -20,6 +20,8 @@ public class Cannon : MonoBehaviour {
 	void Start () {
         ViewMode = GameManager.ViewMode;
         Gamestate = GameManager.Gamestate;
+        
+        //Cannons[0].transform.LookAt(new Vector3(Dummy.transform.position.x, Cannons[0].transform.position.y, Dummy.transform.position.z));
 	}
 	
 	// Update is called once per frame
@@ -62,11 +64,13 @@ public class Cannon : MonoBehaviour {
 
                                 TargetDis = Vector3.Distance(CrossHair_Icon.transform.position, Cannons[0].transform.position);
 
+                                //this.transform.LookAt(new Vector3(CrossHair_Icon.transform.position.x, 0, CrossHair_Icon.transform.position.z));
+
                                 if (Input.GetKey(KeyCode.LeftArrow))
                                 {
 
                                     this.transform.Rotate(new Vector3(0, 0, -90), 35 * Time.deltaTime);
-                                    Cannons[0].transform.Rotate(new Vector3(0, 0, -90), 35 * Time.deltaTime);
+                                    //Cannons[0].transform.Rotate(new Vector3(0, 0, -90), 35 * Time.deltaTime);
 
                                     //CrossHair_Icon.transform.position += new Vector3(-1.8f, 0, 0) * normalMoveSpeed * Time.deltaTime;
                                     //CrossHair_Icon.transform.position += new Vector3(-1, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
@@ -75,29 +79,40 @@ public class Cannon : MonoBehaviour {
                                 if (Input.GetKey(KeyCode.RightArrow))
                                 {
                                     this.transform.Rotate(new Vector3(0, 0, 90), 35 * Time.deltaTime);
-                                    Cannons[0].transform.Rotate(new Vector3(0, 0, 90), 35 * Time.deltaTime);
+                                    //Cannons[0].transform.Rotate(new Vector3(0, 0, 90), 35 * Time.deltaTime);
                                     
                                     //CrossHair_Icon.transform.position += new Vector3(1.8f, 0, 0) * normalMoveSpeed * Time.deltaTime;
                                     //CrossHair_Icon.transform.position += new Vector3(1, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
 
                                 }
+
                                 if (Input.GetKey(KeyCode.DownArrow))
                                 {
-                                    Cannons[0].transform.Rotate(new Vector3(-90, 0, 0), 30 * Time.deltaTime);
+                                    if (TargetDis <= 73.0f)
+                                    {
+                                        Cannons[0].transform.Rotate(new Vector3(-90, 0, 0), 30 * Time.deltaTime);
 
-                                    CrossHair_Icon.transform.position += new Vector3(0, 0, 2.5f) * normalMoveSpeed * Time.deltaTime;
+                                        CrossHair_Icon.transform.Translate(new Vector3(0, 2.5f, 0) * normalMoveSpeed * Time.deltaTime);
+                                    }
+
                                    // CrossHair_Icon.transform.position += new Vector3(0, hit.normal.y, 1) * normalMoveSpeed * Time.deltaTime;
                                 }
                                 if (Input.GetKey(KeyCode.UpArrow))
                                 {
-                                    Cannons[0].transform.Rotate(new Vector3(90, 0, 0), 30 * Time.deltaTime);
+                                    if (TargetDis >= 36.0f)
+                                    {
+                                        Cannons[0].transform.Rotate(new Vector3(90, 0, 0), 30 * Time.deltaTime);
 
-                                    CrossHair_Icon.transform.position += new Vector3(0, 0, -2.5f) * normalMoveSpeed * Time.deltaTime;
-                                    //CrossHair_Icon.transform.position += new Vector3(0, hit.normal.y, -1) * normalMoveSpeed * Time.deltaTime;
+                                        CrossHair_Icon.transform.Translate(new Vector3(0, -2.5f, 0) * normalMoveSpeed * Time.deltaTime);
+                                        //CrossHair_Icon.transform.position += new Vector3(0, hit.normal.y, -1) * normalMoveSpeed * Time.deltaTime;
+                                    }
+
                                 }
 
+
+
                                 //print(this.transform.rotation.eulerAngles);
-                                print(TargetDis);
+                                //print(TargetDis);
                                // print("Cannons[0].rotation.x : " + Cannons[0].transform.eulerAngles.x);
                                 //print("Cannons[0].rotation.y : " + Cannons[0].transform.eulerAngles.y);
                                 //print("Cannons[0].rotation.z : " + Cannons[0].transform.eulerAngles.z);

@@ -34,7 +34,7 @@ public class EnemyCorpse : MonoBehaviour {
             Destroy(this.gameObject, 2.0f);
 
 
-            this.gameObject.tag = "Untagged";
+            //this.gameObject.tag = "Untagged";
             col.enabled = false;
             rigid.useGravity = false;
         }
