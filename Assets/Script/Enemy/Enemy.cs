@@ -11,13 +11,6 @@ public class Enemy : MonoBehaviour {
     public GameObject EnemySpot;
     public GameObject EnemyArrow;
 
-    private enum EnemyState
-    {
-        Idle,
-        Run,
-        Dead
-    }
-
     private EnemyState enemystate;
     private GameState Gamestate;
 

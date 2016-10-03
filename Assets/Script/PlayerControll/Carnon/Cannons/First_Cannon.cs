@@ -72,7 +72,7 @@ public class First_Cannon : MonoBehaviour {
                                 {
                                     case CannonNumber.First:
                                         {
-                                            this.gameObject.SetActive(true);
+                                            CrossHair_Icon.gameObject.SetActive(true);
 
                                             //Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, 100);
                                             //Vector3 direction = new Vector3(hit.normal.x, hit.normal.y * 1, hit.normal.z);
@@ -116,7 +116,7 @@ public class First_Cannon : MonoBehaviour {
                                             }
                                             if (Input.GetKey(KeyCode.UpArrow))
                                             {
-                                                if (TargetDis >= 36.0f)
+                                                if (TargetDis >= 45.0f)
                                                 {
                                                     Cannons[0].transform.Rotate(new Vector3(90, 0, 0), 30 * Time.deltaTime);
 
@@ -128,7 +128,7 @@ public class First_Cannon : MonoBehaviour {
 
 
                                             //print(this.transform.rotation.eulerAngles);
-                                            //print(TargetDis);
+                                            print(TargetDis);
                                             // print("Cannons[0].rotation.x : " + Cannons[0].transform.eulerAngles.x);
                                             //print("Cannons[0].rotation.y : " + Cannons[0].transform.eulerAngles.y);
                                             //print("Cannons[0].rotation.z : " + Cannons[0].transform.eulerAngles.z);
@@ -178,19 +178,19 @@ public class First_Cannon : MonoBehaviour {
 
                                     case CannonNumber.Second:
                                         {
-                                            this.gameObject.SetActive(false);
+                                            CrossHair_Icon.gameObject.SetActive(false);
                                         }
                                         break;
 
                                     case CannonNumber.Third:
                                         {
-                                            this.gameObject.SetActive(false);
+                                            CrossHair_Icon.gameObject.SetActive(false);
                                         }
                                         break;
 
                                     case CannonNumber.Fourth:
                                         {
-                                            this.gameObject.SetActive(false);
+                                            CrossHair_Icon.gameObject.SetActive(false);
                                         }
                                         break;
                                 }
@@ -204,7 +204,7 @@ public class First_Cannon : MonoBehaviour {
                                 {
                                     case CannonNumber.First:
                                         {
-                                            this.gameObject.SetActive(true);
+                                            CrossHair_Icon.gameObject.SetActive(true);
 
                                             // 게임 패드 작업
 
@@ -257,19 +257,19 @@ public class First_Cannon : MonoBehaviour {
 
                                     case CannonNumber.Second:
                                         {
-                                            this.gameObject.SetActive(false);
+                                            CrossHair_Icon.gameObject.SetActive(false);
                                         }
                                         break;
 
                                     case CannonNumber.Third:
                                         {
-                                            this.gameObject.SetActive(false);
+                                            CrossHair_Icon.gameObject.SetActive(false);
                                         }
                                         break;
 
                                     case CannonNumber.Fourth:
                                         {
-                                            this.gameObject.SetActive(false);
+                                            CrossHair_Icon.gameObject.SetActive(false);
                                         }
                                         break;
                                 }

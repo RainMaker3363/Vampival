@@ -93,25 +93,25 @@ public class Fourth_Trajectory : MonoBehaviour {
                                 {
                                     case CannonNumber.First:
                                         {
-                                            this.gameObject.SetActive(false);
+                                            lineRenderer.enabled = false;
                                         }
                                         break;
 
                                     case CannonNumber.Second:
                                         {
-                                            this.gameObject.SetActive(false);
+                                            lineRenderer.enabled = false;
                                         }
                                         break;
 
                                     case CannonNumber.Third:
                                         {
-                                            this.gameObject.SetActive(false);
+                                            lineRenderer.enabled = false;
                                         }
                                         break;
 
                                     case CannonNumber.Fourth:
                                         {
-                                            this.gameObject.SetActive(true);
+                                           lineRenderer.enabled = true;
 
                                             // 마우스 작업
 
@@ -245,25 +245,25 @@ public class Fourth_Trajectory : MonoBehaviour {
                                 {
                                     case CannonNumber.First:
                                         {
-                                            this.gameObject.SetActive(false);
+                                            lineRenderer.enabled = false;
                                         }
                                         break;
 
                                     case CannonNumber.Second:
                                         {
-                                            this.gameObject.SetActive(false);
+                                            lineRenderer.enabled = false;
                                         }
                                         break;
 
                                     case CannonNumber.Third:
                                         {
-                                            this.gameObject.SetActive(false);
+                                           lineRenderer.enabled = false;
                                         }
                                         break;
 
                                     case CannonNumber.Fourth:
                                         {
-                                            this.gameObject.SetActive(true);
+                                           lineRenderer.enabled = true;
 
                                             // 게임 패드 작업
 

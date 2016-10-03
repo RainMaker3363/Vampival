@@ -21,6 +21,8 @@ public class CannonBall : MonoBehaviour {
     private bool IsFire;
     private bool _rotate;
 
+    ParticleSystem.Particle[] unused = new ParticleSystem.Particle[1];
+
     public GameObject AimTarget;
     public GameObject CannonPoint;
 
@@ -40,6 +42,16 @@ public class CannonBall : MonoBehaviour {
 
 	}
 	
+    void Awake()
+    {
+        GetComponent<ParticleSystemRenderer>().enabled = false;
+    }
+
+    void LateUpdate()
+    {
+        GetComponent<ParticleSystemRenderer>().enabled = GetComponent<ParticleSystem>().GetParticles(unused) > 0;
+    }
+
 	// Update is called once per frame
 	void Update () 
     {
@@ -186,13 +198,13 @@ public class CannonBall : MonoBehaviour {
         if (collision.transform.tag.Equals("Enemy") == true)
         {
             //_rotate = false;
-            Destroy(this.gameObject);
+            Destroy(this.gameObject, 0.2f);
         }
 
         if (collision.transform.tag.Equals("Walls") == true)
         {
             //_rotate = false;
-            //Destroy(this.gameObject, 0.5f);
+            Destroy(this.gameObject, 0.2f);
         }
 
     }

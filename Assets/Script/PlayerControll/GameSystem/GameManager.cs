@@ -18,7 +18,7 @@ public enum ViewControllMode
 };
 
 // 조작할 대포 번호
-public enum CannonNumber : short
+public enum CannonNumber
 {
     First = 1,
     Second,
@@ -26,23 +26,20 @@ public enum CannonNumber : short
     Fourth
 }
 
+// 적들 상태 값
+public enum EnemyState
+{
+    Idle = 0,
+    Run,
+    Dead,
+    Stun,
+    Detect
+}
+
 public class GameManager : MonoBehaviour {
 
     public Transform[] RespawnPoint;
     public GameObject[] Enemies;
-
-    /// <summary>
-    // 공포도의 영향을 줄 빛
-    /// </summary>
-    public Light light;
-
-    private bool SpawnOn;
-
-    private int NowLevel;
-    private float RespawnTimer;
-
-    // 게임이 진행됨에 따라 빛의 농도를 바꿔준다.
-    private float GameTimer;
 
     //===============================================================================================================================
     // 1P 엘리자벳의 조작
@@ -74,6 +71,19 @@ public class GameManager : MonoBehaviour {
     //===============================================================================================================================
     static public GameState Gamestate;
     static public ViewControllMode ViewMode;
+
+    /// <summary>
+    // 공포도의 영향을 줄 빛
+    /// </summary>
+    public Light light;
+
+    private bool SpawnOn;
+
+    private int NowLevel;
+    private float RespawnTimer;
+
+    // 게임이 진행됨에 따라 빛의 농도를 바꿔준다.
+    private float GameTimer;
 
     // 공포도 수치 (게임 승패 조건)
     static public int Fear_Parameter;
@@ -151,7 +161,7 @@ public class GameManager : MonoBehaviour {
                     // 리스폰 타이머
                     if (RespawnTimer <= 0.0f)
                     {
-                        RespawnTimer = 2.5f;
+                        RespawnTimer = 3.0f;
 
                         SpawnOn = true;
                     }
@@ -165,10 +175,10 @@ public class GameManager : MonoBehaviour {
                     {
                         SpawnOn = false;
 
-                        int EnemyType = Random.Range(0, 4);
+                        int EnemyType = Random.Range(0, 1);
                         int EnemyLocation = Random.Range(0, 4);
 
-                        //StartCoroutine(RespawnEnemy(NowLevel, EnemyType, EnemyLocation));
+                        StartCoroutine(RespawnEnemy(NowLevel, EnemyType, EnemyLocation));
                     }
 
 

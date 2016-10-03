@@ -70,7 +70,7 @@ public class CarrySpider : MonoBehaviour {
 
                                     //transform.position += new Vector3(-0.05f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
 
-                                    transform.Translate(new Vector3(-1.5f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime);
+                                    transform.Translate(new Vector3(-2.5f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime);
                                 }
                                 if (Input.GetKey(KeyCode.K))
                                 {
@@ -79,16 +79,16 @@ public class CarrySpider : MonoBehaviour {
 
                                     //transform.position += new Vector3(0.05f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
 
-                                    transform.Translate(new Vector3(1.5f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime);
+                                    transform.Translate(new Vector3(2.5f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime);
                                 }
                                 if (Input.GetKey(KeyCode.J))
                                 {
-                                    this.transform.Rotate(new Vector3(0, -180, 0), 110 * Time.deltaTime);
+                                    this.transform.Rotate(new Vector3(0, -180, 0), 140 * Time.deltaTime);
                                     //transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
                                 }
                                 if (Input.GetKey(KeyCode.L))
                                 {
-                                    this.transform.Rotate(new Vector3(0, -180, 0), -110 * Time.deltaTime);
+                                    this.transform.Rotate(new Vector3(0, -180, 0), -140 * Time.deltaTime);
                                     //transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
                                 }
 
