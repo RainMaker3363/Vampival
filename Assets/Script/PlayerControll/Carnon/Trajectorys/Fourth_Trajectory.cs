@@ -116,7 +116,7 @@ public class Fourth_Trajectory : MonoBehaviour {
                                             // 마우스 작업
 
                                             // 발사 주기 체크
-                                            if (FireTimer >= 0.75)
+                                            if (FireTimer >= 0.75f)
                                             {
                                                 FireReady = true;
                                                 FireTimer = 0.0f;

@@ -105,7 +105,9 @@ public class First_Cannon : MonoBehaviour {
 
                                             if (Input.GetKey(KeyCode.DownArrow))
                                             {
-                                                if (TargetDis <= 73.0f)
+
+                                                // BackUp = 73.0f
+                                                if (TargetDis <= 85.0f)
                                                 {
                                                     Cannons[0].transform.Rotate(new Vector3(-90, 0, 0), 30 * Time.deltaTime);
 
@@ -128,7 +130,7 @@ public class First_Cannon : MonoBehaviour {
 
 
                                             //print(this.transform.rotation.eulerAngles);
-                                            print(TargetDis);
+                                            //print(TargetDis);
                                             // print("Cannons[0].rotation.x : " + Cannons[0].transform.eulerAngles.x);
                                             //print("Cannons[0].rotation.y : " + Cannons[0].transform.eulerAngles.y);
                                             //print("Cannons[0].rotation.z : " + Cannons[0].transform.eulerAngles.z);

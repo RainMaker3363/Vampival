@@ -5,6 +5,8 @@ public class Enemy_Militia : MonoBehaviour {
 
     NavMeshAgent Agent;
 
+    //private Rigidbody rigid;
+
     public GameObject Corpse;
     public GameObject Target;
     public GameObject Spidas;
@@ -15,6 +17,7 @@ public class Enemy_Militia : MonoBehaviour {
     private EnemyState enemystate;
     private GameState Gamestate;
 
+    private Vector3 StartPos = Vector3.zero;
     private Vector3 targetPosOnScreen;
     private Vector3 center;
     private float angle;
@@ -30,13 +33,20 @@ public class Enemy_Militia : MonoBehaviour {
 
     void Awake()
     {
-        Agent = GetComponent<NavMeshAgent>();
+
+        
+        //rigid = GetComponent<Rigidbody>();
 
         EnemySpot.gameObject.SetActive(false);
         EnemyArrow.gameObject.SetActive(false);
 
-        Target = GameObject.FindWithTag("AttackPoint");
-        Spidas = GameObject.FindWithTag("Spidas");
+        if (Target == null || Spidas == null)
+        {
+            Target = GameObject.FindWithTag("AttackPoint");
+            Spidas = GameObject.FindWithTag("Spidas");
+        }
+
+        Corpse.SetActive(false);
 
         enemystate = EnemyState.Run;
         Gamestate = GameManager.Gamestate;
@@ -49,11 +59,69 @@ public class Enemy_Militia : MonoBehaviour {
 
         //Agent.destination = new Vector3(Target.transform.position.x, Target.transform.position.y, Target.transform.position.z);
 
+        if(StartPos == Vector3.zero)
+        {
+            // 현재 시작 값
+            StartPos = this.transform.position;
+        }
 
 
-        Agent.enabled = true;
+        if (Agent == null)
+        {
+            Agent = GetComponent<NavMeshAgent>();
+        }
+        else
+        {
+            Agent.enabled = true;
 
-        Agent.destination = new Vector3(Target.transform.position.x, Target.transform.position.y, Target.transform.position.z);
+            Agent.destination = new Vector3(Target.transform.position.x, Target.transform.position.y, Target.transform.position.z);
+        }
+
+
+        print("StartPos : " + StartPos);
+        print("Agent.destination : " + Agent.destination);
+        print("Active : " + this.enabled);
+
+        this.gameObject.SetActive(false);
+    }
+
+    void OnEnable()
+    {
+        if(Target == null || Spidas == null)
+        {
+            Target = GameObject.FindWithTag("AttackPoint");
+            Spidas = GameObject.FindWithTag("Spidas");
+        }
+
+
+        HP = 10;
+        AttackPoint = 10;
+
+        EnemySpot.gameObject.SetActive(false);
+        EnemyArrow.gameObject.SetActive(false);
+
+        enemystate = EnemyState.Run;
+        Gamestate = GameManager.Gamestate;
+
+        this.transform.position = StartPos;
+        Corpse.SetActive(false);
+
+        if (Agent == null)
+        {
+            Agent = GetComponent<NavMeshAgent>();
+        }
+        else
+        {
+            Agent.enabled = true;
+
+            Agent.destination = new Vector3(Target.transform.position.x, Target.transform.position.y, Target.transform.position.z);
+        }
+
+
+        print("StartPos : " + StartPos);
+        print("Agent.destination : " + Agent.destination);
+        print("Active : " + this.enabled);
+
     }
 
     // Update is called once per frame
@@ -90,14 +158,19 @@ public class Enemy_Militia : MonoBehaviour {
 
                                 //}
 
+
                                 //print("Distance : " + SpidasDistance);
 
                                 if (HP <= 0)
                                 {
-                                    Instantiate(Corpse, this.transform.position, Quaternion.identity);
-
+                                    //Instantiate(Corpse, this.transform.position, Quaternion.identity);
                                     Agent.enabled = false;
-                                    Destroy(this.gameObject);
+                                    
+                                    Corpse.gameObject.SetActive(true);
+                                    this.gameObject.SetActive(false);
+
+                                    
+                                    //Destroy(this.gameObject);
                                 }
 
                                 //print(Controller.isGrounded);
@@ -214,7 +287,7 @@ public class Enemy_Militia : MonoBehaviour {
 
                                 Agent.destination = new Vector3(Spidas.transform.position.x, Spidas.transform.position.y, Spidas.transform.position.z);
 
-                                print("Distance : " + SpidasDistance);
+                                //print("Distance : " + SpidasDistance);
 
                                 targetPosOnScreen = Camera.main.WorldToScreenPoint(this.gameObject.transform.position);
 
@@ -337,8 +410,10 @@ public class Enemy_Militia : MonoBehaviour {
         {
 
             GameManager.Capture_Parameter += 1;
+            Agent.enabled = false;
 
-            Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
+            //Destroy(this.gameObject);
 
         }
 
@@ -366,9 +441,11 @@ public class Enemy_Militia : MonoBehaviour {
                 GameManager.Fear_Parameter += 1;
                 Agent.enabled = false;
 
-                Instantiate(Corpse, this.transform.position, Quaternion.identity);
+                //Instantiate(Corpse, this.transform.position, Quaternion.identity);
+                Corpse.gameObject.SetActive(true);
+                this.gameObject.SetActive(false);
 
-                Destroy(this.gameObject);
+                //Destroy(this.gameObject);
             }
 
         }
@@ -383,10 +460,14 @@ public class Enemy_Militia : MonoBehaviour {
             }
             else if (HP <= 0)
             {
-                Instantiate(Corpse, this.transform.position, Quaternion.identity);
+                //Instantiate(Corpse, this.transform.position, Quaternion.identity);
 
                 Agent.enabled = false;
-                Destroy(this.gameObject);
+
+                Corpse.gameObject.SetActive(true);
+                this.gameObject.SetActive(false);
+
+                //Destroy(this.gameObject);
             }
         }
     }

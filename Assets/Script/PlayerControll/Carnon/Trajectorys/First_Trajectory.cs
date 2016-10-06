@@ -24,7 +24,10 @@ public class First_Trajectory : MonoBehaviour {
 
 
     public GameObject AimTarget;
-    public GameObject CannonBall;
+    public GameObject[] CannonBalls;
+
+    private int CannonStack;
+    private int NowCannonIdx;
 
     void Start()
     {
@@ -39,6 +42,14 @@ public class First_Trajectory : MonoBehaviour {
         ViewMode = GameManager.ViewMode;
         Gamestate = GameManager.Gamestate;
         MyCannonNumber = GameManager.CannonControl_Number;
+
+        for(int i = 0; i<CannonBalls.Length; i++)
+        {
+            CannonBalls[i].SetActive(false);
+        }
+
+        CannonStack = 10;
+        NowCannonIdx = 0;
     }
 
     void OnEnable()
@@ -98,7 +109,7 @@ public class First_Trajectory : MonoBehaviour {
                                             // 마우스 작업
 
                                             // 발사 주기 체크
-                                            if (FireTimer >= 0.75)
+                                            if (FireTimer >= 0.75f)
                                             {
                                                 FireReady = true;
                                                 FireTimer = 0.0f;
@@ -108,10 +119,27 @@ public class First_Trajectory : MonoBehaviour {
                                                 FireTimer += Time.deltaTime;
                                             }
 
-                                            if (Input.GetKeyDown(KeyCode.Space) && FireReady)
+                                            if (Input.GetKeyDown(KeyCode.Space) && FireReady && (CannonStack > 0))
                                             {
                                                 FireReady = false;
-                                                Instantiate(CannonBall, this.transform.position, Quaternion.identity);
+
+                                                if(CannonBalls[NowCannonIdx].activeSelf == false)
+                                                {
+                                                    CannonBalls[NowCannonIdx].SetActive(true);
+                                                    
+
+                                                    if(NowCannonIdx >= CannonBalls.Length)
+                                                    {
+                                                        NowCannonIdx = 0;
+                                                    }
+                                                    else
+                                                    {
+                                                        NowCannonIdx += 1;
+                                                        CannonStack -= 1;
+                                                    }
+                                                }
+                                                
+                                                //Instantiate(CannonBall, this.transform.position, Quaternion.identity);
                                             }
 
                                             //if (null == Camera.main)
@@ -267,7 +295,7 @@ public class First_Trajectory : MonoBehaviour {
                                                 Debug.Log("Right Trigger!");
 
                                                 FireReady = false;
-                                                Instantiate(CannonBall, this.transform.position, Quaternion.identity);
+                                                //Instantiate(CannonBall, this.transform.position, Quaternion.identity);
                                             }
 
                                             if (Input.GetAxis("P2_360_Trigger") < 0 && FireReady)
@@ -276,7 +304,7 @@ public class First_Trajectory : MonoBehaviour {
                                                 Debug.Log("Left Trigger!");
 
                                                 FireReady = false;
-                                                Instantiate(CannonBall, this.transform.position, Quaternion.identity);
+                                                //Instantiate(CannonBall, this.transform.position, Quaternion.identity);
 
                                             }
 

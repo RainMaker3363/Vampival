@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 // 게임 상태 값
 public enum GameState
@@ -38,8 +39,13 @@ public enum EnemyState
 
 public class GameManager : MonoBehaviour {
 
+    //===============================================================================================================================
+    // 게임 레벨 디자인 설정 값
+    //===============================================================================================================================
+
     public Transform[] RespawnPoint;
     public GameObject[] Enemies;
+    public GameObject[] Militia_Enemies;
 
     //===============================================================================================================================
     // 1P 엘리자벳의 조작
@@ -104,6 +110,7 @@ public class GameManager : MonoBehaviour {
         GameTimer = 0.0f;
 
         light.intensity = 0.35f;
+        //light.intensity = 1f;
         Elizabat_CommandStart = false;
         Elizabat_SkillStart = false;
 
@@ -111,6 +118,7 @@ public class GameManager : MonoBehaviour {
         Elizabat_Eclipse_On = false;
         Elizabat_Decent_On = false;
         Elizabat_Swarm_On = false;
+
 
         Gamestate = GameState.GameStart;
         ViewMode = ViewControllMode.Mouse;
@@ -148,7 +156,7 @@ public class GameManager : MonoBehaviour {
                     }
                     else
                     {
-                        if(Elizabat_Eclipse_On == false)
+                        if (Elizabat_Eclipse_On == false)
                         {
                             GameTimer += Time.deltaTime;
                         }
@@ -224,10 +232,46 @@ public class GameManager : MonoBehaviour {
         {
             case 1:
                 {
-                    int Respawn_LerpX = Random.Range(-5, 6);
-                    int Respawn_LerpZ = Random.Range(-5, 6);
+                    //int Respawn_LerpX = Random.Range(-5, 6);
+                    //int Respawn_LerpZ = Random.Range(-5, 6);
 
-                    Instantiate(Enemies[Type], new Vector3(RespawnPoint[Location].position.x + Respawn_LerpX, RespawnPoint[Location].position.y, RespawnPoint[Location].position.z + Respawn_LerpZ), Quaternion.identity);
+                    //Instantiate(Enemies[Type], new Vector3(RespawnPoint[Location].position.x + Respawn_LerpX, RespawnPoint[Location].position.y, RespawnPoint[Location].position.z + Respawn_LerpZ), Quaternion.identity);
+
+                    int RespawnNumber = Random.Range(0, Militia_Enemies.Length);
+                    int SpawnCount = Level;
+
+                    print("RspawnNumber : " + RespawnNumber);
+                    
+
+                    for (int i = 0; i < (Level * 3); i++ )
+                    {
+                        if (Militia_Enemies[RespawnNumber].activeSelf == true)
+                        {
+                            RespawnNumber = Random.Range(0, Militia_Enemies.Length);
+
+                            print("Respawn Wait...");
+                        }
+                        else
+                        {
+                            Militia_Enemies[RespawnNumber].SetActive(true);
+
+                            SpawnCount -= 1;
+
+                            print("Respawning...");
+                            print("SpawnCount : " + SpawnCount);
+                        }
+                    }
+
+                    //for (int i = 0; i < Militia_Enemies.Length; i++)
+                    //{
+                    //    if(Militia_Enemies[i].GetComponent<Enemy_Militia>().enabled)
+                    //    {
+                    //        Militia_Enemies[i].SetActive(true);
+
+                    //        //break;
+                    //    }
+                    //}
+                    
                 }
                 break;
 

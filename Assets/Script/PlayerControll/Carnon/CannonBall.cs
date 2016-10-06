@@ -26,25 +26,66 @@ public class CannonBall : MonoBehaviour {
     public GameObject AimTarget;
     public GameObject CannonPoint;
 
-	// Use this for initialization
-	void Start () {
+    
+	
+    void Awake()
+    {
+        
 
         ViewMode = GameManager.ViewMode;
         Gamestate = GameManager.Gamestate;
 
-        Destroy(gameObject, 3.0f);
+        //Destroy(gameObject, 3.0f);
 
-        AimTarget = GameObject.FindWithTag("Cannon_CrossHair");
-        CannonPoint = GameObject.FindWithTag("Cannon");
+        if (AimTarget == null)
+        {
+            AimTarget = GameObject.FindWithTag("Cannon_CrossHair");
+        }
+
+        if (CannonPoint == null)
+        {
+            CannonPoint = GameObject.FindWithTag("Cannon");
+        }
 
         IsFire = false;
         _rotate = true;
 
-	}
-	
-    void Awake()
-    {
+        
+
         GetComponent<ParticleSystemRenderer>().enabled = false;
+    }
+
+    void OnEnable()
+    {
+
+        ViewMode = GameManager.ViewMode;
+        Gamestate = GameManager.Gamestate;
+
+        //Destroy(gameObject, 3.0f);
+
+        if(AimTarget == null)
+        {
+            AimTarget = GameObject.FindWithTag("Cannon_CrossHair");
+        }
+
+        if(CannonPoint == null)
+        {
+            CannonPoint = GameObject.FindWithTag("Cannon");
+        }
+        
+        IsFire = false;
+        _rotate = true;
+
+        
+
+        GetComponent<ParticleSystemRenderer>().enabled = false;
+    }
+
+    IEnumerator DeadOrAliveRoutin()
+    {
+        yield return new WaitForSeconds(3.0f);
+
+        this.gameObject.SetActive(false);
     }
 
     void LateUpdate()
@@ -113,7 +154,7 @@ public class CannonBall : MonoBehaviour {
                                 globalVelocity = transform.TransformVector(localVelocity);
 
                                 // launch the cube by setting its initial velocity
-                                GetComponent<Rigidbody>().velocity = globalVelocity;
+                                GetComponent<Rigidbody>().velocity = (globalVelocity * 2.0f);
 
                                 if (_rotate)
                                     transform.rotation = Quaternion.LookRotation(globalVelocity);
@@ -198,13 +239,16 @@ public class CannonBall : MonoBehaviour {
         if (collision.transform.tag.Equals("Enemy") == true)
         {
             //_rotate = false;
-            Destroy(this.gameObject, 0.2f);
+            //Destroy(this.gameObject, 0.2f);
+            this.gameObject.SetActive(false);
         }
 
         if (collision.transform.tag.Equals("Walls") == true)
         {
             //_rotate = false;
-            Destroy(this.gameObject, 0.2f);
+            //Destroy(this.gameObject, 0.2f);
+
+            this.gameObject.SetActive(false);
         }
 
     }
