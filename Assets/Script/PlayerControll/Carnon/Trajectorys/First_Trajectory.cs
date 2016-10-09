@@ -48,7 +48,7 @@ public class First_Trajectory : MonoBehaviour {
             CannonBalls[i].SetActive(false);
         }
 
-        CannonStack = 10;
+        CannonStack = 10;//CannonBalls.Length;
         NowCannonIdx = 0;
     }
 
@@ -109,7 +109,7 @@ public class First_Trajectory : MonoBehaviour {
                                             // 마우스 작업
 
                                             // 발사 주기 체크
-                                            if (FireTimer >= 0.75f)
+                                            if (FireTimer >= 1.25f)
                                             {
                                                 FireReady = true;
                                                 FireTimer = 0.0f;
@@ -119,26 +119,35 @@ public class First_Trajectory : MonoBehaviour {
                                                 FireTimer += Time.deltaTime;
                                             }
 
+                                            //print("NowCannonIdx : " + NowCannonIdx);
+
                                             if (Input.GetKeyDown(KeyCode.Space) && FireReady && (CannonStack > 0))
                                             {
                                                 FireReady = false;
 
-                                                if(CannonBalls[NowCannonIdx].activeSelf == false)
+                                                if (CannonBalls[NowCannonIdx].activeSelf == false)
                                                 {
-                                                    CannonBalls[NowCannonIdx].SetActive(true);
-                                                    
+                                                    //print("Cannon Go!!");
 
-                                                    if(NowCannonIdx >= CannonBalls.Length)
-                                                    {
-                                                        NowCannonIdx = 0;
-                                                    }
-                                                    else
-                                                    {
-                                                        NowCannonIdx += 1;
-                                                        CannonStack -= 1;
-                                                    }
+                                                    CannonBalls[NowCannonIdx].gameObject.transform.position = this.transform.position;
+                                                    CannonBalls[NowCannonIdx].SetActive(true);
                                                 }
-                                                
+
+                                                if (NowCannonIdx >= (CannonBalls.Length-1))
+                                                {
+                                                    NowCannonIdx = 0;
+                                                }
+                                                else
+                                                {
+
+                                                    NowCannonIdx++;
+                                                    //CannonStack--;
+                                                }
+
+
+
+                                                //print("CannonBalls.Length : " + CannonBalls.Length);
+                                                //print("CannonStack : " + CannonStack);
                                                 //Instantiate(CannonBall, this.transform.position, Quaternion.identity);
                                             }
 
@@ -295,6 +304,25 @@ public class First_Trajectory : MonoBehaviour {
                                                 Debug.Log("Right Trigger!");
 
                                                 FireReady = false;
+
+                                                if (CannonBalls[NowCannonIdx].activeSelf == false)
+                                                {
+                                                    print("Cannon Go!!");
+
+                                                    CannonBalls[NowCannonIdx].gameObject.transform.position = this.transform.position;
+                                                    CannonBalls[NowCannonIdx].SetActive(true);
+                                                }
+
+                                                if (NowCannonIdx >= (CannonBalls.Length - 1))
+                                                {
+                                                    NowCannonIdx = 0;
+                                                }
+                                                else
+                                                {
+
+                                                    NowCannonIdx++;
+                                                    //CannonStack--;
+                                                }
                                                 //Instantiate(CannonBall, this.transform.position, Quaternion.identity);
                                             }
 
@@ -304,9 +332,29 @@ public class First_Trajectory : MonoBehaviour {
                                                 Debug.Log("Left Trigger!");
 
                                                 FireReady = false;
+
+                                                if (CannonBalls[NowCannonIdx].activeSelf == false)
+                                                {
+                                                    print("Cannon Go!!");
+
+                                                    CannonBalls[NowCannonIdx].gameObject.transform.position = this.transform.position;
+                                                    CannonBalls[NowCannonIdx].SetActive(true);
+                                                }
+
+                                                if (NowCannonIdx >= (CannonBalls.Length - 1))
+                                                {
+                                                    NowCannonIdx = 0;
+                                                }
+                                                else
+                                                {
+
+                                                    NowCannonIdx++;
+                                                    //CannonStack--;
+                                                }
                                                 //Instantiate(CannonBall, this.transform.position, Quaternion.identity);
 
                                             }
+
 
                                             // Get the point along the ray that hits the calculated distance.			
                                             targetPoint = AimTarget.transform.position;//ray.GetPoint(hitdist);

@@ -24,7 +24,10 @@ public class Second_Trajectory : MonoBehaviour {
 
 
     public GameObject AimTarget;
-    public GameObject CannonBall;
+    public GameObject[] CannonBalls;
+
+    private int CannonStack;
+    private int NowCannonIdx;
 
     void Start()
     {
@@ -40,6 +43,14 @@ public class Second_Trajectory : MonoBehaviour {
         Gamestate = GameManager.Gamestate;
 
         MyCannonNumber = GameManager.CannonControl_Number;
+
+        for (int i = 0; i < CannonBalls.Length; i++)
+        {
+            CannonBalls[i].SetActive(false);
+        }
+
+        CannonStack = 10;//CannonBalls.Length;
+        NowCannonIdx = 0;
     }
 
     void OnEnable()
@@ -118,7 +129,25 @@ public class Second_Trajectory : MonoBehaviour {
                                             if (Input.GetKeyDown(KeyCode.Space) && FireReady)
                                             {
                                                 FireReady = false;
-                                                Instantiate(CannonBall, this.transform.position, Quaternion.identity);
+
+                                                if (CannonBalls[NowCannonIdx].activeSelf == false)
+                                                {
+                                                    print("Cannon Go!!");
+
+                                                    CannonBalls[NowCannonIdx].gameObject.transform.position = this.transform.position;
+                                                    CannonBalls[NowCannonIdx].SetActive(true);
+                                                }
+
+                                                if (NowCannonIdx >= (CannonBalls.Length - 1))
+                                                {
+                                                    NowCannonIdx = 0;
+                                                }
+                                                else
+                                                {
+
+                                                    NowCannonIdx++;
+                                                    //CannonStack--;
+                                                }
                                             }
 
                                             //if (null == Camera.main)
@@ -272,7 +301,25 @@ public class Second_Trajectory : MonoBehaviour {
                                                 Debug.Log("Right Trigger!");
 
                                                 FireReady = false;
-                                                Instantiate(CannonBall, this.transform.position, Quaternion.identity);
+
+                                                if (CannonBalls[NowCannonIdx].activeSelf == false)
+                                                {
+                                                    print("Cannon Go!!");
+
+                                                    CannonBalls[NowCannonIdx].gameObject.transform.position = this.transform.position;
+                                                    CannonBalls[NowCannonIdx].SetActive(true);
+                                                }
+
+                                                if (NowCannonIdx >= (CannonBalls.Length - 1))
+                                                {
+                                                    NowCannonIdx = 0;
+                                                }
+                                                else
+                                                {
+
+                                                    NowCannonIdx++;
+                                                    //CannonStack--;
+                                                }
                                             }
 
                                             if (Input.GetAxis("P2_360_Trigger") < 0 && FireReady)
@@ -281,7 +328,25 @@ public class Second_Trajectory : MonoBehaviour {
                                                 Debug.Log("Left Trigger!");
 
                                                 FireReady = false;
-                                                Instantiate(CannonBall, this.transform.position, Quaternion.identity);
+
+                                                if (CannonBalls[NowCannonIdx].activeSelf == false)
+                                                {
+                                                    print("Cannon Go!!");
+
+                                                    CannonBalls[NowCannonIdx].gameObject.transform.position = this.transform.position;
+                                                    CannonBalls[NowCannonIdx].SetActive(true);
+                                                }
+
+                                                if (NowCannonIdx >= (CannonBalls.Length - 1))
+                                                {
+                                                    NowCannonIdx = 0;
+                                                }
+                                                else
+                                                {
+
+                                                    NowCannonIdx++;
+                                                    //CannonStack--;
+                                                }
 
                                             }
 

@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Text;
 
 public class EnemyCorpse : MonoBehaviour {
 
     private CapsuleCollider col;
     private Rigidbody rigid;
 
-    private Vector3 StartPos;
+    //private Vector3 StartPos;
 
 	// Use this for initialization
     void Awake()
@@ -21,13 +22,14 @@ public class EnemyCorpse : MonoBehaviour {
             rigid = GetComponent<Rigidbody>();
         }
 
-        StartPos = this.transform.position;
+        //StartPos = this.transform.position;
 
-        this.gameObject.SetActive(false);
+        //this.gameObject.SetActive(false);
 
         
         //col.height = 0.1f;
         //col.radius = 0.1f;
+        StartCoroutine("DeadOrAliveRoutin");
 	}
 	
     void OnEnable()
@@ -45,9 +47,15 @@ public class EnemyCorpse : MonoBehaviour {
         col.enabled = true;
         rigid.useGravity = true;
 
-        this.transform.position = StartPos;
+        //this.transform.position = StartPos;
 
-        DeadOrAliveRoutin();
+        //if (StringBuilder.Equals(this.gameObject.tag, "Untagged"))
+        //{
+        //    this.gameObject.tag = "EnemyCorpse";
+        //}
+        
+
+        StartCoroutine("DeadOrAliveRoutin");
     }
 
     //void OnTriggerEnter(Collider other)
@@ -78,10 +86,12 @@ public class EnemyCorpse : MonoBehaviour {
 
             
             //this.gameObject.tag = "Untagged";
-            col.enabled = false;
-            rigid.useGravity = false;
+            
+            //col.enabled = false;
+            //rigid.useGravity = false;
 
-            DeadOrAlive();
+            this.gameObject.SetActive(false);
+            //DeadOrAlive();
         }
     }
 }

@@ -10,7 +10,8 @@ public class Elizabat : MonoBehaviour {
     private GameState Gamestate;
 
     private bool ElizabatDecentOn;
-    
+
+    private Vector3 CheckerStartPos = Vector3.zero;
     private Vector3 targetPosOnScreen;
     private RaycastHit hit;
     private Light light;
@@ -68,6 +69,9 @@ public class Elizabat : MonoBehaviour {
         currentNum = 0;
 
         light = GetComponent<Light>();
+        light.enabled = true;
+
+        CheckerStartPos = CameraChecker.transform.position;
 	}
 
     
@@ -144,46 +148,13 @@ public class Elizabat : MonoBehaviour {
 
                                 if (!GameManager.Elizabat_CommandStart && !GameManager.Elizabat_SkillStart)
                                 {
-                                    if (targetPosOnScreen.x > 0)
-                                    {
-                                        if (Input.GetKey(KeyCode.F))
-                                        {
-                                            transform.Translate(new Vector3(-2.5f, 0, 0) * normalMoveSpeed * Time.deltaTime);
-                                            
-                                        }
-                                    }
-
-                                    if (targetPosOnScreen.x < Screen.width)
-                                    {
-                                        if (Input.GetKey(KeyCode.H))
-                                        {
-                                            transform.Translate(new Vector3(2.5f, 0, 0) * normalMoveSpeed * Time.deltaTime);
-                                            
-                                        }
-                                    }
-
-                                    if (targetPosOnScreen.y > 0)
-                                    {
-                                        if (Input.GetKey(KeyCode.G))
-                                        {
-                                            transform.Translate(new Vector3(0, -2.5f, 0) * normalMoveSpeed * Time.deltaTime);
-                                            
-                                        }
-                                    }
-
-                                    if (targetPosOnScreen.y < Screen.height)
-                                    {
-                                        if (Input.GetKey(KeyCode.T))
-                                        {
-                                            transform.Translate(new Vector3(0, 2.5f, 0) * normalMoveSpeed * Time.deltaTime);
-                                            
-                                        }
-                                    }
-
+                                    light.enabled = false;
 
                                     if (Input.GetKeyDown(KeyCode.C))
                                     {
                                         Debug.Log("Command Start!");
+
+                                        CameraChecker.transform.position = CheckerStartPos;
 
                                         CommandInitilization();
                                         
@@ -231,6 +202,47 @@ public class Elizabat : MonoBehaviour {
 
                                 if (GameManager.Elizabat_CommandStart)
                                 {
+                                    light.enabled = true;
+
+                                    if (targetPosOnScreen.x > 0)
+                                    {
+                                        if (Input.GetKey(KeyCode.F))
+                                        {
+                                            //print("Move Left");
+                                            transform.Translate(new Vector3(-2.5f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+
+                                        }
+                                    }
+
+                                    if (targetPosOnScreen.x < Screen.width)
+                                    {
+                                        if (Input.GetKey(KeyCode.H))
+                                        {
+                                            //print("Move Right");
+                                            transform.Translate(new Vector3(2.5f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+
+                                        }
+                                    }
+
+                                    if (targetPosOnScreen.y > 0)
+                                    {
+                                        if (Input.GetKey(KeyCode.G))
+                                        {
+                                            //print("Move Down");
+                                            transform.Translate(new Vector3(0, -2.5f, 0) * normalMoveSpeed * Time.deltaTime);
+
+                                        }
+                                    }
+
+                                    if (targetPosOnScreen.y < Screen.height)
+                                    {
+                                        if (Input.GetKey(KeyCode.T))
+                                        {
+                                            //print("Move Up");
+                                            transform.Translate(new Vector3(0, 2.5f, 0) * normalMoveSpeed * Time.deltaTime);
+
+                                        }
+                                    }
 
                                     if (!CommandStartOn)
                                     {
@@ -303,15 +315,17 @@ public class Elizabat : MonoBehaviour {
 
                                 targetPosOnScreen = Camera.main.WorldToScreenPoint(CameraChecker.transform.position);
 
-                                if (!GameManager.Elizabat_CommandStart)
+                                if (!GameManager.Elizabat_CommandStart && !GameManager.Elizabat_SkillStart)
                                 {
+                                    light.enabled = false;
+
                                     if (targetPosOnScreen.x > 0)
                                     {
                                         if (Input.GetAxisRaw("P1_360_RightStick") == -1)
                                         {
 
                                             Debug.Log("LeftStick!");
-                                            transform.Translate(new Vector3(-2, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                            transform.Translate(new Vector3(-2.5f, 0, 0) * normalMoveSpeed * Time.deltaTime);
                                         }
                                     }
 
@@ -321,7 +335,7 @@ public class Elizabat : MonoBehaviour {
                                         {
 
                                             Debug.Log("RightStick!");
-                                            transform.Translate(new Vector3(2, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                            transform.Translate(new Vector3(2.5f, 0, 0) * normalMoveSpeed * Time.deltaTime);
                                         }
                                     }
 
@@ -332,7 +346,7 @@ public class Elizabat : MonoBehaviour {
 
                                             Debug.Log("DownStick!");
 
-                                            transform.Translate(new Vector3(0, -2, 0) * normalMoveSpeed * Time.deltaTime);
+                                            transform.Translate(new Vector3(0, -2.5f, 0) * normalMoveSpeed * Time.deltaTime);
                                         }
                                     }
 
@@ -344,7 +358,7 @@ public class Elizabat : MonoBehaviour {
 
                                             Debug.Log("UpStick!");
 
-                                            transform.Translate(new Vector3(0, 2, 0) * normalMoveSpeed * Time.deltaTime);
+                                            transform.Translate(new Vector3(0, 2.5f, 0) * normalMoveSpeed * Time.deltaTime);
 
                                         }
                                     }
@@ -380,30 +394,62 @@ public class Elizabat : MonoBehaviour {
 
                                 if (GameManager.Elizabat_CommandStart)
                                 {
+                                    light.enabled = true;
 
                                     if (!CommandStartOn)
                                     {
                                         if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
                                         {
-                                            NowSkillChecking = 2;
-                                            CommandStartOn = true;
+                                            // 일식
+                                            if (GameManager.Elizabat_Eclipse_On == false)
+                                            {
+                                                NowSkillChecking = 2;
+                                                CommandStartOn = true;
+                                            }
+                                            else
+                                            {
+                                                // 실패 사운드 출력
+                                            }
                                         }
                                         else if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
                                         {
 
-                                            NowSkillChecking = 4;
-                                            CommandStartOn = true;
+                                            // 스웜 공격
+                                            if (GameManager.Elizabat_Swarm_On == false)
+                                            {
+                                                NowSkillChecking = 4;
+                                                CommandStartOn = true;
+                                            }
+                                            else
+                                            {
+                                                // 실패 사운드 출력
+                                            }
                                         }
                                         else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
                                         {
-                                            NowSkillChecking = 3;
-                                            CommandStartOn = true;
+                                            // 강하 공격
+                                            if (GameManager.Elizabat_Decent_On == false)
+                                            {
+                                                NowSkillChecking = 3;
+                                                CommandStartOn = true;
+                                            }
+                                            else
+                                            {
+                                                // 실패 사운드 출력
+                                            }
                                         }
                                         else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
                                         {
-
-                                            NowSkillChecking = 1;
-                                            CommandStartOn = true;
+                                            // 소닉 웨이브
+                                            if (GameManager.Elizabat_SonicWave_On == false)
+                                            {
+                                                NowSkillChecking = 1;
+                                                CommandStartOn = true;
+                                            }
+                                            else
+                                            {
+                                                // 실패 사운드 출력
+                                            }
                                         }
                                     }
 

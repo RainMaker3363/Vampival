@@ -95,9 +95,9 @@ public class GameManager : MonoBehaviour {
     static public int Fear_Parameter;
     
     // 함락도 수치 (게임 패배 조건)
-    static public int Capture_Parameter;
+    static public float Capture_Parameter;
     private float Capture_Meter;
-
+    private float Capture_Max;
 
     void Awake()
     {
@@ -110,6 +110,7 @@ public class GameManager : MonoBehaviour {
         GameTimer = 0.0f;
 
         light.intensity = 0.35f;
+        Capture_Max = 100.0f;
         //light.intensity = 1f;
         Elizabat_CommandStart = false;
         Elizabat_SkillStart = false;
@@ -178,7 +179,7 @@ public class GameManager : MonoBehaviour {
                         RespawnTimer -= Time.deltaTime;
                     }
 
-                    // 리스폰을 한번씩 해준다.
+                     // 리스폰을 한번씩 해준다.
                     if (SpawnOn)
                     {
                         SpawnOn = false;
@@ -240,27 +241,39 @@ public class GameManager : MonoBehaviour {
                     int RespawnNumber = Random.Range(0, Militia_Enemies.Length);
                     int SpawnCount = Level;
 
-                    print("RspawnNumber : " + RespawnNumber);
+                    //print("RspawnNumber : " + RespawnNumber);
                     
 
-                    for (int i = 0; i < (Level * 3); i++ )
+                    if(SpawnCount > 0)
                     {
-                        if (Militia_Enemies[RespawnNumber].activeSelf == true)
+                        for (int i = 0; i < (Level * 3); i++)
                         {
-                            RespawnNumber = Random.Range(0, Militia_Enemies.Length);
+                            if (Militia_Enemies[RespawnNumber].activeSelf == true)
+                            {
+                                RespawnNumber = Random.Range(0, Militia_Enemies.Length);
 
-                            print("Respawn Wait...");
-                        }
-                        else
-                        {
-                            Militia_Enemies[RespawnNumber].SetActive(true);
+                                // print("Respawn Wait...");
+                            }
+                            else
+                            {
+                                Militia_Enemies[RespawnNumber].SetActive(true);
 
-                            SpawnCount -= 1;
+                                if(SpawnCount > 0)
+                                {
+                                    SpawnCount -= 1;    
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                                
 
-                            print("Respawning...");
-                            print("SpawnCount : " + SpawnCount);
+                                //  print("Respawning...");
+                                //  print("SpawnCount : " + SpawnCount);
+                            }
                         }
                     }
+
 
                     //for (int i = 0; i < Militia_Enemies.Length; i++)
                     //{

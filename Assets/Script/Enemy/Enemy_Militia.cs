@@ -7,7 +7,7 @@ public class Enemy_Militia : MonoBehaviour {
 
     //private Rigidbody rigid;
 
-    public GameObject Corpse;
+    public GameObject[] Corpse;
     public GameObject Target;
     public GameObject Spidas;
 
@@ -25,11 +25,14 @@ public class Enemy_Militia : MonoBehaviour {
     private int edgeLine;
     private float degreeRange;
 
+    private int NowCorpseStack;
+    private bool DeathCheck;
     private float SpidasDistance;
 
     public int HP;
     public int AttackPoint;
     public float Speed;
+    
 
     void Awake()
     {
@@ -46,13 +49,15 @@ public class Enemy_Militia : MonoBehaviour {
             Spidas = GameObject.FindWithTag("Spidas");
         }
 
-        Corpse.SetActive(false);
+
 
         enemystate = EnemyState.Run;
         Gamestate = GameManager.Gamestate;
 
         HP = 10;
         AttackPoint = 10;
+        NowCorpseStack = 0;
+        DeathCheck = false;
         //Instantiate(Corpse, this.transform.position, Quaternion.identity);
 
         //Agent.enabled = false;
@@ -78,10 +83,15 @@ public class Enemy_Militia : MonoBehaviour {
         }
 
 
-        print("StartPos : " + StartPos);
-        print("Agent.destination : " + Agent.destination);
-        print("Active : " + this.enabled);
+        //print("StartPos : " + StartPos);
+        //print("Agent.destination : " + Agent.destination);
+        //print("Active : " + this.enabled);
 
+        for (int i = 0; i < Corpse.Length; i++ )
+        {
+            Corpse[i].SetActive(false);
+        }
+            
         this.gameObject.SetActive(false);
     }
 
@@ -96,6 +106,7 @@ public class Enemy_Militia : MonoBehaviour {
 
         HP = 10;
         AttackPoint = 10;
+        DeathCheck = false;
 
         EnemySpot.gameObject.SetActive(false);
         EnemyArrow.gameObject.SetActive(false);
@@ -104,7 +115,7 @@ public class Enemy_Militia : MonoBehaviour {
         Gamestate = GameManager.Gamestate;
 
         this.transform.position = StartPos;
-        Corpse.SetActive(false);
+        
 
         if (Agent == null)
         {
@@ -118,9 +129,17 @@ public class Enemy_Militia : MonoBehaviour {
         }
 
 
-        print("StartPos : " + StartPos);
-        print("Agent.destination : " + Agent.destination);
-        print("Active : " + this.enabled);
+        //print("StartPos : " + StartPos);
+        //print("Agent.destination : " + Agent.destination);
+        //print("Active : " + this.enabled);
+
+        for (int i = 0; i < Corpse.Length; i++)
+        {
+            if (Corpse[i].gameObject.activeSelf == false)
+            {
+                Corpse[i].SetActive(false);
+            }
+        }
 
     }
 
@@ -161,14 +180,29 @@ public class Enemy_Militia : MonoBehaviour {
 
                                 //print("Distance : " + SpidasDistance);
 
-                                if (HP <= 0)
+                                if (HP <= 0 && !DeathCheck)
                                 {
+                                    DeathCheck = true;
                                     //Instantiate(Corpse, this.transform.position, Quaternion.identity);
                                     Agent.enabled = false;
-                                    
-                                    Corpse.gameObject.SetActive(true);
-                                    this.gameObject.SetActive(false);
 
+                                    if (Corpse[NowCorpseStack].gameObject.activeSelf == false)
+                                    {
+                                        Corpse[NowCorpseStack].transform.position = this.transform.position;
+                                        Corpse[NowCorpseStack].gameObject.SetActive(true);
+
+                                    }
+
+                                    if (NowCorpseStack >= (Corpse.Length - 1))
+                                    {
+                                        NowCorpseStack = 0;
+                                    }
+                                    else
+                                    {
+                                        NowCorpseStack++;
+                                    }
+
+                                    this.gameObject.SetActive(false);
                                     
                                     //Destroy(this.gameObject);
                                 }
@@ -276,10 +310,13 @@ public class Enemy_Militia : MonoBehaviour {
 
                                 if (HP <= 0)
                                 {
-                                    Instantiate(Corpse, this.transform.position, Quaternion.identity);
+                                    //Instantiate(Corpse, this.transform.position, Quaternion.identity);
+
+                                    Corpse[NowCorpseStack].transform.position = this.transform.position;
+                                    Corpse[NowCorpseStack].gameObject.SetActive(true);
 
                                     Agent.enabled = false;
-                                    Destroy(this.gameObject);
+                                    //Destroy(this.gameObject);
                                 }
 
                                 //print(Controller.isGrounded);
@@ -442,7 +479,22 @@ public class Enemy_Militia : MonoBehaviour {
                 Agent.enabled = false;
 
                 //Instantiate(Corpse, this.transform.position, Quaternion.identity);
-                Corpse.gameObject.SetActive(true);
+                if (Corpse[NowCorpseStack].gameObject.activeSelf == false)
+                {
+                    Corpse[NowCorpseStack].transform.position = this.transform.position;
+                    Corpse[NowCorpseStack].gameObject.SetActive(true);
+
+                }
+
+                if (NowCorpseStack >= (Corpse.Length - 1))
+                {
+                    NowCorpseStack = 0;
+                }
+                else
+                {
+                    NowCorpseStack++;
+                }
+
                 this.gameObject.SetActive(false);
 
                 //Destroy(this.gameObject);
@@ -464,7 +516,22 @@ public class Enemy_Militia : MonoBehaviour {
 
                 Agent.enabled = false;
 
-                Corpse.gameObject.SetActive(true);
+                if (Corpse[NowCorpseStack].gameObject.activeSelf == false)
+                {
+                    Corpse[NowCorpseStack].transform.position = this.transform.position;
+                    Corpse[NowCorpseStack].gameObject.SetActive(true);
+
+                }
+
+                if (NowCorpseStack >= (Corpse.Length - 1))
+                {
+                    NowCorpseStack = 0;
+                }
+                else
+                {
+                    NowCorpseStack++;
+                }
+
                 this.gameObject.SetActive(false);
 
                 //Destroy(this.gameObject);

@@ -6,6 +6,7 @@ public class CannonBall : MonoBehaviour {
     private ViewControllMode ViewMode;
     private GameState Gamestate;
 
+    //private Vector3 StartBackUp = Vector3.zero;
     private Vector3 StartPoint = Vector3.zero;
     private Vector3 targetPoint = Vector3.zero;
 
@@ -45,14 +46,17 @@ public class CannonBall : MonoBehaviour {
         if (CannonPoint == null)
         {
             CannonPoint = GameObject.FindWithTag("Cannon");
+
+            
         }
 
         IsFire = false;
         _rotate = true;
 
-        
 
         GetComponent<ParticleSystemRenderer>().enabled = false;
+
+        StartCoroutine("DeadOrAliveRoutin");
     }
 
     void OnEnable()
@@ -76,14 +80,15 @@ public class CannonBall : MonoBehaviour {
         IsFire = false;
         _rotate = true;
 
-        
 
         GetComponent<ParticleSystemRenderer>().enabled = false;
+
+        StartCoroutine("DeadOrAliveRoutin");
     }
 
     IEnumerator DeadOrAliveRoutin()
     {
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(3.25f);
 
         this.gameObject.SetActive(false);
     }
@@ -94,7 +99,7 @@ public class CannonBall : MonoBehaviour {
     }
 
 	// Update is called once per frame
-	void Update () 
+	void FixedUpdate() 
     {
         switch (Gamestate)
         {
@@ -123,10 +128,8 @@ public class CannonBall : MonoBehaviour {
                                 //ray.GetPoint(hitdist);
                                 if (!IsFire)
                                 {
-
-
-                                    targetPoint = AimTarget.transform.position;
                                     StartPoint = CannonPoint.transform.position;
+                                    targetPoint = AimTarget.transform.position;
 
 
 
