@@ -175,9 +175,9 @@ public class FlyingCam : MonoBehaviour {
 
                                 Debug.Log("LeftStick!");
 
-
-                                transform.Translate(new Vector3(-1, 0, 0) * normalMoveSpeed * Time.deltaTime);
-                                MainCameraChecker.transform.Translate(new Vector3(-1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                transform.Translate(new Vector3(-3, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                MainCameraChecker.transform.Translate(new Vector3(-0.8f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                //NowCurrentCoordX -= (CameraMovingPoint * Time.deltaTime);
                             }
                         }
 
@@ -188,8 +188,8 @@ public class FlyingCam : MonoBehaviour {
 
                                 Debug.Log("RightStick!");
 
-                                transform.Translate(new Vector3(1, 0, 0) * normalMoveSpeed * Time.deltaTime);
-                                MainCameraChecker.transform.Translate(new Vector3(1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                transform.Translate(new Vector3(3, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                MainCameraChecker.transform.Translate(new Vector3(0.8f, 0, 0) * normalMoveSpeed * Time.deltaTime);
                             }
                         }
 
@@ -200,8 +200,8 @@ public class FlyingCam : MonoBehaviour {
 
                                 Debug.Log("UpStick!");
 
-                                transform.Translate(new Vector3(0, 1, 0) * normalMoveSpeed * Time.deltaTime);
-                                MainCameraChecker.transform.Translate(new Vector3(0, 0, -2.5f) * normalMoveSpeed * Time.deltaTime);
+                                transform.Translate(new Vector3(0, 2, 0) * normalMoveSpeed * Time.deltaTime);
+                                MainCameraChecker.transform.Translate(new Vector3(0, 0.8f, 0) * normalMoveSpeed * Time.deltaTime);
 
                             }
                         }
@@ -213,8 +213,8 @@ public class FlyingCam : MonoBehaviour {
 
                                 Debug.Log("DownStick!");
 
-                                transform.Translate(new Vector3(0, -1, 0) * normalMoveSpeed * Time.deltaTime);
-                                MainCameraChecker.transform.Translate(new Vector3(0, 0, 2.5f) * normalMoveSpeed * Time.deltaTime);
+                                transform.Translate(new Vector3(0, -2, 0) * normalMoveSpeed * Time.deltaTime);
+                                MainCameraChecker.transform.Translate(new Vector3(0, -0.8f, 0) * normalMoveSpeed * Time.deltaTime);
                             }
                         }
                     }

@@ -25,8 +25,16 @@ public class Enemy_Militia : MonoBehaviour {
     private int edgeLine;
     private float degreeRange;
 
+    // 현재 남아있는 시체 수
     private int NowCorpseStack;
+    
+    // 공포도 체크
+    private bool FearMeterCheck;
+
+    // 사망 체크
     private bool DeathCheck;
+    
+    // 스피다스 체크
     private float SpidasDistance;
 
     public int HP;
@@ -58,6 +66,7 @@ public class Enemy_Militia : MonoBehaviour {
         AttackPoint = 10;
         NowCorpseStack = 0;
         DeathCheck = false;
+        FearMeterCheck = false;
         //Instantiate(Corpse, this.transform.position, Quaternion.identity);
 
         //Agent.enabled = false;
@@ -107,6 +116,7 @@ public class Enemy_Militia : MonoBehaviour {
         HP = 10;
         AttackPoint = 10;
         DeathCheck = false;
+        FearMeterCheck = false;
 
         EnemySpot.gameObject.SetActive(false);
         EnemyArrow.gameObject.SetActive(false);
@@ -459,7 +469,41 @@ public class Enemy_Militia : MonoBehaviour {
             print("Elizabat Attack!!");
         }
 
+        if(other.transform.tag.Equals("CorpseChecker") == true)
+        {
+            if(FearMeterCheck == false)
+            {
+                FearMeterCheck = true;
 
+                
+
+                GameManager.Fear_Parameter += 1;
+
+                print("FearMeter : " + GameManager.Fear_Parameter);
+            }
+        }
+
+        if(other.transform.tag.Equals("SpidasChecker") == true)
+        {
+            
+
+            GameManager.Fear_Parameter += 1;
+
+            print("FearMeter : " + GameManager.Fear_Parameter);
+        }
+
+    }
+
+    // 트리거를 빠져 나갔을때..
+    void OnTriggerExit(Collider other)
+    {
+        if (other.transform.tag.Equals("SpidasChecker") == true)
+        {
+
+            GameManager.Fear_Parameter -= 1;
+
+            print("FearMeter : " + GameManager.Fear_Parameter);
+        }
     }
 
     void OnCollisionEnter(Collision collision)

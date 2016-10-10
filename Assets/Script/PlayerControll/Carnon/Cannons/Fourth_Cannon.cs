@@ -17,6 +17,8 @@ public class Fourth_Cannon : MonoBehaviour {
     public GameObject CrossHair_Icon;
     public GameObject[] Cannons = new GameObject[1];
 
+    public Light SelectLight;
+
     // Use this for initialization
     void Start()
     {
@@ -72,24 +74,28 @@ public class Fourth_Cannon : MonoBehaviour {
                                 {
                                     case CannonNumber.First:
                                         {
+                                            SelectLight.enabled = false;
                                             CrossHair_Icon.gameObject.SetActive(false);
                                         }
                                         break;
 
                                     case CannonNumber.Second:
                                         {
+                                            SelectLight.enabled = false;
                                             CrossHair_Icon.gameObject.SetActive(false);
                                         }
                                         break;
 
                                     case CannonNumber.Third:
                                         {
+                                            SelectLight.enabled = false;
                                             CrossHair_Icon.gameObject.SetActive(false);
                                         }
                                         break;
 
                                     case CannonNumber.Fourth:
                                         {
+                                            SelectLight.enabled = true;
                                             CrossHair_Icon.gameObject.SetActive(true);
 
                                             //Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, 100);
@@ -206,18 +212,21 @@ public class Fourth_Cannon : MonoBehaviour {
                                 {
                                     case CannonNumber.First:
                                         {
+                                            SelectLight.enabled = false;
                                             CrossHair_Icon.gameObject.SetActive(false);
                                         }
                                         break;
 
                                     case CannonNumber.Second:
                                         {
+                                            SelectLight.enabled = false;
                                             CrossHair_Icon.gameObject.SetActive(false);
                                         }
                                         break;
 
                                     case CannonNumber.Third:
                                         {
+                                            SelectLight.enabled = false;
                                             CrossHair_Icon.gameObject.SetActive(false);
                                         }
                                         break;
@@ -227,45 +236,53 @@ public class Fourth_Cannon : MonoBehaviour {
 
                                             // 게임 패드 작업
 
+                                            SelectLight.enabled = true;
                                             CrossHair_Icon.gameObject.SetActive(true);
+
+                                            // 게임 패드 작업
 
                                             if (Input.GetAxisRaw("P2_360_RightStick") == 1)
                                             {
 
-                                                Debug.Log("RightStick!");
+                                                //Debug.Log("RightStick!");
 
-                                                this.transform.Rotate(new Vector3(0, -90, 0), 50 * Time.deltaTime);
-                                                CrossHair_Icon.transform.position += new Vector3(1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime;
+                                                this.transform.Rotate(new Vector3(0, 0, 90), 35 * Time.deltaTime);
                                             }
 
                                             if (Input.GetAxisRaw("P2_360_RightStick") == -1)
                                             {
 
-                                                Debug.Log("LeftStick!");
+                                                //Debug.Log("LeftStick!");
 
-                                                this.transform.Rotate(new Vector3(0, 90, 0), 50 * Time.deltaTime);
-                                                CrossHair_Icon.transform.position += new Vector3(-1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime;
+                                                this.transform.Rotate(new Vector3(0, 0, -90), 35 * Time.deltaTime);
                                             }
 
                                             if (Input.GetAxisRaw("P2_360_UpStick") == -1)
                                             {
 
-                                                Debug.Log("UpStick!");
+                                                //Debug.Log("UpStick!");
 
-                                                Cannons[0].transform.Rotate(new Vector3(-90, 0, 0), 30 * Time.deltaTime);
+                                                if (TargetDis >= 36.0f)
+                                                {
+                                                    Cannons[0].transform.Rotate(new Vector3(90, 0, 0), 30 * Time.deltaTime);
 
-                                                CrossHair_Icon.transform.position += new Vector3(0, 0, -1.5f) * normalMoveSpeed * Time.deltaTime;
+                                                    CrossHair_Icon.transform.Translate(new Vector3(0, -2.5f, 0) * normalMoveSpeed * Time.deltaTime);
+                                                    //CrossHair_Icon.transform.position += new Vector3(0, hit.normal.y, -1) * normalMoveSpeed * Time.deltaTime;
+                                                }
 
                                             }
 
                                             if (Input.GetAxisRaw("P2_360_UpStick") == 1)
                                             {
 
-                                                Debug.Log("DownStick!");
+                                                //Debug.Log("DownStick!");
 
-                                                Cannons[0].transform.Rotate(new Vector3(90, 0, 0), 30 * Time.deltaTime);
+                                                if (TargetDis <= 73.0f)
+                                                {
+                                                    Cannons[0].transform.Rotate(new Vector3(-90, 0, 0), 30 * Time.deltaTime);
 
-                                                CrossHair_Icon.transform.position += new Vector3(0, 0, 1.5f) * normalMoveSpeed * Time.deltaTime;
+                                                    CrossHair_Icon.transform.Translate(new Vector3(0, 2.5f, 0) * normalMoveSpeed * Time.deltaTime);
+                                                }
                                             }
 
                                             //rotationY = Mathf.Clamp(rotationY, -90, 90);

@@ -319,6 +319,41 @@ public class Elizabat : MonoBehaviour {
                                 {
                                     light.enabled = false;
 
+
+
+                                    if (Input.GetButtonDown("P1_360_AButton"))
+                                    {
+                                        CommandInitilization();
+                                        //if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
+                                        //{
+                                        //    CommandInitilization(4);
+                                        //}
+                                        //else if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
+                                        //{
+
+
+                                        //    CommandInitilization(2);
+                                        //}
+                                        //else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
+                                        //{
+
+                                        //    CommandInitilization(1);
+                                        //}
+                                        //else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
+                                        //{
+
+
+                                        //    CommandInitilization(3);
+                                        //}
+
+                                    }
+                                }
+
+
+                                if (GameManager.Elizabat_CommandStart)
+                                {
+                                    light.enabled = true;
+
                                     if (targetPosOnScreen.x > 0)
                                     {
                                         if (Input.GetAxisRaw("P1_360_RightStick") == -1)
@@ -362,39 +397,6 @@ public class Elizabat : MonoBehaviour {
 
                                         }
                                     }
-
-                                    if (Input.GetButtonDown("P1_360_AButton"))
-                                    {
-                                        CommandInitilization();
-                                        //if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
-                                        //{
-                                        //    CommandInitilization(4);
-                                        //}
-                                        //else if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
-                                        //{
-
-
-                                        //    CommandInitilization(2);
-                                        //}
-                                        //else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
-                                        //{
-
-                                        //    CommandInitilization(1);
-                                        //}
-                                        //else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
-                                        //{
-
-
-                                        //    CommandInitilization(3);
-                                        //}
-
-                                    }
-                                }
-
-
-                                if (GameManager.Elizabat_CommandStart)
-                                {
-                                    light.enabled = true;
 
                                     if (!CommandStartOn)
                                     {
