@@ -160,6 +160,11 @@ public class Elizabat : MonoBehaviour {
                                         
                                     }
 
+                                    if(Input.GetKeyDown(KeyCode.V))
+                                    {
+                                        StartCoroutine("SonicWaveSkill");
+                                    }
+
                                     //if(Input.GetKeyDown(KeyCode.V))
                                     //{
                                     //    Debug.Log("Decent Start!");

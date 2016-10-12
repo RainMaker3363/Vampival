@@ -22,9 +22,11 @@ public class First_Trajectory : MonoBehaviour {
     private Vector3 center = Vector3.zero;
     private Vector3 theArc = Vector3.zero;
 
-
+    public GameObject AimLight;
     public GameObject AimTarget;
     public GameObject[] CannonBalls;
+
+    private RaycastHit hit;
 
     private int CannonStack;
     private int NowCannonIdx;
@@ -121,9 +123,19 @@ public class First_Trajectory : MonoBehaviour {
 
                                             //print("NowCannonIdx : " + NowCannonIdx);
 
+
+                                            
+                                            
+                                            //Debug.DrawLine(AimLight.transform.position, AimTarget.transform.position, Color.blue);
+
+
+
                                             if (Input.GetKeyDown(KeyCode.Space) && FireReady && (CannonStack > 0))
                                             {
                                                 FireReady = false;
+
+                                                //private RaycastHit hit;
+ 
 
                                                 if (CannonBalls[NowCannonIdx].activeSelf == false)
                                                 {
@@ -145,6 +157,7 @@ public class First_Trajectory : MonoBehaviour {
                                                 }
 
 
+                                                
 
                                                 //print("CannonBalls.Length : " + CannonBalls.Length);
                                                 //print("CannonStack : " + CannonStack);

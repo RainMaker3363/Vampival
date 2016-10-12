@@ -246,7 +246,7 @@ public class CannonBall : MonoBehaviour {
             this.gameObject.SetActive(false);
         }
 
-        if (collision.transform.tag.Equals("Walls") == true)
+        if (collision.transform.tag.Equals("Ground") == true)
         {
             //_rotate = false;
             //Destroy(this.gameObject, 0.2f);

@@ -44,7 +44,8 @@ public class Enemy_Militia : MonoBehaviour {
 
     void Awake()
     {
-
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyCorpse"), LayerMask.NameToLayer("SkillParticle"), true);
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyCorpse"), LayerMask.NameToLayer("Projectile"), true);
         
         //rigid = GetComponent<Rigidbody>();
 
@@ -471,16 +472,21 @@ public class Enemy_Militia : MonoBehaviour {
 
         if(other.transform.tag.Equals("CorpseChecker") == true)
         {
-            if(FearMeterCheck == false)
-            {
-                FearMeterCheck = true;
+            //if(FearMeterCheck == false)
+            //{
+            //    FearMeterCheck = true;
 
                 
 
-                GameManager.Fear_Parameter += 1;
+            //    GameManager.Fear_Parameter += 1;
 
-                print("FearMeter : " + GameManager.Fear_Parameter);
-            }
+            //    print("FearMeter : " + GameManager.Fear_Parameter);
+            //}
+
+
+            GameManager.Fear_Parameter += 1;
+
+            print("FearMeter : " + GameManager.Fear_Parameter);
         }
 
         if(other.transform.tag.Equals("SpidasChecker") == true)
@@ -501,6 +507,31 @@ public class Enemy_Militia : MonoBehaviour {
         {
 
             GameManager.Fear_Parameter -= 1;
+
+            print("FearMeter : " + GameManager.Fear_Parameter);
+        }
+
+        if (other.transform.tag.Equals("CorpseChecker") == true)
+        {
+            //if (FearMeterCheck == false)
+            //{
+            //    FearMeterCheck = true;
+
+
+
+            //    GameManager.Fear_Parameter += 1;
+
+            //    print("FearMeter : " + GameManager.Fear_Parameter);
+            //}
+
+            if(GameManager.Fear_Parameter <= 1)
+            {
+                GameManager.Fear_Parameter -= 0;
+            }
+            else
+            {
+                GameManager.Fear_Parameter -= 1;
+            }
 
             print("FearMeter : " + GameManager.Fear_Parameter);
         }

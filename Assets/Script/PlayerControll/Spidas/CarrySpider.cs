@@ -60,7 +60,7 @@ public class CarrySpider : MonoBehaviour {
                             {
 
                                 // 마우스 작업
-
+                                    
                                 Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, 100);
 
                                 if (Input.GetKey(KeyCode.I))
