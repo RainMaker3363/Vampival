@@ -232,7 +232,7 @@ public class Enemy_Militia : MonoBehaviour {
                                     else
                                     {
                                         EnemySpot.gameObject.SetActive(true);
-                                        EnemyArrow.gameObject.SetActive(true);
+                                        EnemyArrow.gameObject.SetActive(false);
                                     }
 
                                     center = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
@@ -295,7 +295,7 @@ public class Enemy_Militia : MonoBehaviour {
                                     else
                                     {
                                         EnemySpot.gameObject.SetActive(true);
-                                        EnemyArrow.gameObject.SetActive(true);
+                                        EnemyArrow.gameObject.SetActive(false);
                                     }
 
                                 }

@@ -50,56 +50,56 @@ public class Cannon_Crosshiar : MonoBehaviour
 
                                 // 마우스 작업
 
-                                if (Input.GetKey(KeyCode.LeftArrow))
-                                {
-                                    transform.position += new Vector3(-1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime;
-
-                                }
-                                if (Input.GetKey(KeyCode.RightArrow))
-                                {
-                                    transform.position += new Vector3(1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime;
-
-                                }
-                                if (Input.GetKey(KeyCode.DownArrow))
-                                {
-                                    transform.position += new Vector3(0, 0, -1.5f) * normalMoveSpeed * Time.deltaTime;
-
-                                }
-                                if (Input.GetKey(KeyCode.UpArrow))
-                                {
-                                    transform.position += new Vector3(0, 0, 1.5f) * normalMoveSpeed * Time.deltaTime;
-                                }
-
                                 //if (Input.GetKey(KeyCode.LeftArrow))
                                 //{
-                                //    transform.position += new Vector3(-1, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
-                                //    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
-                                //    transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
-                                //    //transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
+                                //    transform.position += new Vector3(-1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime;
+
                                 //}
                                 //if (Input.GetKey(KeyCode.RightArrow))
                                 //{
-                                //    transform.position += new Vector3(1, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
-                                //    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
-                                //    transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
-                                //    // transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
+                                //    transform.position += new Vector3(1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime;
+
                                 //}
                                 //if (Input.GetKey(KeyCode.DownArrow))
                                 //{
-                                //    transform.position += new Vector3(0, hit.normal.y, -1) * normalMoveSpeed * Time.deltaTime;
-                                //    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
-                                //    transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
-                                //    //transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
-                                //    //transform.position += (-1 * transform.forward) * normalMoveSpeed * Time.deltaTime;
+                                //    transform.position += new Vector3(0, 0, -1.5f) * normalMoveSpeed * Time.deltaTime;
+
                                 //}
                                 //if (Input.GetKey(KeyCode.UpArrow))
                                 //{
-                                //    transform.position += new Vector3(0, hit.normal.y, 1) * normalMoveSpeed * Time.deltaTime;
-                                //    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
-                                //    transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
-                                //    //transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
-                                //    //transform.position += transform.forward * normalMoveSpeed * Time.deltaTime;
+                                //    transform.position += new Vector3(0, 0, 1.5f) * normalMoveSpeed * Time.deltaTime;
                                 //}
+
+                                if (Input.GetKey(KeyCode.LeftArrow))
+                                {
+                                    transform.position += new Vector3(-1, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
+                                    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                                    transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
+                                    //transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
+                                }
+                                if (Input.GetKey(KeyCode.RightArrow))
+                                {
+                                    transform.position += new Vector3(1, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
+                                    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                                    transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
+                                    // transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
+                                }
+                                if (Input.GetKey(KeyCode.DownArrow))
+                                {
+                                    transform.position += new Vector3(0, hit.normal.y, -1) * normalMoveSpeed * Time.deltaTime;
+                                    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                                    transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
+                                    //transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
+                                    //transform.position += (-1 * transform.forward) * normalMoveSpeed * Time.deltaTime;
+                                }
+                                if (Input.GetKey(KeyCode.UpArrow))
+                                {
+                                    transform.position += new Vector3(0, hit.normal.y, 1) * normalMoveSpeed * Time.deltaTime;
+                                    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                                    transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
+                                    //transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
+                                    //transform.position += transform.forward * normalMoveSpeed * Time.deltaTime;
+                                }
                             }
                             break;
 
