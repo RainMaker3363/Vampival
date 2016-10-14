@@ -31,7 +31,7 @@ public class CannonBall : MonoBehaviour {
 	
     void Awake()
     {
-        
+        StopCoroutine("DeadOrAliveRoutin");
 
         ViewMode = GameManager.ViewMode;
         Gamestate = GameManager.Gamestate;
@@ -61,6 +61,7 @@ public class CannonBall : MonoBehaviour {
 
     void OnEnable()
     {
+        StopCoroutine("DeadOrAliveRoutin");
 
         ViewMode = GameManager.ViewMode;
         Gamestate = GameManager.Gamestate;

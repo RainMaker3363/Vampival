@@ -25,6 +25,7 @@ public class First_Trajectory : MonoBehaviour {
     public GameObject AimLight;
     public GameObject AimTarget;
     public GameObject[] CannonBalls;
+    public ParticleSystem Spark;
 
     private RaycastHit hit;
 
@@ -52,6 +53,8 @@ public class First_Trajectory : MonoBehaviour {
 
         CannonStack = 10;//CannonBalls.Length;
         NowCannonIdx = 0;
+
+        
     }
 
     void OnEnable()
@@ -141,6 +144,7 @@ public class First_Trajectory : MonoBehaviour {
                                                 {
                                                     //print("Cannon Go!!");
 
+                                                    Spark.Play();
                                                     CannonBalls[NowCannonIdx].gameObject.transform.position = this.transform.position;
                                                     CannonBalls[NowCannonIdx].SetActive(true);
                                                 }

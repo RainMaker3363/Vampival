@@ -12,6 +12,8 @@ public class EnemyCorpse : MonoBehaviour {
 	// Use this for initialization
     void Awake()
     {
+        StopCoroutine("DeadOrAliveRoutin");
+
         if(col == null)
         {
             col = GetComponent<CapsuleCollider>();
@@ -34,6 +36,8 @@ public class EnemyCorpse : MonoBehaviour {
 	
     void OnEnable()
     {
+        StopCoroutine("DeadOrAliveRoutin");
+
         if (col == null)
         {
             col = GetComponent<CapsuleCollider>();
