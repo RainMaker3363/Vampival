@@ -22,7 +22,6 @@ public class First_Trajectory : MonoBehaviour {
     private Vector3 center = Vector3.zero;
     private Vector3 theArc = Vector3.zero;
 
-    public GameObject AimLight;
     public GameObject AimTarget;
     public GameObject[] CannonBalls;
     public ParticleSystem Spark;
@@ -84,6 +83,7 @@ public class First_Trajectory : MonoBehaviour {
         }
 
         MyCannonNumber = GameManager.CannonControl_Number;
+        Gamestate = GameManager.Gamestate;
 
         switch (Gamestate)
         {
@@ -324,7 +324,7 @@ public class First_Trajectory : MonoBehaviour {
 
                                                 if (CannonBalls[NowCannonIdx].activeSelf == false)
                                                 {
-                                                    print("Cannon Go!!");
+                                                    //print("Cannon Go!!");
 
                                                     CannonBalls[NowCannonIdx].gameObject.transform.position = this.transform.position;
                                                     CannonBalls[NowCannonIdx].SetActive(true);
@@ -378,7 +378,7 @@ public class First_Trajectory : MonoBehaviour {
 
                                             // Draw the arc trajectory		
                                             center = (transform.position + targetPoint) * 0.5f;
-                                            center.y -= 18.0f + AimInterPol;
+                                            center.y -= 50.0f + AimInterPol;
 
                                             if (Input.GetAxisRaw("P2_360_UpThumbStick") == 1)
                                             {

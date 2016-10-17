@@ -25,6 +25,7 @@ public class Second_Trajectory : MonoBehaviour {
 
     public GameObject AimTarget;
     public GameObject[] CannonBalls;
+    public ParticleSystem Spark;
 
     private int CannonStack;
     private int NowCannonIdx;
@@ -80,6 +81,7 @@ public class Second_Trajectory : MonoBehaviour {
         }
         
         MyCannonNumber = GameManager.CannonControl_Number;
+        Gamestate = GameManager.Gamestate;
 
         switch (Gamestate)
         {
@@ -130,9 +132,11 @@ public class Second_Trajectory : MonoBehaviour {
                                             {
                                                 FireReady = false;
 
+                                                Spark.Play();
+
                                                 if (CannonBalls[NowCannonIdx].activeSelf == false)
                                                 {
-                                                    print("Cannon Go!!");
+                                                    //print("Cannon Go!!");
 
                                                     CannonBalls[NowCannonIdx].gameObject.transform.position = this.transform.position;
                                                     CannonBalls[NowCannonIdx].SetActive(true);
@@ -304,7 +308,7 @@ public class Second_Trajectory : MonoBehaviour {
 
                                                 if (CannonBalls[NowCannonIdx].activeSelf == false)
                                                 {
-                                                    print("Cannon Go!!");
+                                                    //print("Cannon Go!!");
 
                                                     CannonBalls[NowCannonIdx].gameObject.transform.position = this.transform.position;
                                                     CannonBalls[NowCannonIdx].SetActive(true);
@@ -355,7 +359,7 @@ public class Second_Trajectory : MonoBehaviour {
 
                                             // Draw the arc trajectory		
                                             center = (transform.position + targetPoint) * 0.5f;
-                                            center.y -= 18.0f + AimInterPol;
+                                            center.y -= 50.0f + AimInterPol;
 
                                             if (Input.GetAxisRaw("P2_360_UpThumbStick") == 1)
                                             {

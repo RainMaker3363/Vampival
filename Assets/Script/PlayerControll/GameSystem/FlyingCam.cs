@@ -40,7 +40,13 @@ public class FlyingCam : MonoBehaviour {
         //Cursor.visible = false;
     }
 
-    void LateUpdate()
+    public void GameStartUp()
+    {
+        
+        GameManager.GameStartUp();
+    }
+
+    void Update()
     {
         if (Input.GetKeyDown(KeyCode.End))
         {
@@ -56,11 +62,14 @@ public class FlyingCam : MonoBehaviour {
                 {
                     // 마우스 작업
 
-                    CameraCheck = Camera.main.WorldToScreenPoint(MainCameraChecker.transform.position);
+                    
                     //Direction = Vector3.Distance(this.gameObject.transform.position, CameraDir.transform.position);
+
 
                     if ((!GameManager.Elizabat_CommandStart) && !GameManager.Elizabat_SkillStart)
                     {
+                        CameraCheck = Camera.main.WorldToScreenPoint(MainCameraChecker.transform.position);
+
                         if ((CameraCheck.x >= 0))
                         {
                             if (Input.GetKey(KeyCode.A))
@@ -164,10 +173,12 @@ public class FlyingCam : MonoBehaviour {
                 {
                     // 게임 패드 작업
 
-                    CameraCheck = Camera.main.WorldToScreenPoint(MainCameraChecker.transform.position);
+                    
 
                     if ((!GameManager.Elizabat_CommandStart) && (!GameManager.Elizabat_SkillStart))
                     {
+                        CameraCheck = Camera.main.WorldToScreenPoint(MainCameraChecker.transform.position);
+
                         if ((CameraCheck.x >= 0))
                         {
                             if (Input.GetAxisRaw("P1_360_LeftThumbStick") == -1)

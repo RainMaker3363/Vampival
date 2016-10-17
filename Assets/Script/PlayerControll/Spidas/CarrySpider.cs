@@ -8,11 +8,13 @@ public class CarrySpider : MonoBehaviour {
 
     private Quaternion Rotate;
     private Vector3 Dir;
+    private int layermask;
     private RaycastHit hit;
 
     public float normalMoveSpeed = 7;
     public float FastMoveSpeed = 40;
 
+    public GameObject SpiderRayChecker;
     public GameObject SpiderSpot;
     public GameObject Look;
 
@@ -22,6 +24,8 @@ public class CarrySpider : MonoBehaviour {
         Gamestate = GameManager.Gamestate;
 
         SpiderSpot.SetActive(true);
+
+        layermask = (1<<LayerMask.NameToLayer("LayCastIn"));//(-1) - (1 << 9) | (1 << 10) | (1 << 12) | (1 << 15);
 
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("CarryPlayer"), true);
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyCorpse"), LayerMask.NameToLayer("CarryPlayer"), true);
@@ -37,6 +41,8 @@ public class CarrySpider : MonoBehaviour {
             else
                 ViewMode = ViewControllMode.GamePad;
         }
+
+        Gamestate = GameManager.Gamestate;
 
         switch (Gamestate)
         {
@@ -60,17 +66,33 @@ public class CarrySpider : MonoBehaviour {
                             {
 
                                 // 마우스 작업
-                                    
-                                Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, 100);
+
+                                //if(Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, layermask))
+                                //{
+                                //    print(hit.collider.tag);
+                                //}
+                                if (Physics.Raycast(SpiderRayChecker.transform.position, (this.transform.position - SpiderRayChecker.transform.position).normalized * 150.0f, out hit, Mathf.Infinity, layermask))
+                                {
+
+                                    if (hit.collider.tag.Equals("Ground") == true)
+                                    {
+                                        //print(hit.point.y);
+                                        this.transform.position = new Vector3(this.transform.position.x, hit.point.y + 3.0f, this.transform.position.z);
+
+                                    }
+                                }
 
                                 if (Input.GetKey(KeyCode.I))
                                 {
+
                                     //Dir = (Look.transform.position - this.transform.position).normalized;
                                     //transform.position += Dir * normalMoveSpeed * Time.deltaTime;
 
                                     //transform.position += new Vector3(-0.05f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
 
-                                    transform.Translate(new Vector3(-2.5f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime);
+                                    //this.transform.position = new Vector3(this.transform.position.x, hit.point.y, this.transform.position.z);
+                                    transform.Translate(new Vector3(-2.5f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                    
                                 }
                                 if (Input.GetKey(KeyCode.K))
                                 {
@@ -79,7 +101,8 @@ public class CarrySpider : MonoBehaviour {
 
                                     //transform.position += new Vector3(0.05f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
 
-                                    transform.Translate(new Vector3(2.5f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime);
+                                    transform.Translate(new Vector3(2.5f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                    
                                 }
                                 if (Input.GetKey(KeyCode.J))
                                 {

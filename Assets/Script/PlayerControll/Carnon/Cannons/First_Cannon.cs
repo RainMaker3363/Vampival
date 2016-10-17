@@ -26,6 +26,8 @@ public class First_Cannon : MonoBehaviour {
         Gamestate = GameManager.Gamestate;
 
         MyCannonNumber = GameManager.CannonControl_Number;
+
+        SelectLight.enabled = false;
         //Cannons[0].transform.LookAt(new Vector3(Dummy.transform.position.x, Cannons[0].transform.position.y, Dummy.transform.position.z));
     }
 
@@ -49,6 +51,7 @@ public class First_Cannon : MonoBehaviour {
         }
 
         MyCannonNumber = GameManager.CannonControl_Number;
+        Gamestate = GameManager.Gamestate;
 
         switch (Gamestate)
         {
@@ -253,7 +256,7 @@ public class First_Cannon : MonoBehaviour {
 
                                                 //Debug.Log("DownStick!");
 
-                                                if (TargetDis <= 73.0f)
+                                                if (TargetDis <= 85.0f)
                                                 {
                                                     Cannons[0].transform.Rotate(new Vector3(-90, 0, 0), 30 * Time.deltaTime);
 

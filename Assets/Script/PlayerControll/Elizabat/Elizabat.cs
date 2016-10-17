@@ -18,6 +18,9 @@ public class Elizabat : MonoBehaviour {
     //private Ray ray;
 
     public GameObject CameraChecker;
+    public GameObject SkillTarget;
+    public GameObject Elizabat_Interpol;
+
     public Camera MainCamera;
 
     // 소닉 웨이브 커맨드 5개 (고정1 + 랜덤 4)
@@ -40,6 +43,9 @@ public class Elizabat : MonoBehaviour {
 
     private int Inputcommand;
     private int currentNum;
+
+    private float Leng;
+    private int layermask;
     //private RaycastHit hit;
 
 	// Use this for initialization
@@ -69,9 +75,12 @@ public class Elizabat : MonoBehaviour {
         currentNum = 0;
 
         light = GetComponent<Light>();
-        light.enabled = true;
+        light.enabled = false;
 
         CheckerStartPos = CameraChecker.transform.position;
+
+        Leng = 0.0f;
+        layermask = (1 << LayerMask.NameToLayer("LayCastIn"));//(-1) - (1 << 9) | (1 << 10) | (1 << 12) | (1 << 15);
 	}
 
     
@@ -86,6 +95,8 @@ public class Elizabat : MonoBehaviour {
             else
                 ViewMode = ViewControllMode.GamePad;
         }
+
+        Gamestate = GameManager.Gamestate;
 
         switch (Gamestate)
         {
@@ -128,7 +139,7 @@ public class Elizabat : MonoBehaviour {
                                 //Debug.Log("Screen.widht : " + Screen.width);
                                 //Debug.Log("Screen.height : " + Screen.height);
 
-                                targetPosOnScreen = Camera.main.WorldToScreenPoint(CameraChecker.transform.position);
+                                
                                 
                                 //targetPosOnScreen.y += -1;
 
@@ -146,6 +157,8 @@ public class Elizabat : MonoBehaviour {
                                 //    //Debug.Log("Camera Out : X " + targetPosOnScreen.x + ", Y " + targetPosOnScreen.y);
                                 //}
 
+                                
+
                                 if (!GameManager.Elizabat_CommandStart && !GameManager.Elizabat_SkillStart)
                                 {
                                     light.enabled = false;
@@ -160,10 +173,10 @@ public class Elizabat : MonoBehaviour {
                                         
                                     }
 
-                                    if(Input.GetKeyDown(KeyCode.V))
-                                    {
-                                        StartCoroutine("SonicWaveSkill");
-                                    }
+                                    //if(Input.GetKeyDown(KeyCode.V))
+                                    //{
+                                    //    StartCoroutine("SonicWaveSkill");
+                                    //}
 
                                     //if(Input.GetKeyDown(KeyCode.V))
                                     //{
@@ -174,40 +187,25 @@ public class Elizabat : MonoBehaviour {
                                     //}
                                 }
 
-                                //if (GameManager.Elizabat_SkillStart)
-                                //{
-
-                                //    // 강하 공격 판정
-                                //    // hit는 레이가 부딪힌 물체의 정보를 가지고 있다. (위치, 판정 선 등등..)
-                                //    //if (Physics.Raycast(MainCamera.transform.position, CameraChecker.transform.position.normalized, out hit, 30.0f))
-                                //    //{
-
-                                //    //    hit.transform.position
-                                //    //}
-
-                                //    Debug.DrawRay(MainCamera.transform.position, CameraChecker.transform.position.normalized, Color.blue, 5.0f);
-                                //    Debug.DrawLine(MainCamera.transform.position, CameraChecker.transform.position, Color.red, 5.0f);
-                                //    //print(hit.transform.position);
-
-                                //    if(ElizabatDecentOn)
-                                //    {
-                                //        ElizabatDecentOn = false;
-
-                                //        //float Dis = Vector3.Distance(CameraChecker.transform.position, MainCamera.transform.position);
-
-                                //        StartCoroutine(DecentAttack(MainCamera.transform, CameraChecker, 10.0f));
-                                //        //StartCoroutine(MoveDown(MainCamera.transform, Dis, 10.0f));
-                                //    }
-
-                                    
-                                //}
-
-                                //print(targetPosOnScreen);
-
 
                                 if (GameManager.Elizabat_CommandStart)
                                 {
                                     light.enabled = true;
+
+                                    targetPosOnScreen = Camera.main.WorldToScreenPoint(CameraChecker.transform.position);
+
+                                    if (Physics.Raycast(this.transform.position, (Elizabat_Interpol.transform.position - this.transform.position).normalized * 80.0f, out hit, Mathf.Infinity, layermask))
+                                    {
+                                        //Debug.DrawRay(this.transform.position, (Elizabat_Interpol.transform.position - this.transform.position).normalized * 200.0f);
+
+                                        if (hit.collider.tag.Equals("Ground") == true)
+                                        {
+                                            Leng = Vector3.Distance(this.transform.position, hit.point);
+
+                                            SkillTarget.transform.localPosition = new Vector3(SkillTarget.transform.localPosition.x, SkillTarget.transform.localPosition.y, Leng);
+                                            CameraChecker.transform.localPosition = SkillTarget.transform.localPosition;
+                                        }
+                                    }
 
                                     if (targetPosOnScreen.x > 0)
                                     {
@@ -318,17 +316,21 @@ public class Elizabat : MonoBehaviour {
                             {
                                 // 게임 패드 작업
 
-                                targetPosOnScreen = Camera.main.WorldToScreenPoint(CameraChecker.transform.position);
+                                //targetPosOnScreen = Camera.main.WorldToScreenPoint(CameraChecker.transform.position);
 
                                 if (!GameManager.Elizabat_CommandStart && !GameManager.Elizabat_SkillStart)
                                 {
                                     light.enabled = false;
 
 
-
                                     if (Input.GetButtonDown("P1_360_AButton"))
                                     {
+                                        Debug.Log("Command Start!");
+
+                                        CameraChecker.transform.position = CheckerStartPos;
+
                                         CommandInitilization();
+
                                         //if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
                                         //{
                                         //    CommandInitilization(4);
@@ -358,6 +360,21 @@ public class Elizabat : MonoBehaviour {
                                 if (GameManager.Elizabat_CommandStart)
                                 {
                                     light.enabled = true;
+
+                                    targetPosOnScreen = Camera.main.WorldToScreenPoint(CameraChecker.transform.position);
+
+                                    if (Physics.Raycast(this.transform.position, (Elizabat_Interpol.transform.position - this.transform.position).normalized * 80.0f, out hit, Mathf.Infinity, layermask))
+                                    {
+                                        //Debug.DrawRay(this.transform.position, (Elizabat_Interpol.transform.position - this.transform.position).normalized * 200.0f);
+
+                                        if (hit.collider.tag.Equals("Ground") == true)
+                                        {
+                                            Leng = Vector3.Distance(this.transform.position, hit.point);
+
+                                            SkillTarget.transform.localPosition = new Vector3(SkillTarget.transform.localPosition.x, SkillTarget.transform.localPosition.y, Leng);
+                                            CameraChecker.transform.localPosition = SkillTarget.transform.localPosition;
+                                        }
+                                    }
 
                                     if (targetPosOnScreen.x > 0)
                                     {

@@ -157,6 +157,7 @@ public class Enemy_Militia : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        Gamestate = GameManager.Gamestate;
 
         switch (Gamestate)
         {

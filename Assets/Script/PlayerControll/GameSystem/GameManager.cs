@@ -121,9 +121,15 @@ public class GameManager : MonoBehaviour {
         Elizabat_Swarm_On = false;
 
 
-        Gamestate = GameState.GameStart;
+        
         ViewMode = ViewControllMode.Mouse;
         CannonControl_Number = CannonNumber.First;
+        Gamestate = GameState.GameIntro;
+    }
+
+    public static void GameStartUp()
+    {
+        Gamestate = GameState.GameStart;
     }
 
 	// Update is called once per frame
@@ -187,7 +193,8 @@ public class GameManager : MonoBehaviour {
                         int EnemyType = Random.Range(0, 1);
                         int EnemyLocation = Random.Range(0, 4);
 
-                        StartCoroutine(RespawnEnemy(NowLevel, EnemyType, EnemyLocation));
+                        RespawnEnemy(NowLevel, EnemyType, EnemyLocation);
+                        //StartCoroutine(RespawnEnemy(NowLevel, EnemyType, EnemyLocation));
                     }
 
 
@@ -227,7 +234,7 @@ public class GameManager : MonoBehaviour {
         }
 	}
 
-    IEnumerator RespawnEnemy(int Level, int Type, int Location)
+    void RespawnEnemy(int Level, int Type, int Location)
     {
         switch(Level)
         {
@@ -300,6 +307,6 @@ public class GameManager : MonoBehaviour {
                 }
                 break;
         }
-        yield return null;
+//        yield return null;
     }
 }
