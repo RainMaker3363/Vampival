@@ -43,6 +43,7 @@ public class CarrySpider : MonoBehaviour {
         }
 
         Gamestate = GameManager.Gamestate;
+        ViewMode = GameManager.ViewMode;
 
         switch (Gamestate)
         {

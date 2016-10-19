@@ -21,7 +21,7 @@ public class Third_Cannon : MonoBehaviour
     public Light SelectLight;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         ViewMode = GameManager.ViewMode;
         Gamestate = GameManager.Gamestate;
@@ -29,6 +29,7 @@ public class Third_Cannon : MonoBehaviour
         MyCannonNumber = GameManager.CannonControl_Number;
 
         SelectLight.enabled = false;
+        CrossHair_Icon.SetActive(false);
         //Cannons[0].transform.LookAt(new Vector3(Dummy.transform.position.x, Cannons[0].transform.position.y, Dummy.transform.position.z));
     }
 
@@ -53,6 +54,7 @@ public class Third_Cannon : MonoBehaviour
 
         MyCannonNumber = GameManager.CannonControl_Number;
         Gamestate = GameManager.Gamestate;
+        ViewMode = GameManager.ViewMode;
 
         switch (Gamestate)
         {
@@ -108,7 +110,7 @@ public class Third_Cannon : MonoBehaviour
                                             if (Input.GetKey(KeyCode.LeftArrow))
                                             {
 
-                                                this.transform.Rotate(new Vector3(0, 0, -90), 35 * Time.deltaTime);
+                                                this.transform.Rotate(new Vector3(0, 0, 90), 35 * Time.deltaTime);
                                                 //Cannons[0].transform.Rotate(new Vector3(0, 0, -90), 35 * Time.deltaTime);
 
                                                 //CrossHair_Icon.transform.position += new Vector3(-1.8f, 0, 0) * normalMoveSpeed * Time.deltaTime;
@@ -117,7 +119,7 @@ public class Third_Cannon : MonoBehaviour
                                             }
                                             if (Input.GetKey(KeyCode.RightArrow))
                                             {
-                                                this.transform.Rotate(new Vector3(0, 0, 90), 35 * Time.deltaTime);
+                                                this.transform.Rotate(new Vector3(0, 0, -90), 35 * Time.deltaTime);
                                                 //Cannons[0].transform.Rotate(new Vector3(0, 0, 90), 35 * Time.deltaTime);
 
                                                 //CrossHair_Icon.transform.position += new Vector3(1.8f, 0, 0) * normalMoveSpeed * Time.deltaTime;

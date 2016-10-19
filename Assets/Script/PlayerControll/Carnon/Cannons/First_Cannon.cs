@@ -20,7 +20,7 @@ public class First_Cannon : MonoBehaviour {
     public Light SelectLight;
 
     // Use this for initialization
-    void Start()
+    void Awake()
     {
         ViewMode = GameManager.ViewMode;
         Gamestate = GameManager.Gamestate;
@@ -28,6 +28,7 @@ public class First_Cannon : MonoBehaviour {
         MyCannonNumber = GameManager.CannonControl_Number;
 
         SelectLight.enabled = false;
+        CrossHair_Icon.SetActive(false);
         //Cannons[0].transform.LookAt(new Vector3(Dummy.transform.position.x, Cannons[0].transform.position.y, Dummy.transform.position.z));
     }
 
@@ -37,6 +38,7 @@ public class First_Cannon : MonoBehaviour {
         Gamestate = GameManager.Gamestate;
 
         MyCannonNumber = GameManager.CannonControl_Number;
+
     }
 
     // Update is called once per frame
@@ -52,6 +54,8 @@ public class First_Cannon : MonoBehaviour {
 
         MyCannonNumber = GameManager.CannonControl_Number;
         Gamestate = GameManager.Gamestate;
+        ViewMode = GameManager.ViewMode;
+
 
         switch (Gamestate)
         {

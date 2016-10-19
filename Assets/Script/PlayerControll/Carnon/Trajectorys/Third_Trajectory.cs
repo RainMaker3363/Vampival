@@ -30,8 +30,9 @@ public class Third_Trajectory : MonoBehaviour {
     private int CannonStack;
     private int NowCannonIdx;
 
-    void Start()
+    void Awake()
     {
+        lineRenderer.enabled = false;
         lineRenderer.SetColors(Color.red, Color.black);
         lineRenderer.SetWidth(0.05f, 0.05f);
         lineRenderer.SetVertexCount(25);
@@ -52,10 +53,13 @@ public class Third_Trajectory : MonoBehaviour {
 
         CannonStack = 10;//CannonBalls.Length;
         NowCannonIdx = 0;
+
+        Spark.gameObject.SetActive(false);
     }
 
     void OnEnable()
     {
+        lineRenderer.enabled = false;
         lineRenderer.SetColors(Color.red, Color.black);
         lineRenderer.SetWidth(0.05f, 0.05f);
         lineRenderer.SetVertexCount(25);
@@ -68,6 +72,8 @@ public class Third_Trajectory : MonoBehaviour {
         MyCannonNumber = GameManager.CannonControl_Number;
 
         FireTimer = 0.0f;
+
+        Spark.gameObject.SetActive(false);
     }
 
     void Update()
@@ -82,6 +88,7 @@ public class Third_Trajectory : MonoBehaviour {
 
         MyCannonNumber = GameManager.CannonControl_Number;
         Gamestate = GameManager.Gamestate;
+        ViewMode = GameManager.ViewMode;
 
         switch (Gamestate)
         {
@@ -120,7 +127,7 @@ public class Third_Trajectory : MonoBehaviour {
                                     case CannonNumber.Third:
                                         {
                                             lineRenderer.enabled = true;
-
+                                            Spark.gameObject.SetActive(true);
                                             // 마우스 작업
 
                                             // 발사 주기 체크

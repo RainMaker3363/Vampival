@@ -122,14 +122,19 @@ public class GameManager : MonoBehaviour {
 
 
         
+        //ViewMode = ViewControllMode.Mouse;
+        //CannonControl_Number = CannonNumber.First;
+        //Gamestate = GameState.GameIntro;
+        Gamestate = GameState.GameStart;
         ViewMode = ViewControllMode.Mouse;
         CannonControl_Number = CannonNumber.First;
-        Gamestate = GameState.GameIntro;
     }
 
     public static void GameStartUp()
     {
         Gamestate = GameState.GameStart;
+        ViewMode = ViewControllMode.Mouse;
+        CannonControl_Number = CannonNumber.First;
     }
 
 	// Update is called once per frame

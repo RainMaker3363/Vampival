@@ -81,6 +81,8 @@ public class Elizabat : MonoBehaviour {
 
         Leng = 0.0f;
         layermask = (1 << LayerMask.NameToLayer("LayCastIn"));//(-1) - (1 << 9) | (1 << 10) | (1 << 12) | (1 << 15);
+
+        SkillTarget.gameObject.SetActive(false);
 	}
 
     
@@ -162,6 +164,7 @@ public class Elizabat : MonoBehaviour {
                                 if (!GameManager.Elizabat_CommandStart && !GameManager.Elizabat_SkillStart)
                                 {
                                     light.enabled = false;
+                                    SkillTarget.gameObject.SetActive(false);
 
                                     if (Input.GetKeyDown(KeyCode.C))
                                     {
@@ -191,6 +194,7 @@ public class Elizabat : MonoBehaviour {
                                 if (GameManager.Elizabat_CommandStart)
                                 {
                                     light.enabled = true;
+                                    SkillTarget.gameObject.SetActive(true);
 
                                     targetPosOnScreen = Camera.main.WorldToScreenPoint(CameraChecker.transform.position);
 
