@@ -96,7 +96,7 @@ public class First_Cannon : MonoBehaviour {
                                             if (Input.GetKey(KeyCode.LeftArrow))
                                             {
 
-                                                this.transform.Rotate(new Vector3(0, 0, -90), 35 * Time.deltaTime);
+                                                this.transform.Rotate(new Vector3(0, 0, -90), 60 * Time.deltaTime);
                                                 //Cannons[0].transform.Rotate(new Vector3(0, 0, -90), 35 * Time.deltaTime);
 
                                                 //CrossHair_Icon.transform.position += new Vector3(-1.8f, 0, 0) * normalMoveSpeed * Time.deltaTime;
@@ -105,7 +105,7 @@ public class First_Cannon : MonoBehaviour {
                                             }
                                             if (Input.GetKey(KeyCode.RightArrow))
                                             {
-                                                this.transform.Rotate(new Vector3(0, 0, 90), 35 * Time.deltaTime);
+                                                this.transform.Rotate(new Vector3(0, 0, 90), 60 * Time.deltaTime);
                                                 //Cannons[0].transform.Rotate(new Vector3(0, 0, 90), 35 * Time.deltaTime);
 
                                                 //CrossHair_Icon.transform.position += new Vector3(1.8f, 0, 0) * normalMoveSpeed * Time.deltaTime;
@@ -117,9 +117,9 @@ public class First_Cannon : MonoBehaviour {
                                             {
 
                                                 // BackUp = 73.0f
-                                                if (TargetDis <= 85.0f)
+                                                if (TargetDis <= 150.0f)
                                                 {
-                                                    Cannons[0].transform.Rotate(new Vector3(-90, 0, 0), 30 * Time.deltaTime);
+                                                    Cannons[0].transform.Rotate(new Vector3(-90, 0, 0), 7 * Time.deltaTime);
 
                                                     CrossHair_Icon.transform.Translate(new Vector3(0, 2.5f, 0) * normalMoveSpeed * Time.deltaTime);
                                                 }
@@ -130,7 +130,7 @@ public class First_Cannon : MonoBehaviour {
                                             {
                                                 if (TargetDis >= 45.0f)
                                                 {
-                                                    Cannons[0].transform.Rotate(new Vector3(90, 0, 0), 30 * Time.deltaTime);
+                                                    Cannons[0].transform.Rotate(new Vector3(90, 0, 0), 7 * Time.deltaTime);
 
                                                     CrossHair_Icon.transform.Translate(new Vector3(0, -2.5f, 0) * normalMoveSpeed * Time.deltaTime);
                                                     //CrossHair_Icon.transform.position += new Vector3(0, hit.normal.y, -1) * normalMoveSpeed * Time.deltaTime;
@@ -219,15 +219,19 @@ public class First_Cannon : MonoBehaviour {
                                 {
                                     case CannonNumber.First:
                                         {
+                                            //print("GamePad 2 On");
+
                                             SelectLight.enabled = true;
                                             CrossHair_Icon.gameObject.SetActive(true);
+
+                                            TargetDis = Vector3.Distance(CrossHair_Icon.transform.position, Cannons[0].transform.position);
 
                                             // 게임 패드 작업
 
                                             if (Input.GetAxisRaw("P2_360_RightStick") == 1)
                                             {
 
-                                                //Debug.Log("RightStick!");
+                                                Debug.Log("RightStick!");
 
                                                 this.transform.Rotate(new Vector3(0, 0, 90), 35 * Time.deltaTime);
                                             }
@@ -235,7 +239,7 @@ public class First_Cannon : MonoBehaviour {
                                             if (Input.GetAxisRaw("P2_360_RightStick") == -1)
                                             {
 
-                                                //Debug.Log("LeftStick!");
+                                                Debug.Log("LeftStick!");
 
                                                 this.transform.Rotate(new Vector3(0, 0, -90), 35 * Time.deltaTime);
                                             }
@@ -243,7 +247,7 @@ public class First_Cannon : MonoBehaviour {
                                             if (Input.GetAxisRaw("P2_360_UpStick") == -1)
                                             {
 
-                                                //Debug.Log("UpStick!");
+                                                Debug.Log("UpStick!");
 
                                                 if (TargetDis >= 36.0f)
                                                 {
@@ -258,7 +262,7 @@ public class First_Cannon : MonoBehaviour {
                                             if (Input.GetAxisRaw("P2_360_UpStick") == 1)
                                             {
 
-                                                //Debug.Log("DownStick!");
+                                                Debug.Log("DownStick!");
 
                                                 if (TargetDis <= 85.0f)
                                                 {

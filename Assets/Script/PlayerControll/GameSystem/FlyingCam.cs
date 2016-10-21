@@ -68,7 +68,7 @@ public class FlyingCam : MonoBehaviour {
                 {
                     // 마우스 작업
 
-                    
+                    print("Mouse");
                     //Direction = Vector3.Distance(this.gameObject.transform.position, CameraDir.transform.position);
 
 
@@ -183,59 +183,68 @@ public class FlyingCam : MonoBehaviour {
                 {
                     // 게임 패드 작업
 
-                    
-
                     if ((!GameManager.Elizabat_CommandStart) && (!GameManager.Elizabat_SkillStart))
                     {
                         CameraCheck = Camera.main.WorldToScreenPoint(MainCameraChecker.transform.position);
 
                         if ((CameraCheck.x >= 0))
                         {
-                            if (Input.GetAxisRaw("P1_360_LeftThumbStick") == -1)
+                            if (Input.GetAxisRaw("P1_360_RightStick") == -1)
                             {
 
                                 Debug.Log("LeftStick!");
 
-                                transform.Translate(new Vector3(-3, 0, 0) * normalMoveSpeed * Time.deltaTime);
-                                MainCameraChecker.transform.Translate(new Vector3(-0.8f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                MainCameraRoot.transform.Translate(new Vector3(2.0f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                //transform.Translate(new Vector3(-3, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                MainCameraChecker.transform.Translate(new Vector3(1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime);
                                 //NowCurrentCoordX -= (CameraMovingPoint * Time.deltaTime);
                             }
                         }
 
                         if ((CameraCheck.x <= Screen.width))
                         {
-                            if (Input.GetAxisRaw("P1_360_LeftThumbStick") == 1)
+                            if (Input.GetAxisRaw("P1_360_RightStick") == 1)
                             {
 
                                 Debug.Log("RightStick!");
 
-                                transform.Translate(new Vector3(3, 0, 0) * normalMoveSpeed * Time.deltaTime);
-                                MainCameraChecker.transform.Translate(new Vector3(0.8f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                MainCameraRoot.transform.Translate(new Vector3(-2.0f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                //transform.Translate(new Vector3(3, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                MainCameraChecker.transform.Translate(new Vector3(-1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                //NowCurrentCoordX += (CameraMovingPoint * Time.deltaTime);
+                                //transform.position += (-1 * transform.forward) * normalMoveSpeed * Time.deltaTime;
                             }
                         }
 
                         if ((CameraCheck.y <= Screen.height))
                         {
-                            if (Input.GetAxisRaw("P1_360_UpThumbStick") == -1)
+                            if (Input.GetAxisRaw("P1_360_UpStick") == -1)
                             {
 
                                 Debug.Log("UpStick!");
 
-                                transform.Translate(new Vector3(0, 2, 0) * normalMoveSpeed * Time.deltaTime);
-                                MainCameraChecker.transform.Translate(new Vector3(0, 0.8f, 0) * normalMoveSpeed * Time.deltaTime);
+                                //transform.position += new Vector3(0, ForwardDir.y, ForwardDir.z) * normalMoveSpeed * Time.deltaTime;
+                                MainCameraRoot.transform.Translate(new Vector3(0, -2.0f, 0) * normalMoveSpeed * Time.deltaTime);
+                                //transform.Translate(new Vector3(0, 2, 0) * normalMoveSpeed * Time.deltaTime);
+                                MainCameraChecker.transform.Translate(new Vector3(0, -0.5f, 0) * normalMoveSpeed * Time.deltaTime);
+                                //NowCurrentCoordY += (CameraMovingPoint * Time.deltaTime);
 
                             }
                         }
 
                         if ((CameraCheck.y >= 0))
                         {
-                            if (Input.GetAxisRaw("P1_360_UpThumbStick") == 1)
+                            if (Input.GetAxisRaw("P1_360_UpStick") == 1)
                             {
 
                                 Debug.Log("DownStick!");
 
-                                transform.Translate(new Vector3(0, -2, 0) * normalMoveSpeed * Time.deltaTime);
-                                MainCameraChecker.transform.Translate(new Vector3(0, -0.8f, 0) * normalMoveSpeed * Time.deltaTime);
+                                //transform.position -= new Vector3(0, ForwardDir.y, ForwardDir.z) * normalMoveSpeed * Time.deltaTime;
+                                MainCameraRoot.transform.Translate(new Vector3(0, 2.0f, 0) * normalMoveSpeed * Time.deltaTime);
+                                //transform.Translate(new Vector3(0, -2, 0) * normalMoveSpeed * Time.deltaTime);
+                                MainCameraChecker.transform.Translate(new Vector3(0, 0.2f, 0) * normalMoveSpeed * Time.deltaTime);
+                                //NowCurrentCoordY -= (CameraMovingPoint * Time.deltaTime);
+                                //transform.position += transform.forward * normalMoveSpeed * Time.deltaTime;
                             }
                         }
                     }

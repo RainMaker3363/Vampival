@@ -98,6 +98,7 @@ public class Elizabat : MonoBehaviour {
                 ViewMode = ViewControllMode.GamePad;
         }
 
+        ViewMode = GameManager.ViewMode;
         Gamestate = GameManager.Gamestate;
 
         switch (Gamestate)
@@ -320,12 +321,12 @@ public class Elizabat : MonoBehaviour {
                             {
                                 // 게임 패드 작업
 
+                                //print("GamePad 1 On");
                                 //targetPosOnScreen = Camera.main.WorldToScreenPoint(CameraChecker.transform.position);
 
                                 if (!GameManager.Elizabat_CommandStart && !GameManager.Elizabat_SkillStart)
                                 {
                                     light.enabled = false;
-
 
                                     if (Input.GetButtonDown("P1_360_AButton"))
                                     {
@@ -364,8 +365,9 @@ public class Elizabat : MonoBehaviour {
                                 if (GameManager.Elizabat_CommandStart)
                                 {
                                     light.enabled = true;
-
+                                    SkillTarget.gameObject.SetActive(true);
                                     targetPosOnScreen = Camera.main.WorldToScreenPoint(CameraChecker.transform.position);
+
 
                                     if (Physics.Raycast(this.transform.position, (Elizabat_Interpol.transform.position - this.transform.position).normalized * 80.0f, out hit, Mathf.Infinity, layermask))
                                     {
@@ -480,8 +482,6 @@ public class Elizabat : MonoBehaviour {
                                             }
                                         }
                                     }
-
-
 
                                     CommandInputStart(NowSkillChecking);
                                 }
