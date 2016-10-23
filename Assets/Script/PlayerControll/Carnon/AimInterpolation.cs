@@ -45,7 +45,7 @@ public class AimInterpolation : MonoBehaviour {
 
             case GameState.GameStart:
                 {
-                    if (Physics.Raycast(this.transform.position, (AimInterpol.transform.position - this.transform.position).normalized * 80.0f, out hit, Mathf.Infinity))
+                    if (Physics.Raycast(this.transform.position, (AimInterpol.transform.position - this.transform.position).normalized * 200.0f, out hit, Mathf.Infinity))
                     {
                         if (hit.collider.tag.Equals("Ground") == true)
                         {

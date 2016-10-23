@@ -169,7 +169,10 @@ public class Enemy_Militia : MonoBehaviour {
 
             case GameState.GamePause:
                 {
+                    Agent.enabled = false;
 
+                    EnemySpot.gameObject.SetActive(false);
+                    EnemyArrow.gameObject.SetActive(false);
                 }
                 break;
 
@@ -217,6 +220,12 @@ public class Enemy_Militia : MonoBehaviour {
                                     this.gameObject.SetActive(false);
                                     
                                     //Destroy(this.gameObject);
+                                }
+
+                                if(Agent.enabled == false && this.gameObject.activeSelf == true)
+                                {
+                                    Agent.enabled = true;
+                                    Agent.destination = new Vector3(Target.transform.position.x, Target.transform.position.y, Target.transform.position.z);
                                 }
 
                                 //print(Controller.isGrounded);
@@ -351,7 +360,7 @@ public class Enemy_Militia : MonoBehaviour {
                                     else
                                     {
                                         EnemySpot.gameObject.SetActive(true);
-                                        EnemyArrow.gameObject.SetActive(true);
+                                        EnemyArrow.gameObject.SetActive(false);
                                     }
 
                                     center = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
@@ -414,7 +423,7 @@ public class Enemy_Militia : MonoBehaviour {
                                     else
                                     {
                                         EnemySpot.gameObject.SetActive(true);
-                                        EnemyArrow.gameObject.SetActive(true);
+                                        EnemyArrow.gameObject.SetActive(false);
                                     }
 
                                 }

@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class Main_Start_Button : MonoBehaviour, IPointerEnterHandler, ISelectHandler
 {
 
-    public AudioClip TestAudio;
+    public AudioClip SceneChange;
     public SoundManager SDManager;
 
     //public GameObject MissionInfoPanel;
@@ -25,7 +25,10 @@ public class Main_Start_Button : MonoBehaviour, IPointerEnterHandler, ISelectHan
 
     public void OnSelect(BaseEventData eventData)
     {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("TestScene2");
+        SDManager.PlaySfx(SceneChange);
+
+        AutoFade.LoadLevel("MapTest", 2.0f, 2.0f, Color.black);
+        //UnityEngine.SceneManagement.SceneManager.LoadScene("MapTest");
     }
 
     public void OnPointerEnter(PointerEventData eventData)

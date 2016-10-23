@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Elizabat : MonoBehaviour {
@@ -9,6 +10,14 @@ public class Elizabat : MonoBehaviour {
     private ViewControllMode ViewMode;
     private GameState Gamestate;
 
+    private AudioSource Audio;
+    public AudioClip SonicWaveSound;
+    public AudioClip EclipseSound;
+    public AudioClip SonicWave_Command_Correct_Sound;
+    public AudioClip Eclipse_Command_Correct_Sound;
+    public AudioClip Swarm_Command_Correct_Sound;
+    public AudioClip CommandStart_Sound;
+
     private bool ElizabatDecentOn;
 
     private Vector3 CheckerStartPos = Vector3.zero;
@@ -16,6 +25,27 @@ public class Elizabat : MonoBehaviour {
     private RaycastHit hit;
     private Light light;
     //private Ray ray;
+
+    public Image Skill_Not_Yangpigi;
+    public Image Skill_True_Yangpigi;
+    public Image Skill_Button;
+
+    public Image Skill_SonicWave_Icon;
+    public Image Skill_Eclipse_Icon;
+    public Image Skill_Decent_Icon;
+    public Image Skill_Swarm_Icon;
+
+    public Image Skill_SonicWave_Logo;
+    public Image Skill_Eclipse_Logo;
+    public Image Skill_Decent_Logo;
+    public Image Skill_Swarm_Logo;
+
+    public Image[] Skill_SonicWave_Commands;
+    public Image[] Skill_Eclipse_Commands;
+    public Image[] Skill_Decent_Commands;
+    public Image[] Skill_Swarm_Commands;
+
+    public Sprite[] Command_Arrows;
 
     public GameObject CameraChecker;
     public GameObject SkillTarget;
@@ -63,12 +93,31 @@ public class Elizabat : MonoBehaviour {
         SwarmCommand[0] = 4;
         EclipseCommand[0] = 2;
 
+        
         for (int i = 1; i < 7; i++)
         {
             SonicWaveCommand[i] = 0;
             DecentCommand[i] = 0;
             SwarmCommand[i] = 0;
             EclipseCommand[i] = 0;
+        }
+
+        Skill_SonicWave_Commands[0].sprite = Command_Arrows[1];
+        Skill_Eclipse_Commands[0].sprite = Command_Arrows[2];
+        Skill_Decent_Commands[0].sprite = Command_Arrows[3];
+        Skill_Swarm_Commands[0].sprite = Command_Arrows[4];
+
+        for (int j = 1; j < Skill_Eclipse_Commands.Length; j++ )
+        {
+            Skill_SonicWave_Commands[j].sprite = Command_Arrows[0];
+            Skill_Eclipse_Commands[j].sprite = Command_Arrows[0];
+            Skill_Decent_Commands[j].sprite = Command_Arrows[0];
+            Skill_Swarm_Commands[j].sprite = Command_Arrows[0];
+        }
+
+        if (Audio == null)
+        {
+            Audio = GetComponent<AudioSource>();
         }
 
         Inputcommand = 0;
@@ -174,7 +223,15 @@ public class Elizabat : MonoBehaviour {
                                         CameraChecker.transform.position = CheckerStartPos;
 
                                         CommandInitilization();
-                                        
+
+                                        // Skill UI 활성화 사운드
+                                        Audio.clip = CommandStart_Sound;
+                                        Audio.Play();
+
+                                        // Skill UI를 활성화 시킨다.
+                                        Skill_Not_Yangpigi.gameObject.SetActive(false);
+                                        Skill_True_Yangpigi.gameObject.SetActive(true);
+                                        Skill_Button.gameObject.SetActive(false);
                                     }
 
                                     //if(Input.GetKeyDown(KeyCode.V))
@@ -199,9 +256,13 @@ public class Elizabat : MonoBehaviour {
 
                                     targetPosOnScreen = Camera.main.WorldToScreenPoint(CameraChecker.transform.position);
 
-                                    if (Physics.Raycast(this.transform.position, (Elizabat_Interpol.transform.position - this.transform.position).normalized * 80.0f, out hit, Mathf.Infinity, layermask))
+                                    
+
+                                    if (Physics.Raycast(this.transform.position, (Elizabat_Interpol.transform.position - this.transform.position).normalized * 300.0f, out hit, Mathf.Infinity, layermask))
                                     {
-                                        //Debug.DrawRay(this.transform.position, (Elizabat_Interpol.transform.position - this.transform.position).normalized * 200.0f);
+                                        print("Ground");
+
+                                        Debug.DrawRay(this.transform.position, (Elizabat_Interpol.transform.position - this.transform.position).normalized * 300.0f, Color.green);
 
                                         if (hit.collider.tag.Equals("Ground") == true)
                                         {
@@ -336,6 +397,15 @@ public class Elizabat : MonoBehaviour {
 
                                         CommandInitilization();
 
+                                        // Skill UI 활성화 사운드
+                                        Audio.clip = CommandStart_Sound;
+                                        Audio.Play();
+
+                                        // 스킬 UI를 활성화 시킨다.
+                                        Skill_Not_Yangpigi.gameObject.SetActive(false);
+                                        Skill_True_Yangpigi.gameObject.SetActive(true);
+                                        Skill_Button.gameObject.SetActive(false);
+
                                         //if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
                                         //{
                                         //    CommandInitilization(4);
@@ -369,7 +439,7 @@ public class Elizabat : MonoBehaviour {
                                     targetPosOnScreen = Camera.main.WorldToScreenPoint(CameraChecker.transform.position);
 
 
-                                    if (Physics.Raycast(this.transform.position, (Elizabat_Interpol.transform.position - this.transform.position).normalized * 80.0f, out hit, Mathf.Infinity, layermask))
+                                    if (Physics.Raycast(this.transform.position, (Elizabat_Interpol.transform.position - this.transform.position).normalized * 300.0f, out hit, Mathf.Infinity, layermask))
                                     {
                                         //Debug.DrawRay(this.transform.position, (Elizabat_Interpol.transform.position - this.transform.position).normalized * 200.0f);
 
@@ -647,12 +717,22 @@ public class Elizabat : MonoBehaviour {
         GameManager.Elizabat_SkillStart = false;
         light.range = 200;
 
+        //// 스킬 UI를 원상복구 시킨다.
+        //Skill_Not_Yangpigi.enabled = true;
+        //Skill_True_Yangpigi.enabled = false;
+        //Skill_Button.enabled = true;
+
         // 강하 공격 쿨 타임
         GameManager.Elizabat_Decent_On = true;
 
+        Skill_Decent_Logo.gameObject.SetActive(true);
+
         yield return new WaitForSeconds(3.0f);
 
-        print("Decent Skill Off"); 
+        print("Decent Skill Off");
+
+        Skill_Decent_Logo.gameObject.SetActive(false);
+
         GameManager.Elizabat_Decent_On = false;
         //yield return 1;
 
@@ -664,11 +744,18 @@ public class Elizabat : MonoBehaviour {
         GameManager.Elizabat_Swarm_On = true;
 
         print("Swarm Skill On");
+
+        Skill_Swarm_Logo.gameObject.SetActive(true);
+        
         // 스웜 이펙트 출력
+
 
         yield return new WaitForSeconds(7.0f);
 
         print("Swarm Skill Off");
+
+        Skill_Swarm_Logo.gameObject.SetActive(false);
+
         GameManager.Elizabat_Swarm_On = false;
     }
 
@@ -679,9 +766,23 @@ public class Elizabat : MonoBehaviour {
 
         // 일식 효과
         print("Eclipse Skill On");
+
+        Audio.clip = EclipseSound;
+
+        if(Audio.isPlaying == false)
+        {
+            Audio.Play();
+        }
+        
+
+
+        Skill_Eclipse_Logo.gameObject.SetActive(true);
+
         yield return new WaitForSeconds(20.0f);
 
         print("Eclipse Skill Off");
+
+        Skill_Eclipse_Logo.gameObject.SetActive(false);
 
         GameManager.Elizabat_Eclipse_On = false;
     }
@@ -694,9 +795,20 @@ public class Elizabat : MonoBehaviour {
         // 소닉 웨이브 효과
         print("Sonic Skill On");
 
+        Audio.clip = SonicWaveSound;
+
+        if (Audio.isPlaying == false)
+        {
+            Audio.Play();
+        }
+
+        Skill_SonicWave_Logo.gameObject.SetActive(true);
+
         yield return new WaitForSeconds(5.0f);
 
         print("Sonic Skill Off");
+
+        Skill_SonicWave_Logo.gameObject.SetActive(false);
 
         GameManager.Elizabat_SonicWave_On = false;
     }
@@ -720,6 +832,40 @@ public class Elizabat : MonoBehaviour {
                         NowCommand = Random.Range(1, 5);
 
                         SonicWaveCommand[i] = NowCommand;
+                        
+                        switch(NowCommand)
+                        {
+                            case 1:
+                                {
+                                    Skill_SonicWave_Commands[i].sprite = Command_Arrows[1];
+                                }
+                                break;
+
+                            case 2:
+                                {
+                                    Skill_SonicWave_Commands[i].sprite = Command_Arrows[2];
+                                }
+                                break;
+
+                            case 3:
+                                {
+                                    Skill_SonicWave_Commands[i].sprite = Command_Arrows[3];
+                                }
+                                break;
+
+                            case 4:
+                                {
+                                    Skill_SonicWave_Commands[i].sprite = Command_Arrows[4];
+                                }
+                                break;
+
+                            default:
+                                {
+                                    Skill_SonicWave_Commands[i].sprite = Command_Arrows[0];
+                                }
+                                break;
+                        }
+                        
                     
                     }
 
@@ -728,6 +874,40 @@ public class Elizabat : MonoBehaviour {
                         NowCommand = Random.Range(1, 5);
 
                         EclipseCommand[i] = NowCommand;
+
+                        switch (NowCommand)
+                        {
+                            case 1:
+                                {
+
+                                    Skill_Eclipse_Commands[i].sprite = Command_Arrows[1];
+                                }
+                                break;
+
+                            case 2:
+                                {
+                                    Skill_Eclipse_Commands[i].sprite = Command_Arrows[2];
+                                }
+                                break;
+
+                            case 3:
+                                {
+                                    Skill_Eclipse_Commands[i].sprite = Command_Arrows[3];
+                                }
+                                break;
+
+                            case 4:
+                                {
+                                    Skill_Eclipse_Commands[i].sprite = Command_Arrows[4];
+                                }
+                                break;
+
+                            default:
+                                {
+                                    Skill_Eclipse_Commands[i].sprite = Command_Arrows[0];
+                                }
+                                break;
+                        }
                     }
 
                     for (int i = 1; i < SwarmMaxCount; i++)
@@ -735,12 +915,80 @@ public class Elizabat : MonoBehaviour {
                         NowCommand = Random.Range(1, 5);
 
                         SwarmCommand[i] = NowCommand;
+
+                        switch (NowCommand)
+                        {
+                            case 1:
+                                {
+
+                                    Skill_Swarm_Commands[i].sprite = Command_Arrows[1];
+                                }
+                                break;
+
+                            case 2:
+                                {
+                                    Skill_Swarm_Commands[i].sprite = Command_Arrows[2];
+                                }
+                                break;
+
+                            case 3:
+                                {
+                                    Skill_Swarm_Commands[i].sprite = Command_Arrows[3];
+                                }
+                                break;
+
+                            case 4:
+                                {
+                                    Skill_Swarm_Commands[i].sprite = Command_Arrows[4];
+                                }
+                                break;
+
+                            default:
+                                {
+                                    Skill_Swarm_Commands[i].sprite = Command_Arrows[0];
+                                }
+                                break;
+                        }
                     }
                     for (int i = 1; i < DecentMaxCount; i++)
                     {
                         NowCommand = Random.Range(1, 5);
 
                         DecentCommand[i] = NowCommand;
+
+                        switch (NowCommand)
+                        {
+                            case 1:
+                                {
+
+                                    Skill_Decent_Commands[i].sprite = Command_Arrows[1];
+                                }
+                                break;
+
+                            case 2:
+                                {
+                                    Skill_Decent_Commands[i].sprite = Command_Arrows[2];
+                                }
+                                break;
+
+                            case 3:
+                                {
+                                    Skill_Decent_Commands[i].sprite = Command_Arrows[3];
+                                }
+                                break;
+
+                            case 4:
+                                {
+                                    Skill_Decent_Commands[i].sprite = Command_Arrows[4];
+                                }
+                                break;
+
+                            default:
+                                {
+                                    Skill_Decent_Commands[i].sprite = Command_Arrows[0];
+                                }
+                                break;
+                        }
                     }
 
                     currentNum = 0;
@@ -784,9 +1032,15 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (SonicWaveCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_SonicWave_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+                                                    // Skill UI 활성화 사운드
+                                                    Audio.clip = SonicWave_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -796,6 +1050,11 @@ public class Elizabat : MonoBehaviour {
                                                     CommandStartOn = false;
                                                     NowSkillChecking = 0;
                                                     SonicMaxCount = 0;
+
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
 
                                                     for (int i = 1; i < 7; i++)
                                                     {
@@ -812,9 +1071,14 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (SonicWaveCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_SonicWave_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+                                                    Audio.clip = SonicWave_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -825,9 +1089,19 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     SonicMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         SonicWaveCommand[i] = 0;
+                                                    }
+
+                                                    for(int j =0; j<Skill_SonicWave_Commands.Length; j++)
+                                                    {
+                                                        Skill_SonicWave_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -840,9 +1114,14 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (SonicWaveCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_SonicWave_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+                                                    Audio.clip = SonicWave_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -853,9 +1132,19 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     SonicMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         SonicWaveCommand[i] = 0;
+                                                    }
+
+                                                    for (int j = 0; j < Skill_SonicWave_Commands.Length; j++)
+                                                    {
+                                                        Skill_SonicWave_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -868,9 +1157,14 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (SonicWaveCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_SonicWave_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+                                                    Audio.clip = SonicWave_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -881,9 +1175,19 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     SonicMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         SonicWaveCommand[i] = 0;
+                                                    }
+
+                                                    for (int j = 0; j < Skill_SonicWave_Commands.Length; j++)
+                                                    {
+                                                        Skill_SonicWave_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -893,18 +1197,27 @@ public class Elizabat : MonoBehaviour {
                                                 print("Command Success!");
 
                                                 // 소닉 웨이브 스킬 시작
-                                                StartCoroutine("SonicWave_Timer");
+                                                StartCoroutine("SonicWaveSkill");
 
                                                 GameManager.Elizabat_CommandStart = false;
                                                 CommandStartOn = false;
                                                 NowSkillChecking = 0;
                                                 SonicMaxCount = 0;
 
+                                                // 스킬 UI를 원상복구 시킨다.
+                                                Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                Skill_Button.gameObject.SetActive(true);
+
                                                 for (int i = 1; i < 7; i++)
                                                 {
                                                     SonicWaveCommand[i] = 0;
                                                 }
 
+                                                for (int j = 0; j < Skill_SonicWave_Commands.Length; j++)
+                                                {
+                                                    Skill_SonicWave_Commands[j].color = Color.black;
+                                                }
 
                                             }
                                         }
@@ -922,9 +1235,14 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (EclipseCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_Eclipse_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+                                                    Audio.clip = Eclipse_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -935,9 +1253,19 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     EclipseMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         EclipseCommand[i] = 0;
+                                                    }
+
+                                                    for (int j = 0; j < Skill_Eclipse_Commands.Length; j++)
+                                                    {
+                                                        Skill_Eclipse_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -950,9 +1278,15 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (EclipseCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_Eclipse_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+
+                                                    Audio.clip = Eclipse_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -963,9 +1297,20 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     EclipseMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         EclipseCommand[i] = 0;
+                                                    }
+
+
+                                                    for (int j = 0; j < Skill_Eclipse_Commands.Length; j++)
+                                                    {
+                                                        Skill_Eclipse_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -978,9 +1323,14 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (EclipseCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_Eclipse_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+                                                    Audio.clip = Eclipse_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -991,9 +1341,20 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     EclipseMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         EclipseCommand[i] = 0;
+                                                    }
+
+
+                                                    for (int j = 0; j < Skill_Eclipse_Commands.Length; j++)
+                                                    {
+                                                        Skill_Eclipse_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -1006,9 +1367,14 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (EclipseCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_Eclipse_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+                                                    Audio.clip = Eclipse_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -1019,9 +1385,20 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     EclipseMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         EclipseCommand[i] = 0;
+                                                    }
+
+
+                                                    for (int j = 0; j < Skill_Eclipse_Commands.Length; j++)
+                                                    {
+                                                        Skill_Eclipse_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -1038,9 +1415,20 @@ public class Elizabat : MonoBehaviour {
                                                 NowSkillChecking = 0;
                                                 EclipseMaxCount = 0;
 
+                                                // 스킬 UI를 원상복구 시킨다.
+                                                Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                Skill_Button.gameObject.SetActive(true);
+
                                                 for (int i = 1; i < 7; i++)
                                                 {
                                                     EclipseCommand[i] = 0;
+                                                }
+
+
+                                                for (int j = 0; j < Skill_Eclipse_Commands.Length; j++)
+                                                {
+                                                    Skill_Eclipse_Commands[j].color = Color.black;
                                                 }
                                             }
                                         }
@@ -1058,9 +1446,15 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (DecentCommand[currentNum] == Inputcommand)
                                                 {
+
+                                                    Skill_Decent_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+                                                    Audio.clip = Eclipse_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -1071,9 +1465,19 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     DecentMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         DecentCommand[i] = 0;
+                                                    }
+
+                                                    for (int j = 0; j < Skill_Decent_Commands.Length; j++)
+                                                    {
+                                                        Skill_Decent_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -1086,9 +1490,14 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (DecentCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_Decent_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+                                                    Audio.clip = Eclipse_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -1099,9 +1508,19 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     DecentMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         DecentCommand[i] = 0;
+                                                    }
+
+                                                    for (int j = 0; j < Skill_Decent_Commands.Length; j++)
+                                                    {
+                                                        Skill_Decent_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -1114,9 +1533,14 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (DecentCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_Decent_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+                                                    Audio.clip = Eclipse_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -1127,9 +1551,19 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     DecentMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         DecentCommand[i] = 0;
+                                                    }
+
+                                                    for (int j = 0; j < Skill_Decent_Commands.Length; j++)
+                                                    {
+                                                        Skill_Decent_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -1142,9 +1576,14 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (DecentCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_Decent_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+                                                    Audio.clip = Eclipse_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -1155,9 +1594,19 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     DecentMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         DecentCommand[i] = 0;
+                                                    }
+
+                                                    for (int j = 0; j < Skill_Decent_Commands.Length; j++)
+                                                    {
+                                                        Skill_Decent_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -1176,9 +1625,19 @@ public class Elizabat : MonoBehaviour {
                                                 NowSkillChecking = 0;
                                                 DecentMaxCount = 0;
 
+                                                // 스킬 UI를 원상복구 시킨다.
+                                                Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                Skill_Button.gameObject.SetActive(true);
+
                                                 for (int i = 1; i < 6; i++)
                                                 {
                                                     DecentCommand[i] = 0;
+                                                }
+
+                                                for (int j = 0; j < Skill_Decent_Commands.Length; j++)
+                                                {
+                                                    Skill_Decent_Commands[j].color = Color.black;
                                                 }
                                             }
                                         }
@@ -1195,9 +1654,14 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (SwarmCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_Swarm_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+                                                    Audio.clip = Swarm_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -1208,9 +1672,19 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     SwarmMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         SwarmCommand[i] = 0;
+                                                    }
+
+                                                    for (int j = 0; j < Skill_Swarm_Commands.Length; j++)
+                                                    {
+                                                        Skill_Swarm_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -1223,9 +1697,14 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (SwarmCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_Swarm_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+                                                    Audio.clip = Swarm_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -1236,9 +1715,19 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     SwarmMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         SwarmCommand[i] = 0;
+                                                    }
+
+                                                    for (int j = 0; j < Skill_Swarm_Commands.Length; j++)
+                                                    {
+                                                        Skill_Swarm_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -1251,9 +1740,14 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (SwarmCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_Swarm_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+                                                    Audio.clip = Swarm_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -1264,9 +1758,19 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     SwarmMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         SwarmCommand[i] = 0;
+                                                    }
+
+                                                    for (int j = 0; j < Skill_Swarm_Commands.Length; j++)
+                                                    {
+                                                        Skill_Swarm_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -1279,9 +1783,15 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (SwarmCommand[currentNum] == Inputcommand)
                                                 {
+
+                                                    Skill_Swarm_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+                                                    Audio.clip = Swarm_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -1292,9 +1802,19 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     SwarmMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         SwarmCommand[i] = 0;
+                                                    }
+
+                                                    for (int j = 0; j < Skill_Swarm_Commands.Length; j++)
+                                                    {
+                                                        Skill_Swarm_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -1312,9 +1832,19 @@ public class Elizabat : MonoBehaviour {
                                                 NowSkillChecking = 0;
                                                 SwarmMaxCount = 0;
 
+                                                // 스킬 UI를 원상복구 시킨다.
+                                                Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                Skill_Button.gameObject.SetActive(true);
+
                                                 for (int i = 1; i < 7; i++)
                                                 {
                                                     SwarmCommand[i] = 0;
+                                                }
+
+                                                for (int j = 0; j < Skill_Swarm_Commands.Length; j++)
+                                                {
+                                                    Skill_Swarm_Commands[j].color = Color.black;
                                                 }
                                             }
                                         }
@@ -1343,9 +1873,14 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (SonicWaveCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_SonicWave_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+                                                    Audio.clip = SonicWave_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -1356,9 +1891,19 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     SonicMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         SonicWaveCommand[i] = 0;
+                                                    }
+
+                                                    for (int j = 0; j < Skill_SonicWave_Commands.Length; j++)
+                                                    {
+                                                        Skill_SonicWave_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -1371,9 +1916,14 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (SonicWaveCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_SonicWave_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+                                                    Audio.clip = SonicWave_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -1384,9 +1934,19 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     SonicMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         SonicWaveCommand[i] = 0;
+                                                    }
+
+                                                    for (int j = 0; j < Skill_SonicWave_Commands.Length; j++)
+                                                    {
+                                                        Skill_SonicWave_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -1399,9 +1959,14 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (SonicWaveCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_SonicWave_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+                                                    Audio.clip = SonicWave_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -1412,9 +1977,19 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     SonicMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         SonicWaveCommand[i] = 0;
+                                                    }
+
+                                                    for (int j = 0; j < Skill_SonicWave_Commands.Length; j++)
+                                                    {
+                                                        Skill_SonicWave_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -1427,9 +2002,14 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (SonicWaveCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_SonicWave_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+                                                    Audio.clip = SonicWave_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -1440,9 +2020,19 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     SonicMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         SonicWaveCommand[i] = 0;
+                                                    }
+
+                                                    for (int j = 0; j < Skill_SonicWave_Commands.Length; j++)
+                                                    {
+                                                        Skill_SonicWave_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -1452,16 +2042,26 @@ public class Elizabat : MonoBehaviour {
                                                 print("Command Success!");
 
                                                 // 소닉 웨이브 스킬 시작
-                                                StartCoroutine("SonicWave_Timer");
+                                                StartCoroutine("SonicWaveSkill");
 
                                                 GameManager.Elizabat_CommandStart = false;
                                                 CommandStartOn = false;
                                                 NowSkillChecking = 0;
                                                 SonicMaxCount = 0;
 
+                                                // 스킬 UI를 원상복구 시킨다.
+                                                Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                Skill_Button.gameObject.SetActive(true);
+
                                                 for (int i = 0; i < 7; i++)
                                                 {
                                                     SonicWaveCommand[i] = 0;
+                                                }
+
+                                                for (int j = 0; j < Skill_SonicWave_Commands.Length; j++)
+                                                {
+                                                    Skill_SonicWave_Commands[j].color = Color.black;
                                                 }
                                             }
                                         }
@@ -1479,9 +2079,14 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (EclipseCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_Eclipse_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+                                                    Audio.clip = Eclipse_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -1492,9 +2097,19 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     EclipseMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         EclipseCommand[i] = 0;
+                                                    }
+
+                                                    for (int j = 0; j < Skill_Eclipse_Commands.Length; j++)
+                                                    {
+                                                        Skill_Eclipse_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -1507,9 +2122,14 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (EclipseCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_Eclipse_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+                                                    Audio.clip = Eclipse_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -1520,9 +2140,19 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     EclipseMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         EclipseCommand[i] = 0;
+                                                    }
+
+                                                    for (int j = 0; j < Skill_Eclipse_Commands.Length; j++)
+                                                    {
+                                                        Skill_Eclipse_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -1535,9 +2165,14 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (EclipseCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_Eclipse_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+                                                    Audio.clip = Eclipse_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -1548,9 +2183,19 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     EclipseMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         EclipseCommand[i] = 0;
+                                                    }
+
+                                                    for (int j = 0; j < Skill_Eclipse_Commands.Length; j++)
+                                                    {
+                                                        Skill_Eclipse_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -1563,9 +2208,14 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (EclipseCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_Eclipse_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+                                                    Audio.clip = Eclipse_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -1576,9 +2226,19 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     EclipseMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         EclipseCommand[i] = 0;
+                                                    }
+
+                                                    for (int j = 0; j < Skill_Eclipse_Commands.Length; j++)
+                                                    {
+                                                        Skill_Eclipse_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -1595,9 +2255,19 @@ public class Elizabat : MonoBehaviour {
                                                 NowSkillChecking = 0;
                                                 EclipseMaxCount = 0;
 
+                                                // 스킬 UI를 원상복구 시킨다.
+                                                Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                Skill_Button.gameObject.SetActive(true);
+
                                                 for (int i = 1; i < 7; i++)
                                                 {
                                                     EclipseCommand[i] = 0;
+                                                }
+
+                                                for (int j = 0; j < Skill_Eclipse_Commands.Length; j++)
+                                                {
+                                                    Skill_Eclipse_Commands[j].color = Color.black;
                                                 }
                                             }
                                         }
@@ -1615,9 +2285,14 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (DecentCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_Decent_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+                                                    Audio.clip = Eclipse_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -1628,9 +2303,19 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     DecentMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         DecentCommand[i] = 0;
+                                                    }
+
+                                                    for (int j = 0; j < Skill_Decent_Commands.Length; j++)
+                                                    {
+                                                        Skill_Decent_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -1643,9 +2328,14 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (DecentCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_Decent_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+                                                    Audio.clip = Eclipse_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -1656,9 +2346,19 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     DecentMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         DecentCommand[i] = 0;
+                                                    }
+
+                                                    for (int j = 0; j < Skill_Decent_Commands.Length; j++)
+                                                    {
+                                                        Skill_Decent_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -1671,9 +2371,14 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (DecentCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_Decent_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+                                                    Audio.clip = Eclipse_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -1684,9 +2389,19 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     DecentMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         DecentCommand[i] = 0;
+                                                    }
+
+                                                    for (int j = 0; j < Skill_Decent_Commands.Length; j++)
+                                                    {
+                                                        Skill_Decent_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -1699,9 +2414,14 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (DecentCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_Decent_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+                                                    Audio.clip = Eclipse_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -1712,9 +2432,19 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     DecentMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         DecentCommand[i] = 0;
+                                                    }
+
+                                                    for (int j = 0; j < Skill_Decent_Commands.Length; j++)
+                                                    {
+                                                        Skill_Decent_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -1733,9 +2463,19 @@ public class Elizabat : MonoBehaviour {
                                                 NowSkillChecking = 0;
                                                 DecentMaxCount = 0;
 
+                                                // 스킬 UI를 원상복구 시킨다.
+                                                Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                Skill_Button.gameObject.SetActive(true);
+
                                                 for (int i = 1; i < 7; i++)
                                                 {
                                                     DecentCommand[i] = 0;
+                                                }
+
+                                                for (int j = 0; j < Skill_Decent_Commands.Length; j++)
+                                                {
+                                                    Skill_Decent_Commands[j].color = Color.black;
                                                 }
                                             }
                                         }
@@ -1752,9 +2492,14 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (SwarmCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_Swarm_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+                                                    Audio.clip = Swarm_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -1765,9 +2510,19 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     SwarmMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         SwarmCommand[i] = 0;
+                                                    }
+
+                                                    for (int j = 0; j < Skill_Swarm_Commands.Length; j++)
+                                                    {
+                                                        Skill_Swarm_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -1780,9 +2535,15 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (SwarmCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_Swarm_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+
+                                                    Audio.clip = Swarm_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -1793,9 +2554,19 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     SwarmMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         SwarmCommand[i] = 0;
+                                                    }
+
+                                                    for (int j = 0; j < Skill_Swarm_Commands.Length; j++)
+                                                    {
+                                                        Skill_Swarm_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -1808,9 +2579,15 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (SwarmCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_Swarm_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+
+                                                    Audio.clip = Swarm_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -1821,9 +2598,19 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     SwarmMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         SwarmCommand[i] = 0;
+                                                    }
+
+                                                    for (int j = 0; j < Skill_Swarm_Commands.Length; j++)
+                                                    {
+                                                        Skill_Swarm_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -1836,9 +2623,15 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (SwarmCommand[currentNum] == Inputcommand)
                                                 {
+                                                    Skill_Swarm_Commands[currentNum].color = Color.red;
+
                                                     currentNum++;
 
                                                     Inputcommand = 0;
+
+
+                                                    Audio.clip = Swarm_Command_Correct_Sound;
+                                                    Audio.Play();
                                                 }
                                                 else
                                                 {
@@ -1849,9 +2642,19 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 0;
                                                     SwarmMaxCount = 0;
 
+                                                    // 스킬 UI를 원상복구 시킨다.
+                                                    Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                    Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                    Skill_Button.gameObject.SetActive(true);
+
                                                     for (int i = 1; i < 7; i++)
                                                     {
                                                         SwarmCommand[i] = 0;
+                                                    }
+
+                                                    for (int j = 0; j < Skill_Swarm_Commands.Length; j++)
+                                                    {
+                                                        Skill_Swarm_Commands[j].color = Color.black;
                                                     }
                                                 }
                                             }
@@ -1868,9 +2671,19 @@ public class Elizabat : MonoBehaviour {
                                                 NowSkillChecking = 0;
                                                 SwarmMaxCount = 0;
 
+                                                // 스킬 UI를 원상복구 시킨다.
+                                                Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                Skill_Button.gameObject.SetActive(true);
+
                                                 for (int i = 1; i < 7; i++)
                                                 {
                                                     SwarmCommand[i] = 0;
+                                                }
+
+                                                for (int j = 0; j < Skill_Swarm_Commands.Length; j++)
+                                                {
+                                                    Skill_Swarm_Commands[j].color = Color.black;
                                                 }
                                             }
                                         }

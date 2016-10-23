@@ -43,7 +43,7 @@ public class GameManager : MonoBehaviour {
     // 게임 레벨 디자인 설정 값
     //===============================================================================================================================
 
-    public Transform[] RespawnPoint;
+    //public Transform[] RespawnPoint;
     public GameObject[] Enemies;
     public GameObject[] Militia_Enemies;
 
@@ -83,6 +83,10 @@ public class GameManager : MonoBehaviour {
     /// </summary>
     public Light light;
 
+    // 사운드
+    private AudioSource audioSource;
+    public AudioClip InGameBGM;
+
     private bool SpawnOn;
 
     private int NowLevel;
@@ -120,6 +124,11 @@ public class GameManager : MonoBehaviour {
         Elizabat_Decent_On = false;
         Elizabat_Swarm_On = false;
 
+        if (audioSource == null)
+        {
+            audioSource = GetComponent<AudioSource>();
+            audioSource.clip = InGameBGM;
+        }
 
         
         //ViewMode = ViewControllMode.Mouse;
@@ -153,13 +162,29 @@ public class GameManager : MonoBehaviour {
         {
             case GameState.GameIntro:
                 {
-                    
+                    //if(InGameBGM != null)
+                    //{
+                    //    if(audioSource.isPlaying == false)
+                    //    {
+                            
+                    //        audioSource.Play();
+                    //    }
+                    //}
                 }
                 break;
 
             case GameState.GameStart:
                 {
-                    
+
+                    if (InGameBGM != null)
+                    {
+                        if (audioSource.isPlaying == false)
+                        {
+
+                            audioSource.Play();
+                        }
+                    }
+
                     // 빛 타이머
                     if (GameTimer >= 5.0f)
                     {
@@ -236,6 +261,13 @@ public class GameManager : MonoBehaviour {
 
                 }
                 break;
+
+            case GameState.GamePause:
+                {
+                    audioSource.Stop();
+                }
+                break;
+
         }
 	}
 

@@ -6,12 +6,17 @@ public class CannonBall : MonoBehaviour {
     private ViewControllMode ViewMode;
     private GameState Gamestate;
 
+    private SphereCollider SphereCol;
+
     //private Vector3 StartBackUp = Vector3.zero;
     private Vector3 StartPoint = Vector3.zero;
     private Vector3 targetPoint = Vector3.zero;
 
     public float normalMoveSpeed = 10;
     public float FastMoveSpeed = 40;
+
+    //private AudioSource Audio;
+    //public AudioClip ExplosionSound;
 
     private float _angle = 23.0f;
     private float dist;
@@ -26,7 +31,7 @@ public class CannonBall : MonoBehaviour {
 
     public GameObject AimTarget;
     public GameObject CannonPoint;
-
+    public ParticleSystem Explode_Particle;
     
 	
     void Awake()
@@ -46,13 +51,29 @@ public class CannonBall : MonoBehaviour {
         if (CannonPoint == null)
         {
             CannonPoint = GameObject.FindWithTag("Cannon");
-
-            
         }
+
+        if (SphereCol == null)
+        {
+            SphereCol = GetComponent<SphereCollider>();
+        }
+
+        if (SphereCol != null)
+        {
+            SphereCol.enabled = true;
+        }
+
+        //if (Audio == null)
+        //{
+        //    Audio = GetComponent<AudioSource>();
+        //    Audio.clip = ExplosionSound;
+        //}
 
         IsFire = false;
         _rotate = true;
 
+        //Explode_Particle.gameObject.SetActive(false);
+        Explode_Particle.Stop();
 
         GetComponent<ParticleSystemRenderer>().enabled = false;
 
@@ -77,10 +98,29 @@ public class CannonBall : MonoBehaviour {
         {
             CannonPoint = GameObject.FindWithTag("Cannon");
         }
-        
+
+        if (SphereCol == null)
+        {
+            SphereCol = GetComponent<SphereCollider>();
+        }
+
+        if(SphereCol != null)
+        {
+            SphereCol.enabled = true;
+        }
+
+        //if (Audio == null)
+        //{
+        //    Audio = GetComponent<AudioSource>();
+        //    Audio.clip = ExplosionSound;
+        //}
+
+
         IsFire = false;
         _rotate = true;
 
+        //Explode_Particle.gameObject.SetActive(false);
+        Explode_Particle.Stop();
 
         GetComponent<ParticleSystemRenderer>().enabled = false;
 
@@ -132,7 +172,7 @@ public class CannonBall : MonoBehaviour {
                                     StartPoint = CannonPoint.transform.position;
                                     targetPoint = AimTarget.transform.position;
 
-
+                                    this.transform.parent = null;
 
                                     IsFire = true;
                                 }
@@ -162,7 +202,6 @@ public class CannonBall : MonoBehaviour {
 
                                 if (_rotate)
                                     transform.rotation = Quaternion.LookRotation(globalVelocity);
-
 
 
                                 //if (Input.GetKey(KeyCode.X))
@@ -244,7 +283,23 @@ public class CannonBall : MonoBehaviour {
         {
             //_rotate = false;
             //Destroy(this.gameObject, 0.2f);
-            this.gameObject.SetActive(false);
+            Explode_Particle.gameObject.SetActive(true);
+
+            Explode_Particle.Play();
+
+            //Audio.Play();
+
+            //Explode_Particle.transform.position = collision.transform.position;
+
+            if (SphereCol != null)
+            {
+                SphereCol.enabled = false;
+            }
+
+            if (Explode_Particle.isStopped == true)
+            {
+                this.gameObject.SetActive(false);
+            }
         }
 
         if (collision.transform.tag.Equals("Ground") == true)
@@ -252,7 +307,24 @@ public class CannonBall : MonoBehaviour {
             //_rotate = false;
             //Destroy(this.gameObject, 0.2f);
 
-            this.gameObject.SetActive(false);
+            Explode_Particle.gameObject.SetActive(true);
+
+            Explode_Particle.Play();
+
+            //Audio.Play();
+
+            //Explode_Particle.transform.position = collision.transform.position;
+
+            if (SphereCol != null)
+            {
+                SphereCol.enabled = false;
+            }
+
+            if(Explode_Particle.isStopped == true)
+            {
+                this.gameObject.SetActive(false);
+            }
+                
         }
 
     }

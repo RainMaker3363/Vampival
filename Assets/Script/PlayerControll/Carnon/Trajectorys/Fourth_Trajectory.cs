@@ -17,6 +17,9 @@ public class Fourth_Trajectory : MonoBehaviour {
     private GameState Gamestate;
     private CannonNumber MyCannonNumber;
 
+    private AudioSource Audio;
+    public AudioClip FireSound;
+
     private Vector3 targetPoint = Vector3.zero;
     private Vector3 center = Vector3.zero;
     private Vector3 theArc = Vector3.zero;
@@ -45,6 +48,12 @@ public class Fourth_Trajectory : MonoBehaviour {
 
         MyCannonNumber = GameManager.CannonControl_Number;
 
+        if (Audio == null)
+        {
+            Audio = GetComponent<AudioSource>();
+            Audio.clip = FireSound;
+        }
+
         for (int i = 0; i < CannonBalls.Length; i++)
         {
             CannonBalls[i].SetActive(false);
@@ -69,6 +78,12 @@ public class Fourth_Trajectory : MonoBehaviour {
         Gamestate = GameManager.Gamestate;
 
         MyCannonNumber = GameManager.CannonControl_Number;
+
+        if (Audio == null)
+        {
+            Audio = GetComponent<AudioSource>();
+            Audio.clip = FireSound;
+        }
 
         FireTimer = 0.0f;
 
@@ -136,7 +151,7 @@ public class Fourth_Trajectory : MonoBehaviour {
                                             // 마우스 작업
 
                                             // 발사 주기 체크
-                                            if (FireTimer >= 0.75f)
+                                            if (FireTimer >= 1.25f)
                                             {
                                                 FireReady = true;
                                                 FireTimer = 0.0f;
@@ -146,14 +161,18 @@ public class Fourth_Trajectory : MonoBehaviour {
                                                 FireTimer += Time.deltaTime;
                                             }
 
-                                            if (Input.GetKeyDown(KeyCode.Space) && FireReady)
+                                            if (Input.GetKeyDown(KeyCode.Space) && FireReady && (CannonStack > 0))
                                             {
                                                 FireReady = false;
-                                                Spark.Play();
+
+                                                Audio.Play();
+
+                                                
 
                                                 if (CannonBalls[NowCannonIdx].activeSelf == false)
                                                 {
                                                     //print("Cannon Go!!");
+                                                    Spark.Play();
 
                                                     CannonBalls[NowCannonIdx].gameObject.transform.position = this.transform.position;
                                                     CannonBalls[NowCannonIdx].SetActive(true);
@@ -302,12 +321,13 @@ public class Fourth_Trajectory : MonoBehaviour {
 
                                     case CannonNumber.Fourth:
                                         {
+                                            Spark.gameObject.SetActive(true);
                                            lineRenderer.enabled = true;
 
                                             // 게임 패드 작업
 
                                             // 발사 주기 체크
-                                            if (FireTimer >= 0.75)
+                                            if (FireTimer >= 1.25f)
                                             {
                                                 FireReady = true;
                                                 FireTimer = 0.0f;
@@ -317,16 +337,20 @@ public class Fourth_Trajectory : MonoBehaviour {
                                                 FireTimer += Time.deltaTime;
                                             }
 
-                                            if (Input.GetAxis("P2_360_Trigger") > 0.001 && FireReady)
+                                            if (Input.GetAxis("P2_360_Trigger") > 0.001 && FireReady && (CannonStack > 0))
                                             {
 
                                                 Debug.Log("Right Trigger!");
 
                                                 FireReady = false;
 
+                                                Audio.Play();
+
                                                 if (CannonBalls[NowCannonIdx].activeSelf == false)
                                                 {
                                                     print("Cannon Go!!");
+
+                                                    Spark.Play();
 
                                                     CannonBalls[NowCannonIdx].gameObject.transform.position = this.transform.position;
                                                     CannonBalls[NowCannonIdx].SetActive(true);
@@ -344,16 +368,20 @@ public class Fourth_Trajectory : MonoBehaviour {
                                                 }
                                             }
 
-                                            if (Input.GetAxis("P2_360_Trigger") < 0 && FireReady)
+                                            if (Input.GetAxis("P2_360_Trigger") < 0 && FireReady && (CannonStack > 0))
                                             {
 
                                                 Debug.Log("Left Trigger!");
 
                                                 FireReady = false;
 
+                                                Audio.Play();
+
                                                 if (CannonBalls[NowCannonIdx].activeSelf == false)
                                                 {
                                                     print("Cannon Go!!");
+
+                                                    Spark.Play();
 
                                                     CannonBalls[NowCannonIdx].gameObject.transform.position = this.transform.position;
                                                     CannonBalls[NowCannonIdx].SetActive(true);

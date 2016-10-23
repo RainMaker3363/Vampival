@@ -67,7 +67,7 @@ public class CarrySpider : MonoBehaviour {
                             {
 
                                 // 마우스 작업
-                                print("Mouse");
+                                //print("Mouse");
 
                                 //if(Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, layermask))
                                 //{
@@ -93,7 +93,7 @@ public class CarrySpider : MonoBehaviour {
                                     //transform.position += new Vector3(-0.05f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
 
                                     //this.transform.position = new Vector3(this.transform.position.x, hit.point.y, this.transform.position.z);
-                                    transform.Translate(new Vector3(-2.5f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                    transform.Translate(new Vector3(0, 0, 2.5f) * normalMoveSpeed * Time.deltaTime);
                                     
                                 }
                                 if (Input.GetKey(KeyCode.K))
@@ -103,7 +103,7 @@ public class CarrySpider : MonoBehaviour {
 
                                     //transform.position += new Vector3(0.05f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
 
-                                    transform.Translate(new Vector3(2.5f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                    transform.Translate(new Vector3(0, 0, -2.5f) * normalMoveSpeed * Time.deltaTime);
                                     
                                 }
                                 if (Input.GetKey(KeyCode.J))
@@ -166,7 +166,7 @@ public class CarrySpider : MonoBehaviour {
 
                                     Debug.Log("UpStick!");
 
-                                    transform.Translate(new Vector3(-2.5f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                    transform.Translate(new Vector3(0, 0, 2.5f) * normalMoveSpeed * Time.deltaTime);
                                     //Dir = (Look.transform.position - this.transform.position).normalized;
                                     //transform.position += Dir * normalMoveSpeed * Time.deltaTime;
 
@@ -179,7 +179,7 @@ public class CarrySpider : MonoBehaviour {
 
                                     Debug.Log("DownStick!");
 
-                                    transform.Translate(new Vector3(2.5f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                    transform.Translate(new Vector3(0, 0, -2.5f) * normalMoveSpeed * Time.deltaTime);
                                     //Dir = (Look.transform.position - this.transform.position).normalized;
                                     //transform.position -= Dir * normalMoveSpeed * Time.deltaTime;
 
@@ -233,6 +233,17 @@ public class CarrySpider : MonoBehaviour {
         if (collision.transform.tag == "CannonBall")
         {
             print("Friendly Fire!!");
+        }
+
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.tag.Equals("UI_Document") == true)
+        {
+            other.gameObject.SetActive(false);
+
+            GameManager.Gamestate = GameState.GamePause;
         }
 
     }
