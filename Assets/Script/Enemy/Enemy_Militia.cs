@@ -440,7 +440,10 @@ public class Enemy_Militia : MonoBehaviour {
 
             case GameState.GameEnd:
                 {
+                    Agent.enabled = false;
 
+                    EnemySpot.gameObject.SetActive(false);
+                    EnemyArrow.gameObject.SetActive(false);
                 }
                 break;
         }

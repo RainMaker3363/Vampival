@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -8,7 +9,8 @@ public enum GameState
     GameIntro = 0,
     GamePause,
     GameStart,
-    GameEnd
+    GameEnd,
+    GameVictory
 }
 
 // 시점 조작 모드 선택
@@ -86,6 +88,12 @@ public class GameManager : MonoBehaviour {
     // 사운드
     private AudioSource audioSource;
     public AudioClip InGameBGM;
+    //public AudioClip GameOverBGM;
+
+    // 게임 내의 UI들
+    public Image Fear_Parameter_Gage;
+    public Image Capture_Parameter_Gage;
+    public Image GameOver_BG;
 
     private bool SpawnOn;
 
@@ -98,8 +106,11 @@ public class GameManager : MonoBehaviour {
     // 공포도 수치 (게임 승패 조건)
     static public int Fear_Parameter;
     
+    
     // 함락도 수치 (게임 패배 조건)
     static public float Capture_Parameter;
+    private float CaptureTimer;
+
     private float Capture_Meter;
     private float Capture_Max;
 
@@ -109,12 +120,17 @@ public class GameManager : MonoBehaviour {
         NowLevel = 1;
         Fear_Parameter = 0;
         Capture_Parameter = 0;
+        
 
         RespawnTimer = 1.0f;
         GameTimer = 0.0f;
 
         light.intensity = 0.35f;
+
+        CaptureTimer = 0.0f;
         Capture_Max = 100.0f;
+        Capture_Meter = Capture_Max;
+
         //light.intensity = 1f;
         Elizabat_CommandStart = false;
         Elizabat_SkillStart = false;
@@ -201,7 +217,32 @@ public class GameManager : MonoBehaviour {
                     }
 
                     // 점령도 계산
-                    Capture_Meter = (Capture_Parameter * 0.5f);
+                    if (CaptureTimer >= 1.0f)
+                    {
+                        CaptureTimer = 0.0f;
+
+                        if(Capture_Parameter_Gage.fillAmount <= 0.0f)
+                        {
+                            Gamestate = GameState.GameEnd;
+
+                            GameOver_BG.gameObject.SetActive(true);
+                            
+                            //audioSource.clip = GameOverBGM;
+                            audioSource.Stop();
+                        }
+                        else
+                        {
+                            Capture_Parameter += 2.0f;
+                            Capture_Meter -= (Capture_Parameter * 0.5f);
+                            Capture_Parameter_Gage.fillAmount = (Capture_Meter / Capture_Max);
+                        }
+
+                    }
+                    else
+                    {
+                        CaptureTimer += Time.deltaTime;
+                    }
+                    
 
                     // 리스폰 타이머
                     if (RespawnTimer <= 0.0f)
@@ -258,7 +299,7 @@ public class GameManager : MonoBehaviour {
 
             case GameState.GameEnd:
                 {
-
+                    //audioSource.Play();
                 }
                 break;
 
