@@ -15,14 +15,14 @@ public class CannonBall : MonoBehaviour {
     public float normalMoveSpeed = 10;
     public float FastMoveSpeed = 40;
 
-    //private AudioSource Audio;
-    //public AudioClip ExplosionSound;
-
     private float _angle = 23.0f;
     private float dist;
 
     private Vector3 localVelocity;
     private Vector3 globalVelocity;
+
+    private AudioSource Audio;
+    public AudioClip ExplosionSound;
 
     private bool IsFire;
     private bool _rotate;
@@ -63,11 +63,13 @@ public class CannonBall : MonoBehaviour {
             SphereCol.enabled = true;
         }
 
-        //if (Audio == null)
-        //{
-        //    Audio = GetComponent<AudioSource>();
-        //    Audio.clip = ExplosionSound;
-        //}
+
+
+        if (Audio == null)
+        {
+            Audio = GetComponent<AudioSource>();
+            Audio.clip = ExplosionSound;
+        }
 
         IsFire = false;
         _rotate = true;
@@ -109,11 +111,11 @@ public class CannonBall : MonoBehaviour {
             SphereCol.enabled = true;
         }
 
-        //if (Audio == null)
-        //{
-        //    Audio = GetComponent<AudioSource>();
-        //    Audio.clip = ExplosionSound;
-        //}
+        if (Audio == null)
+        {
+            Audio = GetComponent<AudioSource>();
+            Audio.clip = ExplosionSound;
+        }
 
 
         IsFire = false;
@@ -226,11 +228,10 @@ public class CannonBall : MonoBehaviour {
                                 if (!IsFire)
                                 {
 
-
                                     targetPoint = AimTarget.transform.position;
                                     StartPoint = CannonPoint.transform.position;
 
-
+                                    this.transform.parent = null;
 
                                     IsFire = true;
                                 }
@@ -287,7 +288,7 @@ public class CannonBall : MonoBehaviour {
 
             Explode_Particle.Play();
 
-            //Audio.Play();
+            Audio.Play();
 
             //Explode_Particle.transform.position = collision.transform.position;
 
@@ -311,7 +312,7 @@ public class CannonBall : MonoBehaviour {
 
             Explode_Particle.Play();
 
-            //Audio.Play();
+            Audio.Play();
 
             //Explode_Particle.transform.position = collision.transform.position;
 

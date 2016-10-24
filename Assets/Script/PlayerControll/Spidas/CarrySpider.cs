@@ -93,7 +93,7 @@ public class CarrySpider : MonoBehaviour {
                                     //transform.position += new Vector3(-0.05f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
 
                                     //this.transform.position = new Vector3(this.transform.position.x, hit.point.y, this.transform.position.z);
-                                    transform.Translate(new Vector3(0, 0, 2.5f) * normalMoveSpeed * Time.deltaTime);
+                                    transform.Translate(new Vector3(0, 0, 3.25f) * normalMoveSpeed * Time.deltaTime);
                                     
                                 }
                                 if (Input.GetKey(KeyCode.K))
@@ -103,7 +103,7 @@ public class CarrySpider : MonoBehaviour {
 
                                     //transform.position += new Vector3(0.05f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
 
-                                    transform.Translate(new Vector3(0, 0, -2.5f) * normalMoveSpeed * Time.deltaTime);
+                                    transform.Translate(new Vector3(0, 0, -3.25f) * normalMoveSpeed * Time.deltaTime);
                                     
                                 }
                                 if (Input.GetKey(KeyCode.J))

@@ -27,7 +27,7 @@ public class Main_Start_Button : MonoBehaviour, IPointerEnterHandler, ISelectHan
     {
         SDManager.PlaySfx(SceneChange);
 
-        AutoFade.LoadLevel("MapTest", 2.0f, 2.0f, Color.black);
+        AutoFade.LoadLevel("MapTest", 2.0f, 1.0f, Color.black);
         //UnityEngine.SceneManagement.SceneManager.LoadScene("MapTest");
     }
 

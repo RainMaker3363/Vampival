@@ -95,6 +95,9 @@ public class GameManager : MonoBehaviour {
     public Image Capture_Parameter_Gage;
     public Image GameOver_BG;
 
+    public GameObject Main_UI;
+    public GameObject MiniMap_UI;
+
     private bool SpawnOn;
 
     private int NowLevel;
@@ -113,6 +116,8 @@ public class GameManager : MonoBehaviour {
 
     private float Capture_Meter;
     private float Capture_Max;
+
+    private bool SoundChecker;
 
     void Awake()
     {
@@ -150,7 +155,12 @@ public class GameManager : MonoBehaviour {
         //ViewMode = ViewControllMode.Mouse;
         //CannonControl_Number = CannonNumber.First;
         //Gamestate = GameState.GameIntro;
-        Gamestate = GameState.GameStart;
+        SoundChecker = false;
+
+        Main_UI.SetActive(false);
+        MiniMap_UI.SetActive(false);
+
+        Gamestate = GameState.GameIntro;
         ViewMode = ViewControllMode.Mouse;
         CannonControl_Number = CannonNumber.First;
     }
@@ -178,28 +188,42 @@ public class GameManager : MonoBehaviour {
         {
             case GameState.GameIntro:
                 {
-                    //if(InGameBGM != null)
-                    //{
-                    //    if(audioSource.isPlaying == false)
-                    //    {
-                            
-                    //        audioSource.Play();
-                    //    }
-                    //}
+                    if (InGameBGM != null)
+                    {
+                        if (audioSource.isPlaying == false)
+                        {
+                            audioSource.volume -= 0.2f;
+                            audioSource.Play();
+                        }
+                    }
                 }
                 break;
 
             case GameState.GameStart:
                 {
-
-                    if (InGameBGM != null)
+                    if (Main_UI.activeSelf == false)
                     {
-                        if (audioSource.isPlaying == false)
-                        {
-
-                            audioSource.Play();
-                        }
+                        Main_UI.SetActive(true);
                     }
+
+                    if(MiniMap_UI.activeSelf == false)
+                    {
+                        MiniMap_UI.SetActive(true);
+                    }
+
+                    if (SoundChecker == false)
+                    {
+                        SoundChecker = true;
+                        audioSource.volume += 0.2f;
+                    }
+                    //if (InGameBGM != null)
+                    //{
+                    //    if (audioSource.isPlaying == false)
+                    //    {
+
+                    //        audioSource.Play();
+                    //    }
+                    //}
 
                     // 빛 타이머
                     if (GameTimer >= 5.0f)
@@ -304,7 +328,7 @@ public class GameManager : MonoBehaviour {
 
             case GameState.GamePause:
                 {
-                    audioSource.Stop();
+                    audioSource.Pause();
                 }
                 break;
 
