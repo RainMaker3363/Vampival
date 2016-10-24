@@ -232,7 +232,6 @@ public class GameManager : MonoBehaviour {
                         }
                         else
                         {
-                            Capture_Parameter += 2.0f;
                             Capture_Meter -= (Capture_Parameter * 0.5f);
                             Capture_Parameter_Gage.fillAmount = (Capture_Meter / Capture_Max);
                         }
