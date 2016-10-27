@@ -22,8 +22,9 @@ Shader "Example/Rim" {
 				o.Albedo = tex2D(_MainTex, IN.uv_MainTex).rgb;
 				o.Normal = UnpackNormal(tex2D(_BumpMap, IN.uv_BumpMap));
 				half rim = 1.0 - saturate(dot(normalize(IN.viewDir), o.Normal));
+				_RimPower = lerp(1, 10, abs(_SinTime.w));
 				o.Emission = _RimColor.rgb * pow(rim, _RimPower);
-				o.Emission *= 1.5f;
+				//o.Emission *= 1.5f;
 			}
 			ENDCG
 		}
