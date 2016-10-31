@@ -7,12 +7,21 @@ public class EnemyCorpse : MonoBehaviour {
     private CapsuleCollider col;
     private Rigidbody rigid;
 
+    // 랜덤으로 튕겨 나가게 한다.
+    private float Explode_Random_X;
+    private float Explode_Random_Z;
     //private Vector3 StartPos;
 
 	// Use this for initialization
     void Awake()
     {
         StopCoroutine("DeadOrAliveRoutin");
+
+
+        //StartPos = this.transform.position;
+
+        Explode_Random_X = Random.Range(6.0f, 10.0f);
+        Explode_Random_Z = Random.Range(6.0f, 10.0f);
 
         if(col == null)
         {
@@ -22,12 +31,13 @@ public class EnemyCorpse : MonoBehaviour {
         if(rigid == null)
         {
             rigid = GetComponent<Rigidbody>();
+            rigid.AddForce(new Vector3(Explode_Random_X, 8.0f, -Explode_Random_Z), ForceMode.Impulse);
         }
 
-        //StartPos = this.transform.position;
 
         //this.gameObject.SetActive(false);
 
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyCorpse"), LayerMask.NameToLayer("AttackPoint"), true);
         
         //col.height = 0.1f;
         //col.radius = 0.1f;
@@ -38,6 +48,12 @@ public class EnemyCorpse : MonoBehaviour {
     {
         StopCoroutine("DeadOrAliveRoutin");
 
+        //this.transform.position = StartPos;
+
+        Explode_Random_X = Random.Range(6.0f, 10.0f);
+        Explode_Random_Z = Random.Range(6.0f, 10.0f);
+
+
         if (col == null)
         {
             col = GetComponent<CapsuleCollider>();
@@ -47,9 +63,16 @@ public class EnemyCorpse : MonoBehaviour {
         {
             rigid = GetComponent<Rigidbody>();
         }
+        else
+        {
+            rigid.AddForce(new Vector3(Explode_Random_X, 8.0f, -Explode_Random_Z), ForceMode.Impulse);
+        }
+        
 
         col.enabled = true;
         rigid.useGravity = true;
+
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyCorpse"), LayerMask.NameToLayer("AttackPoint"), true);
 
         //this.transform.position = StartPos;
 
@@ -72,7 +95,7 @@ public class EnemyCorpse : MonoBehaviour {
 
     IEnumerator DeadOrAliveRoutin()
     {
-        yield return new WaitForSeconds(6.0f);
+        yield return new WaitForSeconds(8.0f);
 
         this.gameObject.SetActive(false);
     }

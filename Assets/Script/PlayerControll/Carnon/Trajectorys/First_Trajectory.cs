@@ -159,6 +159,7 @@ public class First_Trajectory : MonoBehaviour {
                                                 FireReady = false;
 
                                                 Audio.Play();
+
                                                 //private RaycastHit hit;
  
 

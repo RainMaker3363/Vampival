@@ -128,7 +128,7 @@ public class First_Cannon : MonoBehaviour {
                                             }
                                             if (Input.GetKey(KeyCode.UpArrow))
                                             {
-                                                if (TargetDis >= 45.0f)
+                                                if (TargetDis >= 38.0f)
                                                 {
                                                     Cannons[0].transform.Rotate(new Vector3(90, 0, 0), 7 * Time.deltaTime);
 

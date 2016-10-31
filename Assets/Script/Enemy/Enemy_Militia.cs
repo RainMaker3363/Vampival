@@ -37,6 +37,8 @@ public class Enemy_Militia : MonoBehaviour {
     // 스피다스 체크
     private float SpidasDistance;
 
+    private bool CameraMarkingOn;
+
     public int HP;
     public int AttackPoint;
     public float Speed;
@@ -68,6 +70,8 @@ public class Enemy_Militia : MonoBehaviour {
         NowCorpseStack = 0;
         DeathCheck = false;
         FearMeterCheck = false;
+        
+        CameraMarkingOn = false;
         //Instantiate(Corpse, this.transform.position, Quaternion.identity);
 
         //Agent.enabled = false;
@@ -118,6 +122,7 @@ public class Enemy_Militia : MonoBehaviour {
         AttackPoint = 10;
         DeathCheck = false;
         FearMeterCheck = false;
+        CameraMarkingOn = false;
 
         EnemySpot.gameObject.SetActive(false);
         EnemyArrow.gameObject.SetActive(false);
@@ -241,7 +246,12 @@ public class Enemy_Militia : MonoBehaviour {
                                     }
                                     else
                                     {
-                                        EnemySpot.gameObject.SetActive(true);
+                                        if (CameraMarkingOn)
+                                        {
+                                            EnemySpot.gameObject.SetActive(true);
+                                        }
+                                            
+
                                         EnemyArrow.gameObject.SetActive(false);
                                     }
 
@@ -271,8 +281,42 @@ public class Enemy_Militia : MonoBehaviour {
                                     else
                                         edgeLine = 0;
 
-                                    EnemyArrow.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(0, 0, 10));
-                                    EnemyArrow.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
+
+
+                                    switch(edgeLine)
+                                    {
+                                        case 0:
+                                            {
+                                                //print("edgeLine = " + edgeLine);
+                                                EnemyArrow.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(-30, -30, 10));
+                                                EnemyArrow.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
+                                            }
+                                            break;
+
+                                        case 1:
+                                            {
+                                                //print("edgeLine = " + edgeLine);
+                                                EnemyArrow.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(30, -30, 10));
+                                                EnemyArrow.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
+                                            }
+                                            break;
+
+                                        case 2:
+                                            {
+                                                //print("edgeLine = " + edgeLine);
+                                                EnemyArrow.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(40, 30, 10));
+                                                EnemyArrow.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
+                                            }
+                                            break;
+
+                                        case 3:
+                                            {
+                                                //print("edgeLine = " + edgeLine);
+                                                EnemyArrow.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(-40, 30, 10));
+                                                EnemyArrow.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
+                                            }
+                                            break;
+                                    }
 
                                     //if (targetPosOnScreen.x > Screen.width)
                                     //{
@@ -297,6 +341,8 @@ public class Enemy_Militia : MonoBehaviour {
                                 }
                                 else
                                 {
+                                    CameraMarkingOn = true;
+
                                     if (GameManager.Elizabat_SonicWave_On == false)
                                     {
                                         EnemySpot.gameObject.SetActive(true);
@@ -304,7 +350,11 @@ public class Enemy_Militia : MonoBehaviour {
                                     }
                                     else
                                     {
-                                        EnemySpot.gameObject.SetActive(true);
+                                        if (CameraMarkingOn)
+                                        {
+                                            EnemySpot.gameObject.SetActive(true);
+                                        }
+                                            
                                         EnemyArrow.gameObject.SetActive(false);
                                     }
 
@@ -389,8 +439,40 @@ public class Enemy_Militia : MonoBehaviour {
                                     else
                                         edgeLine = 0;
 
-                                    EnemyArrow.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(0, 0, 10));
-                                    EnemyArrow.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
+                                    switch (edgeLine)
+                                    {
+                                        case 0:
+                                            {
+                                                //print("edgeLine = " + edgeLine);
+                                                EnemyArrow.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(-30, -30, 10));
+                                                EnemyArrow.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
+                                            }
+                                            break;
+
+                                        case 1:
+                                            {
+                                                //print("edgeLine = " + edgeLine);
+                                                EnemyArrow.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(30, -30, 10));
+                                                EnemyArrow.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
+                                            }
+                                            break;
+
+                                        case 2:
+                                            {
+                                               // print("edgeLine = " + edgeLine);
+                                                EnemyArrow.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(40, 30, 10));
+                                                EnemyArrow.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
+                                            }
+                                            break;
+
+                                        case 3:
+                                            {
+                                                //print("edgeLine = " + edgeLine);
+                                                EnemyArrow.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(-40, 30, 10));
+                                                EnemyArrow.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
+                                            }
+                                            break;
+                                    }
 
                                     //if (targetPosOnScreen.x > Screen.width)
                                     //{
@@ -435,6 +517,15 @@ public class Enemy_Militia : MonoBehaviour {
                     }
 
                   
+                }
+                break;
+
+            case GameState.GameVictory:
+                {
+                    Agent.enabled = false;
+
+                    EnemySpot.gameObject.SetActive(false);
+                    EnemyArrow.gameObject.SetActive(false);
                 }
                 break;
 
@@ -497,7 +588,7 @@ public class Enemy_Militia : MonoBehaviour {
             //}
 
 
-            GameManager.Fear_Parameter += 1;
+            GameManager.Fear_Parameter += 3.0f;
 
             print("FearMeter : " + GameManager.Fear_Parameter);
         }
@@ -506,7 +597,7 @@ public class Enemy_Militia : MonoBehaviour {
         {
             
 
-            GameManager.Fear_Parameter += 1;
+            GameManager.Fear_Parameter += 0.1f;
 
             print("FearMeter : " + GameManager.Fear_Parameter);
         }
@@ -519,9 +610,9 @@ public class Enemy_Militia : MonoBehaviour {
         if (other.transform.tag.Equals("SpidasChecker") == true)
         {
 
-            GameManager.Fear_Parameter -= 1;
+            //GameManager.Fear_Parameter -= 1;
 
-            print("FearMeter : " + GameManager.Fear_Parameter);
+            //print("FearMeter : " + GameManager.Fear_Parameter);
         }
 
         if (other.transform.tag.Equals("CorpseChecker") == true)
@@ -537,16 +628,16 @@ public class Enemy_Militia : MonoBehaviour {
             //    print("FearMeter : " + GameManager.Fear_Parameter);
             //}
 
-            if(GameManager.Fear_Parameter <= 1)
-            {
-                GameManager.Fear_Parameter -= 0;
-            }
-            else
-            {
-                GameManager.Fear_Parameter -= 1;
-            }
+            //if(GameManager.Fear_Parameter <= 1)
+            //{
+            //    GameManager.Fear_Parameter -= 0;
+            //}
+            //else
+            //{
+            //    GameManager.Fear_Parameter -= 1;
+            //}
 
-            print("FearMeter : " + GameManager.Fear_Parameter);
+            //print("FearMeter : " + GameManager.Fear_Parameter);
         }
     }
 

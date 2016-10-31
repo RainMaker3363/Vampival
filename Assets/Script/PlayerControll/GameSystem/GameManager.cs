@@ -57,10 +57,17 @@ public class GameManager : MonoBehaviour {
     static public bool Elizabat_CommandStart;
     static public bool Elizabat_SkillStart;
 
+    // 효과 지속 여부
     static public bool Elizabat_Decent_On;
     static public bool Elizabat_Eclipse_On;
     static public bool Elizabat_Swarm_On;
     static public bool Elizabat_SonicWave_On;
+
+    // 쿨타임이 전부 끝나서 준비됬는지의 여부
+    static public bool Elizabat_Decent_Ready;
+    static public bool Elizabat_Eclipse_Ready;
+    static public bool Elizabat_Swarm_Ready;
+    static public bool Elizabat_SonicWave_Ready;
 
     //===============================================================================================================================
     // 2P 카론의 조작
@@ -107,8 +114,8 @@ public class GameManager : MonoBehaviour {
     private float GameTimer;
 
     // 공포도 수치 (게임 승패 조건)
-    static public int Fear_Parameter;
-    
+    static public float Fear_Parameter;
+    private float Fear_Max;
     
     // 함락도 수치 (게임 패배 조건)
     static public float Capture_Parameter;
@@ -134,6 +141,7 @@ public class GameManager : MonoBehaviour {
 
         CaptureTimer = 0.0f;
         Capture_Max = 100.0f;
+        Fear_Max = 50.0f;
         Capture_Meter = Capture_Max;
 
         //light.intensity = 1f;
@@ -145,24 +153,32 @@ public class GameManager : MonoBehaviour {
         Elizabat_Decent_On = false;
         Elizabat_Swarm_On = false;
 
+        Elizabat_Eclipse_Ready = true;
+        Elizabat_Decent_Ready = true;
+        Elizabat_SonicWave_Ready = true;
+        Elizabat_Swarm_Ready = true;
+
         if (audioSource == null)
         {
             audioSource = GetComponent<AudioSource>();
             audioSource.clip = InGameBGM;
         }
 
-        
-        //ViewMode = ViewControllMode.Mouse;
-        //CannonControl_Number = CannonNumber.First;
-        //Gamestate = GameState.GameIntro;
+
         SoundChecker = false;
 
         Main_UI.SetActive(false);
         MiniMap_UI.SetActive(false);
 
         Gamestate = GameState.GameIntro;
+        //Gamestate = GameState.GameStart;
         ViewMode = ViewControllMode.Mouse;
         CannonControl_Number = CannonNumber.First;
+
+
+        //ViewMode = ViewControllMode.Mouse;
+        //CannonControl_Number = CannonNumber.First;
+        //Gamestate = GameState.GameIntro;
     }
 
     public static void GameStartUp()
@@ -182,7 +198,6 @@ public class GameManager : MonoBehaviour {
             else
                 ViewMode = ViewControllMode.GamePad;
         }
-
 
         switch(Gamestate)
         {
@@ -240,10 +255,21 @@ public class GameManager : MonoBehaviour {
 
                     }
 
-                    // 점령도 계산
+                    // 점령도 및 공포도 계산
                     if (CaptureTimer >= 1.0f)
                     {
                         CaptureTimer = 0.0f;
+
+                        if (Fear_Parameter_Gage.fillAmount < 1.0f)
+                        {
+                            // 점령도를 계산해준다.
+                            Fear_Parameter_Gage.fillAmount = (Fear_Parameter / Fear_Max);
+                        }
+                        else
+                        {
+                            // 이겼을 경우...
+                            Gamestate = GameState.GameVictory;
+                        }
 
                         if(Capture_Parameter_Gage.fillAmount <= 0.0f)
                         {
@@ -317,6 +343,12 @@ public class GameManager : MonoBehaviour {
                             CannonControl_Number = CannonNumber.First;
                         }
                     }
+                }
+                break;
+
+            case GameState.GameVictory:
+                {
+
                 }
                 break;
 

@@ -62,6 +62,13 @@ public class Elizabat : MonoBehaviour {
     // 일식 스킬 커맨드 7개 (고정1 + 랜덤 6)
     private int[] EclipseCommand = new int[7];
 
+    private float SonicCoolTime;
+    private float EclipseCoolTime;
+    private float DecentCoolTime;
+    private float SwarmCoolTime;
+
+    private float SkillCoolTimer;
+
     private int EclipseMaxCount;
     private int SwarmMaxCount;
     private int DecentMaxCount;
@@ -114,6 +121,15 @@ public class Elizabat : MonoBehaviour {
             Skill_Decent_Commands[j].sprite = Command_Arrows[0];
             Skill_Swarm_Commands[j].sprite = Command_Arrows[0];
         }
+
+        // 스킬 쿨 타임 지정
+        SkillCoolTimer = 0.0f;
+
+        SonicCoolTime = 1.0f / 5.0f;
+        DecentCoolTime = 1.0f / 3.0f;
+        EclipseCoolTime = 1.0f / 20.0f;
+        SwarmCoolTime = 1.0f / 7.0f;
+
 
         if (Audio == null)
         {
@@ -209,7 +225,57 @@ public class Elizabat : MonoBehaviour {
                                 //    //Debug.Log("Camera Out : X " + targetPosOnScreen.x + ", Y " + targetPosOnScreen.y);
                                 //}
 
+                                // 스킬 쿨타임
+                                if (SkillCoolTimer < 1.0f)
+                                {
+                                    SkillCoolTimer += Time.deltaTime;
+                                }
+                                else
+                                {
+                                    // 일식
+                                    if (Skill_Eclipse_Icon.fillAmount < 1.0f)
+                                    {
+                                        Skill_Eclipse_Icon.fillAmount += EclipseCoolTime;
+                                    }
+                                    else if (Skill_Eclipse_Icon.fillAmount >= 1.0f)
+                                    {
+                                        GameManager.Elizabat_Eclipse_Ready = true;
+                                    }
+
+                                    // 소닉 웨이브
+                                    if (Skill_SonicWave_Icon.fillAmount < 1.0f)
+                                    {
+                                        Skill_SonicWave_Icon.fillAmount += SonicCoolTime;
+                                    }
+                                    else if (Skill_SonicWave_Icon.fillAmount >= 1.0f)
+                                    {
+                                        GameManager.Elizabat_SonicWave_Ready = true;
+                                    }
+
+                                    // 스웜 공격
+                                    if (Skill_Swarm_Icon.fillAmount < 1.0f)
+                                    {
+                                        Skill_Swarm_Icon.fillAmount += SwarmCoolTime;
+                                    }
+                                    else if (Skill_Swarm_Icon.fillAmount >= 1.0f)
+                                    {
+                                        GameManager.Elizabat_Swarm_Ready = true;
+                                    }
+
+                                    // 강하 공격
+                                    if (Skill_Decent_Icon.fillAmount < 1.0f)
+                                    {
+                                        Skill_Decent_Icon.fillAmount += DecentCoolTime;
+                                    }
+                                    else if (Skill_Decent_Icon.fillAmount >= 1.0f)
+                                    {
+                                        GameManager.Elizabat_Decent_Ready = true;
+                                    }
+
+                                    SkillCoolTimer = 0.0f;
+                                }
                                 
+
 
                                 if (!GameManager.Elizabat_CommandStart && !GameManager.Elizabat_SkillStart)
                                 {
@@ -233,19 +299,6 @@ public class Elizabat : MonoBehaviour {
                                         Skill_True_Yangpigi.gameObject.SetActive(true);
                                         Skill_Button.gameObject.SetActive(false);
                                     }
-
-                                    //if(Input.GetKeyDown(KeyCode.V))
-                                    //{
-                                    //    StartCoroutine("SonicWaveSkill");
-                                    //}
-
-                                    //if(Input.GetKeyDown(KeyCode.V))
-                                    //{
-                                    //    Debug.Log("Decent Start!");
-
-                                    //    GameManager.Elizabat_SkillStart = true;
-                                        
-                                    //}
                                 }
 
 
@@ -318,7 +371,7 @@ public class Elizabat : MonoBehaviour {
                                         if (Input.GetKeyDown(KeyCode.LeftArrow))
                                         {
                                             // 일식
-                                            if(GameManager.Elizabat_Eclipse_On == false)
+                                            if(GameManager.Elizabat_Eclipse_On == false && GameManager.Elizabat_Eclipse_Ready == true)
                                             {
                                                 NowSkillChecking = 2;
                                                 CommandStartOn = true;
@@ -326,12 +379,13 @@ public class Elizabat : MonoBehaviour {
                                             else
                                             {
                                                 // 실패 사운드 출력
+
                                             }
                                         }
                                         else if (Input.GetKeyDown(KeyCode.RightArrow))
                                         {
                                             // 스웜 공격
-                                            if(GameManager.Elizabat_Swarm_On == false)
+                                            if(GameManager.Elizabat_Swarm_On == false && GameManager.Elizabat_Swarm_Ready == true)
                                             {
                                                 NowSkillChecking = 4;
                                                 CommandStartOn = true;
@@ -345,7 +399,7 @@ public class Elizabat : MonoBehaviour {
                                         else if (Input.GetKeyDown(KeyCode.DownArrow))
                                         {
                                             // 강하 공격
-                                            if(GameManager.Elizabat_Decent_On == false)
+                                            if(GameManager.Elizabat_Decent_On == false && GameManager.Elizabat_Decent_Ready == true)
                                             {
                                                 NowSkillChecking = 3;
                                                 CommandStartOn = true;
@@ -358,7 +412,7 @@ public class Elizabat : MonoBehaviour {
                                         else if (Input.GetKeyDown(KeyCode.UpArrow))
                                         {
                                             // 소닉 웨이브
-                                            if(GameManager.Elizabat_SonicWave_On == false)
+                                            if(GameManager.Elizabat_SonicWave_On == false && GameManager.Elizabat_SonicWave_Ready == true)
                                             {
                                                 NowSkillChecking = 1;
                                                 CommandStartOn = true;
@@ -384,6 +438,59 @@ public class Elizabat : MonoBehaviour {
 
                                 //print("GamePad 1 On");
                                 //targetPosOnScreen = Camera.main.WorldToScreenPoint(CameraChecker.transform.position);
+
+                                                                // 스킬 쿨타임
+                                if (SkillCoolTimer < 1.0f)
+                                {
+                                    SkillCoolTimer += Time.deltaTime;
+
+
+                                    
+                                }
+                                else
+                                {
+                                    // 일식
+                                    if (Skill_Eclipse_Icon.fillAmount < 1.0f)
+                                    {
+                                        Skill_Eclipse_Icon.fillAmount += EclipseCoolTime;
+                                    }
+                                    else if (Skill_Eclipse_Icon.fillAmount >= 1.0f)
+                                    {
+                                        GameManager.Elizabat_Eclipse_Ready = true;
+                                    }
+
+                                    // 소닉 웨이브
+                                    if (Skill_SonicWave_Icon.fillAmount < 1.0f)
+                                    {
+                                        Skill_SonicWave_Icon.fillAmount += SonicCoolTime;
+                                    }
+                                    else if (Skill_SonicWave_Icon.fillAmount >= 1.0f)
+                                    {
+                                        GameManager.Elizabat_SonicWave_Ready = true;
+                                    }
+
+                                    // 스웜 공격
+                                    if (Skill_Swarm_Icon.fillAmount < 1.0f)
+                                    {
+                                        Skill_Swarm_Icon.fillAmount += SwarmCoolTime;
+                                    }
+                                    else if (Skill_Swarm_Icon.fillAmount >= 1.0f)
+                                    {
+                                        GameManager.Elizabat_Swarm_Ready = true;
+                                    }
+
+                                    // 강하 공격
+                                    if (Skill_Decent_Icon.fillAmount < 1.0f)
+                                    {
+                                        Skill_Decent_Icon.fillAmount += DecentCoolTime;
+                                    }
+                                    else if (Skill_Decent_Icon.fillAmount >= 1.0f)
+                                    {
+                                        GameManager.Elizabat_Decent_Ready = true;
+                                    }
+
+                                    SkillCoolTimer = 0.0f;
+                                }
 
                                 if (!GameManager.Elizabat_CommandStart && !GameManager.Elizabat_SkillStart)
                                 {
@@ -501,7 +608,7 @@ public class Elizabat : MonoBehaviour {
                                         if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
                                         {
                                             // 일식
-                                            if (GameManager.Elizabat_Eclipse_On == false)
+                                            if (GameManager.Elizabat_Eclipse_On == false && GameManager.Elizabat_Eclipse_Ready == true)
                                             {
                                                 NowSkillChecking = 2;
                                                 CommandStartOn = true;
@@ -515,7 +622,7 @@ public class Elizabat : MonoBehaviour {
                                         {
 
                                             // 스웜 공격
-                                            if (GameManager.Elizabat_Swarm_On == false)
+                                            if (GameManager.Elizabat_Swarm_On == false && GameManager.Elizabat_Swarm_Ready == true)
                                             {
                                                 NowSkillChecking = 4;
                                                 CommandStartOn = true;
@@ -528,7 +635,7 @@ public class Elizabat : MonoBehaviour {
                                         else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
                                         {
                                             // 강하 공격
-                                            if (GameManager.Elizabat_Decent_On == false)
+                                            if (GameManager.Elizabat_Decent_On == false && GameManager.Elizabat_Decent_Ready == true)
                                             {
                                                 NowSkillChecking = 3;
                                                 CommandStartOn = true;
@@ -541,7 +648,7 @@ public class Elizabat : MonoBehaviour {
                                         else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
                                         {
                                             // 소닉 웨이브
-                                            if (GameManager.Elizabat_SonicWave_On == false)
+                                            if (GameManager.Elizabat_SonicWave_On == false && GameManager.Elizabat_SonicWave_Ready == true)
                                             {
                                                 NowSkillChecking = 1;
                                                 CommandStartOn = true;
@@ -734,6 +841,8 @@ public class Elizabat : MonoBehaviour {
         Skill_Decent_Logo.gameObject.SetActive(false);
 
         GameManager.Elizabat_Decent_On = false;
+
+        Skill_Decent_Icon.fillAmount = 0;
         //yield return 1;
 
     }
@@ -744,6 +853,8 @@ public class Elizabat : MonoBehaviour {
         GameManager.Elizabat_Swarm_On = true;
 
         GameManager.Elizabat_SkillStart = false;
+
+        Skill_Swarm_Icon.fillAmount = 0;
 
         print("Swarm Skill On");
 
@@ -767,6 +878,9 @@ public class Elizabat : MonoBehaviour {
         GameManager.Elizabat_Eclipse_On = true;
         
         GameManager.Elizabat_SkillStart = false;
+
+        Skill_Eclipse_Icon.fillAmount = 0;
+
         // 일식 효과
         print("Eclipse Skill On");
 
@@ -796,6 +910,8 @@ public class Elizabat : MonoBehaviour {
         GameManager.Elizabat_SonicWave_On = true;
 
         GameManager.Elizabat_SkillStart = false;
+
+        Skill_SonicWave_Icon.fillAmount = 0;
 
         // 소닉 웨이브 효과
         print("Sonic Skill On");

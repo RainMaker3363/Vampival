@@ -27,6 +27,10 @@ public class CannonBall : MonoBehaviour {
     private bool IsFire;
     private bool _rotate;
 
+    public GameObject ObjectChecker;
+    private int layermask;
+    private RaycastHit hit;
+
     ParticleSystem.Particle[] unused = new ParticleSystem.Particle[1];
 
     public GameObject AimTarget;
@@ -73,6 +77,8 @@ public class CannonBall : MonoBehaviour {
 
         IsFire = false;
         _rotate = true;
+
+        layermask = (1 << LayerMask.NameToLayer("LayObjectCheck"));
 
         //Explode_Particle.gameObject.SetActive(false);
         Explode_Particle.Stop();
@@ -144,6 +150,7 @@ public class CannonBall : MonoBehaviour {
 	// Update is called once per frame
 	void FixedUpdate() 
     {
+
         switch (Gamestate)
         {
             case GameState.GameIntro:
@@ -177,6 +184,44 @@ public class CannonBall : MonoBehaviour {
                                     this.transform.parent = null;
 
                                     IsFire = true;
+                                }
+
+
+                                //Debug.DrawRay(this.transform.position, (ObjectChecker.transform.position - this.transform.position).normalized * 3.0f, Color.cyan);
+
+                                if (Physics.Raycast(this.transform.position, (ObjectChecker.transform.position - this.transform.position).normalized, out hit, 3.0f, layermask))
+                                {
+
+                                    if(hit.transform.gameObject.layer == LayerMask.NameToLayer("LayObjectCheck"))
+                                    {
+                                        Explode_Particle.gameObject.SetActive(true);
+
+                                        Explode_Particle.Play();
+
+                                        Audio.Play();
+
+                                        //Explode_Particle.transform.position = collision.transform.position;
+
+                                        if (SphereCol != null)
+                                        {
+                                            SphereCol.enabled = false;
+                                        }
+
+                                        if (Explode_Particle.isStopped == true)
+                                        {
+                                            this.gameObject.SetActive(false);
+                                        }
+
+                                    }
+
+
+                                    //if (hit.collider.tag.Equals("Ground") == true)
+                                    //{
+                                    //    Leng = this.transform.localPosition.z + Vector3.Distance(this.transform.position, hit.point);
+
+                                    //    AimTarget.transform.localPosition = new Vector3(AimTarget.transform.localPosition.x, AimTarget.transform.localPosition.y, Leng);
+
+                                    //}
                                 }
 
                                 // distance between target and source
