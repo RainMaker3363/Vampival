@@ -20,8 +20,8 @@ public class EnemyCorpse : MonoBehaviour {
 
         //StartPos = this.transform.position;
 
-        Explode_Random_X = Random.Range(6.0f, 10.0f);
-        Explode_Random_Z = Random.Range(6.0f, 10.0f);
+        Explode_Random_X = Random.Range(-7.0f, 7.0f);
+        Explode_Random_Z = Random.Range(-7.0f, 7.0f);
 
         if(col == null)
         {
@@ -31,7 +31,7 @@ public class EnemyCorpse : MonoBehaviour {
         if(rigid == null)
         {
             rigid = GetComponent<Rigidbody>();
-            rigid.AddForce(new Vector3(Explode_Random_X, 8.0f, -Explode_Random_Z), ForceMode.Impulse);
+            rigid.AddForce(new Vector3(Explode_Random_X, 6.0f, -Explode_Random_Z), ForceMode.Impulse);
         }
 
 
@@ -50,8 +50,8 @@ public class EnemyCorpse : MonoBehaviour {
 
         //this.transform.position = StartPos;
 
-        Explode_Random_X = Random.Range(6.0f, 10.0f);
-        Explode_Random_Z = Random.Range(6.0f, 10.0f);
+        Explode_Random_X = Random.Range(-7.0f, 7.0f);
+        Explode_Random_Z = Random.Range(-7.0f, 7.0f);
 
 
         if (col == null)
@@ -65,7 +65,7 @@ public class EnemyCorpse : MonoBehaviour {
         }
         else
         {
-            rigid.AddForce(new Vector3(Explode_Random_X, 8.0f, -Explode_Random_Z), ForceMode.Impulse);
+            rigid.AddForce(new Vector3(Explode_Random_X, 6.0f, -Explode_Random_Z), ForceMode.Impulse);
         }
         
 
