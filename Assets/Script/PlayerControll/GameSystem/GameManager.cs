@@ -69,6 +69,16 @@ public class GameManager : MonoBehaviour {
     static public bool Elizabat_Swarm_Ready;
     static public bool Elizabat_SonicWave_Ready;
 
+    // 스킬 언락 여부
+    static public bool Elizabat_Decent_Unlock;
+    static public bool Elizabat_Eclipse_Unlock;
+    static public bool Elizabat_Swarm_Unlock;
+    static public bool Elizabat_SonicWave_Unlock;
+
+    // 마나 게이지
+    static public float Soul_MP_Parameter;
+    float Soul_MP_Max;
+
     //===============================================================================================================================
     // 2P 카론의 조작
     //===============================================================================================================================
@@ -98,7 +108,7 @@ public class GameManager : MonoBehaviour {
     //public AudioClip GameOverBGM;
 
     // 게임 내의 UI들
-    public Image Fear_Parameter_Gage;
+    public Image SoulMP_Parameter_Gage;
     public Image Capture_Parameter_Gage;
     public Image GameOver_BG;
 
@@ -141,7 +151,12 @@ public class GameManager : MonoBehaviour {
 
         CaptureTimer = 0.0f;
         Capture_Max = 100.0f;
+        
         Fear_Max = 50.0f;
+        
+        Soul_MP_Max = 100.0f;
+        Soul_MP_Parameter = 10.0f;
+
         Capture_Meter = Capture_Max;
 
         //light.intensity = 1f;
@@ -157,6 +172,11 @@ public class GameManager : MonoBehaviour {
         Elizabat_Decent_Ready = true;
         Elizabat_SonicWave_Ready = true;
         Elizabat_Swarm_Ready = true;
+
+        Elizabat_Eclipse_Unlock = true;
+        Elizabat_Decent_Unlock = true;
+        Elizabat_SonicWave_Unlock = true;
+        Elizabat_Swarm_Unlock = true;
 
         if (audioSource == null)
         {
@@ -241,35 +261,35 @@ public class GameManager : MonoBehaviour {
                     //}
 
                     // 빛 타이머
-                    if (GameTimer >= 5.0f)
-                    {
-                        GameTimer = 0.0f;
-                        light.intensity += 0.036f;
-                    }
-                    else
-                    {
-                        if (Elizabat_Eclipse_On == false)
-                        {
-                            GameTimer += Time.deltaTime;
-                        }
+                    //if (GameTimer >= 5.0f)
+                    //{
+                    //    GameTimer = 0.0f;
+                    //    light.intensity += 0.036f;
+                    //}
+                    //else
+                    //{
+                    //    if (Elizabat_Eclipse_On == false)
+                    //    {
+                    //        GameTimer += Time.deltaTime;
+                    //    }
 
-                    }
+                    //}
 
                     // 점령도 및 공포도 계산
                     if (CaptureTimer >= 1.0f)
                     {
                         CaptureTimer = 0.0f;
 
-                        if (Fear_Parameter_Gage.fillAmount < 1.0f)
-                        {
-                            // 점령도를 계산해준다.
-                            Fear_Parameter_Gage.fillAmount = (Fear_Parameter / Fear_Max);
-                        }
-                        else
-                        {
-                            // 이겼을 경우...
-                            Gamestate = GameState.GameVictory;
-                        }
+                        //if (Fear_Parameter_Gage.fillAmount < 1.0f)
+                        //{
+                        //    // 점령도를 계산해준다.
+                        //    Fear_Parameter_Gage.fillAmount = (Fear_Parameter / Fear_Max);
+                        //}
+                        //else
+                        //{
+                        //    // 이겼을 경우...
+                        //    Gamestate = GameState.GameVictory;
+                        //}
 
                         if(Capture_Parameter_Gage.fillAmount <= 0.0f)
                         {
@@ -291,6 +311,9 @@ public class GameManager : MonoBehaviour {
                     {
                         CaptureTimer += Time.deltaTime;
                     }
+
+                    // 마나 게이지 관리
+                    SoulMP_Parameter_Gage.fillAmount = (Soul_MP_Parameter / Soul_MP_Max);
                     
 
                     // 리스폰 타이머
