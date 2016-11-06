@@ -176,7 +176,7 @@ public class FlyingCam : MonoBehaviour {
                                     }
                                 }
                                 //print(MainCameraRoot.gameObject.transform.localRotation);
-                                //print(MainCameraRoot.transform.localRotation.eulerAngles);
+                                print(MainCameraRoot.transform.localRotation.eulerAngles);
                                 //print(MainCameraRoot.transform.eulerAngles);
                                 //print(CameraCheck);
 

@@ -74,7 +74,6 @@ public class Enemy_Militia : MonoBehaviour {
         NowSoulStack = 0;
         DeathCheck = false;
         FearMeterCheck = false;
-        
         CameraMarkingOn = false;
         //Instantiate(Corpse, this.transform.position, Quaternion.identity);
 
@@ -133,6 +132,7 @@ public class Enemy_Militia : MonoBehaviour {
         DeathCheck = false;
         FearMeterCheck = false;
         CameraMarkingOn = false;
+        //CameraMarkingOn = false;
 
         EnemySpot.gameObject.SetActive(false);
         EnemyArrow.gameObject.SetActive(false);
@@ -270,7 +270,11 @@ public class Enemy_Militia : MonoBehaviour {
                                 {
                                     if (GameManager.Elizabat_SonicWave_On == false)
                                     {
-                                        EnemySpot.gameObject.SetActive(false);
+                                        if (CameraMarkingOn)
+                                        {
+                                            EnemySpot.gameObject.SetActive(true);
+                                        }
+
                                         EnemyArrow.gameObject.SetActive(true);
                                     }
                                     else
@@ -279,10 +283,10 @@ public class Enemy_Militia : MonoBehaviour {
                                         {
                                             EnemySpot.gameObject.SetActive(true);
                                         }
-                                            
 
                                         EnemyArrow.gameObject.SetActive(false);
                                     }
+
 
                                     center = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
 
@@ -370,12 +374,18 @@ public class Enemy_Militia : MonoBehaviour {
                                 }
                                 else
                                 {
+
                                     CameraMarkingOn = true;
 
                                     if (GameManager.Elizabat_SonicWave_On == false)
                                     {
-                                        EnemySpot.gameObject.SetActive(true);
+                                        if (CameraMarkingOn)
+                                        {
+                                            EnemySpot.gameObject.SetActive(true);
+                                        }
+
                                         EnemyArrow.gameObject.SetActive(false);
+
                                     }
                                     else
                                     {
@@ -385,10 +395,15 @@ public class Enemy_Militia : MonoBehaviour {
                                         }
                                             
                                         EnemyArrow.gameObject.SetActive(false);
+
+
                                     }
 
                                 }
 
+
+
+                                
                                 //Controller.Move(new Vector3(1, 0, 1) * Time.deltaTime);
                             }
                             break;

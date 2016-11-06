@@ -79,6 +79,12 @@ public class Elizabat : MonoBehaviour {
     private float DecentCoolTime;
     private float SwarmCoolTime;
 
+    // 스킬 제한 시간
+    //private float SonicTimeLimit;
+    //private float EclipseTimeLimit;
+    //private float DecentTimeLimit;
+    //private float SwarmTimeLimit;
+
     // 스킬 마나 관련...
     private float SonicWaveCost;
     private float EclipseCost;
