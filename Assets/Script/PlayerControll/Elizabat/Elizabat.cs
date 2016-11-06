@@ -30,13 +30,20 @@ public class Elizabat : MonoBehaviour {
     public Image Skill_True_Yangpigi;
     public Image Skill_Button;
 
-    public Image Skill_SonicWave_Icon;
+    public GameObject Skill_SonicWave_Icon;
+    public GameObject Skill_SonicWave_Command_Chart;
     public Image Skill_SonicWave_Cool_Icon;
-    public Image Skill_Eclipse_Icon;
+    
+    public GameObject Skill_Eclipse_Icon;
+    public GameObject Skill_Eclipse_Command_Chart;
     public Image Skill_Eclipse_Cool_Icon;
-    public Image Skill_Decent_Icon;
+    
+    public GameObject Skill_Decent_Icon;
+    public GameObject Skill_Decent_Command_Chart;
     public Image Skill_Decent_Cool_Icon;
-    public Image Skill_Swarm_Icon;
+
+    public GameObject Skill_Swarm_Icon;
+    public GameObject Skill_Swarm_Command_Chart;
     public Image Skill_Swarm_Cool_Icon;
 
     public Image Skill_SonicWave_Logo;
@@ -143,6 +150,16 @@ public class Elizabat : MonoBehaviour {
             Skill_Decent_Commands[j].sprite = Command_Arrows[0];
             Skill_Swarm_Commands[j].sprite = Command_Arrows[0];
         }
+
+        //Skill_SonicWave_Command_Chart.gameObject.SetActive(GameManager.Elizabat_SonicWave_Unlock);
+        //Skill_Eclipse_Command_Chart.gameObject.SetActive(GameManager.Elizabat_Eclipse_Unlock);
+        //Skill_Decent_Command_Chart.gameObject.SetActive(GameManager.Elizabat_Decent_Unlock);
+        //Skill_Swarm_Command_Chart.gameObject.SetActive(GameManager.Elizabat_Swarm_Unlock);
+
+        Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+        Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+        Skill_Decent_Command_Chart.gameObject.SetActive(false);
+        Skill_Swarm_Command_Chart.gameObject.SetActive(false);
 
         // 스킬 쿨 타임 지정
         SkillCoolTimer = 0.0f;
@@ -376,7 +393,7 @@ public class Elizabat : MonoBehaviour {
                                     }
 
                                     // 스킬 캔슬 여부
-                                    if (Input.GetKeyDown(KeyCode.C))
+                                    if (Input.GetKeyDown(KeyCode.Z))
                                     {
                                         CommandCancel();
 
@@ -427,6 +444,12 @@ public class Elizabat : MonoBehaviour {
                                         }
                                     }
 
+                                    print("Soul_MP_Parameter : " + GameManager.Soul_MP_Parameter);
+                                    print("Elizabat_Eclipse_Ready : " + GameManager.Elizabat_Eclipse_Ready);
+                                    print("Elizabat_Eclipse_Unlock : " + GameManager.Elizabat_Eclipse_Unlock);
+                                    print("Elizabat_Eclipse_On : " + GameManager.Elizabat_Eclipse_On);
+                                    print("CommandStartOn : " + CommandStartOn);
+
                                     if (!CommandStartOn)
                                     {
                                         if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -435,8 +458,11 @@ public class Elizabat : MonoBehaviour {
                                             if(GameManager.Elizabat_Eclipse_On == false && GameManager.Elizabat_Eclipse_Ready == true &&
                                                 GameManager.Elizabat_Eclipse_Unlock == true &&  GameManager.Soul_MP_Parameter >= EclipseCost)
                                             {
-                                                NowSkillChecking = 2;
                                                 
+                                                NowSkillChecking = 2;
+
+                                                print("NowSkillChecking : " + NowSkillChecking);
+
                                                 if((GameManager.Soul_MP_Parameter - EclipseCost) <= 0.0f)
                                                 {
                                                     GameManager.Soul_MP_Parameter = 0.0f;
@@ -1126,6 +1152,12 @@ public class Elizabat : MonoBehaviour {
         {
             case GameState.GameStart:
                 {
+                    // 스킬 커맨드 표를 활성화 시켜준다.
+                    Skill_SonicWave_Command_Chart.gameObject.SetActive(true);
+                    Skill_Eclipse_Command_Chart.gameObject.SetActive(true);
+                    Skill_Decent_Command_Chart.gameObject.SetActive(true);
+                    Skill_Swarm_Command_Chart.gameObject.SetActive(true);
+
                     // 소닉 웨이브
                     int NowCommand = 0;
 
@@ -1170,10 +1202,16 @@ public class Elizabat : MonoBehaviour {
                         Skill_Swarm_Commands[j].color = new Color(0, 0, 0, 0);
                     }
 
-                    SonicMaxCount = Random.Range(2, 5);
-                    EclipseMaxCount = Random.Range(2, 7);
-                    SwarmMaxCount = Random.Range(2, 7);
-                    DecentMaxCount = Random.Range(2, 3);
+                    //SonicMaxCount = Random.Range(2, 5);
+                    //EclipseMaxCount = Random.Range(2, 7);
+                    //SwarmMaxCount = Random.Range(2, 7);
+                    //DecentMaxCount = Random.Range(2, 3);
+
+                    SonicMaxCount = Random.Range(2, 3);
+                    EclipseMaxCount = Random.Range(2, 4);
+                    DecentMaxCount = Random.Range(2, 5);
+                    SwarmMaxCount = Random.Range(2, 6);
+                    
 
                     for (int i = 1; i < SonicMaxCount; i++)
                     {
@@ -1234,28 +1272,28 @@ public class Elizabat : MonoBehaviour {
                                 {
 
                                     Skill_Eclipse_Commands[i].sprite = Command_Arrows[1];
-                                    Skill_Eclipse_Commands[i].color = Color.red;
+                                    Skill_Eclipse_Commands[i].color = Color.blue;
                                 }
                                 break;
 
                             case 2:
                                 {
                                     Skill_Eclipse_Commands[i].sprite = Command_Arrows[2];
-                                    Skill_Eclipse_Commands[i].color = Color.red;
+                                    Skill_Eclipse_Commands[i].color = Color.blue;
                                 }
                                 break;
 
                             case 3:
                                 {
                                     Skill_Eclipse_Commands[i].sprite = Command_Arrows[3];
-                                    Skill_Eclipse_Commands[i].color = Color.red;
+                                    Skill_Eclipse_Commands[i].color = Color.blue;
                                 }
                                 break;
 
                             case 4:
                                 {
                                     Skill_Eclipse_Commands[i].sprite = Command_Arrows[4];
-                                    Skill_Eclipse_Commands[i].color = Color.red;
+                                    Skill_Eclipse_Commands[i].color = Color.blue;
                                 }
                                 break;
 
@@ -1280,28 +1318,28 @@ public class Elizabat : MonoBehaviour {
                                 {
 
                                     Skill_Swarm_Commands[i].sprite = Command_Arrows[1];
-                                    Skill_Swarm_Commands[i].color = Color.blue;
+                                    Skill_Swarm_Commands[i].color = Color.red;
                                 }
                                 break;
 
                             case 2:
                                 {
                                     Skill_Swarm_Commands[i].sprite = Command_Arrows[2];
-                                    Skill_Swarm_Commands[i].color = Color.blue;
+                                    Skill_Swarm_Commands[i].color = Color.red;
                                 }
                                 break;
 
                             case 3:
                                 {
                                     Skill_Swarm_Commands[i].sprite = Command_Arrows[3];
-                                    Skill_Swarm_Commands[i].color = Color.blue;
+                                    Skill_Swarm_Commands[i].color = Color.red;
                                 }
                                 break;
 
                             case 4:
                                 {
                                     Skill_Swarm_Commands[i].sprite = Command_Arrows[4];
-                                    Skill_Swarm_Commands[i].color = Color.blue;
+                                    Skill_Swarm_Commands[i].color = Color.red;
                                 }
                                 break;
 
@@ -1392,6 +1430,35 @@ public class Elizabat : MonoBehaviour {
         SonicMaxCount = 0;
         
         currentNum = 0;
+
+        for (int i = 1; i < 7; i++)
+        {
+            SonicWaveCommand[i] = 0;
+            DecentCommand[i] = 0;
+            SwarmCommand[i] = 0;
+            EclipseCommand[i] = 0;
+        }
+
+        for (int j = 1; j < Skill_Eclipse_Commands.Length; j++)
+        {
+            Skill_SonicWave_Commands[j].sprite = Command_Arrows[0];
+            Skill_SonicWave_Commands[j].color = new Color(0, 0, 0, 0);
+
+            Skill_Eclipse_Commands[j].sprite = Command_Arrows[0];
+            Skill_Eclipse_Commands[j].color = new Color(0, 0, 0, 0);
+
+            Skill_Decent_Commands[j].sprite = Command_Arrows[0];
+            Skill_Decent_Commands[j].color = new Color(0, 0, 0, 0);
+
+            Skill_Swarm_Commands[j].sprite = Command_Arrows[0];
+            Skill_Swarm_Commands[j].color = new Color(0, 0, 0, 0);
+        }
+
+        // 스킬 커맨드 표를 활성화 시켜준다.
+        Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+        Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+        Skill_Decent_Command_Chart.gameObject.SetActive(false);
+        Skill_Swarm_Command_Chart.gameObject.SetActive(false);
     }
 
     void CommandInputStart(int SkillNumber)
@@ -1448,6 +1515,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    SonicWaveCommand[i] = 0;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
                                             else if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -1493,6 +1566,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_SonicWave_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
                                             else if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -1538,6 +1617,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_SonicWave_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
                                             else if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -1583,6 +1668,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_SonicWave_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
 
@@ -1615,6 +1706,11 @@ public class Elizabat : MonoBehaviour {
                                                 //    Skill_SonicWave_Commands[j].color = Color.black;
                                                 //}
 
+                                                // 스킬 커맨드 표를 활성화 시켜준다.
+                                                Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                             }
                                         }
                                         break;
@@ -1665,6 +1761,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_Eclipse_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
                                             else if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -1712,6 +1814,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_Eclipse_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
                                             else if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -1759,6 +1867,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_Eclipse_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
                                             else if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -1805,6 +1919,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_Eclipse_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
 
@@ -1837,6 +1957,12 @@ public class Elizabat : MonoBehaviour {
                                                 //{
                                                 //    Skill_Eclipse_Commands[j].color = Color.black;
                                                 //}
+
+                                                // 스킬 커맨드 표를 활성화 시켜준다.
+                                                Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                             }
                                         }
                                         break;
@@ -1888,6 +2014,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_Decent_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
                                             else if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -1933,6 +2065,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_Decent_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
                                             else if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -1978,6 +2116,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_Decent_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
                                             else if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -2023,6 +2167,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_Decent_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
 
@@ -2055,6 +2205,12 @@ public class Elizabat : MonoBehaviour {
                                                 //{
                                                 //    Skill_Decent_Commands[j].color = Color.black;
                                                 //}
+
+                                                // 스킬 커맨드 표를 활성화 시켜준다.
+                                                Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                             }
                                         }
                                         break;
@@ -2104,6 +2260,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_Swarm_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
                                             else if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -2149,6 +2311,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_Swarm_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
                                             else if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -2194,6 +2362,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_Swarm_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
                                             else if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -2240,6 +2414,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_Swarm_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
 
@@ -2272,6 +2452,12 @@ public class Elizabat : MonoBehaviour {
                                                 //{
                                                 //    Skill_Swarm_Commands[j].color = Color.black;
                                                 //}
+
+                                                // 스킬 커맨드 표를 활성화 시켜준다.
+                                                Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                             }
                                         }
                                         break;
@@ -2333,6 +2519,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_SonicWave_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
                                             else if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
@@ -2378,6 +2570,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_SonicWave_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
                                             else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
@@ -2423,6 +2621,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_SonicWave_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
                                             else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
@@ -2468,6 +2672,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_SonicWave_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
 
@@ -2499,6 +2709,12 @@ public class Elizabat : MonoBehaviour {
                                                 //{
                                                 //    Skill_SonicWave_Commands[j].color = Color.black;
                                                 //}
+
+                                                // 스킬 커맨드 표를 활성화 시켜준다.
+                                                Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                             }
                                         }
                                         break;
@@ -2549,6 +2765,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_Eclipse_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
                                             else if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
@@ -2594,6 +2816,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_Eclipse_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
                                             else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
@@ -2639,6 +2867,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_Eclipse_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
                                             else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
@@ -2684,6 +2918,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_Eclipse_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
 
@@ -2716,6 +2956,12 @@ public class Elizabat : MonoBehaviour {
                                                 //{
                                                 //    Skill_Eclipse_Commands[j].color = Color.black;
                                                 //}
+
+                                                // 스킬 커맨드 표를 활성화 시켜준다.
+                                                Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                             }
                                         }
                                         break;
@@ -2767,6 +3013,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_Decent_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
                                             else if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
@@ -2813,6 +3065,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_Decent_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
                                             else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
@@ -2859,6 +3117,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_Decent_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
                                             else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
@@ -2905,6 +3169,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_Decent_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
 
@@ -2938,6 +3208,12 @@ public class Elizabat : MonoBehaviour {
                                                 //{
                                                 //    Skill_Decent_Commands[j].color = Color.black;
                                                 //}
+
+                                                // 스킬 커맨드 표를 활성화 시켜준다.
+                                                Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                             }
                                         }
                                         break;
@@ -2988,6 +3264,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_Swarm_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
                                             else if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
@@ -3035,6 +3317,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_Swarm_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
                                             else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
@@ -3082,6 +3370,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_Swarm_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
                                             else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
@@ -3129,6 +3423,12 @@ public class Elizabat : MonoBehaviour {
                                                     //{
                                                     //    Skill_Swarm_Commands[j].color = Color.black;
                                                     //}
+
+                                                    // 스킬 커맨드 표를 활성화 시켜준다.
+                                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                                 }
                                             }
 
@@ -3161,6 +3461,12 @@ public class Elizabat : MonoBehaviour {
                                                 //{
                                                 //    Skill_Swarm_Commands[j].color = Color.black;
                                                 //}
+
+                                                // 스킬 커맨드 표를 활성화 시켜준다.
+                                                Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                Skill_Swarm_Command_Chart.gameObject.SetActive(false);
                                             }
                                         }
                                         break;

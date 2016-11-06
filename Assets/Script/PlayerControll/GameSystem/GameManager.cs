@@ -155,7 +155,7 @@ public class GameManager : MonoBehaviour {
         Fear_Max = 50.0f;
         
         Soul_MP_Max = 100.0f;
-        Soul_MP_Parameter = 10.0f;
+        Soul_MP_Parameter = 100.0f;
 
         Capture_Meter = Capture_Max;
 
@@ -190,8 +190,8 @@ public class GameManager : MonoBehaviour {
         Main_UI.SetActive(false);
         MiniMap_UI.SetActive(false);
 
-        Gamestate = GameState.GameIntro;
-        //Gamestate = GameState.GameStart;
+        //Gamestate = GameState.GameIntro;
+        Gamestate = GameState.GameStart;
         ViewMode = ViewControllMode.Mouse;
         CannonControl_Number = CannonNumber.First;
 
@@ -313,7 +313,16 @@ public class GameManager : MonoBehaviour {
                     }
 
                     // 마나 게이지 관리
-                    SoulMP_Parameter_Gage.fillAmount = (Soul_MP_Parameter / Soul_MP_Max);
+                    if(Soul_MP_Parameter < Soul_MP_Max)
+                    {
+                        SoulMP_Parameter_Gage.fillAmount = (Soul_MP_Parameter / Soul_MP_Max);
+                    }
+                    else
+                    {
+                        Soul_MP_Parameter = Soul_MP_Max;
+                        SoulMP_Parameter_Gage.fillAmount = 1.0f;
+                    }
+                    
                     
 
                     // 리스폰 타이머

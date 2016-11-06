@@ -39,7 +39,8 @@ public class FlyingCam : MonoBehaviour {
 
         Gamestate = GameManager.Gamestate;
         ViewMode = GameManager.ViewMode;
-        
+
+
         //Screen.lockCursor = true;
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
@@ -102,9 +103,11 @@ public class FlyingCam : MonoBehaviour {
                                         if (Input.GetKey(KeyCode.A))
                                         {
                                             MainCameraRoot.transform.Translate(new Vector3(2.8f, 0, 0) * normalMoveSpeed * Time.deltaTime);
-                                            //transform.Translate(new Vector3(-3, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                            
+
+                                            
                                             MainCameraChecker.transform.Translate(new Vector3(1.7f, 0, 0) * normalMoveSpeed * Time.deltaTime);
-                                            //NowCurrentCoordX -= (CameraMovingPoint * Time.deltaTime);
+                                            
                                         }
                                     }
 
@@ -113,10 +116,13 @@ public class FlyingCam : MonoBehaviour {
                                         if (Input.GetKey(KeyCode.D))
                                         {
                                             MainCameraRoot.transform.Translate(new Vector3(-2.8f, 0, 0) * normalMoveSpeed * Time.deltaTime);
-                                            //transform.Translate(new Vector3(3, 0, 0) * normalMoveSpeed * Time.deltaTime);
+
+                                            
+
+                                            
                                             MainCameraChecker.transform.Translate(new Vector3(-1.7f, 0, 0) * normalMoveSpeed * Time.deltaTime);
-                                            //NowCurrentCoordX += (CameraMovingPoint * Time.deltaTime);
-                                            //transform.position += (-1 * transform.forward) * normalMoveSpeed * Time.deltaTime;
+                                            
+                                            
                                         }
                                     }
 
@@ -124,11 +130,11 @@ public class FlyingCam : MonoBehaviour {
                                     {
                                         if (Input.GetKey(KeyCode.W))
                                         {
-                                            //transform.position += new Vector3(0, ForwardDir.y, ForwardDir.z) * normalMoveSpeed * Time.deltaTime;
-                                            MainCameraRoot.transform.Translate(new Vector3(0, -2.8f, 0) * normalMoveSpeed * Time.deltaTime);
-                                            //transform.Translate(new Vector3(0, 2, 0) * normalMoveSpeed * Time.deltaTime);
-                                            MainCameraChecker.transform.Translate(new Vector3(0, -0.7f, 0) * normalMoveSpeed * Time.deltaTime);
-                                            //NowCurrentCoordY += (CameraMovingPoint * Time.deltaTime);
+                                            
+                                            MainCameraRoot.transform.Translate(new Vector3(0, -3.2f, 0) * normalMoveSpeed * Time.deltaTime);
+                                            
+                                            MainCameraChecker.transform.Translate(new Vector3(0, -1.5f, 0) * normalMoveSpeed * Time.deltaTime);
+                                            
                                         }
                                     }
 
@@ -136,16 +142,42 @@ public class FlyingCam : MonoBehaviour {
                                     {
                                         if (Input.GetKey(KeyCode.S))
                                         {
-                                            //transform.position -= new Vector3(0, ForwardDir.y, ForwardDir.z) * normalMoveSpeed * Time.deltaTime;
-                                            MainCameraRoot.transform.Translate(new Vector3(0, 2.8f, 0) * normalMoveSpeed * Time.deltaTime);
-                                            //transform.Translate(new Vector3(0, -2, 0) * normalMoveSpeed * Time.deltaTime);
-                                            MainCameraChecker.transform.Translate(new Vector3(0, 0.4f, 0) * normalMoveSpeed * Time.deltaTime);
-                                            //NowCurrentCoordY -= (CameraMovingPoint * Time.deltaTime);
-                                            //transform.position += transform.forward * normalMoveSpeed * Time.deltaTime;
+                                            
+                                            MainCameraRoot.transform.Translate(new Vector3(0, 3.2f, 0) * normalMoveSpeed * Time.deltaTime);
+                                            
+                                            MainCameraChecker.transform.Translate(new Vector3(0, 1.5f, 0) * normalMoveSpeed * Time.deltaTime);
                                         }
                                     }
-                                }
 
+                                    if (Input.GetKey(KeyCode.Q))
+                                    {
+                                        if (MainCameraRoot.transform.localEulerAngles.y > 96.0f && MainCameraRoot.transform.localEulerAngles.y < 360.0f)
+                                        {
+                                            MainCameraRoot.transform.localEulerAngles = new Vector3(90.0f, 96.0f, 0.0f);
+                                        }
+                                        else
+                                        {
+                                            MainCameraRoot.transform.Rotate(new Vector3(0, 0, -1), 50 * Time.deltaTime);
+                                        }
+
+                                    }
+
+                                    if (Input.GetKey(KeyCode.E))
+                                    {
+                                        if (MainCameraRoot.transform.localEulerAngles.y < 360.0f && MainCameraRoot.transform.localEulerAngles.y >= 340.0f)
+                                        {
+                                            MainCameraRoot.transform.localEulerAngles = new Vector3(90.0f, 360.0f, 0.0f);
+                                        }
+                                        else
+                                        {
+                                            MainCameraRoot.transform.Rotate(new Vector3(0, 0, 1), 50 * Time.deltaTime);
+                                        }
+
+                                    }
+                                }
+                                //print(MainCameraRoot.gameObject.transform.localRotation);
+                                //print(MainCameraRoot.transform.localRotation.eulerAngles);
+                                //print(MainCameraRoot.transform.eulerAngles);
                                 //print(CameraCheck);
 
                                 //print("X : " + NowCurrentCoordX);
@@ -215,10 +247,11 @@ public class FlyingCam : MonoBehaviour {
 
                                             Debug.Log("LeftStick!");
 
-                                            MainCameraRoot.transform.Translate(new Vector3(2.0f, 0, 0) * normalMoveSpeed * Time.deltaTime);
-                                            //transform.Translate(new Vector3(-3, 0, 0) * normalMoveSpeed * Time.deltaTime);
-                                            MainCameraChecker.transform.Translate(new Vector3(1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime);
-                                            //NowCurrentCoordX -= (CameraMovingPoint * Time.deltaTime);
+                                            MainCameraRoot.transform.Translate(new Vector3(2.8f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+
+
+
+                                            MainCameraChecker.transform.Translate(new Vector3(1.7f, 0, 0) * normalMoveSpeed * Time.deltaTime);
                                         }
                                     }
 
@@ -229,11 +262,12 @@ public class FlyingCam : MonoBehaviour {
 
                                             Debug.Log("RightStick!");
 
-                                            MainCameraRoot.transform.Translate(new Vector3(-2.0f, 0, 0) * normalMoveSpeed * Time.deltaTime);
-                                            //transform.Translate(new Vector3(3, 0, 0) * normalMoveSpeed * Time.deltaTime);
-                                            MainCameraChecker.transform.Translate(new Vector3(-1.5f, 0, 0) * normalMoveSpeed * Time.deltaTime);
-                                            //NowCurrentCoordX += (CameraMovingPoint * Time.deltaTime);
-                                            //transform.position += (-1 * transform.forward) * normalMoveSpeed * Time.deltaTime;
+                                            MainCameraRoot.transform.Translate(new Vector3(-2.8f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+
+
+
+
+                                            MainCameraChecker.transform.Translate(new Vector3(-1.7f, 0, 0) * normalMoveSpeed * Time.deltaTime);
                                         }
                                     }
 
@@ -244,11 +278,9 @@ public class FlyingCam : MonoBehaviour {
 
                                             Debug.Log("UpStick!");
 
-                                            //transform.position += new Vector3(0, ForwardDir.y, ForwardDir.z) * normalMoveSpeed * Time.deltaTime;
-                                            MainCameraRoot.transform.Translate(new Vector3(0, -2.0f, 0) * normalMoveSpeed * Time.deltaTime);
-                                            //transform.Translate(new Vector3(0, 2, 0) * normalMoveSpeed * Time.deltaTime);
-                                            MainCameraChecker.transform.Translate(new Vector3(0, -0.5f, 0) * normalMoveSpeed * Time.deltaTime);
-                                            //NowCurrentCoordY += (CameraMovingPoint * Time.deltaTime);
+                                            MainCameraRoot.transform.Translate(new Vector3(0, -3.2f, 0) * normalMoveSpeed * Time.deltaTime);
+
+                                            MainCameraChecker.transform.Translate(new Vector3(0, -1.5f, 0) * normalMoveSpeed * Time.deltaTime);
 
                                         }
                                     }
@@ -260,12 +292,9 @@ public class FlyingCam : MonoBehaviour {
 
                                             Debug.Log("DownStick!");
 
-                                            //transform.position -= new Vector3(0, ForwardDir.y, ForwardDir.z) * normalMoveSpeed * Time.deltaTime;
-                                            MainCameraRoot.transform.Translate(new Vector3(0, 2.0f, 0) * normalMoveSpeed * Time.deltaTime);
-                                            //transform.Translate(new Vector3(0, -2, 0) * normalMoveSpeed * Time.deltaTime);
-                                            MainCameraChecker.transform.Translate(new Vector3(0, 0.2f, 0) * normalMoveSpeed * Time.deltaTime);
-                                            //NowCurrentCoordY -= (CameraMovingPoint * Time.deltaTime);
-                                            //transform.position += transform.forward * normalMoveSpeed * Time.deltaTime;
+                                            MainCameraRoot.transform.Translate(new Vector3(0, 3.2f, 0) * normalMoveSpeed * Time.deltaTime);
+
+                                            MainCameraChecker.transform.Translate(new Vector3(0, 1.5f, 0) * normalMoveSpeed * Time.deltaTime);
                                         }
                                     }
                                 }

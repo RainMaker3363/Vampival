@@ -9,6 +9,10 @@ public class UI_Document_Script : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         Gamestate = GameManager.Gamestate;
+
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("InGameItem"), true);
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Projectile"), LayerMask.NameToLayer("InGameItem"), true);
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyCorpse"), LayerMask.NameToLayer("InGameItem"), true);
 	}
 	
 	// Update is called once per frame

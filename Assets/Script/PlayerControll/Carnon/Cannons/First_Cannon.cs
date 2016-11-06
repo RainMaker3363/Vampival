@@ -93,7 +93,7 @@ public class First_Cannon : MonoBehaviour {
 
                                             //this.transform.LookAt(new Vector3(CrossHair_Icon.transform.position.x, 0, CrossHair_Icon.transform.position.z));
 
-                                            print(this.gameObject.transform.localRotation.eulerAngles.y);
+                                            //print(this.gameObject.transform.localRotation.eulerAngles.y);
 
                                             if (Input.GetKey(KeyCode.LeftArrow))
                                             {

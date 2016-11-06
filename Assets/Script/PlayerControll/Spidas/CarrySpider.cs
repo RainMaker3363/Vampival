@@ -31,8 +31,9 @@ public class CarrySpider : MonoBehaviour {
 
         layermask = (1<<LayerMask.NameToLayer("LayCastIn"));//(-1) - (1 << 9) | (1 << 10) | (1 << 12) | (1 << 15);
         ObjectLayerMask = (1 << LayerMask.NameToLayer("LayObjectCheck"));
-
+        
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("CarryPlayer"), true);
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Projectile"), LayerMask.NameToLayer("CarryPlayer"), true);
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyCorpse"), LayerMask.NameToLayer("CarryPlayer"), true);
 	}
 	
@@ -96,7 +97,7 @@ public class CarrySpider : MonoBehaviour {
 
                                     if (!Physics.Raycast(this.transform.position, (ObjectChecker.transform.position - this.transform.position).normalized, out Objecthit, 5.0f, ObjectLayerMask))
                                     {
-                                        transform.Translate(new Vector3(0, 0, 3.25f) * normalMoveSpeed * Time.deltaTime);
+                                        transform.Translate(new Vector3(0, 0, 4.0f) * normalMoveSpeed * Time.deltaTime);
                                     }
                                     //Dir = (Look.transform.position - this.transform.position).normalized;
                                     //transform.position += Dir * normalMoveSpeed * Time.deltaTime;
@@ -114,7 +115,7 @@ public class CarrySpider : MonoBehaviour {
 
                                     //transform.position += new Vector3(0.05f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
 
-                                    transform.Translate(new Vector3(0, 0, -3.25f) * normalMoveSpeed * Time.deltaTime);
+                                    transform.Translate(new Vector3(0, 0, -4.0f) * normalMoveSpeed * Time.deltaTime);
                                     
                                 }
                                 if (Input.GetKey(KeyCode.J))
@@ -239,14 +240,18 @@ public class CarrySpider : MonoBehaviour {
 	  
 	}
 
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.transform.tag == "CannonBall")
-        {
-            print("Friendly Fire!!");
-        }
+    //void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.transform.tag == "CannonBall")
+    //    {
+    //        print("Friendly Fire!!");
+    //    }
 
-    }
+    //    if (collision.transform.tag.Equals("Souls") == true)
+    //    {
+    //        print("Soul Recharging");
+    //    }
+    //}
 
     void OnTriggerEnter(Collider other)
     {
@@ -257,5 +262,13 @@ public class CarrySpider : MonoBehaviour {
             GameManager.Gamestate = GameState.GamePause;
         }
 
+        //if (other.transform.tag.Equals("Souls") == true)
+        //{
+        //    print("Soul Recharging");
+
+        //    other.gameObject.SetActive(false);
+
+        //    GameManager.Soul_MP_Parameter += 2.0f;
+        //}
     }
 }

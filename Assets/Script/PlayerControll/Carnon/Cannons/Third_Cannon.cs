@@ -110,7 +110,7 @@ public class Third_Cannon : MonoBehaviour
                                             if (Input.GetKey(KeyCode.LeftArrow))
                                             {
 
-                                                this.transform.Rotate(new Vector3(0, 0, 90), 60 * Time.deltaTime);
+                                                this.transform.Rotate(new Vector3(0, 0, -90), 60 * Time.deltaTime);
                                                 //Cannons[0].transform.Rotate(new Vector3(0, 0, -90), 35 * Time.deltaTime);
 
                                                 //CrossHair_Icon.transform.position += new Vector3(-1.8f, 0, 0) * normalMoveSpeed * Time.deltaTime;
@@ -119,7 +119,7 @@ public class Third_Cannon : MonoBehaviour
                                             }
                                             if (Input.GetKey(KeyCode.RightArrow))
                                             {
-                                                this.transform.Rotate(new Vector3(0, 0, -90), 60 * Time.deltaTime);
+                                                this.transform.Rotate(new Vector3(0, 0, 90), 60 * Time.deltaTime);
                                                 //Cannons[0].transform.Rotate(new Vector3(0, 0, 90), 35 * Time.deltaTime);
 
                                                 //CrossHair_Icon.transform.position += new Vector3(1.8f, 0, 0) * normalMoveSpeed * Time.deltaTime;
@@ -241,7 +241,7 @@ public class Third_Cannon : MonoBehaviour
 
                                                 //Debug.Log("RightStick!");
 
-                                                this.transform.Rotate(new Vector3(0, 0, 90), 60 * Time.deltaTime);
+                                                this.transform.Rotate(new Vector3(0, 0, -90), 60 * Time.deltaTime);
                                             }
 
                                             if (Input.GetAxisRaw("P2_360_RightStick") == -1)
@@ -249,7 +249,7 @@ public class Third_Cannon : MonoBehaviour
 
                                                 //Debug.Log("LeftStick!");
 
-                                                this.transform.Rotate(new Vector3(0, 0, -90), 60 * Time.deltaTime);
+                                                this.transform.Rotate(new Vector3(0, 0, 90), 60 * Time.deltaTime);
                                             }
 
                                             if (Input.GetAxisRaw("P2_360_UpStick") == -1)

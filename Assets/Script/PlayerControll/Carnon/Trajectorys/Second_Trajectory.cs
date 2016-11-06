@@ -30,7 +30,7 @@ public class Second_Trajectory : MonoBehaviour {
     public GameObject[] CannonBalls;
     public ParticleSystem Spark;
 
-    private int CannonStack;
+    private float CannonCost;
     private int NowCannonIdx;
 
     void Awake()
@@ -60,7 +60,7 @@ public class Second_Trajectory : MonoBehaviour {
             CannonBalls[i].SetActive(false);
         }
 
-        CannonStack = 10;//CannonBalls.Length;
+        CannonCost = 1.0f;//CannonBalls.Length;
         NowCannonIdx = 0;
 
         Spark.gameObject.SetActive(false);
@@ -150,7 +150,7 @@ public class Second_Trajectory : MonoBehaviour {
                                                 FireTimer += Time.deltaTime;
                                             }
 
-                                            if (Input.GetKeyDown(KeyCode.Space) && FireReady && (CannonStack > 0))
+                                            if (Input.GetKeyDown(KeyCode.Space) && FireReady && (GameManager.Soul_MP_Parameter >= CannonCost))
                                             {
                                                 FireReady = false;
 
@@ -176,6 +176,15 @@ public class Second_Trajectory : MonoBehaviour {
 
                                                     NowCannonIdx++;
                                                     //CannonStack--;
+                                                }
+
+                                                if (GameManager.Soul_MP_Parameter <= 0.0f)
+                                                {
+                                                    GameManager.Soul_MP_Parameter = 0.0f;
+                                                }
+                                                else
+                                                {
+                                                    GameManager.Soul_MP_Parameter -= CannonCost;
                                                 }
                                             }
 
@@ -324,7 +333,7 @@ public class Second_Trajectory : MonoBehaviour {
                                                 FireTimer += Time.deltaTime;
                                             }
 
-                                            if (Input.GetAxis("P2_360_Trigger") > 0.001 && FireReady && (CannonStack > 0))
+                                            if (Input.GetAxis("P2_360_Trigger") > 0.001 && FireReady && (GameManager.Soul_MP_Parameter >= CannonCost))
                                             {
 
                                                 Debug.Log("Right Trigger!");
@@ -353,9 +362,18 @@ public class Second_Trajectory : MonoBehaviour {
                                                     NowCannonIdx++;
                                                     //CannonStack--;
                                                 }
+
+                                                if (GameManager.Soul_MP_Parameter <= 0.0f)
+                                                {
+                                                    GameManager.Soul_MP_Parameter = 0.0f;
+                                                }
+                                                else
+                                                {
+                                                    GameManager.Soul_MP_Parameter -= CannonCost;
+                                                }
                                             }
 
-                                            if (Input.GetAxis("P2_360_Trigger") < 0 && FireReady && (CannonStack > 0))
+                                            if (Input.GetAxis("P2_360_Trigger") < 0 && FireReady && (GameManager.Soul_MP_Parameter >= CannonCost))
                                             {
 
                                                 Debug.Log("Left Trigger!");
@@ -385,6 +403,14 @@ public class Second_Trajectory : MonoBehaviour {
                                                     //CannonStack--;
                                                 }
 
+                                                if (GameManager.Soul_MP_Parameter <= 0.0f)
+                                                {
+                                                    GameManager.Soul_MP_Parameter = 0.0f;
+                                                }
+                                                else
+                                                {
+                                                    GameManager.Soul_MP_Parameter -= CannonCost;
+                                                }
                                             }
 
                                             // Get the point along the ray that hits the calculated distance.			
