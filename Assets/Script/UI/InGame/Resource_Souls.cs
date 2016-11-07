@@ -51,6 +51,10 @@ public class Resource_Souls : MonoBehaviour {
     //    if (collision.transform.tag.Equals("Spidas") == true)
     //    {
     //        print("Soul Recharging");
+
+    //        this.gameObject.SetActive(false);
+
+    //        GameManager.Soul_MP_Parameter += 2.0f;
     //    }
     //}
 }

@@ -227,7 +227,7 @@ public class Enemy_Militia : MonoBehaviour {
                                     if (Corpse[NowCorpseStack].gameObject.activeSelf == false)
                                     {
                                         Corpse[NowCorpseStack].transform.position = this.transform.position;
-                                        Corpse_Souls[NowSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 10.0f, this.transform.position.z);
+                                        Corpse_Souls[NowSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.0f, this.transform.position.z);
 
                                         Corpse[NowCorpseStack].gameObject.SetActive(true);
                                         Corpse_Souls[NowSoulStack].gameObject.SetActive(true);
@@ -709,7 +709,7 @@ public class Enemy_Militia : MonoBehaviour {
                 {
 
                     Corpse[NowCorpseStack].transform.position = this.transform.position;
-                    Corpse_Souls[NowSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 10.0f, this.transform.position.z);
+                    Corpse_Souls[NowSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.0f, this.transform.position.z);
 
                     Corpse[NowCorpseStack].gameObject.SetActive(true);
                     Corpse_Souls[NowSoulStack].gameObject.SetActive(true);
@@ -758,7 +758,7 @@ public class Enemy_Militia : MonoBehaviour {
                 {
 
                     Corpse[NowCorpseStack].transform.position = this.transform.position;
-                    Corpse_Souls[NowSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 10.0f, this.transform.position.z);
+                    Corpse_Souls[NowSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.0f, this.transform.position.z);
 
                     Corpse[NowCorpseStack].gameObject.SetActive(true);
                     Corpse_Souls[NowSoulStack].gameObject.SetActive(true);

@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour {
 
     // 마나 게이지
     static public float Soul_MP_Parameter;
-    float Soul_MP_Max;
+    private float Soul_MP_Max;
 
     //===============================================================================================================================
     // 2P 카론의 조작
@@ -154,7 +154,7 @@ public class GameManager : MonoBehaviour {
         
         Fear_Max = 50.0f;
         
-        Soul_MP_Max = 100.0f;
+        Soul_MP_Max = 50.0f;
         Soul_MP_Parameter = 100.0f;
 
         Capture_Meter = Capture_Max;

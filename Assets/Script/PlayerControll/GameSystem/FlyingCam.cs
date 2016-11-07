@@ -133,7 +133,7 @@ public class FlyingCam : MonoBehaviour {
                                             
                                             MainCameraRoot.transform.Translate(new Vector3(0, -3.2f, 0) * normalMoveSpeed * Time.deltaTime);
                                             
-                                            MainCameraChecker.transform.Translate(new Vector3(0, -1.5f, 0) * normalMoveSpeed * Time.deltaTime);
+                                            MainCameraChecker.transform.Translate(new Vector3(0, -0.7f, 0) * normalMoveSpeed * Time.deltaTime);
                                             
                                         }
                                     }
@@ -145,7 +145,7 @@ public class FlyingCam : MonoBehaviour {
                                             
                                             MainCameraRoot.transform.Translate(new Vector3(0, 3.2f, 0) * normalMoveSpeed * Time.deltaTime);
                                             
-                                            MainCameraChecker.transform.Translate(new Vector3(0, 1.5f, 0) * normalMoveSpeed * Time.deltaTime);
+                                            MainCameraChecker.transform.Translate(new Vector3(0, 0.7f, 0) * normalMoveSpeed * Time.deltaTime);
                                         }
                                     }
 
@@ -176,7 +176,7 @@ public class FlyingCam : MonoBehaviour {
                                     }
                                 }
                                 //print(MainCameraRoot.gameObject.transform.localRotation);
-                                print(MainCameraRoot.transform.localRotation.eulerAngles);
+                                //print(MainCameraRoot.transform.localRotation.eulerAngles);
                                 //print(MainCameraRoot.transform.eulerAngles);
                                 //print(CameraCheck);
 
