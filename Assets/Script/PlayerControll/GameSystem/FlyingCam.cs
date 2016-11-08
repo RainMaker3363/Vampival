@@ -242,7 +242,7 @@ public class FlyingCam : MonoBehaviour {
 
                                     if ((CameraCheck.x >= 0))
                                     {
-                                        if (Input.GetAxisRaw("P1_360_RightStick") == -1)
+                                        if (Input.GetAxisRaw("P1_360_RightStick") <= -0.5f)
                                         {
 
                                             Debug.Log("LeftStick!");
@@ -257,7 +257,7 @@ public class FlyingCam : MonoBehaviour {
 
                                     if ((CameraCheck.x <= Screen.width))
                                     {
-                                        if (Input.GetAxisRaw("P1_360_RightStick") == 1)
+                                        if (Input.GetAxisRaw("P1_360_RightStick") >= 0.5f)
                                         {
 
                                             Debug.Log("RightStick!");
@@ -273,7 +273,7 @@ public class FlyingCam : MonoBehaviour {
 
                                     if ((CameraCheck.y <= Screen.height))
                                     {
-                                        if (Input.GetAxisRaw("P1_360_UpStick") == -1)
+                                        if (Input.GetAxisRaw("P1_360_UpStick") <= -0.5f)
                                         {
 
                                             Debug.Log("UpStick!");
@@ -287,7 +287,7 @@ public class FlyingCam : MonoBehaviour {
 
                                     if ((CameraCheck.y >= 0))
                                     {
-                                        if (Input.GetAxisRaw("P1_360_UpStick") == 1)
+                                        if (Input.GetAxisRaw("P1_360_UpStick") >= 0.5f)
                                         {
 
                                             Debug.Log("DownStick!");

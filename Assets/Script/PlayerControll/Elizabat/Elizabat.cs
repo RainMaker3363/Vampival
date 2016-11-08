@@ -111,6 +111,9 @@ public class Elizabat : MonoBehaviour {
 
     private float Leng;
     private int layermask;
+
+
+    private bool KeyDownEnable = false;
     //private RaycastHit hit;
 
 	// Use this for initialization
@@ -703,6 +706,43 @@ public class Elizabat : MonoBehaviour {
                                     }
                                 }
 
+                                //print(Input.GetAxisRaw("P1_360_HorizontalDPAD"));
+
+                                if(Input.GetAxisRaw("P1_360_HorizontalDPAD") <= 0.9f &&
+                                    Input.GetAxisRaw("P1_360_HorizontalDPAD") >= -0.9f &&
+                                    Input.GetAxisRaw("P1_360_VerticalDPAD") >= -0.9f &&
+                                    Input.GetAxisRaw("P1_360_VerticalDPAD") <= 0.9f)
+                                {
+                                    KeyDownEnable = false;
+                                }
+
+                                if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
+                                {
+                                    if(!KeyDownEnable)
+                                    {
+                                        KeyDownEnable = true;
+
+                                        print("Left");
+                                    }
+                                    
+                                }
+                                else if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
+                                {
+                                    if (!KeyDownEnable)
+                                    {
+                                        KeyDownEnable = true;
+
+                                        print("Right");
+                                    }
+                                }
+                                else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
+                                {
+                                    print("Down");
+                                }
+                                else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
+                                {
+                                    print("Up");
+                                }
 
                                 if (GameManager.Elizabat_CommandStart)
                                 {
@@ -727,7 +767,7 @@ public class Elizabat : MonoBehaviour {
                                     // 스킬 캔슬 여부
                                     if (Input.GetButtonDown("P1_360_AButton"))
                                     {
-                                        CommandCancel();
+                                        //CommandCancel();
 
                                         // Skill UI를 활성화 시킨다.
                                         //Skill_Not_Yangpigi.gameObject.SetActive(false);
@@ -738,7 +778,7 @@ public class Elizabat : MonoBehaviour {
                                     // 스킬 시전 좌표 이동
                                     if (targetPosOnScreen.x > 0)
                                     {
-                                        if (Input.GetAxisRaw("P1_360_RightStick") == -1)
+                                        if (Input.GetAxisRaw("P1_360_RightStick") <= -0.5f)
                                         {
 
                                             Debug.Log("LeftStick!");
@@ -748,7 +788,7 @@ public class Elizabat : MonoBehaviour {
 
                                     if (targetPosOnScreen.x < Screen.width)
                                     {
-                                        if (Input.GetAxisRaw("P1_360_RightStick") == 1)
+                                        if (Input.GetAxisRaw("P1_360_RightStick") >= 0.5f)
                                         {
 
                                             Debug.Log("RightStick!");
@@ -758,7 +798,7 @@ public class Elizabat : MonoBehaviour {
 
                                     if (targetPosOnScreen.y > 0)
                                     {
-                                        if (Input.GetAxisRaw("P1_360_UpStick") == 1)
+                                        if (Input.GetAxisRaw("P1_360_UpStick") >= 0.5f)
                                         {
 
                                             Debug.Log("DownStick!");
@@ -770,7 +810,7 @@ public class Elizabat : MonoBehaviour {
                                     if (targetPosOnScreen.y < Screen.height)
                                     {
 
-                                        if (Input.GetAxisRaw("P1_360_UpStick") == -1)
+                                        if (Input.GetAxisRaw("P1_360_UpStick") <= -0.5f)
                                         {
 
                                             Debug.Log("UpStick!");
