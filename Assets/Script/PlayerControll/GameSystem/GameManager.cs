@@ -349,32 +349,68 @@ public class GameManager : MonoBehaviour {
                         //StartCoroutine(RespawnEnemy(NowLevel, EnemyType, EnemyLocation));
                     }
 
-
-
-                    if (Input.GetKeyDown(KeyCode.Alpha1))
+                    switch(ViewMode)
                     {
-                        if (CannonControl_Number > CannonNumber.First)
-                        {
-                            CannonControl_Number--;
+                        case ViewControllMode.Mouse:
+                            {
+                                if (Input.GetKeyDown(KeyCode.Alpha1))
+                                {
+                                    if (CannonControl_Number > CannonNumber.First)
+                                    {
+                                        CannonControl_Number--;
 
-                        }
-                        else
-                        {
-                            CannonControl_Number = CannonNumber.Fourth;
-                        }
+                                    }
+                                    else
+                                    {
+                                        CannonControl_Number = CannonNumber.Fourth;
+                                    }
 
+                                }
+                                else if (Input.GetKeyDown(KeyCode.Alpha2))
+                                {
+                                    if (CannonControl_Number < CannonNumber.Fourth)
+                                    {
+                                        CannonControl_Number++;
+                                    }
+                                    else
+                                    {
+                                        CannonControl_Number = CannonNumber.First;
+                                    }
+                                }
+                            }
+                            break;
+
+                        case ViewControllMode.GamePad:
+                            {
+                                if (Input.GetButtonDown("P2_360_LeftBumper"))
+                                {
+                                    if (CannonControl_Number > CannonNumber.First)
+                                    {
+                                        CannonControl_Number--;
+
+                                    }
+                                    else
+                                    {
+                                        CannonControl_Number = CannonNumber.Fourth;
+                                    }
+
+                                }
+                                else if (Input.GetButtonDown("P2_360_RightBumper"))
+                                {
+                                    if (CannonControl_Number < CannonNumber.Fourth)
+                                    {
+                                        CannonControl_Number++;
+                                    }
+                                    else
+                                    {
+                                        CannonControl_Number = CannonNumber.First;
+                                    }
+                                }
+                            }
+                            break;
                     }
-                    else if (Input.GetKeyDown(KeyCode.Alpha2))
-                    {
-                        if (CannonControl_Number < CannonNumber.Fourth)
-                        {
-                            CannonControl_Number++;
-                        }
-                        else
-                        {
-                            CannonControl_Number = CannonNumber.First;
-                        }
-                    }
+
+               
                 }
                 break;
 

@@ -229,7 +229,7 @@ public class Second_Cannon : MonoBehaviour {
 
                                             // 게임 패드 작업
 
-                                            if (Input.GetAxisRaw("P2_360_RightStick") == 1)
+                                            if (Input.GetAxisRaw("P2_360_R_RightStick") >= 0.5f)
                                             {
 
                                                 //Debug.Log("RightStick!");
@@ -237,7 +237,7 @@ public class Second_Cannon : MonoBehaviour {
                                                 this.transform.Rotate(new Vector3(0, 0, 90), 60 * Time.deltaTime);
                                             }
 
-                                            if (Input.GetAxisRaw("P2_360_RightStick") == -1)
+                                            if (Input.GetAxisRaw("P2_360_R_RightStick") <= -0.5f)
                                             {
 
                                                 //Debug.Log("LeftStick!");
@@ -245,7 +245,7 @@ public class Second_Cannon : MonoBehaviour {
                                                 this.transform.Rotate(new Vector3(0, 0, -90), 60 * Time.deltaTime);
                                             }
 
-                                            if (Input.GetAxisRaw("P2_360_UpStick") == -1)
+                                            if (Input.GetAxisRaw("P2_360_L_UpStick") <= -0.5f)
                                             {
 
                                                 //Debug.Log("UpStick!");
@@ -260,7 +260,7 @@ public class Second_Cannon : MonoBehaviour {
 
                                             }
 
-                                            if (Input.GetAxisRaw("P2_360_UpStick") == 1)
+                                            if (Input.GetAxisRaw("P2_360_L_UpStick") >= 0.5f)
                                             {
 
                                                 //Debug.Log("DownStick!");

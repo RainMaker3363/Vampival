@@ -425,14 +425,14 @@ public class First_Trajectory : MonoBehaviour {
                                             center = (transform.position + targetPoint) * 0.5f;
                                             center.y -= 50.0f + AimInterPol;
 
-                                            if (Input.GetAxisRaw("P2_360_UpThumbStick") == 1)
+                                            if (Input.GetAxisRaw("P2_360_L_UpStick") >= 0.5f)
                                             {
 
                                                 if (center.y <= -0.2)
                                                     AimInterPol += 1.0f * Time.deltaTime;
                                             }
 
-                                            if (Input.GetAxisRaw("P2_360_UpThumbStick") == -1)
+                                            if (Input.GetAxisRaw("P2_360_L_UpStick") <= -0.5f)
                                             {
 
                                                 if (center.y <= 1)

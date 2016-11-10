@@ -152,79 +152,40 @@ public class CarrySpider : MonoBehaviour {
                                     }
                                 }
 
-                                //if (Input.GetAxisRaw("P1_360_RightStick") == 1)
-                                //{
+                                if (Input.GetAxisRaw("P3_360_L_RightStick") >= 0.5f)
+                                {
 
-                                //    Debug.Log("RightStick!");
+                                    Debug.Log("RightStick!");
 
-                                //    //rotationX +=  cameraSensitivity * Time.deltaTime;
-                                //    transform.position += transform.right * FastMoveSpeed * Time.deltaTime;
-                                //}
+                                    this.transform.Rotate(new Vector3(0, 180, 0), 140 * Time.deltaTime);
+                                }
 
-                                //if (Input.GetAxisRaw("P1_360_RightStick") == -1)
-                                //{
+                                if (Input.GetAxisRaw("P3_360_L_RightStick") <= -0.5f)
+                                {
 
+                                    Debug.Log("LeftStick!");
 
-                                //    Debug.Log("LeftStick!");
+                                    this.transform.Rotate(new Vector3(0, -180, 0), 140 * Time.deltaTime);
+                                }
 
-
-                                //    //rotationX -= cameraSensitivity * Time.deltaTime;
-                                //    //transform.position -= transform.forward * normalMoveSpeed * Time.deltaTime;
-                                //    transform.position -= transform.right * FastMoveSpeed * Time.deltaTime;
-                                //}
-
-                                if (Input.GetAxisRaw("P3_360_UpStick") == -1)
+                                if (Input.GetAxisRaw("P3_360_R_UpStick") <= -0.5f)
                                 {
 
                                     Debug.Log("UpStick!");
 
                                     transform.Translate(new Vector3(0, 0, 2.5f) * normalMoveSpeed * Time.deltaTime);
-                                    //Dir = (Look.transform.position - this.transform.position).normalized;
-                                    //transform.position += Dir * normalMoveSpeed * Time.deltaTime;
-
-                                    //transform.position += new Vector3(-0.05f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
 
                                 }
 
-                                if (Input.GetAxisRaw("P3_360_UpStick") == 1)
+                                if (Input.GetAxisRaw("P3_360_R_UpStick") >= 0.5f)
                                 {
 
                                     Debug.Log("DownStick!");
 
                                     transform.Translate(new Vector3(0, 0, -2.5f) * normalMoveSpeed * Time.deltaTime);
-                                    //Dir = (Look.transform.position - this.transform.position).normalized;
-                                    //transform.position -= Dir * normalMoveSpeed * Time.deltaTime;
-
-                                    //transform.position += new Vector3(0.05f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
                                 }
 
-                                if (Input.GetAxisRaw("P3_360_LeftThumbStick") == 1)
-                                {
-
-                                    print("Right");
-
-                                    this.transform.Rotate(new Vector3(0, -180, 0), -140 * Time.deltaTime);
-                                    //this.transform.Rotate(new Vector3(0, -180, 0), -110 * Time.deltaTime);
-                                    
-                                }
-
-                                if (Input.GetAxisRaw("P3_360_LeftThumbStick") == -1)
-                                {
-                                    print("Left");
-                                    this.transform.Rotate(new Vector3(0, -180, 0), 140 * Time.deltaTime);
-                                    //this.transform.Rotate(new Vector3(0, -180, 0), 110 * Time.deltaTime);
-                                }
-
-                                //if (Input.GetAxisRaw("P1_360_UpThumbStick") == 1)
-                                //{
-                                //    print("down");
-                                //}
-
-                                //if (Input.GetAxisRaw("P1_360_UpThumbStick") == -1)
-                                //{
-                                //    print("Up");
-
-                                //}
+                     
                             }
                             break;
                     }

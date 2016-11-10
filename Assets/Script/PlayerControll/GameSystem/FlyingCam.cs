@@ -151,28 +151,30 @@ public class FlyingCam : MonoBehaviour {
 
                                     if (Input.GetKey(KeyCode.Q))
                                     {
-                                        if (MainCameraRoot.transform.localEulerAngles.y > 96.0f && MainCameraRoot.transform.localEulerAngles.y < 360.0f)
-                                        {
-                                            MainCameraRoot.transform.localEulerAngles = new Vector3(90.0f, 96.0f, 0.0f);
-                                        }
-                                        else
-                                        {
-                                            MainCameraRoot.transform.Rotate(new Vector3(0, 0, -1), 50 * Time.deltaTime);
-                                        }
+                                        //if (MainCameraRoot.transform.localEulerAngles.y > 96.0f && MainCameraRoot.transform.localEulerAngles.y < 360.0f)
+                                        //{
+                                        //    MainCameraRoot.transform.localEulerAngles = new Vector3(90.0f, 96.0f, 0.0f);
+                                        //}
+                                        //else
+                                        //{
+                                        //    MainCameraRoot.transform.Rotate(new Vector3(0, 0, -1), 50 * Time.deltaTime);
+                                        //}
 
+                                        MainCameraRoot.transform.Rotate(new Vector3(0, 0, -1), 50 * Time.deltaTime);
                                     }
 
                                     if (Input.GetKey(KeyCode.E))
                                     {
-                                        if (MainCameraRoot.transform.localEulerAngles.y < 360.0f && MainCameraRoot.transform.localEulerAngles.y >= 340.0f)
-                                        {
-                                            MainCameraRoot.transform.localEulerAngles = new Vector3(90.0f, 360.0f, 0.0f);
-                                        }
-                                        else
-                                        {
-                                            MainCameraRoot.transform.Rotate(new Vector3(0, 0, 1), 50 * Time.deltaTime);
-                                        }
+                                        //if (MainCameraRoot.transform.localEulerAngles.y < 360.0f && MainCameraRoot.transform.localEulerAngles.y >= 340.0f)
+                                        //{
+                                        //    MainCameraRoot.transform.localEulerAngles = new Vector3(90.0f, 360.0f, 0.0f);
+                                        //}
+                                        //else
+                                        //{
+                                            
+                                        //}
 
+                                        MainCameraRoot.transform.Rotate(new Vector3(0, 0, 1), 50 * Time.deltaTime);
                                     }
                                 }
                                 //print(MainCameraRoot.gameObject.transform.localRotation);
@@ -242,7 +244,7 @@ public class FlyingCam : MonoBehaviour {
 
                                     if ((CameraCheck.x >= 0))
                                     {
-                                        if (Input.GetAxisRaw("P1_360_RightStick") <= -0.5f)
+                                        if (Input.GetAxisRaw("P1_360_L_RightStick") <= -0.5f)
                                         {
 
                                             Debug.Log("LeftStick!");
@@ -257,7 +259,7 @@ public class FlyingCam : MonoBehaviour {
 
                                     if ((CameraCheck.x <= Screen.width))
                                     {
-                                        if (Input.GetAxisRaw("P1_360_RightStick") >= 0.5f)
+                                        if (Input.GetAxisRaw("P1_360_L_RightStick") >= 0.5f)
                                         {
 
                                             Debug.Log("RightStick!");
@@ -273,7 +275,7 @@ public class FlyingCam : MonoBehaviour {
 
                                     if ((CameraCheck.y <= Screen.height))
                                     {
-                                        if (Input.GetAxisRaw("P1_360_UpStick") <= -0.5f)
+                                        if (Input.GetAxisRaw("P1_360_L_UpStick") <= -0.5f)
                                         {
 
                                             Debug.Log("UpStick!");
@@ -287,7 +289,7 @@ public class FlyingCam : MonoBehaviour {
 
                                     if ((CameraCheck.y >= 0))
                                     {
-                                        if (Input.GetAxisRaw("P1_360_UpStick") >= 0.5f)
+                                        if (Input.GetAxisRaw("P1_360_L_UpStick") >= 0.5f)
                                         {
 
                                             Debug.Log("DownStick!");
@@ -296,6 +298,50 @@ public class FlyingCam : MonoBehaviour {
 
                                             MainCameraChecker.transform.Translate(new Vector3(0, 1.5f, 0) * normalMoveSpeed * Time.deltaTime);
                                         }
+                                    }
+
+                                    // 회전 기능
+                                    if (Input.GetButton("P1_360_LeftBumper"))
+                                    {
+                                        //if (MainCameraRoot.transform.localEulerAngles.y > 96.0f && MainCameraRoot.transform.localEulerAngles.y < 360.0f)
+                                        //{
+                                        //    MainCameraRoot.transform.localEulerAngles = new Vector3(90.0f, 96.0f, 0.0f);
+                                        //}
+                                        //else
+                                        //{
+                                        //    MainCameraRoot.transform.Rotate(new Vector3(0, 0, -1), 50 * Time.deltaTime);
+                                        //}
+
+                                        MainCameraRoot.transform.Rotate(new Vector3(0, 0, -1), 50 * Time.deltaTime);
+                                    }
+
+                                    if (Input.GetButton("P1_360_RightBumper"))
+                                    {
+                                        //if (MainCameraRoot.transform.localEulerAngles.y < 360.0f && MainCameraRoot.transform.localEulerAngles.y >= 340.0f)
+                                        //{
+                                        //    MainCameraRoot.transform.localEulerAngles = new Vector3(90.0f, 360.0f, 0.0f);
+                                        //}
+                                        //else
+                                        //{
+
+                                        //}
+
+                                        MainCameraRoot.transform.Rotate(new Vector3(0, 0, 1), 50 * Time.deltaTime);
+                                    }
+
+                                    // 줌 인 & 줌 아웃 기능
+                                    if (Input.GetAxis("P2_360_Trigger") > 0.001)
+                                    {
+
+                                        Debug.Log("Right Trigger!");
+
+                                    }
+
+                                    if (Input.GetAxis("P2_360_Trigger") < 0)
+                                    {
+
+                                        Debug.Log("Left Trigger!");
+
                                     }
                                 }
 
