@@ -48,4 +48,14 @@ public class UI_Document_Script : MonoBehaviour {
         
 	}
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.transform.tag.Equals("Spidas") == true)
+        {
+            other.gameObject.SetActive(false);
+
+            GameManager.Gamestate = GameState.GamePause;
+        }
+    }
+
 }

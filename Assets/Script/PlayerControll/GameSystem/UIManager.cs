@@ -40,30 +40,34 @@ public class UIManager : MonoBehaviour {
 
             case GameState.GamePause:
                 {
-                    audioSource.enabled = true;
-
-                    Document_BG.gameObject.SetActive(true);
-                    Documents[Doc_Num].gameObject.SetActive(true);
-
-                    if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("P1_360_AButton"))
+                    if(GameManager.GamePauseOn == false)
                     {
-                        GameManager.Gamestate = GameState.GameStart;
+                        audioSource.enabled = true;
 
-                        audioSource.enabled = false;
+                        Document_BG.gameObject.SetActive(true);
+                        Documents[Doc_Num].gameObject.SetActive(true);
 
-                        Document_BG.gameObject.SetActive(false);
-                        Documents[Doc_Num].gameObject.SetActive(false);
-
-
-                        if (Doc_Num <= Documents.Length)
+                        if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("P1_360_AButton"))
                         {
-                            Doc_Num++;
-                        }
-                        else
-                        {
-                            Doc_Num = 0;
+                            GameManager.Gamestate = GameState.GameStart;
+
+                            audioSource.enabled = false;
+
+                            Document_BG.gameObject.SetActive(false);
+                            Documents[Doc_Num].gameObject.SetActive(false);
+
+
+                            if (Doc_Num <= Documents.Length)
+                            {
+                                Doc_Num++;
+                            }
+                            else
+                            {
+                                Doc_Num = 0;
+                            }
                         }
                     }
+                    
                 }
                 break;
 

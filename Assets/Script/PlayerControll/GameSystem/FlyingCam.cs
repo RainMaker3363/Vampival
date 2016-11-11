@@ -18,8 +18,12 @@ public class FlyingCam : MonoBehaviour {
     private Vector3 CameraCheck;
     private float Direction;
 
-    private float rotationX = 0.0f;
-    private float rotationY = 0.0f;
+    private float ZoomInOut;
+    private float StartYPos;
+    private Vector3 StartZoomPos;
+
+    //private float rotationX = 0.0f;
+    //private float rotationY = 0.0f;
 
     //private float CameraMoveMinX = -5.0f;
     //private float CameraMoveMinY = -5.0f;
@@ -41,6 +45,9 @@ public class FlyingCam : MonoBehaviour {
         ViewMode = GameManager.ViewMode;
 
 
+        StartYPos = MainCameraRoot.transform.position.y;
+        StartZoomPos = MainCameraRoot.transform.position;
+        ZoomInOut = 0.0f;
         //Screen.lockCursor = true;
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
@@ -176,6 +183,41 @@ public class FlyingCam : MonoBehaviour {
 
                                         MainCameraRoot.transform.Rotate(new Vector3(0, 0, 1), 50 * Time.deltaTime);
                                     }
+                                    
+                                    // 줌 인 & 아웃 기능 구현
+                                    if(Input.GetKey(KeyCode.R))
+                                    {
+                                        if(ZoomInOut <= 2.5f)
+                                        {
+                                            ZoomInOut += 2.8f * Time.deltaTime;
+
+                                            MainCameraRoot.transform.Translate(new Vector3(0, 0, -ZoomInOut));
+                                        }
+
+                                        StartZoomPos = new Vector3(MainCameraRoot.transform.localPosition.x, StartYPos, MainCameraRoot.transform.localPosition.z);
+                                    }
+                                    else if(Input.GetKeyUp(KeyCode.R))
+                                    {
+                                        MainCameraRoot.transform.localPosition = StartZoomPos;
+                                        ZoomInOut = 0.0f;
+                                    }
+
+                                    if (Input.GetKey(KeyCode.F))
+                                    {
+                                        if (ZoomInOut <= 2.5f)
+                                        {
+                                            ZoomInOut += 2.8f * Time.deltaTime;
+
+                                            MainCameraRoot.transform.Translate(new Vector3(0, 0, ZoomInOut));
+                                        }
+
+                                        StartZoomPos = new Vector3(MainCameraRoot.transform.localPosition.x, StartYPos, MainCameraRoot.transform.localPosition.z);
+                                    }
+                                    else if(Input.GetKeyUp(KeyCode.F))
+                                    {
+                                        MainCameraRoot.transform.localPosition = StartZoomPos;
+                                        ZoomInOut = 0.0f;
+                                    }
                                 }
                                 //print(MainCameraRoot.gameObject.transform.localRotation);
                                 //print(MainCameraRoot.transform.localRotation.eulerAngles);
@@ -238,7 +280,7 @@ public class FlyingCam : MonoBehaviour {
                             {
                                 // 게임 패드 작업
 
-                                if ((!GameManager.Elizabat_CommandStart) && (!GameManager.Elizabat_SkillStart))
+                                if ((!GameManager.Elizabat_CommandStart) && !GameManager.Elizabat_SkillStart)
                                 {
                                     CameraCheck = Camera.main.WorldToScreenPoint(MainCameraChecker.transform.position);
 
@@ -330,18 +372,46 @@ public class FlyingCam : MonoBehaviour {
                                     }
 
                                     // 줌 인 & 줌 아웃 기능
-                                    if (Input.GetAxis("P2_360_Trigger") > 0.001)
+                                    if (Input.GetAxis("P1_360_Trigger") > 0.001)
                                     {
 
                                         Debug.Log("Right Trigger!");
 
+                                        if (ZoomInOut <= 2.5f)
+                                        {
+                                            ZoomInOut += 2.8f * Time.deltaTime;
+
+                                            MainCameraRoot.transform.Translate(new Vector3(0, 0, -ZoomInOut));
+                                        }
+
+                                        StartZoomPos = new Vector3(MainCameraRoot.transform.localPosition.x, StartYPos, MainCameraRoot.transform.localPosition.z);
+
+                                    }
+                                    else if(Input.GetAxis("P1_360_Trigger") == 0)
+                                    {
+                                        MainCameraRoot.transform.localPosition = StartZoomPos;
+                                        ZoomInOut = 0.0f;
                                     }
 
-                                    if (Input.GetAxis("P2_360_Trigger") < 0)
+                                    if (Input.GetAxis("P1_360_Trigger") < 0)
                                     {
 
                                         Debug.Log("Left Trigger!");
 
+                                        if (ZoomInOut <= 2.5f)
+                                        {
+                                            ZoomInOut += 2.8f * Time.deltaTime;
+
+                                            MainCameraRoot.transform.Translate(new Vector3(0, 0, ZoomInOut));
+                                        }
+
+                                        StartZoomPos = new Vector3(MainCameraRoot.transform.localPosition.x, StartYPos, MainCameraRoot.transform.localPosition.z);
+
+                                    }
+                                    else if (Input.GetAxis("P1_360_Trigger") == 0)
+                                    {
+                                        MainCameraRoot.transform.localPosition = StartZoomPos;
+                                        ZoomInOut = 0.0f;
                                     }
                                 }
 

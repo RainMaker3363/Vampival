@@ -96,6 +96,7 @@ public class GameManager : MonoBehaviour {
     //===============================================================================================================================
     static public GameState Gamestate;
     static public ViewControllMode ViewMode;
+    static public bool GamePauseOn;
 
     /// <summary>
     // 공포도의 영향을 줄 빛
@@ -190,6 +191,8 @@ public class GameManager : MonoBehaviour {
         Main_UI.SetActive(false);
         MiniMap_UI.SetActive(false);
 
+        GamePauseOn = false;
+
         //Gamestate = GameState.GameIntro;
         Gamestate = GameState.GameStart;
         ViewMode = ViewControllMode.Mouse;
@@ -218,6 +221,8 @@ public class GameManager : MonoBehaviour {
             else
                 ViewMode = ViewControllMode.GamePad;
         }
+
+        //print(Gamestate);
 
         switch(Gamestate)
         {
@@ -302,7 +307,15 @@ public class GameManager : MonoBehaviour {
                         }
                         else
                         {
-                            Capture_Meter -= (Capture_Parameter * 0.5f);
+                            if (Elizabat_Eclipse_On)
+                            {
+                                Capture_Meter -= ((Capture_Parameter * 0.5f) * 0.8f);
+                            }
+                            else
+                            {
+                                Capture_Meter -= (Capture_Parameter * 0.5f);
+                            }
+                            
                             Capture_Parameter_Gage.fillAmount = (Capture_Meter / Capture_Max);
                         }
 
@@ -377,6 +390,20 @@ public class GameManager : MonoBehaviour {
                                         CannonControl_Number = CannonNumber.First;
                                     }
                                 }
+
+                                if (Input.GetKeyDown(KeyCode.P))
+                                {
+                                    if (Gamestate == GameState.GamePause)
+                                    {
+                                        GamePauseOn = false;
+                                        Gamestate = GameState.GameStart;
+                                    }
+                                    else
+                                    {
+                                        GamePauseOn = true;
+                                        Gamestate = GameState.GamePause;
+                                    }
+                                }
                             }
                             break;
 
@@ -406,6 +433,22 @@ public class GameManager : MonoBehaviour {
                                         CannonControl_Number = CannonNumber.First;
                                     }
                                 }
+
+                                if (Input.GetButtonDown("P1_360_StartButton") ||
+                                     Input.GetButtonDown("P2_360_StartButton") ||
+                                     Input.GetButtonDown("P3_360_StartButton"))
+                                {
+                                    if (Gamestate == GameState.GamePause)
+                                    {
+                                        GamePauseOn = false;
+                                        Gamestate = GameState.GameStart;
+                                    }
+                                    else
+                                    {
+                                        GamePauseOn = true;
+                                        Gamestate = GameState.GamePause;
+                                    }
+                                }
                             }
                             break;
                     }
@@ -429,6 +472,47 @@ public class GameManager : MonoBehaviour {
             case GameState.GamePause:
                 {
                     audioSource.Pause();
+
+                    switch (ViewMode)
+                    {
+                        case ViewControllMode.Mouse:
+                            {
+                                if (Input.GetKeyDown(KeyCode.P))
+                                {
+                                    if (Gamestate == GameState.GamePause)
+                                    {
+                                        GamePauseOn = false;
+                                        Gamestate = GameState.GameStart;
+                                    }
+                                    else
+                                    {
+                                        GamePauseOn = true;
+                                        Gamestate = GameState.GamePause;
+                                    }
+                                }
+                            }
+                            break;
+
+                        case ViewControllMode.GamePad:
+                            {
+                                if (Input.GetButtonDown("P1_360_StartButton") ||
+                                    Input.GetButtonDown("P2_360_StartButton") ||
+                                    Input.GetButtonDown("P3_360_StartButton"))
+                                {
+                                    if(Gamestate == GameState.GamePause)
+                                    {
+                                        GamePauseOn = false;
+                                        Gamestate = GameState.GameStart;
+                                    }
+                                    else
+                                    {
+                                        GamePauseOn = true;
+                                        Gamestate = GameState.GamePause;
+                                    }
+                                }
+                            }
+                            break;
+                    }
                 }
                 break;
 

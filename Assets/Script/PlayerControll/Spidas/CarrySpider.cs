@@ -15,6 +15,8 @@ public class CarrySpider : MonoBehaviour {
     public float normalMoveSpeed = 7;
     public float FastMoveSpeed = 40;
 
+    private bool ConsumeOn;
+
     public GameObject SpiderRayChecker;
     public GameObject SpiderSpot;
     //public GameObject Look;
@@ -35,6 +37,8 @@ public class CarrySpider : MonoBehaviour {
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("CarryPlayer"), true);
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Projectile"), LayerMask.NameToLayer("CarryPlayer"), true);
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyCorpse"), LayerMask.NameToLayer("CarryPlayer"), true);
+
+        ConsumeOn = false;
 	}
 	
 	// Update is called once per frame
@@ -129,6 +133,16 @@ public class CarrySpider : MonoBehaviour {
                                     //transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
                                 }
 
+
+                                if (Input.GetKeyDown(KeyCode.H))
+                                {
+                                    ConsumeOn = true;
+                                }
+                                //else if (Input.GetKeyUp(KeyCode.H))
+                                //{
+                                //    ConsumeOn = false;
+                                //}
+
                                 //Rotate = Quaternion.LookRotation(Dir);
                                 //this.transform.Rotate(new Vector3(0, -90, 0), 50 * Time.deltaTime);// = //Quaternion.Slerp(this.transform.rotation, Quaternion.EulerAngles(0, 5.0f, 0), 6.0f * Time.deltaTime);
                                 //transform.RotateAround(Vector3.zero, Vector3.up, 20 * Time.deltaTime);
@@ -185,7 +199,14 @@ public class CarrySpider : MonoBehaviour {
                                     transform.Translate(new Vector3(0, 0, -2.5f) * normalMoveSpeed * Time.deltaTime);
                                 }
 
-                     
+                                if (Input.GetButtonDown("P3_360_AButton"))
+                                {
+                                    ConsumeOn = true;
+                                }
+                                //else if (Input.GetButtonUp("P3_360_AButton"))
+                                //{
+                                //    ConsumeOn = false;
+                                //}
                             }
                             break;
                     }
@@ -223,13 +244,14 @@ public class CarrySpider : MonoBehaviour {
             GameManager.Gamestate = GameState.GamePause;
         }
 
-        //if (other.transform.tag.Equals("Souls") == true)
-        //{
-        //    print("Soul Recharging");
+        if (other.transform.tag.Equals("Souls") == true)
+        {
+            if (ConsumeOn)
+            {
+                print("Spidas Soul Recharging");
 
-        //    other.gameObject.SetActive(false);
-
-        //    GameManager.Soul_MP_Parameter += 2.0f;
-        //}
+                ConsumeOn = false;
+            }
+        }
     }
 }

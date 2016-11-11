@@ -708,41 +708,58 @@ public class Elizabat : MonoBehaviour {
 
                                 //print(Input.GetAxisRaw("P1_360_HorizontalDPAD"));
 
-                                if(Input.GetAxisRaw("P1_360_HorizontalDPAD") <= 0.9f &&
-                                    Input.GetAxisRaw("P1_360_HorizontalDPAD") >= -0.9f &&
-                                    Input.GetAxisRaw("P1_360_VerticalDPAD") >= -0.9f &&
-                                    Input.GetAxisRaw("P1_360_VerticalDPAD") <= 0.9f)
-                                {
-                                    KeyDownEnable = false;
-                                }
 
-                                if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
-                                {
-                                    if(!KeyDownEnable)
-                                    {
-                                        KeyDownEnable = true;
 
-                                        print("Left");
-                                    }
+                                //if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
+                                //{
+                                //    if(!KeyDownEnable)
+                                //    {
+                                //        KeyDownEnable = true;
+
+                                //        print("Left");
+                                //    }
                                     
-                                }
-                                else if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
-                                {
-                                    if (!KeyDownEnable)
-                                    {
-                                        KeyDownEnable = true;
+                                //}
+                                //else if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
+                                //{
+                                //    if (!KeyDownEnable)
+                                //    {
+                                //        KeyDownEnable = true;
 
-                                        print("Right");
-                                    }
-                                }
-                                else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
-                                {
-                                    print("Down");
-                                }
-                                else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
-                                {
-                                    print("Up");
-                                }
+                                //        print("Right");
+                                //    }
+                                //}
+                                //else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
+                                //{
+                                //    if (!KeyDownEnable)
+                                //    {
+                                //        KeyDownEnable = true;
+
+                                //        print("Down");
+                                //    }
+                                    
+                                //}
+                                //else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
+                                //{
+                                //    if (!KeyDownEnable)
+                                //    {
+                                //        KeyDownEnable = true;
+
+                                //        print("Up");
+                                //    }
+                                    
+                                //}
+
+
+                                //if (Input.GetAxisRaw("P1_360_HorizontalDPAD") >= 0.1f &&
+                                //    Input.GetAxisRaw("P1_360_HorizontalDPAD") <= -0.1f &&
+                                //    Input.GetAxisRaw("P1_360_VerticalDPAD") <= -0.1f &&
+                                //    Input.GetAxisRaw("P1_360_VerticalDPAD") >= 0.1f)
+                                //{
+                                //    KeyDownEnable = false;
+                                //}
+
+                                
 
                                 if (GameManager.Elizabat_CommandStart)
                                 {
@@ -765,9 +782,9 @@ public class Elizabat : MonoBehaviour {
                                     }
 
                                     // 스킬 캔슬 여부
-                                    if (Input.GetButtonDown("P1_360_AButton"))
+                                    if (Input.GetButtonDown("P1_360_BButton"))
                                     {
-                                        //CommandCancel();
+                                        CommandCancel();
 
                                         // Skill UI를 활성화 시킨다.
                                         //Skill_Not_Yangpigi.gameObject.SetActive(false);
@@ -781,7 +798,7 @@ public class Elizabat : MonoBehaviour {
                                         if (Input.GetAxisRaw("P1_360_R_RightStick") <= -0.5f)
                                         {
 
-                                            Debug.Log("LeftStick!");
+                                            //Debug.Log("LeftStick!");
                                             transform.Translate(new Vector3(-2.5f, 0, 0) * normalMoveSpeed * Time.deltaTime);
                                         }
                                     }
@@ -791,7 +808,7 @@ public class Elizabat : MonoBehaviour {
                                         if (Input.GetAxisRaw("P1_360_R_RightStick") >= 0.5f)
                                         {
 
-                                            Debug.Log("RightStick!");
+                                            //Debug.Log("RightStick!");
                                             transform.Translate(new Vector3(2.5f, 0, 0) * normalMoveSpeed * Time.deltaTime);
                                         }
                                     }
@@ -801,7 +818,7 @@ public class Elizabat : MonoBehaviour {
                                         if (Input.GetAxisRaw("P1_360_R_UpStick") >= 0.5f)
                                         {
 
-                                            Debug.Log("DownStick!");
+                                            //Debug.Log("DownStick!");
 
                                             transform.Translate(new Vector3(0, -2.5f, 0) * normalMoveSpeed * Time.deltaTime);
                                         }
@@ -813,12 +830,13 @@ public class Elizabat : MonoBehaviour {
                                         if (Input.GetAxisRaw("P1_360_R_UpStick") <= -0.5f)
                                         {
 
-                                            Debug.Log("UpStick!");
+                                            //Debug.Log("UpStick!");
 
                                             transform.Translate(new Vector3(0, 2.5f, 0) * normalMoveSpeed * Time.deltaTime);
 
                                         }
                                     }
+
 
                                     if (!CommandStartOn)
                                     {
@@ -828,18 +846,24 @@ public class Elizabat : MonoBehaviour {
                                             if (GameManager.Elizabat_Eclipse_On == false && GameManager.Elizabat_Eclipse_Ready == true &&
                                                 GameManager.Elizabat_Eclipse_Unlock == true && GameManager.Soul_MP_Parameter >= EclipseCost)
                                             {
-                                                NowSkillChecking = 2;
+                                                if (!KeyDownEnable)
+                                                {
+                                                    KeyDownEnable = true;
 
-                                                if ((GameManager.Soul_MP_Parameter - EclipseCost) <= 0.0f)
-                                                {
-                                                    GameManager.Soul_MP_Parameter = 0.0f;
+                                                    NowSkillChecking = 2;
+
+                                                    if ((GameManager.Soul_MP_Parameter - EclipseCost) <= 0.0f)
+                                                    {
+                                                        GameManager.Soul_MP_Parameter = 0.0f;
+                                                    }
+                                                    else
+                                                    {
+                                                        GameManager.Soul_MP_Parameter -= EclipseCost;
+                                                    }
+
+                                                    CommandStartOn = true;
                                                 }
-                                                else
-                                                {
-                                                    GameManager.Soul_MP_Parameter -= EclipseCost;
-                                                }
-                                                
-                                                CommandStartOn = true;
+
                                             }
                                             else
                                             {
@@ -853,19 +877,25 @@ public class Elizabat : MonoBehaviour {
                                             if (GameManager.Elizabat_Swarm_On == false && GameManager.Elizabat_Swarm_Ready == true &&
                                                 GameManager.Elizabat_Swarm_Unlock == true && GameManager.Soul_MP_Parameter >= SwarmCost)
                                             {
-                                                NowSkillChecking = 4;
-
-                                                if ((GameManager.Soul_MP_Parameter - SwarmCost) <= 0.0f)
+                                                if (!KeyDownEnable)
                                                 {
-                                                    GameManager.Soul_MP_Parameter = 0.0f;
-                                                }
-                                                else
-                                                {
-                                                    GameManager.Soul_MP_Parameter -= SwarmCost;
-                                                }
-                                                
+                                                    KeyDownEnable = true;
 
-                                                CommandStartOn = true;
+                                                    NowSkillChecking = 4;
+
+                                                    if ((GameManager.Soul_MP_Parameter - SwarmCost) <= 0.0f)
+                                                    {
+                                                        GameManager.Soul_MP_Parameter = 0.0f;
+                                                    }
+                                                    else
+                                                    {
+                                                        GameManager.Soul_MP_Parameter -= SwarmCost;
+                                                    }
+
+
+                                                    CommandStartOn = true;
+                                                }
+
                                             }
                                             else
                                             {
@@ -878,20 +908,26 @@ public class Elizabat : MonoBehaviour {
                                             if (GameManager.Elizabat_Decent_On == false && GameManager.Elizabat_Decent_Ready == true &&
                                                 GameManager.Elizabat_Decent_Unlock == true && GameManager.Soul_MP_Parameter >= DecentCost)
                                             {
-                                                NowSkillChecking = 3;
-
-
-                                                if ((GameManager.Soul_MP_Parameter - DecentCost) <= 0.0f)
+                                                if (!KeyDownEnable)
                                                 {
-                                                    GameManager.Soul_MP_Parameter = 0.0f;
-                                                }
-                                                else
-                                                {
-                                                    GameManager.Soul_MP_Parameter -= DecentCost;
-                                                }
-                                                
 
-                                                CommandStartOn = true;
+                                                    KeyDownEnable = true;
+                                                    NowSkillChecking = 3;
+
+
+                                                    if ((GameManager.Soul_MP_Parameter - DecentCost) <= 0.0f)
+                                                    {
+                                                        GameManager.Soul_MP_Parameter = 0.0f;
+                                                    }
+                                                    else
+                                                    {
+                                                        GameManager.Soul_MP_Parameter -= DecentCost;
+                                                    }
+
+
+                                                    CommandStartOn = true;
+                                                }
+
                                             }
                                             else
                                             {
@@ -904,20 +940,27 @@ public class Elizabat : MonoBehaviour {
                                             if (GameManager.Elizabat_SonicWave_On == false && GameManager.Elizabat_SonicWave_Ready == true &&
                                                 GameManager.Elizabat_SonicWave_Unlock == true && GameManager.Soul_MP_Parameter >= SonicWaveCost)
                                             {
-                                                NowSkillChecking = 1;
-
-
-                                                if ((GameManager.Soul_MP_Parameter - SonicWaveCost) <= 0.0f)
+                                                if (!KeyDownEnable)
                                                 {
-                                                    GameManager.Soul_MP_Parameter = 0.0f;
-                                                }
-                                                else
-                                                {
-                                                    GameManager.Soul_MP_Parameter -= SonicWaveCost;
-                                                }
-                                                
 
-                                                CommandStartOn = true;
+                                                    KeyDownEnable = true;
+
+                                                    NowSkillChecking = 1;
+
+
+                                                    if ((GameManager.Soul_MP_Parameter - SonicWaveCost) <= 0.0f)
+                                                    {
+                                                        GameManager.Soul_MP_Parameter = 0.0f;
+                                                    }
+                                                    else
+                                                    {
+                                                        GameManager.Soul_MP_Parameter -= SonicWaveCost;
+                                                    }
+
+
+                                                    CommandStartOn = true;
+                                                }
+
                                             }
                                             else
                                             {
@@ -1262,10 +1305,10 @@ public class Elizabat : MonoBehaviour {
                     //SwarmMaxCount = Random.Range(2, 7);
                     //DecentMaxCount = Random.Range(2, 3);
 
-                    SonicMaxCount = Random.Range(2, 3);
-                    EclipseMaxCount = Random.Range(2, 4);
-                    DecentMaxCount = Random.Range(2, 5);
-                    SwarmMaxCount = Random.Range(2, 6);
+                    SonicMaxCount = 3;//Random.Range(2, 3);
+                    EclipseMaxCount = 4;// Random.Range(2, 4);
+                    DecentMaxCount = 5;// Random.Range(2, 5);
+                    SwarmMaxCount = 6;// Random.Range(2, 6);
                     
 
                     for (int i = 1; i < SonicMaxCount; i++)
@@ -1456,6 +1499,7 @@ public class Elizabat : MonoBehaviour {
                     NowSkillChecking = 0;
 
                     CommandCheckTimer = 0.0f;
+                    KeyDownEnable = false;
 
                     //print("MaxCount : " + MaxCount);
 
@@ -1488,6 +1532,7 @@ public class Elizabat : MonoBehaviour {
         
         currentNum = 0;
         CommandCheckTimer = 0.0f;
+        KeyDownEnable = false;
 
         for (int i = 1; i < 7; i++)
         {
@@ -2653,12 +2698,63 @@ public class Elizabat : MonoBehaviour {
 
                         case ViewControllMode.GamePad:
                             {
+                                //if (Input.GetAxisRaw("P1_360_HorizontalDPAD") >= 0.5f &&
+                                //    Input.GetAxisRaw("P1_360_HorizontalDPAD") <= -0.5f &&
+                                //    Input.GetAxisRaw("P1_360_VerticalDPAD") <= -0.5f &&
+                                //    Input.GetAxisRaw("P1_360_VerticalDPAD") >= 0.5f)
+                                //{
+                                //    KeyDownEnable = false;
+                                //}
+                                
+                                print(KeyDownEnable);
 
                                 switch (SkillNumber)
                                 {
                                     // 소닉 웨이브
                                     case 1:
                                         {
+                                            //print("SkillNumber : " + SkillNumber);
+
+                                            //if (Input.GetAxisRaw("P1_360_HorizontalDPAD") <= -0.1f)
+                                            //{
+                                            //    if (!KeyDownEnable)
+                                            //    {
+                                            //        KeyDownEnable = true;
+
+                                            //        print("Left");
+                                            //    }
+
+                                            //}
+                                            //else if (Input.GetAxisRaw("P1_360_HorizontalDPAD") >= 0.1f)
+                                            //{
+                                            //    if (!KeyDownEnable)
+                                            //    {
+                                            //        KeyDownEnable = true;
+
+                                            //        print("Right");
+                                            //    }
+                                            //}
+                                            //else if (Input.GetAxisRaw("P1_360_VerticalDPAD") <= -0.1f)
+                                            //{
+                                            //    if (!KeyDownEnable)
+                                            //    {
+                                            //        KeyDownEnable = true;
+
+                                            //        print("Down");
+                                            //    }
+
+                                            //}
+                                            //else if (Input.GetAxisRaw("P1_360_VerticalDPAD") >= 0.1f)
+                                            //{
+                                            //    if (!KeyDownEnable)
+                                            //    {
+                                            //        KeyDownEnable = true;
+
+                                            //        print("Up");
+                                            //    }
+
+                                            //}
+                                            KeyDownEnable = false;
 
                                             // 시간내에 입력하지 못하면 실패
                                             if (CommandCheckTimer >= SonicTimeLimit)
@@ -2699,207 +2795,240 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
                                                 {
-                                                    Inputcommand = 2;
-
-                                                    print("currentNum : " + currentNum);
-                                                    print("MaxCount : " + SonicMaxCount);
-
-                                                    if (SonicWaveCommand[currentNum] == Inputcommand)
+                                                    if (!KeyDownEnable)
                                                     {
-                                                        Skill_SonicWave_Commands[currentNum].color = Color.white;
+                                                        KeyDownEnable = true;
 
-                                                        currentNum++;
+                                                        Inputcommand = 2;
 
-                                                        Inputcommand = 0;
+                                                        print("currentNum : " + currentNum);
+                                                        print("MaxCount : " + SonicMaxCount);
 
-                                                        Audio.clip = SonicWave_Command_Correct_Sound;
-                                                        Audio.Play();
+                                                        if (SonicWaveCommand[currentNum] == Inputcommand)
+                                                        {
+                                                            Skill_SonicWave_Commands[currentNum].color = Color.white;
+
+                                                            currentNum++;
+
+                                                            Inputcommand = 0;
+
+                                                            Audio.clip = SonicWave_Command_Correct_Sound;
+                                                            Audio.Play();
+
+                                                            //KeyDownEnable = false;
+                                                        }
+                                                        else
+                                                        {
+                                                            print("Command Failed!");
+
+                                                            GameManager.Elizabat_CommandStart = false;
+                                                            GameManager.Elizabat_SkillStart = false;
+                                                            CommandStartOn = false;
+                                                            NowSkillChecking = 0;
+                                                            SonicMaxCount = 0;
+                                                            currentNum = 0;
+
+                                                            // 스킬 UI를 원상복구 시킨다.
+                                                            //Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                            //Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                            //Skill_Button.gameObject.SetActive(true);
+
+                                                            //for (int i = 1; i < 7; i++)
+                                                            //{
+                                                            //    SonicWaveCommand[i] = 0;
+                                                            //}
+
+                                                            //for (int j = 0; j < Skill_SonicWave_Commands.Length; j++)
+                                                            //{
+                                                            //    Skill_SonicWave_Commands[j].color = Color.black;
+                                                            //}
+
+                                                            // 스킬 커맨드 표를 활성화 시켜준다.
+                                                            Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+                                                        }
                                                     }
-                                                    else
-                                                    {
-                                                        print("Command Failed!");
-
-                                                        GameManager.Elizabat_CommandStart = false;
-                                                        GameManager.Elizabat_SkillStart = false;
-                                                        CommandStartOn = false;
-                                                        NowSkillChecking = 0;
-                                                        SonicMaxCount = 0;
-                                                        currentNum = 0;
-
-                                                        // 스킬 UI를 원상복구 시킨다.
-                                                        //Skill_Not_Yangpigi.gameObject.SetActive(true);
-                                                        //Skill_True_Yangpigi.gameObject.SetActive(false);
-                                                        //Skill_Button.gameObject.SetActive(true);
-
-                                                        //for (int i = 1; i < 7; i++)
-                                                        //{
-                                                        //    SonicWaveCommand[i] = 0;
-                                                        //}
-
-                                                        //for (int j = 0; j < Skill_SonicWave_Commands.Length; j++)
-                                                        //{
-                                                        //    Skill_SonicWave_Commands[j].color = Color.black;
-                                                        //}
-
-                                                        // 스킬 커맨드 표를 활성화 시켜준다.
-                                                        Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Decent_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Swarm_Command_Chart.gameObject.SetActive(false);
-                                                    }
+                                                   
                                                 }
                                                 else if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
                                                 {
-                                                    Inputcommand = 4;
-
-                                                    print("currentNum : " + currentNum);
-                                                    print("MaxCount : " + SonicMaxCount);
-
-                                                    if (SonicWaveCommand[currentNum] == Inputcommand)
+                                                    if (!KeyDownEnable)
                                                     {
-                                                        Skill_SonicWave_Commands[currentNum].color = Color.white;
+                                                        KeyDownEnable = true;
 
-                                                        currentNum++;
+                                                        Inputcommand = 4;
 
-                                                        Inputcommand = 0;
+                                                        print("currentNum : " + currentNum);
+                                                        print("MaxCount : " + SonicMaxCount);
 
-                                                        Audio.clip = SonicWave_Command_Correct_Sound;
-                                                        Audio.Play();
+                                                        if (SonicWaveCommand[currentNum] == Inputcommand)
+                                                        {
+                                                            Skill_SonicWave_Commands[currentNum].color = Color.white;
+
+                                                            currentNum++;
+
+                                                            Inputcommand = 0;
+
+                                                            Audio.clip = SonicWave_Command_Correct_Sound;
+                                                            Audio.Play();
+
+                                                            //KeyDownEnable = false;
+                                                        }
+                                                        else
+                                                        {
+                                                            print("Command Failed!");
+
+                                                            GameManager.Elizabat_CommandStart = false;
+                                                            GameManager.Elizabat_SkillStart = false;
+                                                            CommandStartOn = false;
+                                                            NowSkillChecking = 0;
+                                                            SonicMaxCount = 0;
+                                                            currentNum = 0;
+
+                                                            // 스킬 UI를 원상복구 시킨다.
+                                                            //Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                            //Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                            //Skill_Button.gameObject.SetActive(true);
+
+                                                            //for (int i = 1; i < 7; i++)
+                                                            //{
+                                                            //    SonicWaveCommand[i] = 0;
+                                                            //}
+
+                                                            //for (int j = 0; j < Skill_SonicWave_Commands.Length; j++)
+                                                            //{
+                                                            //    Skill_SonicWave_Commands[j].color = Color.black;
+                                                            //}
+
+                                                            // 스킬 커맨드 표를 활성화 시켜준다.
+                                                            Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+                                                        }
                                                     }
-                                                    else
-                                                    {
-                                                        print("Command Failed!");
-
-                                                        GameManager.Elizabat_CommandStart = false;
-                                                        GameManager.Elizabat_SkillStart = false;
-                                                        CommandStartOn = false;
-                                                        NowSkillChecking = 0;
-                                                        SonicMaxCount = 0;
-                                                        currentNum = 0;
-
-                                                        // 스킬 UI를 원상복구 시킨다.
-                                                        //Skill_Not_Yangpigi.gameObject.SetActive(true);
-                                                        //Skill_True_Yangpigi.gameObject.SetActive(false);
-                                                        //Skill_Button.gameObject.SetActive(true);
-
-                                                        //for (int i = 1; i < 7; i++)
-                                                        //{
-                                                        //    SonicWaveCommand[i] = 0;
-                                                        //}
-
-                                                        //for (int j = 0; j < Skill_SonicWave_Commands.Length; j++)
-                                                        //{
-                                                        //    Skill_SonicWave_Commands[j].color = Color.black;
-                                                        //}
-
-                                                        // 스킬 커맨드 표를 활성화 시켜준다.
-                                                        Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Decent_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Swarm_Command_Chart.gameObject.SetActive(false);
-                                                    }
+                                                    
                                                 }
                                                 else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
                                                 {
-                                                    Inputcommand = 3;
-
-                                                    print("currentNum : " + currentNum);
-                                                    print("MaxCount : " + SonicMaxCount);
-
-                                                    if (SonicWaveCommand[currentNum] == Inputcommand)
+                                                    if (!KeyDownEnable)
                                                     {
-                                                        Skill_SonicWave_Commands[currentNum].color = Color.white;
+                                                        KeyDownEnable = true;
 
-                                                        currentNum++;
+                                                        Inputcommand = 3;
 
-                                                        Inputcommand = 0;
+                                                        print("currentNum : " + currentNum);
+                                                        print("MaxCount : " + SonicMaxCount);
 
-                                                        Audio.clip = SonicWave_Command_Correct_Sound;
-                                                        Audio.Play();
+                                                        if (SonicWaveCommand[currentNum] == Inputcommand)
+                                                        {
+                                                            Skill_SonicWave_Commands[currentNum].color = Color.white;
+
+                                                            currentNum++;
+
+                                                            Inputcommand = 0;
+
+                                                            Audio.clip = SonicWave_Command_Correct_Sound;
+                                                            Audio.Play();
+
+                                                            //KeyDownEnable = false;
+                                                        }
+                                                        else
+                                                        {
+                                                            print("Command Failed!");
+
+                                                            GameManager.Elizabat_CommandStart = false;
+                                                            GameManager.Elizabat_SkillStart = false;
+                                                            CommandStartOn = false;
+                                                            NowSkillChecking = 0;
+                                                            SonicMaxCount = 0;
+                                                            currentNum = 0;
+
+                                                            // 스킬 UI를 원상복구 시킨다.
+                                                            //Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                            //Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                            //Skill_Button.gameObject.SetActive(true);
+
+                                                            //for (int i = 1; i < 7; i++)
+                                                            //{
+                                                            //    SonicWaveCommand[i] = 0;
+                                                            //}
+
+                                                            //for (int j = 0; j < Skill_SonicWave_Commands.Length; j++)
+                                                            //{
+                                                            //    Skill_SonicWave_Commands[j].color = Color.black;
+                                                            //}
+
+                                                            // 스킬 커맨드 표를 활성화 시켜준다.
+                                                            Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+                                                        }
                                                     }
-                                                    else
-                                                    {
-                                                        print("Command Failed!");
-
-                                                        GameManager.Elizabat_CommandStart = false;
-                                                        GameManager.Elizabat_SkillStart = false;
-                                                        CommandStartOn = false;
-                                                        NowSkillChecking = 0;
-                                                        SonicMaxCount = 0;
-                                                        currentNum = 0;
-
-                                                        // 스킬 UI를 원상복구 시킨다.
-                                                        //Skill_Not_Yangpigi.gameObject.SetActive(true);
-                                                        //Skill_True_Yangpigi.gameObject.SetActive(false);
-                                                        //Skill_Button.gameObject.SetActive(true);
-
-                                                        //for (int i = 1; i < 7; i++)
-                                                        //{
-                                                        //    SonicWaveCommand[i] = 0;
-                                                        //}
-
-                                                        //for (int j = 0; j < Skill_SonicWave_Commands.Length; j++)
-                                                        //{
-                                                        //    Skill_SonicWave_Commands[j].color = Color.black;
-                                                        //}
-
-                                                        // 스킬 커맨드 표를 활성화 시켜준다.
-                                                        Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Decent_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Swarm_Command_Chart.gameObject.SetActive(false);
-                                                    }
+                                                    
                                                 }
                                                 else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
                                                 {
-                                                    Inputcommand = 1;
-
-                                                    print("currentNum : " + currentNum);
-                                                    print("MaxCount : " + SonicMaxCount);
-
-                                                    if (SonicWaveCommand[currentNum] == Inputcommand)
+                                                    if (!KeyDownEnable)
                                                     {
-                                                        Skill_SonicWave_Commands[currentNum].color = Color.white;
+                                                        KeyDownEnable = true;
 
-                                                        currentNum++;
 
-                                                        Inputcommand = 0;
+                                                        Inputcommand = 1;
 
-                                                        Audio.clip = SonicWave_Command_Correct_Sound;
-                                                        Audio.Play();
+                                                        print("currentNum : " + currentNum);
+                                                        print("MaxCount : " + SonicMaxCount);
+
+                                                        if (SonicWaveCommand[currentNum] == Inputcommand)
+                                                        {
+                                                            Skill_SonicWave_Commands[currentNum].color = Color.white;
+
+                                                            currentNum++;
+
+                                                            Inputcommand = 0;
+
+                                                            Audio.clip = SonicWave_Command_Correct_Sound;
+                                                            Audio.Play();
+
+                                                            //KeyDownEnable = false;
+                                                        }
+                                                        else
+                                                        {
+                                                            print("Command Failed!");
+
+                                                            GameManager.Elizabat_CommandStart = false;
+                                                            GameManager.Elizabat_SkillStart = false;
+                                                            CommandStartOn = false;
+                                                            NowSkillChecking = 0;
+                                                            SonicMaxCount = 0;
+                                                            currentNum = 0;
+
+                                                            // 스킬 UI를 원상복구 시킨다.
+                                                            //Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                            //Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                            //Skill_Button.gameObject.SetActive(true);
+
+                                                            //for (int i = 1; i < 7; i++)
+                                                            //{
+                                                            //    SonicWaveCommand[i] = 0;
+                                                            //}
+
+                                                            //for (int j = 0; j < Skill_SonicWave_Commands.Length; j++)
+                                                            //{
+                                                            //    Skill_SonicWave_Commands[j].color = Color.black;
+                                                            //}
+
+                                                            // 스킬 커맨드 표를 활성화 시켜준다.
+                                                            Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+                                                        }
                                                     }
-                                                    else
-                                                    {
-                                                        print("Command Failed!");
 
-                                                        GameManager.Elizabat_CommandStart = false;
-                                                        GameManager.Elizabat_SkillStart = false;
-                                                        CommandStartOn = false;
-                                                        NowSkillChecking = 0;
-                                                        SonicMaxCount = 0;
-                                                        currentNum = 0;
-
-                                                        // 스킬 UI를 원상복구 시킨다.
-                                                        //Skill_Not_Yangpigi.gameObject.SetActive(true);
-                                                        //Skill_True_Yangpigi.gameObject.SetActive(false);
-                                                        //Skill_Button.gameObject.SetActive(true);
-
-                                                        //for (int i = 1; i < 7; i++)
-                                                        //{
-                                                        //    SonicWaveCommand[i] = 0;
-                                                        //}
-
-                                                        //for (int j = 0; j < Skill_SonicWave_Commands.Length; j++)
-                                                        //{
-                                                        //    Skill_SonicWave_Commands[j].color = Color.black;
-                                                        //}
-
-                                                        // 스킬 커맨드 표를 활성화 시켜준다.
-                                                        Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Decent_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Swarm_Command_Chart.gameObject.SetActive(false);
-                                                    }
                                                 }
 
                                                 if ((currentNum >= SonicMaxCount) && (SonicMaxCount != 0))
@@ -2985,207 +3114,231 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
                                                 {
-                                                    Inputcommand = 2;
-
-                                                    print("currentNum : " + currentNum);
-                                                    print("MaxCount : " + EclipseMaxCount);
-
-                                                    if (EclipseCommand[currentNum] == Inputcommand)
+                                                    if (!KeyDownEnable)
                                                     {
-                                                        Skill_Eclipse_Commands[currentNum].color = Color.white;
+                                                        KeyDownEnable = true;
 
-                                                        currentNum++;
+                                                        Inputcommand = 2;
 
-                                                        Inputcommand = 0;
+                                                        print("currentNum : " + currentNum);
+                                                        print("MaxCount : " + EclipseMaxCount);
 
-                                                        Audio.clip = Eclipse_Command_Correct_Sound;
-                                                        Audio.Play();
+                                                        if (EclipseCommand[currentNum] == Inputcommand)
+                                                        {
+                                                            Skill_Eclipse_Commands[currentNum].color = Color.white;
+
+                                                            currentNum++;
+
+                                                            Inputcommand = 0;
+
+                                                            Audio.clip = Eclipse_Command_Correct_Sound;
+                                                            Audio.Play();
+                                                        }
+                                                        else
+                                                        {
+                                                            print("Command Failed!");
+
+                                                            GameManager.Elizabat_CommandStart = false;
+                                                            GameManager.Elizabat_SkillStart = false;
+                                                            CommandStartOn = false;
+                                                            NowSkillChecking = 0;
+                                                            EclipseMaxCount = 0;
+                                                            currentNum = 0;
+
+                                                            // 스킬 UI를 원상복구 시킨다.
+                                                            //Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                            //Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                            //Skill_Button.gameObject.SetActive(true);
+
+                                                            //for (int i = 1; i < 7; i++)
+                                                            //{
+                                                            //    EclipseCommand[i] = 0;
+                                                            //}
+
+                                                            //for (int j = 0; j < Skill_Eclipse_Commands.Length; j++)
+                                                            //{
+                                                            //    Skill_Eclipse_Commands[j].color = Color.black;
+                                                            //}
+
+                                                            // 스킬 커맨드 표를 활성화 시켜준다.
+                                                            Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+                                                        }
                                                     }
-                                                    else
-                                                    {
-                                                        print("Command Failed!");
-
-                                                        GameManager.Elizabat_CommandStart = false;
-                                                        GameManager.Elizabat_SkillStart = false;
-                                                        CommandStartOn = false;
-                                                        NowSkillChecking = 0;
-                                                        EclipseMaxCount = 0;
-                                                        currentNum = 0;
-
-                                                        // 스킬 UI를 원상복구 시킨다.
-                                                        //Skill_Not_Yangpigi.gameObject.SetActive(true);
-                                                        //Skill_True_Yangpigi.gameObject.SetActive(false);
-                                                        //Skill_Button.gameObject.SetActive(true);
-
-                                                        //for (int i = 1; i < 7; i++)
-                                                        //{
-                                                        //    EclipseCommand[i] = 0;
-                                                        //}
-
-                                                        //for (int j = 0; j < Skill_Eclipse_Commands.Length; j++)
-                                                        //{
-                                                        //    Skill_Eclipse_Commands[j].color = Color.black;
-                                                        //}
-
-                                                        // 스킬 커맨드 표를 활성화 시켜준다.
-                                                        Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Decent_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Swarm_Command_Chart.gameObject.SetActive(false);
-                                                    }
+                                                    
                                                 }
                                                 else if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
                                                 {
-                                                    Inputcommand = 4;
-
-                                                    print("currentNum : " + currentNum);
-                                                    print("MaxCount : " + EclipseMaxCount);
-
-                                                    if (EclipseCommand[currentNum] == Inputcommand)
+                                                    if (!KeyDownEnable)
                                                     {
-                                                        Skill_Eclipse_Commands[currentNum].color = Color.white;
+                                                        KeyDownEnable = true;
 
-                                                        currentNum++;
+                                                        Inputcommand = 4;
 
-                                                        Inputcommand = 0;
+                                                        print("currentNum : " + currentNum);
+                                                        print("MaxCount : " + EclipseMaxCount);
 
-                                                        Audio.clip = Eclipse_Command_Correct_Sound;
-                                                        Audio.Play();
+                                                        if (EclipseCommand[currentNum] == Inputcommand)
+                                                        {
+                                                            Skill_Eclipse_Commands[currentNum].color = Color.white;
+
+                                                            currentNum++;
+
+                                                            Inputcommand = 0;
+
+                                                            Audio.clip = Eclipse_Command_Correct_Sound;
+                                                            Audio.Play();
+                                                        }
+                                                        else
+                                                        {
+                                                            print("Command Failed!");
+
+                                                            GameManager.Elizabat_CommandStart = false;
+                                                            GameManager.Elizabat_SkillStart = false;
+                                                            CommandStartOn = false;
+                                                            NowSkillChecking = 0;
+                                                            EclipseMaxCount = 0;
+                                                            currentNum = 0;
+
+                                                            // 스킬 UI를 원상복구 시킨다.
+                                                            //Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                            //Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                            //Skill_Button.gameObject.SetActive(true);
+
+                                                            //for (int i = 1; i < 7; i++)
+                                                            //{
+                                                            //    EclipseCommand[i] = 0;
+                                                            //}
+
+                                                            //for (int j = 0; j < Skill_Eclipse_Commands.Length; j++)
+                                                            //{
+                                                            //    Skill_Eclipse_Commands[j].color = Color.black;
+                                                            //}
+
+                                                            // 스킬 커맨드 표를 활성화 시켜준다.
+                                                            Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+                                                        }
                                                     }
-                                                    else
-                                                    {
-                                                        print("Command Failed!");
-
-                                                        GameManager.Elizabat_CommandStart = false;
-                                                        GameManager.Elizabat_SkillStart = false;
-                                                        CommandStartOn = false;
-                                                        NowSkillChecking = 0;
-                                                        EclipseMaxCount = 0;
-                                                        currentNum = 0;
-
-                                                        // 스킬 UI를 원상복구 시킨다.
-                                                        //Skill_Not_Yangpigi.gameObject.SetActive(true);
-                                                        //Skill_True_Yangpigi.gameObject.SetActive(false);
-                                                        //Skill_Button.gameObject.SetActive(true);
-
-                                                        //for (int i = 1; i < 7; i++)
-                                                        //{
-                                                        //    EclipseCommand[i] = 0;
-                                                        //}
-
-                                                        //for (int j = 0; j < Skill_Eclipse_Commands.Length; j++)
-                                                        //{
-                                                        //    Skill_Eclipse_Commands[j].color = Color.black;
-                                                        //}
-
-                                                        // 스킬 커맨드 표를 활성화 시켜준다.
-                                                        Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Decent_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Swarm_Command_Chart.gameObject.SetActive(false);
-                                                    }
+                                                   
                                                 }
                                                 else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
                                                 {
-                                                    Inputcommand = 3;
-
-                                                    print("currentNum : " + currentNum);
-                                                    print("MaxCount : " + EclipseMaxCount);
-
-                                                    if (EclipseCommand[currentNum] == Inputcommand)
+                                                    if (!KeyDownEnable)
                                                     {
-                                                        Skill_Eclipse_Commands[currentNum].color = Color.white;
+                                                        KeyDownEnable = true;
 
-                                                        currentNum++;
+                                                        Inputcommand = 3;
 
-                                                        Inputcommand = 0;
+                                                        print("currentNum : " + currentNum);
+                                                        print("MaxCount : " + EclipseMaxCount);
 
-                                                        Audio.clip = Eclipse_Command_Correct_Sound;
-                                                        Audio.Play();
+                                                        if (EclipseCommand[currentNum] == Inputcommand)
+                                                        {
+                                                            Skill_Eclipse_Commands[currentNum].color = Color.white;
+
+                                                            currentNum++;
+
+                                                            Inputcommand = 0;
+
+                                                            Audio.clip = Eclipse_Command_Correct_Sound;
+                                                            Audio.Play();
+                                                        }
+                                                        else
+                                                        {
+                                                            print("Command Failed!");
+
+                                                            GameManager.Elizabat_CommandStart = false;
+                                                            GameManager.Elizabat_SkillStart = false;
+                                                            CommandStartOn = false;
+                                                            NowSkillChecking = 0;
+                                                            EclipseMaxCount = 0;
+                                                            currentNum = 0;
+
+                                                            // 스킬 UI를 원상복구 시킨다.
+                                                            //Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                            //Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                            //Skill_Button.gameObject.SetActive(true);
+
+                                                            //for (int i = 1; i < 7; i++)
+                                                            //{
+                                                            //    EclipseCommand[i] = 0;
+                                                            //}
+
+                                                            //for (int j = 0; j < Skill_Eclipse_Commands.Length; j++)
+                                                            //{
+                                                            //    Skill_Eclipse_Commands[j].color = Color.black;
+                                                            //}
+
+                                                            // 스킬 커맨드 표를 활성화 시켜준다.
+                                                            Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+                                                        }
                                                     }
-                                                    else
-                                                    {
-                                                        print("Command Failed!");
-
-                                                        GameManager.Elizabat_CommandStart = false;
-                                                        GameManager.Elizabat_SkillStart = false;
-                                                        CommandStartOn = false;
-                                                        NowSkillChecking = 0;
-                                                        EclipseMaxCount = 0;
-                                                        currentNum = 0;
-
-                                                        // 스킬 UI를 원상복구 시킨다.
-                                                        //Skill_Not_Yangpigi.gameObject.SetActive(true);
-                                                        //Skill_True_Yangpigi.gameObject.SetActive(false);
-                                                        //Skill_Button.gameObject.SetActive(true);
-
-                                                        //for (int i = 1; i < 7; i++)
-                                                        //{
-                                                        //    EclipseCommand[i] = 0;
-                                                        //}
-
-                                                        //for (int j = 0; j < Skill_Eclipse_Commands.Length; j++)
-                                                        //{
-                                                        //    Skill_Eclipse_Commands[j].color = Color.black;
-                                                        //}
-
-                                                        // 스킬 커맨드 표를 활성화 시켜준다.
-                                                        Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Decent_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Swarm_Command_Chart.gameObject.SetActive(false);
-                                                    }
+                                                   
                                                 }
                                                 else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
                                                 {
-                                                    Inputcommand = 1;
-
-                                                    print("currentNum : " + currentNum);
-                                                    print("MaxCount : " + EclipseMaxCount);
-
-                                                    if (EclipseCommand[currentNum] == Inputcommand)
+                                                    if (!KeyDownEnable)
                                                     {
-                                                        Skill_Eclipse_Commands[currentNum].color = Color.white;
+                                                        KeyDownEnable = true;
 
-                                                        currentNum++;
+                                                        Inputcommand = 1;
 
-                                                        Inputcommand = 0;
+                                                        print("currentNum : " + currentNum);
+                                                        print("MaxCount : " + EclipseMaxCount);
 
-                                                        Audio.clip = Eclipse_Command_Correct_Sound;
-                                                        Audio.Play();
+                                                        if (EclipseCommand[currentNum] == Inputcommand)
+                                                        {
+                                                            Skill_Eclipse_Commands[currentNum].color = Color.white;
+
+                                                            currentNum++;
+
+                                                            Inputcommand = 0;
+
+                                                            Audio.clip = Eclipse_Command_Correct_Sound;
+                                                            Audio.Play();
+                                                        }
+                                                        else
+                                                        {
+                                                            print("Command Failed!");
+
+                                                            GameManager.Elizabat_CommandStart = false;
+                                                            GameManager.Elizabat_SkillStart = false;
+                                                            CommandStartOn = false;
+                                                            NowSkillChecking = 0;
+                                                            EclipseMaxCount = 0;
+                                                            currentNum = 0;
+
+                                                            // 스킬 UI를 원상복구 시킨다.
+                                                            //Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                            //Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                            //Skill_Button.gameObject.SetActive(true);
+
+                                                            //for (int i = 1; i < 7; i++)
+                                                            //{
+                                                            //    EclipseCommand[i] = 0;
+                                                            //}
+
+                                                            //for (int j = 0; j < Skill_Eclipse_Commands.Length; j++)
+                                                            //{
+                                                            //    Skill_Eclipse_Commands[j].color = Color.black;
+                                                            //}
+
+                                                            // 스킬 커맨드 표를 활성화 시켜준다.
+                                                            Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+                                                        }
                                                     }
-                                                    else
-                                                    {
-                                                        print("Command Failed!");
-
-                                                        GameManager.Elizabat_CommandStart = false;
-                                                        GameManager.Elizabat_SkillStart = false;
-                                                        CommandStartOn = false;
-                                                        NowSkillChecking = 0;
-                                                        EclipseMaxCount = 0;
-                                                        currentNum = 0;
-
-                                                        // 스킬 UI를 원상복구 시킨다.
-                                                        //Skill_Not_Yangpigi.gameObject.SetActive(true);
-                                                        //Skill_True_Yangpigi.gameObject.SetActive(false);
-                                                        //Skill_Button.gameObject.SetActive(true);
-
-                                                        //for (int i = 1; i < 7; i++)
-                                                        //{
-                                                        //    EclipseCommand[i] = 0;
-                                                        //}
-
-                                                        //for (int j = 0; j < Skill_Eclipse_Commands.Length; j++)
-                                                        //{
-                                                        //    Skill_Eclipse_Commands[j].color = Color.black;
-                                                        //}
-
-                                                        // 스킬 커맨드 표를 활성화 시켜준다.
-                                                        Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Decent_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Swarm_Command_Chart.gameObject.SetActive(false);
-                                                    }
+                                                    
                                                 }
 
                                                 if ((currentNum >= EclipseMaxCount) && (EclipseMaxCount != 0))
@@ -3273,211 +3426,235 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
                                                 {
-                                                    Inputcommand = 2;
-
-                                                    print("currentNum : " + currentNum);
-                                                    print("MaxCount : " + DecentMaxCount);
-
-                                                    if (DecentCommand[currentNum] == Inputcommand)
+                                                    if (!KeyDownEnable)
                                                     {
-                                                        Skill_Decent_Commands[currentNum].color = Color.white;
+                                                        KeyDownEnable = true;
 
-                                                        currentNum++;
+                                                        Inputcommand = 2;
 
-                                                        Inputcommand = 0;
+                                                        print("currentNum : " + currentNum);
+                                                        print("MaxCount : " + DecentMaxCount);
 
-                                                        Audio.clip = Eclipse_Command_Correct_Sound;
-                                                        Audio.Play();
+                                                        if (DecentCommand[currentNum] == Inputcommand)
+                                                        {
+                                                            Skill_Decent_Commands[currentNum].color = Color.white;
+
+                                                            currentNum++;
+
+                                                            Inputcommand = 0;
+
+                                                            Audio.clip = Eclipse_Command_Correct_Sound;
+                                                            Audio.Play();
+                                                        }
+                                                        else
+                                                        {
+                                                            print("Command Failed!");
+
+                                                            GameManager.Elizabat_CommandStart = false;
+                                                            GameManager.Elizabat_SkillStart = false;
+
+                                                            CommandStartOn = false;
+                                                            NowSkillChecking = 0;
+                                                            DecentMaxCount = 0;
+                                                            currentNum = 0;
+
+                                                            // 스킬 UI를 원상복구 시킨다.
+                                                            //Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                            //Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                            //Skill_Button.gameObject.SetActive(true);
+
+                                                            //for (int i = 1; i < 7; i++)
+                                                            //{
+                                                            //    DecentCommand[i] = 0;
+                                                            //}
+
+                                                            //for (int j = 0; j < Skill_Decent_Commands.Length; j++)
+                                                            //{
+                                                            //    Skill_Decent_Commands[j].color = Color.black;
+                                                            //}
+
+                                                            // 스킬 커맨드 표를 활성화 시켜준다.
+                                                            Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+                                                        }
                                                     }
-                                                    else
-                                                    {
-                                                        print("Command Failed!");
-
-                                                        GameManager.Elizabat_CommandStart = false;
-                                                        GameManager.Elizabat_SkillStart = false;
-
-                                                        CommandStartOn = false;
-                                                        NowSkillChecking = 0;
-                                                        DecentMaxCount = 0;
-                                                        currentNum = 0;
-
-                                                        // 스킬 UI를 원상복구 시킨다.
-                                                        //Skill_Not_Yangpigi.gameObject.SetActive(true);
-                                                        //Skill_True_Yangpigi.gameObject.SetActive(false);
-                                                        //Skill_Button.gameObject.SetActive(true);
-
-                                                        //for (int i = 1; i < 7; i++)
-                                                        //{
-                                                        //    DecentCommand[i] = 0;
-                                                        //}
-
-                                                        //for (int j = 0; j < Skill_Decent_Commands.Length; j++)
-                                                        //{
-                                                        //    Skill_Decent_Commands[j].color = Color.black;
-                                                        //}
-
-                                                        // 스킬 커맨드 표를 활성화 시켜준다.
-                                                        Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Decent_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Swarm_Command_Chart.gameObject.SetActive(false);
-                                                    }
+                                                    
                                                 }
                                                 else if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
                                                 {
-                                                    Inputcommand = 4;
-
-                                                    print("currentNum : " + currentNum);
-                                                    print("MaxCount : " + DecentMaxCount);
-
-                                                    if (DecentCommand[currentNum] == Inputcommand)
+                                                    if (!KeyDownEnable)
                                                     {
-                                                        Skill_Decent_Commands[currentNum].color = Color.white;
+                                                        KeyDownEnable = true;
 
-                                                        currentNum++;
+                                                        Inputcommand = 4;
 
-                                                        Inputcommand = 0;
+                                                        print("currentNum : " + currentNum);
+                                                        print("MaxCount : " + DecentMaxCount);
 
-                                                        Audio.clip = Eclipse_Command_Correct_Sound;
-                                                        Audio.Play();
+                                                        if (DecentCommand[currentNum] == Inputcommand)
+                                                        {
+                                                            Skill_Decent_Commands[currentNum].color = Color.white;
+
+                                                            currentNum++;
+
+                                                            Inputcommand = 0;
+
+                                                            Audio.clip = Eclipse_Command_Correct_Sound;
+                                                            Audio.Play();
+                                                        }
+                                                        else
+                                                        {
+                                                            print("Command Failed!");
+
+                                                            GameManager.Elizabat_CommandStart = false;
+                                                            GameManager.Elizabat_SkillStart = false;
+
+                                                            CommandStartOn = false;
+                                                            NowSkillChecking = 0;
+                                                            DecentMaxCount = 0;
+                                                            currentNum = 0;
+
+                                                            // 스킬 UI를 원상복구 시킨다.
+                                                            //Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                            //Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                            //Skill_Button.gameObject.SetActive(true);
+
+                                                            //for (int i = 1; i < 7; i++)
+                                                            //{
+                                                            //    DecentCommand[i] = 0;
+                                                            //}
+
+                                                            //for (int j = 0; j < Skill_Decent_Commands.Length; j++)
+                                                            //{
+                                                            //    Skill_Decent_Commands[j].color = Color.black;
+                                                            //}
+
+                                                            // 스킬 커맨드 표를 활성화 시켜준다.
+                                                            Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+                                                        }
                                                     }
-                                                    else
-                                                    {
-                                                        print("Command Failed!");
-
-                                                        GameManager.Elizabat_CommandStart = false;
-                                                        GameManager.Elizabat_SkillStart = false;
-
-                                                        CommandStartOn = false;
-                                                        NowSkillChecking = 0;
-                                                        DecentMaxCount = 0;
-                                                        currentNum = 0;
-
-                                                        // 스킬 UI를 원상복구 시킨다.
-                                                        //Skill_Not_Yangpigi.gameObject.SetActive(true);
-                                                        //Skill_True_Yangpigi.gameObject.SetActive(false);
-                                                        //Skill_Button.gameObject.SetActive(true);
-
-                                                        //for (int i = 1; i < 7; i++)
-                                                        //{
-                                                        //    DecentCommand[i] = 0;
-                                                        //}
-
-                                                        //for (int j = 0; j < Skill_Decent_Commands.Length; j++)
-                                                        //{
-                                                        //    Skill_Decent_Commands[j].color = Color.black;
-                                                        //}
-
-                                                        // 스킬 커맨드 표를 활성화 시켜준다.
-                                                        Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Decent_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Swarm_Command_Chart.gameObject.SetActive(false);
-                                                    }
+                                                    
                                                 }
                                                 else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
                                                 {
-                                                    Inputcommand = 3;
-
-                                                    print("currentNum : " + currentNum);
-                                                    print("MaxCount : " + DecentMaxCount);
-
-                                                    if (DecentCommand[currentNum] == Inputcommand)
+                                                    if (!KeyDownEnable)
                                                     {
-                                                        Skill_Decent_Commands[currentNum].color = Color.white;
+                                                        KeyDownEnable = true;
 
-                                                        currentNum++;
+                                                        Inputcommand = 3;
 
-                                                        Inputcommand = 0;
+                                                        print("currentNum : " + currentNum);
+                                                        print("MaxCount : " + DecentMaxCount);
 
-                                                        Audio.clip = Eclipse_Command_Correct_Sound;
-                                                        Audio.Play();
+                                                        if (DecentCommand[currentNum] == Inputcommand)
+                                                        {
+                                                            Skill_Decent_Commands[currentNum].color = Color.white;
+
+                                                            currentNum++;
+
+                                                            Inputcommand = 0;
+
+                                                            Audio.clip = Eclipse_Command_Correct_Sound;
+                                                            Audio.Play();
+                                                        }
+                                                        else
+                                                        {
+                                                            print("Command Failed!");
+
+                                                            GameManager.Elizabat_CommandStart = false;
+                                                            GameManager.Elizabat_SkillStart = false;
+
+                                                            CommandStartOn = false;
+                                                            NowSkillChecking = 0;
+                                                            DecentMaxCount = 0;
+                                                            currentNum = 0;
+
+                                                            // 스킬 UI를 원상복구 시킨다.
+                                                            //Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                            //Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                            //Skill_Button.gameObject.SetActive(true);
+
+                                                            //for (int i = 1; i < 7; i++)
+                                                            //{
+                                                            //    DecentCommand[i] = 0;
+                                                            //}
+
+                                                            //for (int j = 0; j < Skill_Decent_Commands.Length; j++)
+                                                            //{
+                                                            //    Skill_Decent_Commands[j].color = Color.black;
+                                                            //}
+
+                                                            // 스킬 커맨드 표를 활성화 시켜준다.
+                                                            Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+                                                        }
                                                     }
-                                                    else
-                                                    {
-                                                        print("Command Failed!");
-
-                                                        GameManager.Elizabat_CommandStart = false;
-                                                        GameManager.Elizabat_SkillStart = false;
-
-                                                        CommandStartOn = false;
-                                                        NowSkillChecking = 0;
-                                                        DecentMaxCount = 0;
-                                                        currentNum = 0;
-
-                                                        // 스킬 UI를 원상복구 시킨다.
-                                                        //Skill_Not_Yangpigi.gameObject.SetActive(true);
-                                                        //Skill_True_Yangpigi.gameObject.SetActive(false);
-                                                        //Skill_Button.gameObject.SetActive(true);
-
-                                                        //for (int i = 1; i < 7; i++)
-                                                        //{
-                                                        //    DecentCommand[i] = 0;
-                                                        //}
-
-                                                        //for (int j = 0; j < Skill_Decent_Commands.Length; j++)
-                                                        //{
-                                                        //    Skill_Decent_Commands[j].color = Color.black;
-                                                        //}
-
-                                                        // 스킬 커맨드 표를 활성화 시켜준다.
-                                                        Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Decent_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Swarm_Command_Chart.gameObject.SetActive(false);
-                                                    }
+                                                   
                                                 }
                                                 else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
                                                 {
-                                                    Inputcommand = 1;
-
-                                                    print("currentNum : " + currentNum);
-                                                    print("MaxCount : " + DecentMaxCount);
-
-                                                    if (DecentCommand[currentNum] == Inputcommand)
+                                                    if (!KeyDownEnable)
                                                     {
-                                                        Skill_Decent_Commands[currentNum].color = Color.white;
+                                                        KeyDownEnable = true;
 
-                                                        currentNum++;
+                                                        Inputcommand = 1;
 
-                                                        Inputcommand = 0;
+                                                        print("currentNum : " + currentNum);
+                                                        print("MaxCount : " + DecentMaxCount);
 
-                                                        Audio.clip = Eclipse_Command_Correct_Sound;
-                                                        Audio.Play();
+                                                        if (DecentCommand[currentNum] == Inputcommand)
+                                                        {
+                                                            Skill_Decent_Commands[currentNum].color = Color.white;
+
+                                                            currentNum++;
+
+                                                            Inputcommand = 0;
+
+                                                            Audio.clip = Eclipse_Command_Correct_Sound;
+                                                            Audio.Play();
+                                                        }
+                                                        else
+                                                        {
+                                                            print("Command Failed!");
+
+                                                            GameManager.Elizabat_CommandStart = false;
+                                                            GameManager.Elizabat_SkillStart = false;
+
+                                                            CommandStartOn = false;
+                                                            NowSkillChecking = 0;
+                                                            DecentMaxCount = 0;
+                                                            currentNum = 0;
+
+                                                            // 스킬 UI를 원상복구 시킨다.
+                                                            //Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                            //Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                            //Skill_Button.gameObject.SetActive(true);
+
+                                                            //for (int i = 1; i < 7; i++)
+                                                            //{
+                                                            //    DecentCommand[i] = 0;
+                                                            //}
+
+                                                            //for (int j = 0; j < Skill_Decent_Commands.Length; j++)
+                                                            //{
+                                                            //    Skill_Decent_Commands[j].color = Color.black;
+                                                            //}
+
+                                                            // 스킬 커맨드 표를 활성화 시켜준다.
+                                                            Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+                                                        }
                                                     }
-                                                    else
-                                                    {
-                                                        print("Command Failed!");
-
-                                                        GameManager.Elizabat_CommandStart = false;
-                                                        GameManager.Elizabat_SkillStart = false;
-
-                                                        CommandStartOn = false;
-                                                        NowSkillChecking = 0;
-                                                        DecentMaxCount = 0;
-                                                        currentNum = 0;
-
-                                                        // 스킬 UI를 원상복구 시킨다.
-                                                        //Skill_Not_Yangpigi.gameObject.SetActive(true);
-                                                        //Skill_True_Yangpigi.gameObject.SetActive(false);
-                                                        //Skill_Button.gameObject.SetActive(true);
-
-                                                        //for (int i = 1; i < 7; i++)
-                                                        //{
-                                                        //    DecentCommand[i] = 0;
-                                                        //}
-
-                                                        //for (int j = 0; j < Skill_Decent_Commands.Length; j++)
-                                                        //{
-                                                        //    Skill_Decent_Commands[j].color = Color.black;
-                                                        //}
-
-                                                        // 스킬 커맨드 표를 활성화 시켜준다.
-                                                        Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Decent_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Swarm_Command_Chart.gameObject.SetActive(false);
-                                                    }
+                                                    
                                                 }
 
                                                 if ((currentNum >= DecentMaxCount) && (DecentMaxCount != 0))
@@ -3565,214 +3742,238 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
                                                 {
-                                                    Inputcommand = 2;
-
-                                                    print("currentNum : " + currentNum);
-                                                    print("MaxCount : " + SwarmMaxCount);
-
-                                                    if (SwarmCommand[currentNum] == Inputcommand)
+                                                    if (!KeyDownEnable)
                                                     {
-                                                        Skill_Swarm_Commands[currentNum].color = Color.white;
+                                                        KeyDownEnable = true;
 
-                                                        currentNum++;
+                                                        Inputcommand = 2;
 
-                                                        Inputcommand = 0;
+                                                        print("currentNum : " + currentNum);
+                                                        print("MaxCount : " + SwarmMaxCount);
 
-                                                        Audio.clip = Swarm_Command_Correct_Sound;
-                                                        Audio.Play();
+                                                        if (SwarmCommand[currentNum] == Inputcommand)
+                                                        {
+                                                            Skill_Swarm_Commands[currentNum].color = Color.white;
+
+                                                            currentNum++;
+
+                                                            Inputcommand = 0;
+
+                                                            Audio.clip = Swarm_Command_Correct_Sound;
+                                                            Audio.Play();
+                                                        }
+                                                        else
+                                                        {
+                                                            print("Command Failed!");
+
+                                                            GameManager.Elizabat_CommandStart = false;
+                                                            GameManager.Elizabat_SkillStart = false;
+
+                                                            CommandStartOn = false;
+                                                            NowSkillChecking = 0;
+                                                            SwarmMaxCount = 0;
+                                                            currentNum = 0;
+
+                                                            // 스킬 UI를 원상복구 시킨다.
+                                                            //Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                            //Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                            //Skill_Button.gameObject.SetActive(true);
+
+                                                            //for (int i = 1; i < 7; i++)
+                                                            //{
+                                                            //    SwarmCommand[i] = 0;
+                                                            //}
+
+                                                            //for (int j = 0; j < Skill_Swarm_Commands.Length; j++)
+                                                            //{
+                                                            //    Skill_Swarm_Commands[j].color = Color.black;
+                                                            //}
+
+                                                            // 스킬 커맨드 표를 활성화 시켜준다.
+                                                            Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+                                                        }
                                                     }
-                                                    else
-                                                    {
-                                                        print("Command Failed!");
-
-                                                        GameManager.Elizabat_CommandStart = false;
-                                                        GameManager.Elizabat_SkillStart = false;
-
-                                                        CommandStartOn = false;
-                                                        NowSkillChecking = 0;
-                                                        SwarmMaxCount = 0;
-                                                        currentNum = 0;
-
-                                                        // 스킬 UI를 원상복구 시킨다.
-                                                        //Skill_Not_Yangpigi.gameObject.SetActive(true);
-                                                        //Skill_True_Yangpigi.gameObject.SetActive(false);
-                                                        //Skill_Button.gameObject.SetActive(true);
-
-                                                        //for (int i = 1; i < 7; i++)
-                                                        //{
-                                                        //    SwarmCommand[i] = 0;
-                                                        //}
-
-                                                        //for (int j = 0; j < Skill_Swarm_Commands.Length; j++)
-                                                        //{
-                                                        //    Skill_Swarm_Commands[j].color = Color.black;
-                                                        //}
-
-                                                        // 스킬 커맨드 표를 활성화 시켜준다.
-                                                        Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Decent_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Swarm_Command_Chart.gameObject.SetActive(false);
-                                                    }
+                                                   
                                                 }
                                                 else if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
                                                 {
-                                                    Inputcommand = 4;
-
-                                                    print("currentNum : " + currentNum);
-                                                    print("MaxCount : " + SwarmMaxCount);
-
-                                                    if (SwarmCommand[currentNum] == Inputcommand)
+                                                    if (!KeyDownEnable)
                                                     {
-                                                        Skill_Swarm_Commands[currentNum].color = Color.white;
+                                                        KeyDownEnable = true;
 
-                                                        currentNum++;
+                                                        Inputcommand = 4;
 
-                                                        Inputcommand = 0;
+                                                        print("currentNum : " + currentNum);
+                                                        print("MaxCount : " + SwarmMaxCount);
+
+                                                        if (SwarmCommand[currentNum] == Inputcommand)
+                                                        {
+                                                            Skill_Swarm_Commands[currentNum].color = Color.white;
+
+                                                            currentNum++;
+
+                                                            Inputcommand = 0;
 
 
-                                                        Audio.clip = Swarm_Command_Correct_Sound;
-                                                        Audio.Play();
+                                                            Audio.clip = Swarm_Command_Correct_Sound;
+                                                            Audio.Play();
+                                                        }
+                                                        else
+                                                        {
+                                                            print("Command Failed!");
+
+                                                            GameManager.Elizabat_CommandStart = false;
+                                                            GameManager.Elizabat_SkillStart = false;
+
+                                                            CommandStartOn = false;
+                                                            NowSkillChecking = 0;
+                                                            SwarmMaxCount = 0;
+                                                            currentNum = 0;
+
+                                                            // 스킬 UI를 원상복구 시킨다.
+                                                            //Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                            //Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                            //Skill_Button.gameObject.SetActive(true);
+
+                                                            //for (int i = 1; i < 7; i++)
+                                                            //{
+                                                            //    SwarmCommand[i] = 0;
+                                                            //}
+
+                                                            //for (int j = 0; j < Skill_Swarm_Commands.Length; j++)
+                                                            //{
+                                                            //    Skill_Swarm_Commands[j].color = Color.black;
+                                                            //}
+
+                                                            // 스킬 커맨드 표를 활성화 시켜준다.
+                                                            Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+                                                        }
                                                     }
-                                                    else
-                                                    {
-                                                        print("Command Failed!");
-
-                                                        GameManager.Elizabat_CommandStart = false;
-                                                        GameManager.Elizabat_SkillStart = false;
-
-                                                        CommandStartOn = false;
-                                                        NowSkillChecking = 0;
-                                                        SwarmMaxCount = 0;
-                                                        currentNum = 0;
-
-                                                        // 스킬 UI를 원상복구 시킨다.
-                                                        //Skill_Not_Yangpigi.gameObject.SetActive(true);
-                                                        //Skill_True_Yangpigi.gameObject.SetActive(false);
-                                                        //Skill_Button.gameObject.SetActive(true);
-
-                                                        //for (int i = 1; i < 7; i++)
-                                                        //{
-                                                        //    SwarmCommand[i] = 0;
-                                                        //}
-
-                                                        //for (int j = 0; j < Skill_Swarm_Commands.Length; j++)
-                                                        //{
-                                                        //    Skill_Swarm_Commands[j].color = Color.black;
-                                                        //}
-
-                                                        // 스킬 커맨드 표를 활성화 시켜준다.
-                                                        Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Decent_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Swarm_Command_Chart.gameObject.SetActive(false);
-                                                    }
+                                                    
                                                 }
                                                 else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
                                                 {
-                                                    Inputcommand = 3;
-
-                                                    print("currentNum : " + currentNum);
-                                                    print("MaxCount : " + SwarmMaxCount);
-
-                                                    if (SwarmCommand[currentNum] == Inputcommand)
+                                                    if (!KeyDownEnable)
                                                     {
-                                                        Skill_Swarm_Commands[currentNum].color = Color.white;
+                                                        KeyDownEnable = true;
 
-                                                        currentNum++;
+                                                        Inputcommand = 3;
 
-                                                        Inputcommand = 0;
+                                                        print("currentNum : " + currentNum);
+                                                        print("MaxCount : " + SwarmMaxCount);
+
+                                                        if (SwarmCommand[currentNum] == Inputcommand)
+                                                        {
+                                                            Skill_Swarm_Commands[currentNum].color = Color.white;
+
+                                                            currentNum++;
+
+                                                            Inputcommand = 0;
 
 
-                                                        Audio.clip = Swarm_Command_Correct_Sound;
-                                                        Audio.Play();
+                                                            Audio.clip = Swarm_Command_Correct_Sound;
+                                                            Audio.Play();
+                                                        }
+                                                        else
+                                                        {
+                                                            print("Command Failed!");
+
+                                                            GameManager.Elizabat_CommandStart = false;
+                                                            GameManager.Elizabat_SkillStart = false;
+
+                                                            CommandStartOn = false;
+                                                            NowSkillChecking = 0;
+                                                            SwarmMaxCount = 0;
+                                                            currentNum = 0;
+
+                                                            // 스킬 UI를 원상복구 시킨다.
+                                                            //Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                            //Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                            //Skill_Button.gameObject.SetActive(true);
+
+                                                            //for (int i = 1; i < 7; i++)
+                                                            //{
+                                                            //    SwarmCommand[i] = 0;
+                                                            //}
+
+                                                            //for (int j = 0; j < Skill_Swarm_Commands.Length; j++)
+                                                            //{
+                                                            //    Skill_Swarm_Commands[j].color = Color.black;
+                                                            //}
+
+                                                            // 스킬 커맨드 표를 활성화 시켜준다.
+                                                            Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+                                                        }
                                                     }
-                                                    else
-                                                    {
-                                                        print("Command Failed!");
-
-                                                        GameManager.Elizabat_CommandStart = false;
-                                                        GameManager.Elizabat_SkillStart = false;
-
-                                                        CommandStartOn = false;
-                                                        NowSkillChecking = 0;
-                                                        SwarmMaxCount = 0;
-                                                        currentNum = 0;
-
-                                                        // 스킬 UI를 원상복구 시킨다.
-                                                        //Skill_Not_Yangpigi.gameObject.SetActive(true);
-                                                        //Skill_True_Yangpigi.gameObject.SetActive(false);
-                                                        //Skill_Button.gameObject.SetActive(true);
-
-                                                        //for (int i = 1; i < 7; i++)
-                                                        //{
-                                                        //    SwarmCommand[i] = 0;
-                                                        //}
-
-                                                        //for (int j = 0; j < Skill_Swarm_Commands.Length; j++)
-                                                        //{
-                                                        //    Skill_Swarm_Commands[j].color = Color.black;
-                                                        //}
-
-                                                        // 스킬 커맨드 표를 활성화 시켜준다.
-                                                        Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Decent_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Swarm_Command_Chart.gameObject.SetActive(false);
-                                                    }
+                                                    
                                                 }
                                                 else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
                                                 {
-                                                    Inputcommand = 1;
-
-                                                    print("currentNum : " + currentNum);
-                                                    print("MaxCount : " + SwarmMaxCount);
-
-                                                    if (SwarmCommand[currentNum] == Inputcommand)
+                                                    if (!KeyDownEnable)
                                                     {
-                                                        Skill_Swarm_Commands[currentNum].color = Color.white;
+                                                        KeyDownEnable = true;
 
-                                                        currentNum++;
+                                                        Inputcommand = 1;
 
-                                                        Inputcommand = 0;
+                                                        print("currentNum : " + currentNum);
+                                                        print("MaxCount : " + SwarmMaxCount);
+
+                                                        if (SwarmCommand[currentNum] == Inputcommand)
+                                                        {
+                                                            Skill_Swarm_Commands[currentNum].color = Color.white;
+
+                                                            currentNum++;
+
+                                                            Inputcommand = 0;
 
 
-                                                        Audio.clip = Swarm_Command_Correct_Sound;
-                                                        Audio.Play();
+                                                            Audio.clip = Swarm_Command_Correct_Sound;
+                                                            Audio.Play();
+                                                        }
+                                                        else
+                                                        {
+                                                            print("Command Failed!");
+
+                                                            GameManager.Elizabat_CommandStart = false;
+                                                            GameManager.Elizabat_SkillStart = false;
+
+                                                            CommandStartOn = false;
+                                                            NowSkillChecking = 0;
+                                                            SwarmMaxCount = 0;
+                                                            currentNum = 0;
+
+                                                            // 스킬 UI를 원상복구 시킨다.
+                                                            //Skill_Not_Yangpigi.gameObject.SetActive(true);
+                                                            //Skill_True_Yangpigi.gameObject.SetActive(false);
+                                                            //Skill_Button.gameObject.SetActive(true);
+
+                                                            //for (int i = 1; i < 7; i++)
+                                                            //{
+                                                            //    SwarmCommand[i] = 0;
+                                                            //}
+
+                                                            //for (int j = 0; j < Skill_Swarm_Commands.Length; j++)
+                                                            //{
+                                                            //    Skill_Swarm_Commands[j].color = Color.black;
+                                                            //}
+
+                                                            // 스킬 커맨드 표를 활성화 시켜준다.
+                                                            Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                                                            Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+                                                        }
                                                     }
-                                                    else
-                                                    {
-                                                        print("Command Failed!");
-
-                                                        GameManager.Elizabat_CommandStart = false;
-                                                        GameManager.Elizabat_SkillStart = false;
-
-                                                        CommandStartOn = false;
-                                                        NowSkillChecking = 0;
-                                                        SwarmMaxCount = 0;
-                                                        currentNum = 0;
-
-                                                        // 스킬 UI를 원상복구 시킨다.
-                                                        //Skill_Not_Yangpigi.gameObject.SetActive(true);
-                                                        //Skill_True_Yangpigi.gameObject.SetActive(false);
-                                                        //Skill_Button.gameObject.SetActive(true);
-
-                                                        //for (int i = 1; i < 7; i++)
-                                                        //{
-                                                        //    SwarmCommand[i] = 0;
-                                                        //}
-
-                                                        //for (int j = 0; j < Skill_Swarm_Commands.Length; j++)
-                                                        //{
-                                                        //    Skill_Swarm_Commands[j].color = Color.black;
-                                                        //}
-
-                                                        // 스킬 커맨드 표를 활성화 시켜준다.
-                                                        Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Decent_Command_Chart.gameObject.SetActive(false);
-                                                        Skill_Swarm_Command_Chart.gameObject.SetActive(false);
-                                                    }
+                                                   
                                                 }
 
                                                 if ((currentNum >= SwarmMaxCount) && (SwarmMaxCount != 0))

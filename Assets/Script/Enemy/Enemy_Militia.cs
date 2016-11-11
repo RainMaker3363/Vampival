@@ -274,15 +274,16 @@ public class Enemy_Militia : MonoBehaviour {
                                         {
                                             EnemySpot.gameObject.SetActive(true);
                                         }
+                                        else
+                                        {
+                                            EnemySpot.gameObject.SetActive(false);
+                                        }
 
                                         EnemyArrow.gameObject.SetActive(true);
                                     }
                                     else
                                     {
-                                        if (CameraMarkingOn)
-                                        {
-                                            EnemySpot.gameObject.SetActive(true);
-                                        }
+                                        EnemySpot.gameObject.SetActive(true);
 
                                         EnemyArrow.gameObject.SetActive(false);
                                     }
@@ -383,17 +384,18 @@ public class Enemy_Militia : MonoBehaviour {
                                         {
                                             EnemySpot.gameObject.SetActive(true);
                                         }
+                                        else
+                                        {
+                                            EnemySpot.gameObject.SetActive(false);
+                                        }
 
                                         EnemyArrow.gameObject.SetActive(false);
 
                                     }
                                     else
                                     {
-                                        if (CameraMarkingOn)
-                                        {
-                                            EnemySpot.gameObject.SetActive(true);
-                                        }
-                                            
+                                        EnemySpot.gameObject.SetActive(true);
+
                                         EnemyArrow.gameObject.SetActive(false);
 
 
