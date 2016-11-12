@@ -30,18 +30,22 @@ public class Elizabat : MonoBehaviour {
     public Image Skill_True_Yangpigi;
     public Image Skill_Button;
 
+    public GameObject Skill_SonicWave_Icon_Block;
     public GameObject Skill_SonicWave_Icon;
     public GameObject Skill_SonicWave_Command_Chart;
     public Image Skill_SonicWave_Cool_Icon;
-    
+
+    public GameObject Skill_Eclipse_Icon_Block;
     public GameObject Skill_Eclipse_Icon;
     public GameObject Skill_Eclipse_Command_Chart;
     public Image Skill_Eclipse_Cool_Icon;
-    
+
+    public GameObject Skill_Decent_Icon_Block;
     public GameObject Skill_Decent_Icon;
     public GameObject Skill_Decent_Command_Chart;
     public Image Skill_Decent_Cool_Icon;
 
+    public GameObject Skill_Swarm_Icon_Block;
     public GameObject Skill_Swarm_Icon;
     public GameObject Skill_Swarm_Command_Chart;
     public Image Skill_Swarm_Cool_Icon;
@@ -128,6 +132,12 @@ public class Elizabat : MonoBehaviour {
 
 
         // 스킬 언락 여부 설정
+
+        Skill_SonicWave_Icon_Block.SetActive(true);
+        Skill_Eclipse_Icon_Block.SetActive(true);
+        Skill_Decent_Icon_Block.SetActive(true);
+        Skill_Swarm_Icon_Block.SetActive(true);
+
         Skill_SonicWave_Icon.gameObject.SetActive(false);
         Skill_Decent_Icon.gameObject.SetActive(false);
         Skill_Eclipse_Icon.gameObject.SetActive(false);
@@ -289,23 +299,28 @@ public class Elizabat : MonoBehaviour {
                                 //}
 
                                 // 스킬 언락 여부 설정
+
                                 if(GameManager.Elizabat_SonicWave_Unlock == true)
                                 {
+                                    Skill_SonicWave_Icon_Block.SetActive(false);
                                     Skill_SonicWave_Icon.gameObject.SetActive(true);
                                 }
                                 
                                 if(GameManager.Elizabat_Eclipse_Unlock == true)
                                 {
+                                    Skill_Eclipse_Icon_Block.SetActive(false);
                                     Skill_Eclipse_Icon.gameObject.SetActive(true);
                                 }
 
                                 if(GameManager.Elizabat_Decent_Unlock == true)
                                 {
+                                    Skill_Decent_Icon_Block.SetActive(false);
                                     Skill_Decent_Icon.gameObject.SetActive(true);
                                 }
 
                                 if(GameManager.Elizabat_Swarm_Unlock == true)
                                 {
+                                    Skill_Swarm_Icon_Block.SetActive(false);
                                     Skill_Swarm_Icon.gameObject.SetActive(true);
                                 }
 
@@ -591,21 +606,25 @@ public class Elizabat : MonoBehaviour {
                                 // 스킬 언락 여부 설정
                                 if (GameManager.Elizabat_SonicWave_Unlock == true)
                                 {
+                                    Skill_SonicWave_Icon_Block.SetActive(false);
                                     Skill_SonicWave_Icon.gameObject.SetActive(true);
                                 }
 
                                 if (GameManager.Elizabat_Eclipse_Unlock == true)
                                 {
+                                    Skill_Eclipse_Icon_Block.SetActive(false);
                                     Skill_Eclipse_Icon.gameObject.SetActive(true);
                                 }
 
                                 if (GameManager.Elizabat_Decent_Unlock == true)
                                 {
+                                    Skill_Decent_Icon_Block.SetActive(false);
                                     Skill_Decent_Icon.gameObject.SetActive(true);
                                 }
 
                                 if (GameManager.Elizabat_Swarm_Unlock == true)
                                 {
+                                    Skill_Swarm_Icon_Block.SetActive(false);
                                     Skill_Swarm_Icon.gameObject.SetActive(true);
                                 }
 
@@ -759,7 +778,14 @@ public class Elizabat : MonoBehaviour {
                                 //    KeyDownEnable = false;
                                 //}
 
-                                
+                                if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 0 &&
+                                    Input.GetAxisRaw("P1_360_VerticalDPAD") == 0)
+                                {
+                                    KeyDownEnable = false;
+                                }
+
+                                print("P1_360_HorizontalDPAD : " + Input.GetAxisRaw("P1_360_HorizontalDPAD"));
+                                print("P1_360_VerticalDPAD : " + Input.GetAxisRaw("P1_360_VerticalDPAD"));
 
                                 if (GameManager.Elizabat_CommandStart)
                                 {
@@ -2698,13 +2724,11 @@ public class Elizabat : MonoBehaviour {
 
                         case ViewControllMode.GamePad:
                             {
-                                //if (Input.GetAxisRaw("P1_360_HorizontalDPAD") >= 0.5f &&
-                                //    Input.GetAxisRaw("P1_360_HorizontalDPAD") <= -0.5f &&
-                                //    Input.GetAxisRaw("P1_360_VerticalDPAD") <= -0.5f &&
-                                //    Input.GetAxisRaw("P1_360_VerticalDPAD") >= 0.5f)
-                                //{
-                                //    KeyDownEnable = false;
-                                //}
+                                if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 0 &&
+                                    Input.GetAxisRaw("P1_360_VerticalDPAD") == 0)
+                                {
+                                    KeyDownEnable = false;
+                                }
                                 
                                 print(KeyDownEnable);
 

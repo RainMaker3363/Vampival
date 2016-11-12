@@ -91,7 +91,7 @@ public class Resource_Souls : MonoBehaviour {
         this.gameObject.SetActive(false);
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         if (other.transform.tag.Equals("Spidas") == true)
         {
@@ -109,7 +109,6 @@ public class Resource_Souls : MonoBehaviour {
 
         }
     }
-
     //void OnCollisionEnter(Collision collision)
     //{
     //    if (collision.transform.tag.Equals("Spidas") == true)

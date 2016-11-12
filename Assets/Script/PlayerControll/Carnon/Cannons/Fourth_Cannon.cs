@@ -206,6 +206,13 @@ public class Fourth_Cannon : MonoBehaviour {
                                             //}
                                         }
                                         break;
+
+                                    default:
+                                        {
+                                            SelectLight.enabled = false;
+                                            CrossHair_Icon.gameObject.SetActive(false);
+                                        }
+                                        break;
                                 }
                                
                             }
@@ -294,6 +301,13 @@ public class Fourth_Cannon : MonoBehaviour {
 
                                             //transform.localRotation = Quaternion.AngleAxis(rotationX, Vector3.up);
                                             //transform.localRotation *= Quaternion.AngleAxis(rotationY, Vector3.left);
+                                        }
+                                        break;
+
+                                    default:
+                                        {
+                                            SelectLight.enabled = false;
+                                            CrossHair_Icon.gameObject.SetActive(false);
                                         }
                                         break;
                                 }

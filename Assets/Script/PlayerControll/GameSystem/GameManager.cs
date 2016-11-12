@@ -156,7 +156,7 @@ public class GameManager : MonoBehaviour {
         Fear_Max = 50.0f;
         
         Soul_MP_Max = 50.0f;
-        Soul_MP_Parameter = 100.0f;
+        Soul_MP_Parameter = Soul_MP_Max;
 
         Capture_Meter = Capture_Max;
 

@@ -90,31 +90,25 @@ public class FlyingCam : MonoBehaviour {
 
             case GameState.GameStart:
                 {
-
-                    switch (ViewMode)
+                    if ((!GameManager.Elizabat_CommandStart) && !GameManager.Elizabat_SkillStart)
                     {
-                        case ViewControllMode.Mouse:
-                            {
-                                // 마우스 작업
 
-                                //print("Mouse");
-                                //Direction = Vector3.Distance(this.gameObject.transform.position, CameraDir.transform.position);
+                        CameraCheck = Camera.main.WorldToScreenPoint(MainCameraChecker.transform.position);
 
-
-                                if ((!GameManager.Elizabat_CommandStart) && !GameManager.Elizabat_SkillStart)
+                        switch (ViewMode)
+                        {
+                            case ViewControllMode.Mouse:
                                 {
-                                    CameraCheck = Camera.main.WorldToScreenPoint(MainCameraChecker.transform.position);
-
                                     if ((CameraCheck.x >= 0))
                                     {
                                         if (Input.GetKey(KeyCode.A))
                                         {
                                             MainCameraRoot.transform.Translate(new Vector3(2.8f, 0, 0) * normalMoveSpeed * Time.deltaTime);
-                                            
 
-                                            
+
+
                                             MainCameraChecker.transform.Translate(new Vector3(1.7f, 0, 0) * normalMoveSpeed * Time.deltaTime);
-                                            
+
                                         }
                                     }
 
@@ -124,12 +118,12 @@ public class FlyingCam : MonoBehaviour {
                                         {
                                             MainCameraRoot.transform.Translate(new Vector3(-2.8f, 0, 0) * normalMoveSpeed * Time.deltaTime);
 
-                                            
 
-                                            
+
+
                                             MainCameraChecker.transform.Translate(new Vector3(-1.7f, 0, 0) * normalMoveSpeed * Time.deltaTime);
-                                            
-                                            
+
+
                                         }
                                     }
 
@@ -137,11 +131,11 @@ public class FlyingCam : MonoBehaviour {
                                     {
                                         if (Input.GetKey(KeyCode.W))
                                         {
-                                            
+
                                             MainCameraRoot.transform.Translate(new Vector3(0, -3.2f, 0) * normalMoveSpeed * Time.deltaTime);
-                                            
+
                                             MainCameraChecker.transform.Translate(new Vector3(0, -0.7f, 0) * normalMoveSpeed * Time.deltaTime);
-                                            
+
                                         }
                                     }
 
@@ -149,9 +143,9 @@ public class FlyingCam : MonoBehaviour {
                                     {
                                         if (Input.GetKey(KeyCode.S))
                                         {
-                                            
+
                                             MainCameraRoot.transform.Translate(new Vector3(0, 3.2f, 0) * normalMoveSpeed * Time.deltaTime);
-                                            
+
                                             MainCameraChecker.transform.Translate(new Vector3(0, 0.7f, 0) * normalMoveSpeed * Time.deltaTime);
                                         }
                                     }
@@ -178,16 +172,16 @@ public class FlyingCam : MonoBehaviour {
                                         //}
                                         //else
                                         //{
-                                            
+
                                         //}
 
                                         MainCameraRoot.transform.Rotate(new Vector3(0, 0, 1), 50 * Time.deltaTime);
                                     }
-                                    
+
                                     // 줌 인 & 아웃 기능 구현
-                                    if(Input.GetKey(KeyCode.R))
+                                    if (Input.GetKey(KeyCode.R))
                                     {
-                                        if(ZoomInOut <= 2.5f)
+                                        if (ZoomInOut <= 2.5f)
                                         {
                                             ZoomInOut += 2.8f * Time.deltaTime;
 
@@ -196,7 +190,7 @@ public class FlyingCam : MonoBehaviour {
 
                                         StartZoomPos = new Vector3(MainCameraRoot.transform.localPosition.x, StartYPos, MainCameraRoot.transform.localPosition.z);
                                     }
-                                    else if(Input.GetKeyUp(KeyCode.R))
+                                    else if (Input.GetKeyUp(KeyCode.R))
                                     {
                                         MainCameraRoot.transform.localPosition = StartZoomPos;
                                         ZoomInOut = 0.0f;
@@ -213,77 +207,16 @@ public class FlyingCam : MonoBehaviour {
 
                                         StartZoomPos = new Vector3(MainCameraRoot.transform.localPosition.x, StartYPos, MainCameraRoot.transform.localPosition.z);
                                     }
-                                    else if(Input.GetKeyUp(KeyCode.F))
+                                    else if (Input.GetKeyUp(KeyCode.F))
                                     {
                                         MainCameraRoot.transform.localPosition = StartZoomPos;
                                         ZoomInOut = 0.0f;
                                     }
                                 }
-                                //print(MainCameraRoot.gameObject.transform.localRotation);
-                                //print(MainCameraRoot.transform.localRotation.eulerAngles);
-                                //print(MainCameraRoot.transform.eulerAngles);
-                                //print(CameraCheck);
+                                break;
 
-                                //print("X : " + NowCurrentCoordX);
-                                //print("Y : " + NowCurrentCoordY);
-
-                                //if(Input.GetKey(KeyCode.A))
-                                //{
-                                //    transform.position += (-1 * transform.right) * normalMoveSpeed * Time.deltaTime;
-                                //}
-                                //if (Input.GetKey(KeyCode.D))
-                                //{
-                                //    transform.position += transform.right * normalMoveSpeed * Time.deltaTime;
-                                //}
-                                //if (Input.GetKey(KeyCode.S))
-                                //{
-                                //    transform.position += new Vector3(0, 0, -1) * normalMoveSpeed * Time.deltaTime;
-
-                                //    //transform.position += (-1 * transform.forward) * normalMoveSpeed * Time.deltaTime;
-                                //}
-                                //if (Input.GetKey(KeyCode.W))
-                                //{
-                                //    transform.position += new Vector3(0, 0, 1) * normalMoveSpeed * Time.deltaTime;
-                                //    //transform.position += transform.forward * normalMoveSpeed * Time.deltaTime;
-                                //}
-
-                                //rotationX += Input.GetAxis("Mouse X") * cameraSensitivity * Time.deltaTime;
-                                //rotationY += Input.GetAxis("Mouse Y") * cameraSensitivity * Time.deltaTime;
-                                //rotationY = Mathf.Clamp(rotationY, -90, 90);
-
-                                //transform.localRotation = Quaternion.AngleAxis(rotationX, Vector3.up);
-                                //transform.localRotation *= Quaternion.AngleAxis(rotationY, Vector3.left);
-
-                                //if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-                                //{
-                                //    transform.position += transform.forward * (normalMoveSpeed * fastMoveFactor) * Input.GetAxis("Vertical") * Time.deltaTime;
-                                //    transform.position += transform.right * (normalMoveSpeed * fastMoveFactor) * Input.GetAxis("Horizontal") * Time.deltaTime;
-                                //}
-                                //else if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
-                                //{
-                                //    transform.position += transform.forward * (normalMoveSpeed * slowMoveFactor) * Input.GetAxis("Vertical") * Time.deltaTime;
-                                //    transform.position += transform.right * (normalMoveSpeed * slowMoveFactor) * Input.GetAxis("Horizontal") * Time.deltaTime;
-                                //}
-                                //else
-                                //{
-                                //    transform.position += transform.forward * normalMoveSpeed * Input.GetAxis("Vertical") * Time.deltaTime;
-                                //    transform.position += transform.right * normalMoveSpeed * Input.GetAxis("Horizontal") * Time.deltaTime;
-                                //}
-
-
-                                //if (Input.GetKey(KeyCode.Q)) { transform.position += transform.up * climbSpeed * Time.deltaTime; }
-                                //if (Input.GetKey(KeyCode.E)) { transform.position -= transform.up * climbSpeed * Time.deltaTime; }
-                            }
-                            break;
-
-                        case ViewControllMode.GamePad:
-                            {
-                                // 게임 패드 작업
-
-                                if ((!GameManager.Elizabat_CommandStart) && !GameManager.Elizabat_SkillStart)
+                            case ViewControllMode.GamePad:
                                 {
-                                    CameraCheck = Camera.main.WorldToScreenPoint(MainCameraChecker.transform.position);
-
                                     if ((CameraCheck.x >= 0))
                                     {
                                         if (Input.GetAxisRaw("P1_360_L_RightStick") <= -0.5f)
@@ -387,7 +320,7 @@ public class FlyingCam : MonoBehaviour {
                                         StartZoomPos = new Vector3(MainCameraRoot.transform.localPosition.x, StartYPos, MainCameraRoot.transform.localPosition.z);
 
                                     }
-                                    else if(Input.GetAxis("P1_360_Trigger") == 0)
+                                    else if (Input.GetAxis("P1_360_Trigger") == 0)
                                     {
                                         MainCameraRoot.transform.localPosition = StartZoomPos;
                                         ZoomInOut = 0.0f;
@@ -414,15 +347,97 @@ public class FlyingCam : MonoBehaviour {
                                         ZoomInOut = 0.0f;
                                     }
                                 }
+                                break;
+                        }
 
-                                //rotationY = Mathf.Clamp(rotationY, -90, 90);
-
-                                //transform.localRotation = Quaternion.AngleAxis(rotationX, Vector3.up);
-                                //transform.localRotation *= Quaternion.AngleAxis(rotationY, Vector3.left);
-
-                            }
-                            break;
                     }
+                    //switch (ViewMode)
+                    //{
+                    //    case ViewControllMode.Mouse:
+                    //        {
+                    //            // 마우스 작업
+
+                    //            //print("Mouse");
+                    //            //Direction = Vector3.Distance(this.gameObject.transform.position, CameraDir.transform.position);
+
+
+
+                    //            //print(MainCameraRoot.gameObject.transform.localRotation);
+                    //            //print(MainCameraRoot.transform.localRotation.eulerAngles);
+                    //            //print(MainCameraRoot.transform.eulerAngles);
+                    //            //print(CameraCheck);
+
+                    //            //print("X : " + NowCurrentCoordX);
+                    //            //print("Y : " + NowCurrentCoordY);
+
+                    //            //if(Input.GetKey(KeyCode.A))
+                    //            //{
+                    //            //    transform.position += (-1 * transform.right) * normalMoveSpeed * Time.deltaTime;
+                    //            //}
+                    //            //if (Input.GetKey(KeyCode.D))
+                    //            //{
+                    //            //    transform.position += transform.right * normalMoveSpeed * Time.deltaTime;
+                    //            //}
+                    //            //if (Input.GetKey(KeyCode.S))
+                    //            //{
+                    //            //    transform.position += new Vector3(0, 0, -1) * normalMoveSpeed * Time.deltaTime;
+
+                    //            //    //transform.position += (-1 * transform.forward) * normalMoveSpeed * Time.deltaTime;
+                    //            //}
+                    //            //if (Input.GetKey(KeyCode.W))
+                    //            //{
+                    //            //    transform.position += new Vector3(0, 0, 1) * normalMoveSpeed * Time.deltaTime;
+                    //            //    //transform.position += transform.forward * normalMoveSpeed * Time.deltaTime;
+                    //            //}
+
+                    //            //rotationX += Input.GetAxis("Mouse X") * cameraSensitivity * Time.deltaTime;
+                    //            //rotationY += Input.GetAxis("Mouse Y") * cameraSensitivity * Time.deltaTime;
+                    //            //rotationY = Mathf.Clamp(rotationY, -90, 90);
+
+                    //            //transform.localRotation = Quaternion.AngleAxis(rotationX, Vector3.up);
+                    //            //transform.localRotation *= Quaternion.AngleAxis(rotationY, Vector3.left);
+
+                    //            //if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+                    //            //{
+                    //            //    transform.position += transform.forward * (normalMoveSpeed * fastMoveFactor) * Input.GetAxis("Vertical") * Time.deltaTime;
+                    //            //    transform.position += transform.right * (normalMoveSpeed * fastMoveFactor) * Input.GetAxis("Horizontal") * Time.deltaTime;
+                    //            //}
+                    //            //else if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
+                    //            //{
+                    //            //    transform.position += transform.forward * (normalMoveSpeed * slowMoveFactor) * Input.GetAxis("Vertical") * Time.deltaTime;
+                    //            //    transform.position += transform.right * (normalMoveSpeed * slowMoveFactor) * Input.GetAxis("Horizontal") * Time.deltaTime;
+                    //            //}
+                    //            //else
+                    //            //{
+                    //            //    transform.position += transform.forward * normalMoveSpeed * Input.GetAxis("Vertical") * Time.deltaTime;
+                    //            //    transform.position += transform.right * normalMoveSpeed * Input.GetAxis("Horizontal") * Time.deltaTime;
+                    //            //}
+
+
+                    //            //if (Input.GetKey(KeyCode.Q)) { transform.position += transform.up * climbSpeed * Time.deltaTime; }
+                    //            //if (Input.GetKey(KeyCode.E)) { transform.position -= transform.up * climbSpeed * Time.deltaTime; }
+                    //        }
+                    //        break;
+
+                    //    case ViewControllMode.GamePad:
+                    //        {
+                    //            // 게임 패드 작업
+
+                    //            if ((!GameManager.Elizabat_CommandStart) && !GameManager.Elizabat_SkillStart)
+                    //            {
+                    //                CameraCheck = Camera.main.WorldToScreenPoint(MainCameraChecker.transform.position);
+
+                                    
+                    //            }
+
+                    //            //rotationY = Mathf.Clamp(rotationY, -90, 90);
+
+                    //            //transform.localRotation = Quaternion.AngleAxis(rotationX, Vector3.up);
+                    //            //transform.localRotation *= Quaternion.AngleAxis(rotationY, Vector3.left);
+
+                    //        }
+                    //        break;
+                    //}
                 }
                 break;
 

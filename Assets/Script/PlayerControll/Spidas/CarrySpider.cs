@@ -24,6 +24,10 @@ public class CarrySpider : MonoBehaviour {
     public GameObject ObjectChecker;
     private RaycastHit Objecthit;
 
+    public GameObject[] Spider_Web_Trap;
+    private int NowWebTrapStack;
+    private float WebTrapCost;
+
 	// Use this for initialization
 	void Start () {
         ViewMode = GameManager.ViewMode;
@@ -39,6 +43,15 @@ public class CarrySpider : MonoBehaviour {
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyCorpse"), LayerMask.NameToLayer("CarryPlayer"), true);
 
         ConsumeOn = false;
+
+        // 현재 함정의 수
+        NowWebTrapStack = 0;
+        WebTrapCost = 5.0f;
+
+        for (int i = 0; i < Spider_Web_Trap.Length; i++)
+        {
+            Spider_Web_Trap[i].SetActive(false);
+        }
 	}
 	
 	// Update is called once per frame
@@ -91,6 +104,24 @@ public class CarrySpider : MonoBehaviour {
                                         //print(hit.point.y);
                                         this.transform.position = new Vector3(this.transform.position.x, hit.point.y + 3.0f, this.transform.position.z);
 
+                                        if (Input.GetKeyDown(KeyCode.Y) && GameManager.Soul_MP_Parameter >= WebTrapCost)
+                                        {
+                                            if (Spider_Web_Trap[NowWebTrapStack].gameObject.activeSelf == false)
+                                            {
+                                                Spider_Web_Trap[NowWebTrapStack].transform.position = new Vector3(this.transform.position.x, hit.point.y - 3.0f, this.transform.position.z);
+
+                                                Spider_Web_Trap[NowWebTrapStack].gameObject.SetActive(true);
+                                            }
+
+                                            if (NowWebTrapStack >= (Spider_Web_Trap.Length - 1))
+                                            {
+                                                NowWebTrapStack = 0;
+                                            }
+                                            else
+                                            {
+                                                NowWebTrapStack++;
+                                            }
+                                        }
                                     }
                                 }
 
@@ -138,6 +169,10 @@ public class CarrySpider : MonoBehaviour {
                                 {
                                     ConsumeOn = true;
                                 }
+
+
+
+                                
                                 //else if (Input.GetKeyUp(KeyCode.H))
                                 //{
                                 //    ConsumeOn = false;
@@ -163,6 +198,24 @@ public class CarrySpider : MonoBehaviour {
                                         //print(hit.point.y);
                                         this.transform.position = new Vector3(this.transform.position.x, hit.point.y + 3.0f, this.transform.position.z);
 
+                                        if (Input.GetButtonDown("P3_360_BButton") && GameManager.Soul_MP_Parameter >= WebTrapCost)
+                                        {
+                                            if (Spider_Web_Trap[NowWebTrapStack].gameObject.activeSelf == false)
+                                            {
+                                                Spider_Web_Trap[NowWebTrapStack].transform.position = new Vector3(this.transform.position.x, hit.point.y - 3.0f, this.transform.position.z);
+
+                                                Spider_Web_Trap[NowWebTrapStack].gameObject.SetActive(true);
+                                            }
+
+                                            if (NowWebTrapStack >= (Spider_Web_Trap.Length - 1))
+                                            {
+                                                NowWebTrapStack = 0;
+                                            }
+                                            else
+                                            {
+                                                NowWebTrapStack++;
+                                            }
+                                        }
                                     }
                                 }
 
@@ -244,6 +297,11 @@ public class CarrySpider : MonoBehaviour {
             GameManager.Gamestate = GameState.GamePause;
         }
 
+
+    }
+
+    void OnTriggerStay(Collider other)
+    {
         if (other.transform.tag.Equals("Souls") == true)
         {
             if (ConsumeOn)

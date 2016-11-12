@@ -301,6 +301,12 @@ public class Third_Trajectory : MonoBehaviour {
                                             lineRenderer.enabled = false;
                                         }
                                         break;
+
+                                    default:
+                                        {
+                                            lineRenderer.enabled = false;
+                                        }
+                                        break;
                                 }
                                
                             }
@@ -466,6 +472,12 @@ public class Third_Trajectory : MonoBehaviour {
                                         break;
 
                                     case CannonNumber.Fourth:
+                                        {
+                                            lineRenderer.enabled = false;
+                                        }
+                                        break;
+
+                                    default:
                                         {
                                             lineRenderer.enabled = false;
                                         }

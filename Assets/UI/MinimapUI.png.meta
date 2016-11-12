@@ -1,15 +1,16 @@
 fileFormatVersion: 2
-guid: 89456ad47cb34474bb5aeb06cd7c2e52
-timeCreated: 1477047856
+guid: 23d63dbe9d14e074282015cfe451e615
+timeCreated: 1478940165
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: UI_Atlas_0
-    21300002: UI_Atlas_1
-    21300004: UI_Atlas_2
-    21300006: UI_Atlas_3
-    21300008: UI_Atlas_4
-    21300010: UI_Atlas_5
+    21300000: MinimapUI_0
+    21300002: MinimapUI_1
+    21300004: MinimapUI_2
+    21300006: MinimapUI_3
+    21300008: MinimapUI_4
+    21300010: MinimapUI_5
+    21300012: MinimapUI_6
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -32,11 +33,11 @@ TextureImporter:
   cubemapConvolutionSteps: 7
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
-  textureFormat: -1
-  maxTextureSize: 2048
+  textureFormat: -3
+  maxTextureSize: 4096
   textureSettings:
-    filterMode: -1
-    aniso: -1
+    filterMode: 2
+    aniso: 16
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -59,78 +60,91 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UI_Atlas_0
+      name: MinimapUI_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 270
-        width: 204
-        height: 111
+        y: 304
+        width: 74
+        height: 35
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: UI_Atlas_1
-      rect:
-        serializedVersion: 2
-        x: 208
-        y: 271
-        width: 69
-        height: 137
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: UI_Atlas_2
-      rect:
-        serializedVersion: 2
-        x: 280
-        y: 268
-        width: 68
-        height: 128
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: UI_Atlas_3
+      name: MinimapUI_1
       rect:
         serializedVersion: 2
         x: 0
-        y: 1
-        width: 272
-        height: 265
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: UI_Atlas_4
-      rect:
-        serializedVersion: 2
-        x: 276
-        y: 187
-        width: 98
-        height: 74
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: UI_Atlas_5
-      rect:
-        serializedVersion: 2
-        x: 276
         y: 0
-        width: 224
-        height: 184
+        width: 320
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: MinimapUI_2
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 196
+        width: 127
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: MinimapUI_3
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 102
+        width: 129
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: MinimapUI_4
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 0
+        width: 128
+        height: 98
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: MinimapUI_5
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 40
+        width: 31
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: MinimapUI_6
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 0
+        width: 30
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

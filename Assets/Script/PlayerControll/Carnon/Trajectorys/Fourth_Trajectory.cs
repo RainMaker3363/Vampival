@@ -301,6 +301,12 @@ public class Fourth_Trajectory : MonoBehaviour {
                                             }
                                         }
                                         break;
+
+                                    default:
+                                        {
+                                            lineRenderer.enabled = false;
+                                        }
+                                        break;
                                 }
 
                             }
@@ -469,6 +475,12 @@ public class Fourth_Trajectory : MonoBehaviour {
                                                 theArc = Vector3.Slerp(RelCenter, aimRelCenter, interval += 0.0417f);
                                                 lineRenderer.SetPosition((int)index++, theArc + center);
                                             }
+                                        }
+                                        break;
+
+                                    default:
+                                        {
+                                            lineRenderer.enabled = false;
                                         }
                                         break;
                                 }

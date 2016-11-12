@@ -651,6 +651,52 @@ public class Enemy_Militia : MonoBehaviour {
             print("FearMeter : " + GameManager.Fear_Parameter);
         }
 
+        if (other.transform.tag.Equals("PlayerTrap") == true)
+        {
+            if (HP > 0)
+            {
+                HP -= 10;
+            }
+            else if (HP <= 0)
+            {
+                GameManager.Fear_Parameter += 1;
+                Agent.enabled = false;
+
+                //Instantiate(Corpse, this.transform.position, Quaternion.identity);
+                if (Corpse[NowCorpseStack].gameObject.activeSelf == false)
+                {
+
+                    Corpse[NowCorpseStack].transform.position = this.transform.position;
+                    Corpse_Souls[NowSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.0f, this.transform.position.z);
+
+                    Corpse[NowCorpseStack].gameObject.SetActive(true);
+                    Corpse_Souls[NowSoulStack].gameObject.SetActive(true);
+                }
+
+                if (NowCorpseStack >= (Corpse.Length - 1))
+                {
+                    NowCorpseStack = 0;
+                }
+                else
+                {
+                    NowCorpseStack++;
+                }
+
+                if (NowSoulStack >= (Corpse_Souls.Length - 1))
+                {
+                    NowSoulStack = 0;
+                }
+                else
+                {
+                    NowSoulStack++;
+                }
+
+                this.gameObject.SetActive(false);
+
+                //Destroy(this.gameObject);
+            }
+        }
+
     }
 
     // 트리거를 빠져 나갔을때..

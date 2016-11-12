@@ -210,6 +210,13 @@ public class First_Cannon : MonoBehaviour {
                                             CrossHair_Icon.gameObject.SetActive(false);
                                         }
                                         break;
+
+                                    default:
+                                        {
+                                            SelectLight.enabled = false;
+                                            CrossHair_Icon.gameObject.SetActive(false);
+                                        }
+                                        break;
                                 }
                                 
                             }
@@ -297,6 +304,13 @@ public class First_Cannon : MonoBehaviour {
                                         break;
 
                                     case CannonNumber.Fourth:
+                                        {
+                                            SelectLight.enabled = false;
+                                            CrossHair_Icon.gameObject.SetActive(false);
+                                        }
+                                        break;
+
+                                    default:
                                         {
                                             SelectLight.enabled = false;
                                             CrossHair_Icon.gameObject.SetActive(false);
