@@ -109,7 +109,7 @@ public class FlyingCam : MonoBehaviour {
                                 {
                                     if ((CameraCheck.x >= 0))
                                     {
-                                        if (Input.GetKey(KeyCode.A) || Input.GetAxisRaw("P1_360_L_RightStick") <= -0.5f)
+                                        if (Input.GetKey(KeyCode.A))
                                         {
                                             MainCameraRoot.transform.Translate(new Vector3(2.8f, 0, 0) * normalMoveSpeed * Time.deltaTime);
 
@@ -122,7 +122,7 @@ public class FlyingCam : MonoBehaviour {
 
                                     if ((CameraCheck.x <= Screen.width))
                                     {
-                                        if (Input.GetKey(KeyCode.D) || Input.GetAxisRaw("P1_360_L_RightStick") >= 0.5f)
+                                        if (Input.GetKey(KeyCode.D))
                                         {
                                             MainCameraRoot.transform.Translate(new Vector3(-2.8f, 0, 0) * normalMoveSpeed * Time.deltaTime);
 
@@ -137,7 +137,7 @@ public class FlyingCam : MonoBehaviour {
 
                                     if ((CameraCheck.y <= Screen.height))
                                     {
-                                        if (Input.GetKey(KeyCode.W) || Input.GetAxisRaw("P1_360_L_UpStick") <= -0.5f)
+                                        if (Input.GetKey(KeyCode.W))
                                         {
 
                                             MainCameraRoot.transform.Translate(new Vector3(0, -3.2f, 0) * normalMoveSpeed * Time.deltaTime);
@@ -149,7 +149,7 @@ public class FlyingCam : MonoBehaviour {
 
                                     if ((CameraCheck.y >= 0))
                                     {
-                                        if (Input.GetKey(KeyCode.S) || Input.GetAxisRaw("P1_360_L_UpStick") >= 0.5f)
+                                        if (Input.GetKey(KeyCode.S))
                                         {
 
                                             MainCameraRoot.transform.Translate(new Vector3(0, 3.2f, 0) * normalMoveSpeed * Time.deltaTime);
