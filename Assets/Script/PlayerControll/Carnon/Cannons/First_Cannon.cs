@@ -73,27 +73,28 @@ public class First_Cannon : MonoBehaviour {
 
             case GameState.GameStart:
                 {
-                    switch (ViewMode)
+                    switch (MyCannonNumber)
                     {
-                        case ViewControllMode.Mouse:
+                        case CannonNumber.First:
                             {
-                                switch (MyCannonNumber)
+                                SelectLight.enabled = true;
+                                CrossHair_Icon.gameObject.SetActive(true);
+
+                                //Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, 100);
+                                //Vector3 direction = new Vector3(hit.normal.x, hit.normal.y * 1, hit.normal.z);
+
+                                // 마우스 작업
+
+                                TargetDis = Vector3.Distance(CrossHair_Icon.transform.position, Cannons[0].transform.position);
+
+                                //this.transform.LookAt(new Vector3(CrossHair_Icon.transform.position.x, 0, CrossHair_Icon.transform.position.z));
+
+                                //print(this.gameObject.transform.localRotation.eulerAngles.y);
+
+                                switch (ViewMode)
                                 {
-                                    case CannonNumber.First:
+                                    case ViewControllMode.Mouse:
                                         {
-                                            SelectLight.enabled = true;
-                                            CrossHair_Icon.gameObject.SetActive(true);
-
-                                            //Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, 100);
-                                            //Vector3 direction = new Vector3(hit.normal.x, hit.normal.y * 1, hit.normal.z);
-
-                                            // 마우스 작업
-
-                                            TargetDis = Vector3.Distance(CrossHair_Icon.transform.position, Cannons[0].transform.position);
-
-                                            //this.transform.LookAt(new Vector3(CrossHair_Icon.transform.position.x, 0, CrossHair_Icon.transform.position.z));
-
-                                            //print(this.gameObject.transform.localRotation.eulerAngles.y);
 
                                             if (Input.GetKey(KeyCode.LeftArrow))
                                             {
@@ -139,102 +140,11 @@ public class First_Cannon : MonoBehaviour {
                                                 }
 
                                             }
-
-
-                                            //print(this.transform.rotation.eulerAngles);
-                                            //print(TargetDis);
-                                            // print("Cannons[0].rotation.x : " + Cannons[0].transform.eulerAngles.x);
-                                            //print("Cannons[0].rotation.y : " + Cannons[0].transform.eulerAngles.y);
-                                            //print("Cannons[0].rotation.z : " + Cannons[0].transform.eulerAngles.z);
-
-                                            //if (Input.GetKey(KeyCode.DownArrow))
-                                            //{
-                                            //    transform.position += new Vector3(0, 0, -1.5f) * normalMoveSpeed * Time.deltaTime;
-
-                                            //}
-                                            //if (Input.GetKey(KeyCode.UpArrow))
-                                            //{
-                                            //    transform.position += new Vector3(0, 0, 1.5f) * normalMoveSpeed * Time.deltaTime;
-                                            //}
-
-                                            //if(Input.GetKey(KeyCode.LeftArrow))
-                                            //{
-                                            //    transform.position += new Vector3(-1, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
-                                            //    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
-                                            //    transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
-                                            //    //transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
-                                            //}
-                                            //if (Input.GetKey(KeyCode.RightArrow))
-                                            //{
-                                            //    transform.position += new Vector3(1, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
-                                            //    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
-                                            //    transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
-                                            //   // transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
-                                            //}
-                                            //if (Input.GetKey(KeyCode.DownArrow))
-                                            //{
-                                            //    transform.position += new Vector3(0, hit.normal.y, -1) * normalMoveSpeed * Time.deltaTime;
-                                            //    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
-                                            //    transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
-                                            //    //transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
-                                            //    //transform.position += (-1 * transform.forward) * normalMoveSpeed * Time.deltaTime;
-                                            //}
-                                            //if (Input.GetKey(KeyCode.UpArrow))
-                                            //{
-                                            //    transform.position += new Vector3(0, hit.normal.y, 1) * normalMoveSpeed * Time.deltaTime;
-                                            //    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
-                                            //    transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
-                                            //    //transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
-                                            //    //transform.position += transform.forward * normalMoveSpeed * Time.deltaTime;
-                                            //}
                                         }
                                         break;
 
-                                    case CannonNumber.Second:
+                                    case ViewControllMode.GamePad:
                                         {
-                                            SelectLight.enabled = false;
-                                            CrossHair_Icon.gameObject.SetActive(false);
-                                        }
-                                        break;
-
-                                    case CannonNumber.Third:
-                                        {
-                                            SelectLight.enabled = false;
-                                            CrossHair_Icon.gameObject.SetActive(false);
-                                        }
-                                        break;
-
-                                    case CannonNumber.Fourth:
-                                        {
-                                            SelectLight.enabled = false;
-                                            CrossHair_Icon.gameObject.SetActive(false);
-                                        }
-                                        break;
-
-                                    default:
-                                        {
-                                            SelectLight.enabled = false;
-                                            CrossHair_Icon.gameObject.SetActive(false);
-                                        }
-                                        break;
-                                }
-                                
-                            }
-                            break;
-
-                        case ViewControllMode.GamePad:
-                            {
-                                switch (MyCannonNumber)
-                                {
-                                    case CannonNumber.First:
-                                        {
-                                            //print("GamePad 2 On");
-
-                                            SelectLight.enabled = true;
-                                            CrossHair_Icon.gameObject.SetActive(true);
-
-                                            TargetDis = Vector3.Distance(CrossHair_Icon.transform.position, Cannons[0].transform.position);
-
                                             // 게임 패드 작업
 
                                             if (Input.GetAxisRaw("P2_360_R_RightStick") >= 0.5f)
@@ -260,9 +170,9 @@ public class First_Cannon : MonoBehaviour {
 
                                                 if (TargetDis >= 36.0f)
                                                 {
-                                                    Cannons[0].transform.Rotate(new Vector3(-90, 0, 0), 7 * Time.deltaTime);
+                                                    Cannons[0].transform.Rotate(new Vector3(90, 0, 0), 7 * Time.deltaTime);
 
-                                                    CrossHair_Icon.transform.Translate(new Vector3(0, 2.5f, 0) * normalMoveSpeed * Time.deltaTime);
+                                                    CrossHair_Icon.transform.Translate(new Vector3(0, -2.5f, 0) * normalMoveSpeed * Time.deltaTime);
                                                     //CrossHair_Icon.transform.position += new Vector3(0, hit.normal.y, -1) * normalMoveSpeed * Time.deltaTime;
                                                 }
 
@@ -277,7 +187,7 @@ public class First_Cannon : MonoBehaviour {
                                                 {
                                                     Cannons[0].transform.Rotate(new Vector3(-90, 0, 0), 7 * Time.deltaTime);
 
-                                                    CrossHair_Icon.transform.Translate(new Vector3(0, -2.5f, 0) * normalMoveSpeed * Time.deltaTime);
+                                                    CrossHair_Icon.transform.Translate(new Vector3(0, 2.5f, 0) * normalMoveSpeed * Time.deltaTime);
                                                 }
                                             }
 
@@ -288,39 +198,89 @@ public class First_Cannon : MonoBehaviour {
 
                                         }
                                         break;
-
-                                    case CannonNumber.Second:
-                                        {
-                                            SelectLight.enabled = false;
-                                            CrossHair_Icon.gameObject.SetActive(false);
-                                        }
-                                        break;
-
-                                    case CannonNumber.Third:
-                                        {
-                                            SelectLight.enabled = false;
-                                            CrossHair_Icon.gameObject.SetActive(false);
-                                        }
-                                        break;
-
-                                    case CannonNumber.Fourth:
-                                        {
-                                            SelectLight.enabled = false;
-                                            CrossHair_Icon.gameObject.SetActive(false);
-                                        }
-                                        break;
-
-                                    default:
-                                        {
-                                            SelectLight.enabled = false;
-                                            CrossHair_Icon.gameObject.SetActive(false);
-                                        }
-                                        break;
                                 }
-                              
+
+                               
+
+
+                                //print(this.transform.rotation.eulerAngles);
+                                //print(TargetDis);
+                                // print("Cannons[0].rotation.x : " + Cannons[0].transform.eulerAngles.x);
+                                //print("Cannons[0].rotation.y : " + Cannons[0].transform.eulerAngles.y);
+                                //print("Cannons[0].rotation.z : " + Cannons[0].transform.eulerAngles.z);
+
+                                //if (Input.GetKey(KeyCode.DownArrow))
+                                //{
+                                //    transform.position += new Vector3(0, 0, -1.5f) * normalMoveSpeed * Time.deltaTime;
+
+                                //}
+                                //if (Input.GetKey(KeyCode.UpArrow))
+                                //{
+                                //    transform.position += new Vector3(0, 0, 1.5f) * normalMoveSpeed * Time.deltaTime;
+                                //}
+
+                                //if(Input.GetKey(KeyCode.LeftArrow))
+                                //{
+                                //    transform.position += new Vector3(-1, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
+                                //    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                                //    transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
+                                //    //transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
+                                //}
+                                //if (Input.GetKey(KeyCode.RightArrow))
+                                //{
+                                //    transform.position += new Vector3(1, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
+                                //    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                                //    transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
+                                //   // transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
+                                //}
+                                //if (Input.GetKey(KeyCode.DownArrow))
+                                //{
+                                //    transform.position += new Vector3(0, hit.normal.y, -1) * normalMoveSpeed * Time.deltaTime;
+                                //    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                                //    transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
+                                //    //transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
+                                //    //transform.position += (-1 * transform.forward) * normalMoveSpeed * Time.deltaTime;
+                                //}
+                                //if (Input.GetKey(KeyCode.UpArrow))
+                                //{
+                                //    transform.position += new Vector3(0, hit.normal.y, 1) * normalMoveSpeed * Time.deltaTime;
+                                //    transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
+                                //    transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
+                                //    //transform.rotation = Quaternion.LookRotation(Vector3.forward, hit.normal);
+                                //    //transform.position += transform.forward * normalMoveSpeed * Time.deltaTime;
+                                //}
+                            }
+                            break;
+
+                        case CannonNumber.Second:
+                            {
+                                SelectLight.enabled = false;
+                                CrossHair_Icon.gameObject.SetActive(false);
+                            }
+                            break;
+
+                        case CannonNumber.Third:
+                            {
+                                SelectLight.enabled = false;
+                                CrossHair_Icon.gameObject.SetActive(false);
+                            }
+                            break;
+
+                        case CannonNumber.Fourth:
+                            {
+                                SelectLight.enabled = false;
+                                CrossHair_Icon.gameObject.SetActive(false);
+                            }
+                            break;
+
+                        default:
+                            {
+                                SelectLight.enabled = false;
+                                CrossHair_Icon.gameObject.SetActive(false);
                             }
                             break;
                     }
+
                 }
                 break;
 

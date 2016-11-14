@@ -22,6 +22,8 @@ public class FlyingCam : MonoBehaviour {
     private float StartYPos;
     private Vector3 StartZoomPos;
 
+    private bool JoyPadZoomInOut;
+
     //private float rotationX = 0.0f;
     //private float rotationY = 0.0f;
 
@@ -39,7 +41,10 @@ public class FlyingCam : MonoBehaviour {
 
     void Awake()
     {
-        animator = GetComponent<Animator>();
+        if(animator == null)
+        {
+            animator = GetComponent<Animator>();
+        }
 
         Gamestate = GameManager.Gamestate;
         ViewMode = GameManager.ViewMode;
@@ -48,6 +53,9 @@ public class FlyingCam : MonoBehaviour {
         StartYPos = MainCameraRoot.transform.position.y;
         StartZoomPos = MainCameraRoot.transform.position;
         ZoomInOut = 0.0f;
+
+        JoyPadZoomInOut = false;
+        
         //Screen.lockCursor = true;
         //Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false;
@@ -101,7 +109,7 @@ public class FlyingCam : MonoBehaviour {
                                 {
                                     if ((CameraCheck.x >= 0))
                                     {
-                                        if (Input.GetKey(KeyCode.A))
+                                        if (Input.GetKey(KeyCode.A) || Input.GetAxisRaw("P1_360_L_RightStick") <= -0.5f)
                                         {
                                             MainCameraRoot.transform.Translate(new Vector3(2.8f, 0, 0) * normalMoveSpeed * Time.deltaTime);
 
@@ -114,7 +122,7 @@ public class FlyingCam : MonoBehaviour {
 
                                     if ((CameraCheck.x <= Screen.width))
                                     {
-                                        if (Input.GetKey(KeyCode.D))
+                                        if (Input.GetKey(KeyCode.D) || Input.GetAxisRaw("P1_360_L_RightStick") >= 0.5f)
                                         {
                                             MainCameraRoot.transform.Translate(new Vector3(-2.8f, 0, 0) * normalMoveSpeed * Time.deltaTime);
 
@@ -129,7 +137,7 @@ public class FlyingCam : MonoBehaviour {
 
                                     if ((CameraCheck.y <= Screen.height))
                                     {
-                                        if (Input.GetKey(KeyCode.W))
+                                        if (Input.GetKey(KeyCode.W) || Input.GetAxisRaw("P1_360_L_UpStick") <= -0.5f)
                                         {
 
                                             MainCameraRoot.transform.Translate(new Vector3(0, -3.2f, 0) * normalMoveSpeed * Time.deltaTime);
@@ -141,7 +149,7 @@ public class FlyingCam : MonoBehaviour {
 
                                     if ((CameraCheck.y >= 0))
                                     {
-                                        if (Input.GetKey(KeyCode.S))
+                                        if (Input.GetKey(KeyCode.S) || Input.GetAxisRaw("P1_360_L_UpStick") >= 0.5f)
                                         {
 
                                             MainCameraRoot.transform.Translate(new Vector3(0, 3.2f, 0) * normalMoveSpeed * Time.deltaTime);
@@ -219,59 +227,52 @@ public class FlyingCam : MonoBehaviour {
                                 {
                                     if ((CameraCheck.x >= 0))
                                     {
-                                        if (Input.GetAxisRaw("P1_360_L_RightStick") <= -0.5f)
+                                        if (Input.GetKey(KeyCode.A) || Input.GetAxisRaw("P1_360_L_RightStick") <= -0.5f)
                                         {
-
-                                            Debug.Log("LeftStick!");
-
                                             MainCameraRoot.transform.Translate(new Vector3(2.8f, 0, 0) * normalMoveSpeed * Time.deltaTime);
 
 
 
                                             MainCameraChecker.transform.Translate(new Vector3(1.7f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+
                                         }
                                     }
 
                                     if ((CameraCheck.x <= Screen.width))
                                     {
-                                        if (Input.GetAxisRaw("P1_360_L_RightStick") >= 0.5f)
+                                        if (Input.GetKey(KeyCode.D) || Input.GetAxisRaw("P1_360_L_RightStick") >= 0.5f)
                                         {
-
-                                            Debug.Log("RightStick!");
-
                                             MainCameraRoot.transform.Translate(new Vector3(-2.8f, 0, 0) * normalMoveSpeed * Time.deltaTime);
 
 
 
 
                                             MainCameraChecker.transform.Translate(new Vector3(-1.7f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+
+
                                         }
                                     }
 
                                     if ((CameraCheck.y <= Screen.height))
                                     {
-                                        if (Input.GetAxisRaw("P1_360_L_UpStick") <= -0.5f)
+                                        if (Input.GetKey(KeyCode.W) || Input.GetAxisRaw("P1_360_L_UpStick") <= -0.5f)
                                         {
-
-                                            Debug.Log("UpStick!");
 
                                             MainCameraRoot.transform.Translate(new Vector3(0, -3.2f, 0) * normalMoveSpeed * Time.deltaTime);
 
-                                            MainCameraChecker.transform.Translate(new Vector3(0, -1.5f, 0) * normalMoveSpeed * Time.deltaTime);
+                                            MainCameraChecker.transform.Translate(new Vector3(0, -0.7f, 0) * normalMoveSpeed * Time.deltaTime);
 
                                         }
                                     }
 
                                     if ((CameraCheck.y >= 0))
                                     {
-                                        if (Input.GetAxisRaw("P1_360_L_UpStick") >= 0.5f)
+                                        if (Input.GetKey(KeyCode.S) || Input.GetAxisRaw("P1_360_L_UpStick") >= 0.5f)
                                         {
-
-                                            Debug.Log("DownStick!");
 
                                             MainCameraRoot.transform.Translate(new Vector3(0, 3.2f, 0) * normalMoveSpeed * Time.deltaTime);
 
-                                            MainCameraChecker.transform.Translate(new Vector3(0, 1.5f, 0) * normalMoveSpeed * Time.deltaTime);
+                                            MainCameraChecker.transform.Translate(new Vector3(0, 0.7f, 0) * normalMoveSpeed * Time.deltaTime);
                                         }
                                     }
 
@@ -305,6 +306,7 @@ public class FlyingCam : MonoBehaviour {
                                     }
 
                                     // 줌 인 & 줌 아웃 기능
+
                                     if (Input.GetAxis("P1_360_Trigger") > 0.001)
                                     {
 
@@ -319,11 +321,7 @@ public class FlyingCam : MonoBehaviour {
 
                                         StartZoomPos = new Vector3(MainCameraRoot.transform.localPosition.x, StartYPos, MainCameraRoot.transform.localPosition.z);
 
-                                    }
-                                    else if (Input.GetAxis("P1_360_Trigger") == 0)
-                                    {
-                                        MainCameraRoot.transform.localPosition = StartZoomPos;
-                                        ZoomInOut = 0.0f;
+                                        JoyPadZoomInOut = true;
                                     }
 
                                     if (Input.GetAxis("P1_360_Trigger") < 0)
@@ -340,12 +338,19 @@ public class FlyingCam : MonoBehaviour {
 
                                         StartZoomPos = new Vector3(MainCameraRoot.transform.localPosition.x, StartYPos, MainCameraRoot.transform.localPosition.z);
 
+                                        JoyPadZoomInOut = true;
+                                        
                                     }
-                                    else if (Input.GetAxis("P1_360_Trigger") == 0)
+
+                                    if (Input.GetAxis("P1_360_Trigger") == 0 && JoyPadZoomInOut == true)
                                     {
                                         MainCameraRoot.transform.localPosition = StartZoomPos;
                                         ZoomInOut = 0.0f;
+                                        JoyPadZoomInOut = false;
                                     }
+
+                                    
+                                    
                                 }
                                 break;
                         }

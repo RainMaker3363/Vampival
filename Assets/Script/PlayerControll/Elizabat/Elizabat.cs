@@ -61,6 +61,8 @@ public class Elizabat : MonoBehaviour {
     public Image[] Skill_Swarm_Commands;
 
     public Sprite[] Command_Arrows;
+    public GameObject TimeClock;
+    public Text ClockTimer;
 
     public GameObject CameraChecker;
     public GameObject SkillTarget;
@@ -105,6 +107,9 @@ public class Elizabat : MonoBehaviour {
     private int SwarmMaxCount;
     private int DecentMaxCount;
     private int SonicMaxCount;
+
+    // 스킬 이펙트 들...
+    public GameObject CarrionSwarmEffect;
 
     private int NowSkillChecking;
     private bool CommandOn;
@@ -203,6 +208,12 @@ public class Elizabat : MonoBehaviour {
         SwarmTimeLimit = 3.0f;
 
         CommandCheckTimer = 0.0f;
+
+        TimeClock.SetActive(false);
+        ClockTimer.text = "";
+
+        // 스킬 파티클들 설정
+        CarrionSwarmEffect.SetActive(false);
 
         if (Audio == null)
         {
@@ -378,33 +389,106 @@ public class Elizabat : MonoBehaviour {
 
                                 if (!GameManager.Elizabat_CommandStart && !GameManager.Elizabat_SkillStart)
                                 {
-                                    light.enabled = false;
-                                    SkillTarget.gameObject.SetActive(false);
 
-                                    if (Input.GetKeyDown(KeyCode.C))
+
+                                    if (Input.GetKeyDown(KeyCode.X))
                                     {
-                                        Debug.Log("Command Start!");
-
                                         CameraChecker.transform.position = CheckerStartPos;
-
-                                        CommandInitilization();
 
                                         // Skill UI 활성화 사운드
                                         Audio.clip = CommandStart_Sound;
                                         Audio.Play();
 
+                                        light.enabled = false;
+                                        SkillTarget.gameObject.SetActive(false);
+
+                                        Debug.Log("Command Start!");
+
+                                        CommandInitilization(1);
+                                    }
+                                    else if (Input.GetKeyDown(KeyCode.C))
+                                    {
+                                        CameraChecker.transform.position = CheckerStartPos;
+
+                                        // Skill UI 활성화 사운드
+                                        Audio.clip = CommandStart_Sound;
+                                        Audio.Play();
+
+                                        light.enabled = false;
+                                        SkillTarget.gameObject.SetActive(false);
+                                        
+                                        Debug.Log("Command Start!");
+
+                                        CommandInitilization(2);
+                                    }
+                                    else if (Input.GetKeyDown(KeyCode.V))
+                                    {
+                                        CameraChecker.transform.position = CheckerStartPos;
+
+                                        // Skill UI 활성화 사운드
+                                        Audio.clip = CommandStart_Sound;
+                                        Audio.Play();
+
+                                        light.enabled = true;
+                                        SkillTarget.gameObject.SetActive(true);
+                                        
+                                        Debug.Log("Command Start!");
+
+                                        CommandInitilization(3);
+                                    }
+                                    else if (Input.GetKeyDown(KeyCode.B))
+                                    {
+                                        CameraChecker.transform.position = CheckerStartPos;
+
+                                        // Skill UI 활성화 사운드
+                                        Audio.clip = CommandStart_Sound;
+                                        Audio.Play();
+
+                                        light.enabled = true;
+                                        SkillTarget.gameObject.SetActive(true);
+
+                                        Debug.Log("Command Start!");
+
+                                        CommandInitilization(4);
+                                    }
+
+                                        //if(Input.GetKeyDown(KeyCode.UpArrow))
+                                        //{
+                                        //    Debug.Log("Command Start!");
+
+                                        //    CommandInitilization(1);
+                                        //}
+                                        //else if (Input.GetKeyDown(KeyCode.LeftArrow))
+                                        //{
+                                        //    Debug.Log("Command Start!");
+
+                                        //    CommandInitilization(2);
+                                        //}
+                                        //else if (Input.GetKeyDown(KeyCode.DownArrow))
+                                        //{
+                                        //    Debug.Log("Command Start!");
+
+                                        //    CommandInitilization(3);
+                                        //}
+                                        //else if (Input.GetKeyDown(KeyCode.RightArrow))
+                                        //{
+                                        //    Debug.Log("Command Start!");
+
+                                        //    CommandInitilization(4);
+                                        //}
+                                        
+
                                         // Skill UI를 활성화 시킨다.
                                         //Skill_Not_Yangpigi.gameObject.SetActive(false);
                                         //Skill_True_Yangpigi.gameObject.SetActive(true);
                                         //Skill_Button.gameObject.SetActive(false);
-                                    }
+                                    
                                 }
 
 
                                 if (GameManager.Elizabat_CommandStart)
                                 {
-                                    light.enabled = true;
-                                    SkillTarget.gameObject.SetActive(true);
+                                    
 
                                     targetPosOnScreen = Camera.main.WorldToScreenPoint(CameraChecker.transform.position);
 
@@ -477,11 +561,11 @@ public class Elizabat : MonoBehaviour {
                                         }
                                     }
 
-                                    print("Soul_MP_Parameter : " + GameManager.Soul_MP_Parameter);
-                                    print("Elizabat_Eclipse_Ready : " + GameManager.Elizabat_Eclipse_Ready);
-                                    print("Elizabat_Eclipse_Unlock : " + GameManager.Elizabat_Eclipse_Unlock);
-                                    print("Elizabat_Eclipse_On : " + GameManager.Elizabat_Eclipse_On);
-                                    print("CommandStartOn : " + CommandStartOn);
+                                    //print("Soul_MP_Parameter : " + GameManager.Soul_MP_Parameter);
+                                    //print("Elizabat_Eclipse_Ready : " + GameManager.Elizabat_Eclipse_Ready);
+                                    //print("Elizabat_Eclipse_Unlock : " + GameManager.Elizabat_Eclipse_Unlock);
+                                    //print("Elizabat_Eclipse_On : " + GameManager.Elizabat_Eclipse_On);
+                                    //print("CommandStartOn : " + CommandStartOn);
 
                                     if (!CommandStartOn)
                                     {
@@ -519,6 +603,7 @@ public class Elizabat : MonoBehaviour {
                                             if (GameManager.Elizabat_Swarm_On == false && GameManager.Elizabat_Swarm_Ready == true &&
                                                 GameManager.Elizabat_Swarm_Unlock == true && GameManager.Soul_MP_Parameter >= SwarmCost)
                                             {
+
                                                 NowSkillChecking = 4;
 
                                                 if ((GameManager.Soul_MP_Parameter - SwarmCost) <= 0.0f)
@@ -544,6 +629,8 @@ public class Elizabat : MonoBehaviour {
                                             if (GameManager.Elizabat_Decent_On == false && GameManager.Elizabat_Decent_Ready == true &&
                                                 GameManager.Elizabat_Decent_Unlock == true && GameManager.Soul_MP_Parameter >= DecentCost)
                                             {
+
+
                                                 NowSkillChecking = 3;
 
                                                 if ((GameManager.Soul_MP_Parameter - DecentCost) <= 0.0f)
@@ -591,6 +678,8 @@ public class Elizabat : MonoBehaviour {
 
 
                                     CommandInputStart(NowSkillChecking);
+
+                                    //TimeClock.SetActive(true);
                                 }
  
                             }
@@ -681,48 +770,69 @@ public class Elizabat : MonoBehaviour {
 
                                 if (!GameManager.Elizabat_CommandStart && !GameManager.Elizabat_SkillStart)
                                 {
-                                    light.enabled = false;
+                                    
 
-                                    if (Input.GetButtonDown("P1_360_AButton"))
+
+                                    if (Input.GetButtonDown("P1_360_XButton"))
                                     {
                                         Debug.Log("Command Start!");
 
-                                        CameraChecker.transform.position = CheckerStartPos;
+                                        light.enabled = false;
+                                        SkillTarget.gameObject.SetActive(false);
 
-                                        CommandInitilization();
+                                        CameraChecker.transform.position = CheckerStartPos;
 
                                         // Skill UI 활성화 사운드
                                         Audio.clip = CommandStart_Sound;
                                         Audio.Play();
 
-                                        // 스킬 UI를 활성화 시킨다.
-                                        //Skill_Not_Yangpigi.gameObject.SetActive(false);
-                                        //Skill_True_Yangpigi.gameObject.SetActive(true);
-                                        //Skill_Button.gameObject.SetActive(false);
-
-                                        //if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
-                                        //{
-                                        //    CommandInitilization(4);
-                                        //}
-                                        //else if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
-                                        //{
-
-
-                                        //    CommandInitilization(2);
-                                        //}
-                                        //else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
-                                        //{
-
-                                        //    CommandInitilization(1);
-                                        //}
-                                        //else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
-                                        //{
-
-
-                                        //    CommandInitilization(3);
-                                        //}
-
+                                        CommandInitilization(1);
                                     }
+                                    else if (Input.GetButtonDown("P1_360_BButton"))
+                                    {
+                                        Debug.Log("Command Start!");
+
+                                        light.enabled = false;
+                                        SkillTarget.gameObject.SetActive(false);
+
+                                        CameraChecker.transform.position = CheckerStartPos;
+
+                                        // Skill UI 활성화 사운드
+                                        Audio.clip = CommandStart_Sound;
+                                        Audio.Play();
+
+                                        CommandInitilization(2);
+                                    }
+                                    else if (Input.GetButtonDown("P1_360_AButton"))
+                                    {
+                                        Debug.Log("Command Start!");
+
+                                        light.enabled = true;
+                                        SkillTarget.gameObject.SetActive(true);
+
+                                        CameraChecker.transform.position = CheckerStartPos;
+
+                                        // Skill UI 활성화 사운드
+                                        Audio.clip = CommandStart_Sound;
+                                        Audio.Play();
+
+                                        CommandInitilization(3);
+                                    }
+                                    else if (Input.GetButtonDown("P1_360_YButton"))
+                                    {
+                                        light.enabled = true;
+                                        SkillTarget.gameObject.SetActive(true);
+
+                                        CameraChecker.transform.position = CheckerStartPos;
+
+                                        // Skill UI 활성화 사운드
+                                        Audio.clip = CommandStart_Sound;
+                                        Audio.Play();
+
+                                        CommandInitilization(4);
+                                    }
+
+                                   
                                 }
 
                                 //print(Input.GetAxisRaw("P1_360_HorizontalDPAD"));
@@ -778,19 +888,23 @@ public class Elizabat : MonoBehaviour {
                                 //    KeyDownEnable = false;
                                 //}
 
-                                if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 0 &&
+                                if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 0 ||
                                     Input.GetAxisRaw("P1_360_VerticalDPAD") == 0)
                                 {
                                     KeyDownEnable = false;
+
+                                    //print("KeyDownEnable : " + KeyDownEnable);
+                                }
+                                else
+                                {
+                                    KeyDownEnable = true;
                                 }
 
-                                print("P1_360_HorizontalDPAD : " + Input.GetAxisRaw("P1_360_HorizontalDPAD"));
-                                print("P1_360_VerticalDPAD : " + Input.GetAxisRaw("P1_360_VerticalDPAD"));
+                                
 
                                 if (GameManager.Elizabat_CommandStart)
                                 {
-                                    light.enabled = true;
-                                    SkillTarget.gameObject.SetActive(true);
+
                                     targetPosOnScreen = Camera.main.WorldToScreenPoint(CameraChecker.transform.position);
 
 
@@ -810,7 +924,7 @@ public class Elizabat : MonoBehaviour {
                                     // 스킬 캔슬 여부
                                     if (Input.GetButtonDown("P1_360_BButton"))
                                     {
-                                        CommandCancel();
+                                        //CommandCancel();
 
                                         // Skill UI를 활성화 시킨다.
                                         //Skill_Not_Yangpigi.gameObject.SetActive(false);
@@ -996,6 +1110,10 @@ public class Elizabat : MonoBehaviour {
                                     }
 
                                     CommandInputStart(NowSkillChecking);
+
+                                    //TimeClock.SetActive(true);
+
+
                                 }
                                 //rotationY = Mathf.Clamp(rotationY, -90, 90);
 
@@ -1198,6 +1316,10 @@ public class Elizabat : MonoBehaviour {
         
         // 스웜 이펙트 출력
 
+        CarrionSwarmEffect.transform.position = SkillTarget.transform.position;
+        CarrionSwarmEffect.transform.parent = null;
+        CarrionSwarmEffect.SetActive(true);
+        
 
         yield return new WaitForSeconds(7.0f);
 
@@ -1270,19 +1392,20 @@ public class Elizabat : MonoBehaviour {
         GameManager.Elizabat_SonicWave_On = false;
     }
 
-    void CommandInitilization()
+    void CommandInitilization(int SkillNumber)
     {
         switch (Gamestate)
         {
             case GameState.GameStart:
                 {
-                    // 스킬 커맨드 표를 활성화 시켜준다.
-                    Skill_SonicWave_Command_Chart.gameObject.SetActive(true);
-                    Skill_Eclipse_Command_Chart.gameObject.SetActive(true);
-                    Skill_Decent_Command_Chart.gameObject.SetActive(true);
-                    Skill_Swarm_Command_Chart.gameObject.SetActive(true);
+                    
+                    
+                    Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
+                    Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
+                    Skill_Decent_Command_Chart.gameObject.SetActive(false);
+                    Skill_Swarm_Command_Chart.gameObject.SetActive(false);
 
-                    // 소닉 웨이브
+                    // 현재 커맨드 넘버
                     int NowCommand = 0;
 
                     SonicWaveCommand[0] = 1;
@@ -1299,31 +1422,37 @@ public class Elizabat : MonoBehaviour {
                         EclipseCommand[i] = 0;
                     }
 
+                    //스킬 화살표 색상 값 (비활성 / 활성)
+                    //Sonic Wave – 40, 30, 255 / 50, 200, 255
+                    //Blood Moon – 255, 20, 0 / 255, 125, 65
+                    //Wildfire – 30, 140, 0 / 170, 250, 65
+                    //Carrion Swarm – 155, 70, 0 / 255, 230, 65
+
                     Skill_SonicWave_Commands[0].sprite = Command_Arrows[1];
-                    Skill_SonicWave_Commands[0].color = Color.green;
+                    Skill_SonicWave_Commands[0].color = new Color32(50, 200, 255, 255);
 
                     Skill_Eclipse_Commands[0].sprite = Command_Arrows[2];
-                    Skill_Eclipse_Commands[0].color = Color.blue;
+                    Skill_Eclipse_Commands[0].color = new Color32(255, 125, 65, 255);
 
                     Skill_Decent_Commands[0].sprite = Command_Arrows[3];
-                    Skill_Decent_Commands[0].color = Color.yellow;
+                    Skill_Decent_Commands[0].color = new Color32(170, 250, 65, 255);
 
                     Skill_Swarm_Commands[0].sprite = Command_Arrows[4];
-                    Skill_Swarm_Commands[0].color = Color.red;
+                    Skill_Swarm_Commands[0].color = new Color32(255, 230, 65, 255);
 
                     for (int j = 1; j < Skill_Eclipse_Commands.Length; j++)
                     {
                         Skill_SonicWave_Commands[j].sprite = Command_Arrows[0];
-                        Skill_SonicWave_Commands[j].color = new Color(0, 0, 0, 0);
+                        Skill_SonicWave_Commands[j].color = new Color32(40, 30, 255, 0);
                         
                         Skill_Eclipse_Commands[j].sprite = Command_Arrows[0];
-                        Skill_Eclipse_Commands[j].color = new Color(0, 0, 0, 0);
+                        Skill_Eclipse_Commands[j].color = new Color32(255, 20, 0, 0);
                         
                         Skill_Decent_Commands[j].sprite = Command_Arrows[0];
-                        Skill_Decent_Commands[j].color = new Color(0, 0, 0, 0);
+                        Skill_Decent_Commands[j].color = new Color32(30, 140, 0, 0);
                         
                         Skill_Swarm_Commands[j].sprite = Command_Arrows[0];
-                        Skill_Swarm_Commands[j].color = new Color(0, 0, 0, 0);
+                        Skill_Swarm_Commands[j].color = new Color32(155, 70, 0, 0);
                     }
 
                     //SonicMaxCount = Random.Range(2, 5);
@@ -1335,205 +1464,288 @@ public class Elizabat : MonoBehaviour {
                     EclipseMaxCount = 4;// Random.Range(2, 4);
                     DecentMaxCount = 5;// Random.Range(2, 5);
                     SwarmMaxCount = 6;// Random.Range(2, 6);
+
+                    switch(SkillNumber)
+                    {
+                        // 소닉 웨이브
+                        case 1:
+                            {
+
+                                // 스킬 커맨드 표를 활성화 시켜준다.
+                                Skill_SonicWave_Command_Chart.gameObject.SetActive(true);
+
+                                ClockTimer.text = SonicTimeLimit.ToString();
+
+                                CommandCheckTimer = SonicTimeLimit;
+
+                                for (int i = 1; i < SonicMaxCount; i++)
+                                {
+                                    NowCommand = Random.Range(1, 5);
+
+                                    SonicWaveCommand[i] = NowCommand;
+
+                                    switch (NowCommand)
+                                    {
+                                        case 1:
+                                            {
+                                                Skill_SonicWave_Commands[i].sprite = Command_Arrows[1];
+                                                Skill_SonicWave_Commands[i].color = new Color32(50, 200, 255, 255);
+                                            }
+                                            break;
+
+                                        case 2:
+                                            {
+                                                Skill_SonicWave_Commands[i].sprite = Command_Arrows[2];
+                                                Skill_SonicWave_Commands[i].color = new Color32(50, 200, 255, 255);
+                                            }
+                                            break;
+
+                                        case 3:
+                                            {
+                                                Skill_SonicWave_Commands[i].sprite = Command_Arrows[3];
+                                                Skill_SonicWave_Commands[i].color = new Color32(50, 200, 255, 255);
+                                            }
+                                            break;
+
+                                        case 4:
+                                            {
+                                                Skill_SonicWave_Commands[i].sprite = Command_Arrows[4];
+                                                Skill_SonicWave_Commands[i].color = new Color32(50, 200, 255, 255);
+                                            }
+                                            break;
+
+                                        default:
+                                            {
+                                                Skill_SonicWave_Commands[i].sprite = Command_Arrows[0];
+                                                Skill_SonicWave_Commands[i].color = new Color32(255, 20, 0, 255);
+                                            }
+                                            break;
+                                    }
+
+
+                                }
+
+                                Debug.Log("[1] SonicWaveCommand : " + SonicWaveCommand[0] + SonicWaveCommand[1] + SonicWaveCommand[2] + SonicWaveCommand[3] + SonicWaveCommand[4] + SonicWaveCommand[5] + SonicWaveCommand[6]);
+                            }
+                            break;
+                        // 일식
+                        case 2:
+                            {
+                                // 스킬 커맨드 표를 활성화 시켜준다.
+                                Skill_Eclipse_Command_Chart.gameObject.SetActive(true);
+
+                                ClockTimer.text = EclipseTimeLimit.ToString();
+
+                                CommandCheckTimer = EclipseTimeLimit;
+
+                                for (int i = 1; i < EclipseMaxCount; i++)
+                                {
+                                    NowCommand = Random.Range(1, 5);
+
+                                    EclipseCommand[i] = NowCommand;
+
+                                    switch (NowCommand)
+                                    {
+                                        case 1:
+                                            {
+
+                                                Skill_Eclipse_Commands[i].sprite = Command_Arrows[1];
+                                                Skill_Eclipse_Commands[i].color = new Color32(255, 125, 65, 255);
+                                            }
+                                            break;
+
+                                        case 2:
+                                            {
+                                                Skill_Eclipse_Commands[i].sprite = Command_Arrows[2];
+                                                Skill_Eclipse_Commands[i].color = new Color32(255, 125, 65, 255);
+                                            }
+                                            break;
+
+                                        case 3:
+                                            {
+                                                Skill_Eclipse_Commands[i].sprite = Command_Arrows[3];
+                                                Skill_Eclipse_Commands[i].color = new Color32(255, 125, 65, 255);
+                                            }
+                                            break;
+
+                                        case 4:
+                                            {
+                                                Skill_Eclipse_Commands[i].sprite = Command_Arrows[4];
+                                                Skill_Eclipse_Commands[i].color = new Color32(255, 125, 65, 255);
+                                            }
+                                            break;
+
+                                        default:
+                                            {
+                                                Skill_Eclipse_Commands[i].sprite = Command_Arrows[0];
+                                                Skill_Eclipse_Commands[i].color = new Color32(255, 20, 0, 255);
+                                            }
+                                            break;
+                                    }
+
+                                }
+
+                                Debug.Log("[2] EclipseCommand : " + EclipseCommand[0] + EclipseCommand[1] + EclipseCommand[2] + EclipseCommand[3] + EclipseCommand[4] + EclipseCommand[5] + EclipseCommand[6]);
+                            }
+                            break;
+
+                        // 강하 공격
+                        case 3:
+                            {
+                                // 스킬 커맨드 표를 활성화 시켜준다.
+                                Skill_Decent_Command_Chart.gameObject.SetActive(true);
+
+                                ClockTimer.text = DecentTimeLimit.ToString();
+
+                                CommandCheckTimer = DecentTimeLimit;
+
+                                for (int i = 1; i < DecentMaxCount; i++)
+                                {
+                                    NowCommand = Random.Range(1, 5);
+
+                                    DecentCommand[i] = NowCommand;
+
+                                    switch (NowCommand)
+                                    {
+                                        case 1:
+                                            {
+
+                                                Skill_Decent_Commands[i].sprite = Command_Arrows[1];
+                                                Skill_Decent_Commands[i].color = new Color32(170, 250, 65, 255);
+                                            }
+                                            break;
+
+                                        case 2:
+                                            {
+                                                Skill_Decent_Commands[i].sprite = Command_Arrows[2];
+                                                Skill_Decent_Commands[i].color = new Color32(170, 250, 65, 255);
+                                            }
+                                            break;
+
+                                        case 3:
+                                            {
+                                                Skill_Decent_Commands[i].sprite = Command_Arrows[3];
+                                                Skill_Decent_Commands[i].color = new Color32(170, 250, 65, 255);
+                                            }
+                                            break;
+
+                                        case 4:
+                                            {
+                                                Skill_Decent_Commands[i].sprite = Command_Arrows[4];
+                                                Skill_Decent_Commands[i].color = new Color32(170, 250, 65, 255);
+                                            }
+                                            break;
+
+                                        default:
+                                            {
+                                                Skill_Decent_Commands[i].sprite = Command_Arrows[0];
+                                                Skill_Decent_Commands[i].color = new Color32(30, 140, 0, 255);
+                                            }
+                                            break;
+                                    }
+                                }
+
+                                Debug.Log("[3] DecentCommand : " + DecentCommand[0] + DecentCommand[1] + DecentCommand[2] + DecentCommand[3] + DecentCommand[4] + DecentCommand[5] + DecentCommand[6]);
+                            }
+                            break;
+
+                        // 스웜 공격
+                        case 4:
+                            {
+                                // 스킬 커맨드 표를 활성화 시켜준다.
+                                Skill_Swarm_Command_Chart.gameObject.SetActive(true);
+
+                                ClockTimer.text = SwarmTimeLimit.ToString();
+                                CommandCheckTimer = SwarmTimeLimit;
+
+                                for (int i = 1; i < SwarmMaxCount; i++)
+                                {
+                                    NowCommand = Random.Range(1, 5);
+
+                                    SwarmCommand[i] = NowCommand;
+
+                                    switch (NowCommand)
+                                    {
+                                        case 1:
+                                            {
+
+                                                Skill_Swarm_Commands[i].sprite = Command_Arrows[1];
+                                                Skill_Swarm_Commands[i].color = new Color32(255, 230, 65, 255);
+                                            }
+                                            break;
+
+                                        case 2:
+                                            {
+                                                Skill_Swarm_Commands[i].sprite = Command_Arrows[2];
+                                                Skill_Swarm_Commands[i].color = new Color32(255, 230, 65, 255);
+                                            }
+                                            break;
+
+                                        case 3:
+                                            {
+                                                Skill_Swarm_Commands[i].sprite = Command_Arrows[3];
+                                                Skill_Swarm_Commands[i].color = new Color32(255, 230, 65, 255);
+                                            }
+                                            break;
+
+                                        case 4:
+                                            {
+                                                Skill_Swarm_Commands[i].sprite = Command_Arrows[4];
+                                                Skill_Swarm_Commands[i].color = new Color32(255, 230, 65, 255);
+                                            }
+                                            break;
+
+                                        default:
+                                            {
+                                                Skill_Swarm_Commands[i].sprite = Command_Arrows[0];
+                                                Skill_Swarm_Commands[i].color = new Color32(155, 70, 0, 255);
+                                            }
+                                            break;
+                                    }
+
+                                    Debug.Log("[4] SwarmCommand : " + SwarmCommand[0] + SwarmCommand[1] + SwarmCommand[2] + SwarmCommand[3] + SwarmCommand[4] + SwarmCommand[5] + SwarmCommand[6]);
+                                }
+                            }
+                            break;
+                    }
                     
-
-                    for (int i = 1; i < SonicMaxCount; i++)
-                    {
-                        NowCommand = Random.Range(1, 5);
-
-                        SonicWaveCommand[i] = NowCommand;
-                        
-                        switch(NowCommand)
-                        {
-                            case 1:
-                                {
-                                    Skill_SonicWave_Commands[i].sprite = Command_Arrows[1];
-                                    Skill_SonicWave_Commands[i].color = Color.green;
-                                }
-                                break;
-
-                            case 2:
-                                {
-                                    Skill_SonicWave_Commands[i].sprite = Command_Arrows[2];
-                                    Skill_SonicWave_Commands[i].color = Color.green;
-                                }
-                                break;
-
-                            case 3:
-                                {
-                                    Skill_SonicWave_Commands[i].sprite = Command_Arrows[3];
-                                    Skill_SonicWave_Commands[i].color = Color.green;
-                                }
-                                break;
-
-                            case 4:
-                                {
-                                    Skill_SonicWave_Commands[i].sprite = Command_Arrows[4];
-                                    Skill_SonicWave_Commands[i].color = Color.green;
-                                }
-                                break;
-
-                            default:
-                                {
-                                    Skill_SonicWave_Commands[i].sprite = Command_Arrows[0];
-                                    Skill_SonicWave_Commands[i].color = new Color(0, 0, 0, 0);
-                                }
-                                break;
-                        }
-                        
-                    
-                    }
-
-                    for (int i = 1; i < EclipseMaxCount; i++)
-                    {
-                        NowCommand = Random.Range(1, 5);
-
-                        EclipseCommand[i] = NowCommand;
-
-                        switch (NowCommand)
-                        {
-                            case 1:
-                                {
-
-                                    Skill_Eclipse_Commands[i].sprite = Command_Arrows[1];
-                                    Skill_Eclipse_Commands[i].color = Color.blue;
-                                }
-                                break;
-
-                            case 2:
-                                {
-                                    Skill_Eclipse_Commands[i].sprite = Command_Arrows[2];
-                                    Skill_Eclipse_Commands[i].color = Color.blue;
-                                }
-                                break;
-
-                            case 3:
-                                {
-                                    Skill_Eclipse_Commands[i].sprite = Command_Arrows[3];
-                                    Skill_Eclipse_Commands[i].color = Color.blue;
-                                }
-                                break;
-
-                            case 4:
-                                {
-                                    Skill_Eclipse_Commands[i].sprite = Command_Arrows[4];
-                                    Skill_Eclipse_Commands[i].color = Color.blue;
-                                }
-                                break;
-
-                            default:
-                                {
-                                    Skill_Eclipse_Commands[i].sprite = Command_Arrows[0];
-                                    Skill_Eclipse_Commands[i].color = new Color(0, 0, 0, 0);
-                                }
-                                break;
-                        }
-                    }
-
-                    for (int i = 1; i < SwarmMaxCount; i++)
-                    {
-                        NowCommand = Random.Range(1, 5);
-
-                        SwarmCommand[i] = NowCommand;
-
-                        switch (NowCommand)
-                        {
-                            case 1:
-                                {
-
-                                    Skill_Swarm_Commands[i].sprite = Command_Arrows[1];
-                                    Skill_Swarm_Commands[i].color = Color.red;
-                                }
-                                break;
-
-                            case 2:
-                                {
-                                    Skill_Swarm_Commands[i].sprite = Command_Arrows[2];
-                                    Skill_Swarm_Commands[i].color = Color.red;
-                                }
-                                break;
-
-                            case 3:
-                                {
-                                    Skill_Swarm_Commands[i].sprite = Command_Arrows[3];
-                                    Skill_Swarm_Commands[i].color = Color.red;
-                                }
-                                break;
-
-                            case 4:
-                                {
-                                    Skill_Swarm_Commands[i].sprite = Command_Arrows[4];
-                                    Skill_Swarm_Commands[i].color = Color.red;
-                                }
-                                break;
-
-                            default:
-                                {
-                                    Skill_Swarm_Commands[i].sprite = Command_Arrows[0];
-                                    Skill_Swarm_Commands[i].color = new Color(0, 0, 0, 0);
-                                }
-                                break;
-                        }
-                    }
-                    for (int i = 1; i < DecentMaxCount; i++)
-                    {
-                        NowCommand = Random.Range(1, 5);
-
-                        DecentCommand[i] = NowCommand;
-
-                        switch (NowCommand)
-                        {
-                            case 1:
-                                {
-
-                                    Skill_Decent_Commands[i].sprite = Command_Arrows[1];
-                                    Skill_Decent_Commands[i].color = Color.yellow;
-                                }
-                                break;
-
-                            case 2:
-                                {
-                                    Skill_Decent_Commands[i].sprite = Command_Arrows[2];
-                                    Skill_Decent_Commands[i].color = Color.yellow;
-                                }
-                                break;
-
-                            case 3:
-                                {
-                                    Skill_Decent_Commands[i].sprite = Command_Arrows[3];
-                                    Skill_Decent_Commands[i].color = Color.yellow;
-                                }
-                                break;
-
-                            case 4:
-                                {
-                                    Skill_Decent_Commands[i].sprite = Command_Arrows[4];
-                                    Skill_Decent_Commands[i].color = Color.yellow;
-                                }
-                                break;
-
-                            default:
-                                {
-                                    Skill_Decent_Commands[i].sprite = Command_Arrows[0];
-                                    Skill_Decent_Commands[i].color = new Color(0, 0, 0, 0);
-                                }
-                                break;
-                        }
-                    }
 
                     currentNum = 0;
                     NowSkillChecking = 0;
 
-                    CommandCheckTimer = 0.0f;
+                    TimeClock.SetActive(true);
                     KeyDownEnable = false;
 
-                    //print("MaxCount : " + MaxCount);
+                    //switch (NowSkillChecking)
+                    //{
+                    //    case 1:
+                    //        {
 
-                    Debug.Log("[1] SonicWaveCommand : " + SonicWaveCommand[0] + SonicWaveCommand[1] + SonicWaveCommand[2] + SonicWaveCommand[3] + SonicWaveCommand[4] + SonicWaveCommand[5] + SonicWaveCommand[6]);
-                    Debug.Log("[2] EclipseCommand : " + EclipseCommand[0] + EclipseCommand[1] + EclipseCommand[2] + EclipseCommand[3] + EclipseCommand[4] + EclipseCommand[5] + EclipseCommand[6]);
-                    Debug.Log("[3] DecentCommand : " + DecentCommand[0] + DecentCommand[1] + DecentCommand[2] + DecentCommand[3] + DecentCommand[4] + DecentCommand[5] + DecentCommand[6]);
-                    Debug.Log("[4] SwarmCommand : " + SwarmCommand[0] + SwarmCommand[1] + SwarmCommand[2] + SwarmCommand[3] + SwarmCommand[4] + SwarmCommand[5] + SwarmCommand[6]);
-                    
+                    //            ClockTimer.text = SonicTimeLimit.ToString();
+                    //        }
+                    //        break;
+
+                    //    case 2:
+                    //        {
+                    //            ClockTimer.text = EclipseTimeLimit.ToString();
+                    //        }
+                    //        break;
+
+                    //    case 3:
+                    //        {
+                    //            ClockTimer.text = DecentTimeLimit.ToString();
+
+                    //        }
+                    //        break;
+
+                    //    case 4:
+                    //        {
+                    //            ClockTimer.text = SwarmTimeLimit.ToString();
+                    //        }
+                    //        break;
+                    //}
+
+                    //print("MaxCount : " + MaxCount);
 
                     GameManager.Elizabat_CommandStart = true;
                 }
@@ -1558,7 +1770,8 @@ public class Elizabat : MonoBehaviour {
         
         currentNum = 0;
         CommandCheckTimer = 0.0f;
-        KeyDownEnable = false;
+        TimeClock.SetActive(false);
+        ClockTimer.text = "";
 
         for (int i = 1; i < 7; i++)
         {
@@ -1606,7 +1819,7 @@ public class Elizabat : MonoBehaviour {
                                     case 1:
                                         {
                                             // 시간내에 입력하지 못하면 실패
-                                            if (CommandCheckTimer >= SonicTimeLimit)
+                                            if (CommandCheckTimer <= 0.0f)
                                             {
                                                 print("Time Over!");
 
@@ -1622,11 +1835,22 @@ public class Elizabat : MonoBehaviour {
                                                 Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                 Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                 Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                // 타이머 아이콘을 꺼준다.
+                                                TimeClock.SetActive(false);
+
+                                                ClockTimer.text = "";
+
+                                                // 스킬 타켓팅을 꺼준다.
+                                                light.enabled = false;
+                                                SkillTarget.gameObject.SetActive(false);
                                             }
                                             else
                                             {
                                                 // 타이머를 체크
-                                                CommandCheckTimer += Time.deltaTime;
+                                                CommandCheckTimer -= Time.deltaTime;
+                                                ClockTimer.text = string.Format("{0:N1}", CommandCheckTimer);
+
                                                 print("CommandCheckTimer : " + CommandCheckTimer);
 
 
@@ -1675,6 +1899,15 @@ public class Elizabat : MonoBehaviour {
                                                         Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                        // 타이머 아이콘을 꺼준다.
+                                                        TimeClock.SetActive(false);
+
+                                                        ClockTimer.text = "";
+
+                                                        // 스킬 타켓팅을 꺼준다.
+                                                        light.enabled = false;
+                                                        SkillTarget.gameObject.SetActive(false);
                                                     }
                                                 }
                                                 else if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -1726,6 +1959,15 @@ public class Elizabat : MonoBehaviour {
                                                         Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                        // 타이머 아이콘을 꺼준다.
+                                                        TimeClock.SetActive(false);
+
+                                                        ClockTimer.text = "";
+
+                                                        // 스킬 타켓팅을 꺼준다.
+                                                        light.enabled = false;
+                                                        SkillTarget.gameObject.SetActive(false);
                                                     }
                                                 }
                                                 else if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -1777,6 +2019,15 @@ public class Elizabat : MonoBehaviour {
                                                         Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                        // 타이머 아이콘을 꺼준다.
+                                                        TimeClock.SetActive(false);
+
+                                                        ClockTimer.text = "";
+
+                                                        // 스킬 타켓팅을 꺼준다.
+                                                        light.enabled = false;
+                                                        SkillTarget.gameObject.SetActive(false);
                                                     }
                                                 }
                                                 else if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -1828,6 +2079,15 @@ public class Elizabat : MonoBehaviour {
                                                         Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                        // 타이머 아이콘을 꺼준다.
+                                                        TimeClock.SetActive(false);
+
+                                                        ClockTimer.text = "";
+
+                                                        // 스킬 타켓팅을 꺼준다.
+                                                        light.enabled = false;
+                                                        SkillTarget.gameObject.SetActive(false);
                                                     }
                                                 }
 
@@ -1865,6 +2125,15 @@ public class Elizabat : MonoBehaviour {
                                                     Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                     Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                     Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                    // 타이머 아이콘을 꺼준다.
+                                                    TimeClock.SetActive(false);
+
+                                                    ClockTimer.text = "";
+
+                                                    // 스킬 타켓팅을 꺼준다.
+                                                    light.enabled = false;
+                                                    SkillTarget.gameObject.SetActive(false);
                                                 }
                                             }
 
@@ -1876,7 +2145,7 @@ public class Elizabat : MonoBehaviour {
                                     case 2:
                                         {
                                             // 시간내에 입력하지 못하면 실패
-                                            if (CommandCheckTimer >= EclipseTimeLimit)
+                                            if (CommandCheckTimer <= 0.0f)
                                             {
                                                 GameManager.Elizabat_CommandStart = false;
                                                 GameManager.Elizabat_SkillStart = false;
@@ -1890,10 +2159,20 @@ public class Elizabat : MonoBehaviour {
                                                 Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                 Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                 Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                // 타이머 아이콘을 꺼준다.
+                                                TimeClock.SetActive(false);
+
+                                                ClockTimer.text = "";
+
+                                                // 스킬 타켓팅을 꺼준다.
+                                                light.enabled = false;
+                                                SkillTarget.gameObject.SetActive(false);
                                             }
                                             else
                                             {
-                                                CommandCheckTimer += Time.deltaTime;
+                                                CommandCheckTimer -= Time.deltaTime;
+                                                ClockTimer.text = string.Format("{0:N1}", CommandCheckTimer);
 
                                                 if (Input.GetKeyDown(KeyCode.LeftArrow))
                                                 {
@@ -1944,6 +2223,15 @@ public class Elizabat : MonoBehaviour {
                                                         Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                        // 타이머 아이콘을 꺼준다.
+                                                        TimeClock.SetActive(false);
+
+                                                        ClockTimer.text = "";
+
+                                                        // 스킬 타켓팅을 꺼준다.
+                                                        light.enabled = false;
+                                                        SkillTarget.gameObject.SetActive(false);
                                                     }
                                                 }
                                                 else if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -1997,6 +2285,15 @@ public class Elizabat : MonoBehaviour {
                                                         Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                        // 타이머 아이콘을 꺼준다.
+                                                        TimeClock.SetActive(false);
+
+                                                        ClockTimer.text = "";
+
+                                                        // 스킬 타켓팅을 꺼준다.
+                                                        light.enabled = false;
+                                                        SkillTarget.gameObject.SetActive(false);
                                                     }
                                                 }
                                                 else if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -2050,6 +2347,15 @@ public class Elizabat : MonoBehaviour {
                                                         Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                        // 타이머 아이콘을 꺼준다.
+                                                        TimeClock.SetActive(false);
+
+                                                        ClockTimer.text = "";
+
+                                                        // 스킬 타켓팅을 꺼준다.
+                                                        light.enabled = false;
+                                                        SkillTarget.gameObject.SetActive(false);
                                                     }
                                                 }
                                                 else if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -2102,6 +2408,15 @@ public class Elizabat : MonoBehaviour {
                                                         Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                        // 타이머 아이콘을 꺼준다.
+                                                        TimeClock.SetActive(false);
+
+                                                        ClockTimer.text = "";
+
+                                                        // 스킬 타켓팅을 꺼준다.
+                                                        light.enabled = false;
+                                                        SkillTarget.gameObject.SetActive(false);
                                                     }
                                                 }
 
@@ -2140,6 +2455,15 @@ public class Elizabat : MonoBehaviour {
                                                     Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                     Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                     Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                    // 타이머 아이콘을 꺼준다.
+                                                    TimeClock.SetActive(false);
+
+                                                    ClockTimer.text = "";
+
+                                                    // 스킬 타켓팅을 꺼준다.
+                                                    light.enabled = false;
+                                                    SkillTarget.gameObject.SetActive(false);
                                                 }
                                             }
 
@@ -2151,7 +2475,7 @@ public class Elizabat : MonoBehaviour {
                                     case 3:
                                         {
                                             // 시간내에 입력하지 못하면 실패
-                                            if (CommandCheckTimer >= DecentTimeLimit)
+                                            if (CommandCheckTimer <= 0.0f)
                                             {
                                                 GameManager.Elizabat_CommandStart = false;
                                                 GameManager.Elizabat_SkillStart = false;
@@ -2180,10 +2504,20 @@ public class Elizabat : MonoBehaviour {
                                                 Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                 Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                 Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                // 타이머 아이콘을 꺼준다.
+                                                TimeClock.SetActive(false);
+
+                                                ClockTimer.text = "";
+
+                                                // 스킬 타켓팅을 꺼준다.
+                                                light.enabled = false;
+                                                SkillTarget.gameObject.SetActive(false);
                                             }
                                             else
                                             {
-                                                CommandCheckTimer += Time.deltaTime;
+                                                CommandCheckTimer -= Time.deltaTime;
+                                                ClockTimer.text = string.Format("{0:N1}", CommandCheckTimer);
 
                                                 if (Input.GetKeyDown(KeyCode.LeftArrow))
                                                 {
@@ -2235,6 +2569,15 @@ public class Elizabat : MonoBehaviour {
                                                         Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                        // 타이머 아이콘을 꺼준다.
+                                                        TimeClock.SetActive(false);
+
+                                                        ClockTimer.text = "";
+
+                                                        // 스킬 타켓팅을 꺼준다.
+                                                        light.enabled = false;
+                                                        SkillTarget.gameObject.SetActive(false);
                                                     }
                                                 }
                                                 else if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -2286,6 +2629,15 @@ public class Elizabat : MonoBehaviour {
                                                         Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                        // 타이머 아이콘을 꺼준다.
+                                                        TimeClock.SetActive(false);
+
+                                                        ClockTimer.text = "";
+
+                                                        // 스킬 타켓팅을 꺼준다.
+                                                        light.enabled = false;
+                                                        SkillTarget.gameObject.SetActive(false);
                                                     }
                                                 }
                                                 else if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -2337,6 +2689,15 @@ public class Elizabat : MonoBehaviour {
                                                         Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                        // 타이머 아이콘을 꺼준다.
+                                                        TimeClock.SetActive(false);
+
+                                                        ClockTimer.text = "";
+
+                                                        // 스킬 타켓팅을 꺼준다.
+                                                        light.enabled = false;
+                                                        SkillTarget.gameObject.SetActive(false);
                                                     }
                                                 }
                                                 else if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -2388,6 +2749,15 @@ public class Elizabat : MonoBehaviour {
                                                         Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                        // 타이머 아이콘을 꺼준다.
+                                                        TimeClock.SetActive(false);
+
+                                                        ClockTimer.text = "";
+
+                                                        // 스킬 타켓팅을 꺼준다.
+                                                        light.enabled = false;
+                                                        SkillTarget.gameObject.SetActive(false);
                                                     }
                                                 }
 
@@ -2426,6 +2796,15 @@ public class Elizabat : MonoBehaviour {
                                                     Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                     Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                     Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                    // 타이머 아이콘을 꺼준다.
+                                                    TimeClock.SetActive(false);
+
+                                                    ClockTimer.text = "";
+
+                                                    // 스킬 타켓팅을 꺼준다.
+                                                    light.enabled = false;
+                                                    SkillTarget.gameObject.SetActive(false);
                                                 }
                                             }
 
@@ -2436,7 +2815,7 @@ public class Elizabat : MonoBehaviour {
                                     case 4:
                                         {
                                             // 시간내에 입력하지 못하면 실패
-                                            if (CommandCheckTimer >= SwarmTimeLimit)
+                                            if (CommandCheckTimer <= 0.0f)
                                             {
                                                 GameManager.Elizabat_CommandStart = false;
                                                 GameManager.Elizabat_SkillStart = false;
@@ -2465,10 +2844,20 @@ public class Elizabat : MonoBehaviour {
                                                 Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                 Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                 Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                // 타이머 아이콘을 꺼준다.
+                                                TimeClock.SetActive(false);
+
+                                                ClockTimer.text = "";
+
+                                                // 스킬 타켓팅을 꺼준다.
+                                                light.enabled = false;
+                                                SkillTarget.gameObject.SetActive(false);
                                             }
                                             else
                                             {
-                                                CommandCheckTimer += Time.deltaTime;
+                                                CommandCheckTimer -= Time.deltaTime;
+                                                ClockTimer.text = string.Format("{0:N1}", CommandCheckTimer);
 
                                                 if (Input.GetKeyDown(KeyCode.LeftArrow))
                                                 {
@@ -2519,6 +2908,15 @@ public class Elizabat : MonoBehaviour {
                                                         Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                        // 타이머 아이콘을 꺼준다.
+                                                        TimeClock.SetActive(false);
+
+                                                        ClockTimer.text = "";
+
+                                                        // 스킬 타켓팅을 꺼준다.
+                                                        light.enabled = false;
+                                                        SkillTarget.gameObject.SetActive(false);
                                                     }
                                                 }
                                                 else if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -2570,6 +2968,15 @@ public class Elizabat : MonoBehaviour {
                                                         Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                        // 타이머 아이콘을 꺼준다.
+                                                        TimeClock.SetActive(false);
+
+                                                        ClockTimer.text = "";
+
+                                                        // 스킬 타켓팅을 꺼준다.
+                                                        light.enabled = false;
+                                                        SkillTarget.gameObject.SetActive(false);
                                                     }
                                                 }
                                                 else if (Input.GetKeyDown(KeyCode.DownArrow))
@@ -2621,6 +3028,15 @@ public class Elizabat : MonoBehaviour {
                                                         Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                        // 타이머 아이콘을 꺼준다.
+                                                        TimeClock.SetActive(false);
+
+                                                        ClockTimer.text = "";
+
+                                                        // 스킬 타켓팅을 꺼준다.
+                                                        light.enabled = false;
+                                                        SkillTarget.gameObject.SetActive(false);
                                                     }
                                                 }
                                                 else if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -2673,6 +3089,15 @@ public class Elizabat : MonoBehaviour {
                                                         Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                         Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                        // 타이머 아이콘을 꺼준다.
+                                                        TimeClock.SetActive(false);
+
+                                                        ClockTimer.text = "";
+
+                                                        // 스킬 타켓팅을 꺼준다.
+                                                        light.enabled = false;
+                                                        SkillTarget.gameObject.SetActive(false);
                                                     }
                                                 }
 
@@ -2711,6 +3136,15 @@ public class Elizabat : MonoBehaviour {
                                                     Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                     Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                     Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                    // 타이머 아이콘을 꺼준다.
+                                                    TimeClock.SetActive(false);
+
+                                                    ClockTimer.text = "";
+
+                                                    // 스킬 타켓팅을 꺼준다.
+                                                    light.enabled = false;
+                                                    SkillTarget.gameObject.SetActive(false);
                                                 }
                                             }
 
@@ -2724,13 +3158,13 @@ public class Elizabat : MonoBehaviour {
 
                         case ViewControllMode.GamePad:
                             {
-                                if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 0 &&
-                                    Input.GetAxisRaw("P1_360_VerticalDPAD") == 0)
-                                {
-                                    KeyDownEnable = false;
-                                }
+                                //if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 0 ||
+                                //    Input.GetAxisRaw("P1_360_VerticalDPAD") == 0)
+                                //{
+                                //    KeyDownEnable = false;
+                                //}
                                 
-                                print(KeyDownEnable);
+                                //print(KeyDownEnable);
 
                                 switch (SkillNumber)
                                 {
@@ -2781,7 +3215,7 @@ public class Elizabat : MonoBehaviour {
                                             KeyDownEnable = false;
 
                                             // 시간내에 입력하지 못하면 실패
-                                            if (CommandCheckTimer >= SonicTimeLimit)
+                                            if (CommandCheckTimer <= 0.0f)
                                             {
                                                 print("Command Failed!");
 
@@ -2812,10 +3246,20 @@ public class Elizabat : MonoBehaviour {
                                                 Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                 Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                 Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                // 타이머 아이콘을 꺼준다.
+                                                TimeClock.SetActive(false);
+
+                                                ClockTimer.text = "";
+
+                                                // 스킬 타켓팅을 꺼준다.
+                                                light.enabled = false;
+                                                SkillTarget.gameObject.SetActive(false);
                                             }
                                             else
                                             {
-                                                CommandCheckTimer += Time.deltaTime;
+                                                CommandCheckTimer -= Time.deltaTime;
+                                                ClockTimer.text = string.Format("{0:N1}", CommandCheckTimer);
 
                                                 if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
                                                 {
@@ -2872,6 +3316,15 @@ public class Elizabat : MonoBehaviour {
                                                             Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                            // 타이머 아이콘을 꺼준다.
+                                                            TimeClock.SetActive(false);
+
+                                                            ClockTimer.text = "";
+
+                                                            // 스킬 타켓팅을 꺼준다.
+                                                            light.enabled = false;
+                                                            SkillTarget.gameObject.SetActive(false);
                                                         }
                                                     }
                                                    
@@ -2931,6 +3384,15 @@ public class Elizabat : MonoBehaviour {
                                                             Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                            // 타이머 아이콘을 꺼준다.
+                                                            TimeClock.SetActive(false);
+
+                                                            ClockTimer.text = "";
+
+                                                            // 스킬 타켓팅을 꺼준다.
+                                                            light.enabled = false;
+                                                            SkillTarget.gameObject.SetActive(false);
                                                         }
                                                     }
                                                     
@@ -2990,6 +3452,15 @@ public class Elizabat : MonoBehaviour {
                                                             Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                            // 타이머 아이콘을 꺼준다.
+                                                            TimeClock.SetActive(false);
+
+                                                            ClockTimer.text = "";
+
+                                                            // 스킬 타켓팅을 꺼준다.
+                                                            light.enabled = false;
+                                                            SkillTarget.gameObject.SetActive(false);
                                                         }
                                                     }
                                                     
@@ -3050,6 +3521,15 @@ public class Elizabat : MonoBehaviour {
                                                             Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                            // 타이머 아이콘을 꺼준다.
+                                                            TimeClock.SetActive(false);
+
+                                                            ClockTimer.text = "";
+
+                                                            // 스킬 타켓팅을 꺼준다.
+                                                            light.enabled = false;
+                                                            SkillTarget.gameObject.SetActive(false);
                                                         }
                                                     }
 
@@ -3089,6 +3569,15 @@ public class Elizabat : MonoBehaviour {
                                                     Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                     Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                     Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                    // 타이머 아이콘을 꺼준다.
+                                                    TimeClock.SetActive(false);
+
+                                                    ClockTimer.text = "";
+
+                                                    // 스킬 타켓팅을 꺼준다.
+                                                    light.enabled = false;
+                                                    SkillTarget.gameObject.SetActive(false);
                                                 }
                                             }
 
@@ -3100,7 +3589,7 @@ public class Elizabat : MonoBehaviour {
                                     case 2:
                                         {
                                             // 시간내에 입력하지 못하면 실패
-                                            if (CommandCheckTimer >= EclipseTimeLimit)
+                                            if (CommandCheckTimer <= 0.0f)
                                             {
                                                 print("Command Failed!");
 
@@ -3131,10 +3620,20 @@ public class Elizabat : MonoBehaviour {
                                                 Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                 Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                 Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                // 타이머 아이콘을 꺼준다.
+                                                TimeClock.SetActive(false);
+
+                                                ClockTimer.text = "";
+
+                                                // 스킬 타켓팅을 꺼준다.
+                                                light.enabled = false;
+                                                SkillTarget.gameObject.SetActive(false);
                                             }
                                             else
                                             {
-                                                CommandCheckTimer += Time.deltaTime;
+                                                CommandCheckTimer -= Time.deltaTime;
+                                                ClockTimer.text = string.Format("{0:N1}", CommandCheckTimer);
 
                                                 if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
                                                 {
@@ -3189,6 +3688,15 @@ public class Elizabat : MonoBehaviour {
                                                             Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                            // 타이머 아이콘을 꺼준다.
+                                                            TimeClock.SetActive(false);
+
+                                                            ClockTimer.text = "";
+
+                                                            // 스킬 타켓팅을 꺼준다.
+                                                            light.enabled = false;
+                                                            SkillTarget.gameObject.SetActive(false);
                                                         }
                                                     }
                                                     
@@ -3246,6 +3754,15 @@ public class Elizabat : MonoBehaviour {
                                                             Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                            // 타이머 아이콘을 꺼준다.
+                                                            TimeClock.SetActive(false);
+
+                                                            ClockTimer.text = "";
+
+                                                            // 스킬 타켓팅을 꺼준다.
+                                                            light.enabled = false;
+                                                            SkillTarget.gameObject.SetActive(false);
                                                         }
                                                     }
                                                    
@@ -3303,6 +3820,15 @@ public class Elizabat : MonoBehaviour {
                                                             Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                            // 타이머 아이콘을 꺼준다.
+                                                            TimeClock.SetActive(false);
+
+                                                            ClockTimer.text = "";
+
+                                                            // 스킬 타켓팅을 꺼준다.
+                                                            light.enabled = false;
+                                                            SkillTarget.gameObject.SetActive(false);
                                                         }
                                                     }
                                                    
@@ -3360,6 +3886,15 @@ public class Elizabat : MonoBehaviour {
                                                             Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                            // 타이머 아이콘을 꺼준다.
+                                                            TimeClock.SetActive(false);
+
+                                                            ClockTimer.text = "";
+
+                                                            // 스킬 타켓팅을 꺼준다.
+                                                            light.enabled = false;
+                                                            SkillTarget.gameObject.SetActive(false);
                                                         }
                                                     }
                                                     
@@ -3400,6 +3935,15 @@ public class Elizabat : MonoBehaviour {
                                                     Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                     Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                     Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                    // 타이머 아이콘을 꺼준다.
+                                                    TimeClock.SetActive(false);
+
+                                                    ClockTimer.text = "";
+
+                                                    // 스킬 타켓팅을 꺼준다.
+                                                    light.enabled = false;
+                                                    SkillTarget.gameObject.SetActive(false);
                                                 }
                                             }
 
@@ -3411,7 +3955,7 @@ public class Elizabat : MonoBehaviour {
                                     case 3:
                                         {
                                             // 시간내에 입력하지 못하면 실패
-                                            if (CommandCheckTimer >= DecentTimeLimit)
+                                            if (CommandCheckTimer <= 0.0f)
                                             {
                                                 print("Command TimeOver!");
 
@@ -3443,10 +3987,20 @@ public class Elizabat : MonoBehaviour {
                                                 Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                 Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                 Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                // 타이머 아이콘을 꺼준다.
+                                                TimeClock.SetActive(false);
+
+                                                ClockTimer.text = "";
+
+                                                // 스킬 타켓팅을 꺼준다.
+                                                light.enabled = false;
+                                                SkillTarget.gameObject.SetActive(false);
                                             }
                                             else
                                             {
-                                                CommandCheckTimer += Time.deltaTime;
+                                                CommandCheckTimer -= Time.deltaTime;
+                                                ClockTimer.text = string.Format("{0:N1}", CommandCheckTimer);
 
                                                 if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
                                                 {
@@ -3502,6 +4056,15 @@ public class Elizabat : MonoBehaviour {
                                                             Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                            // 타이머 아이콘을 꺼준다.
+                                                            TimeClock.SetActive(false);
+
+                                                            ClockTimer.text = "";
+
+                                                            // 스킬 타켓팅을 꺼준다.
+                                                            light.enabled = false;
+                                                            SkillTarget.gameObject.SetActive(false);
                                                         }
                                                     }
                                                     
@@ -3560,6 +4123,15 @@ public class Elizabat : MonoBehaviour {
                                                             Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                            // 타이머 아이콘을 꺼준다.
+                                                            TimeClock.SetActive(false);
+
+                                                            ClockTimer.text = "";
+
+                                                            // 스킬 타켓팅을 꺼준다.
+                                                            light.enabled = false;
+                                                            SkillTarget.gameObject.SetActive(false);
                                                         }
                                                     }
                                                     
@@ -3618,6 +4190,15 @@ public class Elizabat : MonoBehaviour {
                                                             Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                            // 타이머 아이콘을 꺼준다.
+                                                            TimeClock.SetActive(false);
+
+                                                            ClockTimer.text = "";
+
+                                                            // 스킬 타켓팅을 꺼준다.
+                                                            light.enabled = false;
+                                                            SkillTarget.gameObject.SetActive(false);
                                                         }
                                                     }
                                                    
@@ -3676,6 +4257,15 @@ public class Elizabat : MonoBehaviour {
                                                             Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                            // 타이머 아이콘을 꺼준다.
+                                                            TimeClock.SetActive(false);
+
+                                                            ClockTimer.text = "";
+
+                                                            // 스킬 타켓팅을 꺼준다.
+                                                            light.enabled = false;
+                                                            SkillTarget.gameObject.SetActive(false);
                                                         }
                                                     }
                                                     
@@ -3717,6 +4307,15 @@ public class Elizabat : MonoBehaviour {
                                                     Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                     Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                     Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                    // 타이머 아이콘을 꺼준다.
+                                                    TimeClock.SetActive(false);
+
+                                                    ClockTimer.text = "";
+
+                                                    // 스킬 타켓팅을 꺼준다.
+                                                    light.enabled = false;
+                                                    SkillTarget.gameObject.SetActive(false);
                                                 }
                                             }
 
@@ -3727,7 +4326,7 @@ public class Elizabat : MonoBehaviour {
                                     case 4:
                                         {
                                             // 시간내에 입력하지 못하면 실패
-                                            if (CommandCheckTimer >= SwarmTimeLimit)
+                                            if (CommandCheckTimer <= 0.0f)
                                             {
                                                 print("Command Failed!");
 
@@ -3759,10 +4358,20 @@ public class Elizabat : MonoBehaviour {
                                                 Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                 Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                 Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                // 타이머 아이콘을 꺼준다.
+                                                TimeClock.SetActive(false);
+
+                                                ClockTimer.text = "";
+
+                                                // 스킬 타켓팅을 꺼준다.
+                                                light.enabled = false;
+                                                SkillTarget.gameObject.SetActive(false);
                                             }
                                             else
                                             {
-                                                CommandCheckTimer += Time.deltaTime;
+                                                CommandCheckTimer -= Time.deltaTime;
+                                                ClockTimer.text = string.Format("{0:N1}", CommandCheckTimer);
 
                                                 if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
                                                 {
@@ -3818,6 +4427,15 @@ public class Elizabat : MonoBehaviour {
                                                             Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                            // 타이머 아이콘을 꺼준다.
+                                                            TimeClock.SetActive(false);
+
+                                                            ClockTimer.text = "";
+
+                                                            // 스킬 타켓팅을 꺼준다.
+                                                            light.enabled = false;
+                                                            SkillTarget.gameObject.SetActive(false);
                                                         }
                                                     }
                                                    
@@ -3877,6 +4495,15 @@ public class Elizabat : MonoBehaviour {
                                                             Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                            // 타이머 아이콘을 꺼준다.
+                                                            TimeClock.SetActive(false);
+
+                                                            ClockTimer.text = "";
+
+                                                            // 스킬 타켓팅을 꺼준다.
+                                                            light.enabled = false;
+                                                            SkillTarget.gameObject.SetActive(false);
                                                         }
                                                     }
                                                     
@@ -3936,6 +4563,15 @@ public class Elizabat : MonoBehaviour {
                                                             Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                            // 타이머 아이콘을 꺼준다.
+                                                            TimeClock.SetActive(false);
+
+                                                            ClockTimer.text = "";
+
+                                                            // 스킬 타켓팅을 꺼준다.
+                                                            light.enabled = false;
+                                                            SkillTarget.gameObject.SetActive(false);
                                                         }
                                                     }
                                                     
@@ -3995,6 +4631,15 @@ public class Elizabat : MonoBehaviour {
                                                             Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                             Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                            // 타이머 아이콘을 꺼준다.
+                                                            TimeClock.SetActive(false);
+
+                                                            ClockTimer.text = "";
+
+                                                            // 스킬 타켓팅을 꺼준다.
+                                                            light.enabled = false;
+                                                            SkillTarget.gameObject.SetActive(false);
                                                         }
                                                     }
                                                    
@@ -4035,6 +4680,15 @@ public class Elizabat : MonoBehaviour {
                                                     Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
                                                     Skill_Decent_Command_Chart.gameObject.SetActive(false);
                                                     Skill_Swarm_Command_Chart.gameObject.SetActive(false);
+
+                                                    // 타이머 아이콘을 꺼준다.
+                                                    TimeClock.SetActive(false);
+
+                                                    ClockTimer.text = "";
+
+                                                    // 스킬 타켓팅을 꺼준다.
+                                                    light.enabled = false;
+                                                    SkillTarget.gameObject.SetActive(false);
                                                 }
                                             }
 

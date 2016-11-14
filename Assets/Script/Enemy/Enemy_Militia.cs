@@ -41,6 +41,7 @@ public class Enemy_Militia : MonoBehaviour {
     private float SpidasDistance;
 
     private bool CameraMarkingOn;
+    private bool SwarmAttackingOn;
 
     public int HP;
     public int AttackPoint;
@@ -75,6 +76,7 @@ public class Enemy_Militia : MonoBehaviour {
         DeathCheck = false;
         FearMeterCheck = false;
         CameraMarkingOn = false;
+        SwarmAttackingOn = false;
         //Instantiate(Corpse, this.transform.position, Quaternion.identity);
 
         //Agent.enabled = false;
@@ -132,6 +134,7 @@ public class Enemy_Militia : MonoBehaviour {
         DeathCheck = false;
         FearMeterCheck = false;
         CameraMarkingOn = false;
+        SwarmAttackingOn = false;
         //CameraMarkingOn = false;
 
         EnemySpot.gameObject.SetActive(false);
@@ -256,7 +259,12 @@ public class Enemy_Militia : MonoBehaviour {
                                     //Destroy(this.gameObject);
                                 }
 
-                                if(Agent.enabled == false && this.gameObject.activeSelf == true)
+                                if (SwarmAttackingOn == true)
+                                {
+                                    Agent.speed = 3.5f;
+                                }
+
+                                if (Agent.enabled == false && this.gameObject.activeSelf == true)
                                 {
                                     Agent.enabled = true;
                                     Agent.destination = new Vector3(Target.transform.position.x, Target.transform.position.y, Target.transform.position.z);
@@ -618,38 +626,40 @@ public class Enemy_Militia : MonoBehaviour {
 
         }
 
-        if (other.transform.tag.Equals("Elizabat") == true)
-        {
-            print("Elizabat Attack!!");
-        }
+        //if (other.transform.tag.Equals("Elizabat") == true)
+        //{
+        //    print("Elizabat Attack!!");
+        //}
 
-        if(other.transform.tag.Equals("CorpseChecker") == true)
-        {
-            //if(FearMeterCheck == false)
-            //{
-            //    FearMeterCheck = true;
+        //if(other.transform.tag.Equals("CorpseChecker") == true)
+        //{
+        //    //if(FearMeterCheck == false)
+        //    //{
+        //    //    FearMeterCheck = true;
 
                 
 
-            //    GameManager.Fear_Parameter += 1;
+        //    //    GameManager.Fear_Parameter += 1;
 
-            //    print("FearMeter : " + GameManager.Fear_Parameter);
-            //}
+        //    //    print("FearMeter : " + GameManager.Fear_Parameter);
+        //    //}
 
 
-            GameManager.Fear_Parameter += 3.0f;
+        //    GameManager.Fear_Parameter += 3.0f;
 
-            print("FearMeter : " + GameManager.Fear_Parameter);
-        }
+        //    print("FearMeter : " + GameManager.Fear_Parameter);
+        //}
 
-        if(other.transform.tag.Equals("SpidasChecker") == true)
-        {
+        //if(other.transform.tag.Equals("SpidasChecker") == true)
+        //{
             
 
-            GameManager.Fear_Parameter += 0.1f;
+        //    GameManager.Fear_Parameter += 0.1f;
 
-            print("FearMeter : " + GameManager.Fear_Parameter);
-        }
+        //    print("FearMeter : " + GameManager.Fear_Parameter);
+        //}
+
+
 
         if (other.transform.tag.Equals("PlayerTrap") == true)
         {
@@ -696,44 +706,65 @@ public class Enemy_Militia : MonoBehaviour {
                 //Destroy(this.gameObject);
             }
         }
+    }
 
+    // 트리거 안에 있을때..
+    void OnTriggerStay(Collider other)
+    {
+        if (other.transform.tag.Equals("CarrionSwarm") == true)
+        {
+            //print("Swarm inside");
+
+            Agent.speed = 0.0f;
+            SwarmAttackingOn = true;
+        }
     }
 
     // 트리거를 빠져 나갔을때..
     void OnTriggerExit(Collider other)
     {
-        if (other.transform.tag.Equals("SpidasChecker") == true)
-        {
+        //if (other.transform.tag.Equals("CarrionSwarm") == true)
+        //{
+        //    print("Swarm Out");
 
-            //GameManager.Fear_Parameter -= 1;
+        //    Agent.enabled = true;
+        //    Agent.destination = new Vector3(Target.transform.position.x, Target.transform.position.y, Target.transform.position.z);
 
-            //print("FearMeter : " + GameManager.Fear_Parameter);
-        }
+        //    SwarmAttackingOn = false;
+        //}
 
-        if (other.transform.tag.Equals("CorpseChecker") == true)
-        {
-            //if (FearMeterCheck == false)
-            //{
-            //    FearMeterCheck = true;
+        //if (other.transform.tag.Equals("SpidasChecker") == true)
+        //{
+
+        //    //GameManager.Fear_Parameter -= 1;
+
+        //    //print("FearMeter : " + GameManager.Fear_Parameter);
+        //}
+
+        //if (other.transform.tag.Equals("CorpseChecker") == true)
+        //{
+        //    //if (FearMeterCheck == false)
+        //    //{
+        //    //    FearMeterCheck = true;
 
 
 
-            //    GameManager.Fear_Parameter += 1;
+        //    //    GameManager.Fear_Parameter += 1;
 
-            //    print("FearMeter : " + GameManager.Fear_Parameter);
-            //}
+        //    //    print("FearMeter : " + GameManager.Fear_Parameter);
+        //    //}
 
-            //if(GameManager.Fear_Parameter <= 1)
-            //{
-            //    GameManager.Fear_Parameter -= 0;
-            //}
-            //else
-            //{
-            //    GameManager.Fear_Parameter -= 1;
-            //}
+        //    //if(GameManager.Fear_Parameter <= 1)
+        //    //{
+        //    //    GameManager.Fear_Parameter -= 0;
+        //    //}
+        //    //else
+        //    //{
+        //    //    GameManager.Fear_Parameter -= 1;
+        //    //}
 
-            //print("FearMeter : " + GameManager.Fear_Parameter);
-        }
+        //    //print("FearMeter : " + GameManager.Fear_Parameter);
+        //}
     }
 
     void OnCollisionEnter(Collision collision)

@@ -108,9 +108,13 @@ public class CarrySpider : MonoBehaviour {
                                         {
                                             if (Spider_Web_Trap[NowWebTrapStack].gameObject.activeSelf == false)
                                             {
-                                                Spider_Web_Trap[NowWebTrapStack].transform.position = new Vector3(this.transform.position.x, hit.point.y - 3.0f, this.transform.position.z);
+                                                Spider_Web_Trap[NowWebTrapStack].transform.position = new Vector3(this.transform.position.x, hit.point.y, this.transform.position.z);
+
+                                                Spider_Web_Trap[NowWebTrapStack].transform.parent = null;
 
                                                 Spider_Web_Trap[NowWebTrapStack].gameObject.SetActive(true);
+
+                                                GameManager.Soul_MP_Parameter -= WebTrapCost;
                                             }
 
                                             if (NowWebTrapStack >= (Spider_Web_Trap.Length - 1))
@@ -202,9 +206,13 @@ public class CarrySpider : MonoBehaviour {
                                         {
                                             if (Spider_Web_Trap[NowWebTrapStack].gameObject.activeSelf == false)
                                             {
-                                                Spider_Web_Trap[NowWebTrapStack].transform.position = new Vector3(this.transform.position.x, hit.point.y - 3.0f, this.transform.position.z);
+                                                Spider_Web_Trap[NowWebTrapStack].transform.position = new Vector3(this.transform.position.x, hit.point.y, this.transform.position.z);
+
+                                                Spider_Web_Trap[NowWebTrapStack].transform.parent = null;
 
                                                 Spider_Web_Trap[NowWebTrapStack].gameObject.SetActive(true);
+
+                                                GameManager.Soul_MP_Parameter -= WebTrapCost;
                                             }
 
                                             if (NowWebTrapStack >= (Spider_Web_Trap.Length - 1))

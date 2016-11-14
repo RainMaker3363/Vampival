@@ -14,6 +14,7 @@ public class UIManager : MonoBehaviour {
 
     public Image Document_BG;
     public Image[] Documents;
+    public GameObject[] Documents_Icon;
 
 
 	// Use this for initialization
@@ -55,6 +56,7 @@ public class UIManager : MonoBehaviour {
 
                             Document_BG.gameObject.SetActive(false);
                             Documents[Doc_Num].gameObject.SetActive(false);
+                            Documents_Icon[Doc_Num].gameObject.SetActive(false);
 
 
                             if (Doc_Num <= Documents.Length)

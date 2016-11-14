@@ -59,7 +59,7 @@ public class Fourth_Trajectory : MonoBehaviour {
             CannonBalls[i].SetActive(false);
         }
 
-        CannonCost = 1.0f;//CannonBalls.Length;
+        CannonCost = 2.0f;//CannonBalls.Length;
         NowCannonIdx = 0;
 
         Spark.gameObject.SetActive(false);

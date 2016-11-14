@@ -22,9 +22,11 @@ public class Spidas_WebTrap : MonoBehaviour {
         {
             rigid = GetComponent<Rigidbody>();
         }
-        
+
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("PlayerSetObject"), LayerMask.NameToLayer("PlayerSetObject"), true);
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Projectile"), LayerMask.NameToLayer("PlayerSetObject"), true);
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyCorpse"), LayerMask.NameToLayer("PlayerSetObject"), true);
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("CarryPlayer"), LayerMask.NameToLayer("PlayerSetObject"), true);
     }
 
     void OnEnable()
@@ -73,7 +75,10 @@ public class Spidas_WebTrap : MonoBehaviour {
 
             case GameState.GameStart:
                 {
-                    
+                    if(Input.GetKeyDown(KeyCode.Y))
+                    {
+                        this.transform.parent = null;
+                    }
                 }
                 break;
 

@@ -16,7 +16,7 @@ public enum GameState
 // 시점 조작 모드 선택
 public enum ViewControllMode
 {
-    GamePad,
+    GamePad = 0,
     Mouse
 };
 
