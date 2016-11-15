@@ -313,6 +313,8 @@ public class GameManager : MonoBehaviour {
                             }
                             else
                             {
+                                Capture_Parameter_Gage.gameObject.SetActive(true);
+
                                 Capture_Meter -= (Capture_Parameter * 0.5f);
                             }
                             

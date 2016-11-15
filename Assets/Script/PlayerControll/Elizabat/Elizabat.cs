@@ -1714,38 +1714,7 @@ public class Elizabat : MonoBehaviour {
                     NowSkillChecking = 0;
 
                     TimeClock.SetActive(true);
-                    KeyDownEnable = false;
-
-                    //switch (NowSkillChecking)
-                    //{
-                    //    case 1:
-                    //        {
-
-                    //            ClockTimer.text = SonicTimeLimit.ToString();
-                    //        }
-                    //        break;
-
-                    //    case 2:
-                    //        {
-                    //            ClockTimer.text = EclipseTimeLimit.ToString();
-                    //        }
-                    //        break;
-
-                    //    case 3:
-                    //        {
-                    //            ClockTimer.text = DecentTimeLimit.ToString();
-
-                    //        }
-                    //        break;
-
-                    //    case 4:
-                    //        {
-                    //            ClockTimer.text = SwarmTimeLimit.ToString();
-                    //        }
-                    //        break;
-                    //}
-
-                    //print("MaxCount : " + MaxCount);
+                    //KeyDownEnable = false;
 
                     GameManager.Elizabat_CommandStart = true;
                 }

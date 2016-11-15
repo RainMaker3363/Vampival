@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class First_Trajectory : MonoBehaviour {
@@ -166,7 +167,7 @@ public class First_Trajectory : MonoBehaviour {
                                                 if (CannonBalls[NowCannonIdx].activeSelf == false)
                                                 {
                                                     //print("Cannon Go!!");
-
+                                                    
                                                     Spark.Play();
                                                     CannonBalls[NowCannonIdx].gameObject.transform.position = this.transform.position;
                                                     CannonBalls[NowCannonIdx].SetActive(true);
