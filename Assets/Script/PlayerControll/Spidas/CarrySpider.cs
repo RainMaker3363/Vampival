@@ -52,6 +52,7 @@ public class CarrySpider : MonoBehaviour {
         {
             Spider_Web_Trap[i].SetActive(false);
         }
+
 	}
 	
 	// Update is called once per frame

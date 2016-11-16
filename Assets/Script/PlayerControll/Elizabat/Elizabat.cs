@@ -110,6 +110,7 @@ public class Elizabat : MonoBehaviour {
 
     // 스킬 이펙트 들...
     public GameObject CarrionSwarmEffect;
+    public GameObject WildFireEffect;
 
     private int NowSkillChecking;
     private bool CommandOn;
@@ -214,6 +215,7 @@ public class Elizabat : MonoBehaviour {
 
         // 스킬 파티클들 설정
         CarrionSwarmEffect.SetActive(false);
+        WildFireEffect.gameObject.SetActive(false);
 
         if (Audio == null)
         {
@@ -1299,6 +1301,34 @@ public class Elizabat : MonoBehaviour {
         Skill_Decent_Cool_Icon.fillAmount = 1.0f;
         //yield return 1;
 
+    }
+    
+    // 와일드 파이어 공격
+    IEnumerator WildFireSkill()
+    {
+        GameManager.Elizabat_Decent_On = true;
+
+        GameManager.Elizabat_SkillStart = false;
+
+        Skill_Decent_Cool_Icon.fillAmount = 1.0f;
+
+        print("WildFire Skill On");
+
+
+        Skill_Decent_Logo.gameObject.SetActive(true);
+
+        // 와일드 파이어 이펙트 출력
+
+        WildFireEffect.gameObject.SetActive(true);
+
+
+        yield return new WaitForSeconds(4.0f);
+
+        print("WildFire Skill Off");
+
+        Skill_Decent_Logo.gameObject.SetActive(false);
+
+        GameManager.Elizabat_Decent_On = false;
     }
 
     // 스웜 공격
@@ -2430,6 +2460,10 @@ public class Elizabat : MonoBehaviour {
 
                                                     ClockTimer.text = "";
 
+                                                    //WildFireEffect.transform.parent = null;
+                                                    //WildFireEffect.transform.position = WildFireReadyPos;
+                                                    //WildFireEffect.GetComponent<WildFire>().SetTargetPos(SkillTarget);
+
                                                     // 스킬 타켓팅을 꺼준다.
                                                     light.enabled = false;
                                                     SkillTarget.gameObject.SetActive(false);
@@ -2735,7 +2769,8 @@ public class Elizabat : MonoBehaviour {
                                                     print("Command Success!");
 
                                                     // 강하 공격
-                                                    StartCoroutine(DecentAttack(MainCamera.transform, CameraChecker, 10.0f));
+                                                    //StartCoroutine(DecentAttack(MainCamera.transform, CameraChecker, 10.0f));
+                                                    StartCoroutine("WildFireSkill");
 
                                                     GameManager.Elizabat_CommandStart = false;
                                                     GameManager.Elizabat_SkillStart = false;
@@ -4245,8 +4280,8 @@ public class Elizabat : MonoBehaviour {
                                                     print("Command Success!");
 
                                                     // 강하 공격
-
-                                                    StartCoroutine(DecentAttack(MainCamera.transform, CameraChecker, 10.0f));
+                                                    //StartCoroutine(DecentAttack(MainCamera.transform, CameraChecker, 10.0f));
+                                                    StartCoroutine("WildFireSkill");
 
                                                     GameManager.Elizabat_CommandStart = false;
                                                     GameManager.Elizabat_SkillStart = false;
@@ -4281,6 +4316,9 @@ public class Elizabat : MonoBehaviour {
                                                     TimeClock.SetActive(false);
 
                                                     ClockTimer.text = "";
+
+                                                    //WildFireEffect.transform.parent = null;
+                                                    //WildFireEffect.transform.position = WildFireReadyPos;
 
                                                     // 스킬 타켓팅을 꺼준다.
                                                     light.enabled = false;

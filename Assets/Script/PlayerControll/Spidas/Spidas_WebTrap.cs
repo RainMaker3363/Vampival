@@ -8,6 +8,12 @@ public class Spidas_WebTrap : MonoBehaviour {
     private Rigidbody rigid;
     private SphereCollider col;
 
+    public ParticleSystem WebSetUp;
+    public ParticleSystem WebActive;
+
+    private float ParticleTimer;
+    private bool ParticleTimerOn;
+
     // Use this for initialization
     void Start()
     {
@@ -22,6 +28,20 @@ public class Spidas_WebTrap : MonoBehaviour {
         {
             rigid = GetComponent<Rigidbody>();
         }
+
+        if(WebActive != null)
+        {
+            WebActive.Stop();
+            //WebActive.gameObject.SetActive(false);
+        }
+
+        if (WebSetUp != null)
+        {
+            WebSetUp.Play();
+        }
+
+        ParticleTimer = 0.0f;
+        ParticleTimerOn = false;
 
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("PlayerSetObject"), LayerMask.NameToLayer("PlayerSetObject"), true);
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Projectile"), LayerMask.NameToLayer("PlayerSetObject"), true);
@@ -51,7 +71,19 @@ public class Spidas_WebTrap : MonoBehaviour {
             rigid.useGravity = false;
         }
 
+        if (WebActive != null)
+        {
+            WebActive.Stop();
+            //WebActive.gameObject.SetActive(false);
+        }
         
+        if(WebSetUp != null)
+        {
+            WebSetUp.Play();
+        }
+
+        ParticleTimer = 0.0f;
+        ParticleTimerOn = false;
     }
 
     // Update is called once per frame
@@ -77,8 +109,25 @@ public class Spidas_WebTrap : MonoBehaviour {
                 {
                     if(Input.GetKeyDown(KeyCode.Y))
                     {
-                        this.transform.parent = null;
+                        if(this.gameObject.activeSelf == true)
+                            this.transform.parent = null;
                     }
+
+                    if(ParticleTimerOn == true)
+                    {
+                        if(ParticleTimer <= 0.5f)
+                        {
+                            ParticleTimer += Time.deltaTime;
+                        }
+                        else
+                        {
+                            ParticleTimer = 0.0f;
+                            ParticleTimerOn = false;
+
+                            this.gameObject.SetActive(false);
+                        }
+                    }
+
                 }
                 break;
 
@@ -104,10 +153,12 @@ public class Spidas_WebTrap : MonoBehaviour {
                 
 
             rigid.useGravity = false;
-            
-            this.gameObject.SetActive(false);
 
+            //WebActive.gameObject.SetActive(true);
 
+            WebActive.Play();
+
+            ParticleTimerOn = true;
         }
     }
 }
