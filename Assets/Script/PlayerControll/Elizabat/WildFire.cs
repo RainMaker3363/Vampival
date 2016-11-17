@@ -38,9 +38,14 @@ public class WildFire : MonoBehaviour {
             this.transform.position = StartPos.transform.position;
         }
 
-        TargetPos = GameObject.FindWithTag("SkillTarget");
+        if (TargetPos == null)
+        {
+            TargetPos = GameObject.FindWithTag("SkillTarget");
+        }
 
         this.transform.parent = null;
+        this.transform.localEulerAngles = new Vector3(0, 0, 0);
+
         TargetChecker = false;
 
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("PlayerSetObject"), LayerMask.NameToLayer("SkillParticle"), true);
@@ -82,9 +87,14 @@ public class WildFire : MonoBehaviour {
             this.transform.position = StartPos.transform.position;
         }
 
-        TargetPos = GameObject.FindWithTag("SkillTarget");
+        if(TargetPos == null)
+        {
+            TargetPos = GameObject.FindWithTag("SkillTarget");
+        }
+        
 
         this.transform.parent = null;
+        this.transform.localEulerAngles = new Vector3(0, 0, 0);
         TargetChecker = false;
 
         print("TargetPos : " + TargetPos.transform.position);
@@ -102,7 +112,7 @@ public class WildFire : MonoBehaviour {
 
     IEnumerator DeadOrAliveRoutin(int temp)
     {
-        yield return new WaitForSeconds(6.0f);
+        yield return new WaitForSeconds(4.0f);
 
         this.gameObject.SetActive(false);
     }
@@ -131,11 +141,13 @@ public class WildFire : MonoBehaviour {
                     if (TargetChecker == false)
                     {
                         TargetChecker = true;
+                        this.transform.position = StartPos.transform.position;
+                        this.transform.localEulerAngles = new Vector3(0, 0, 0);
                         Dir = (TargetPos.transform.position - StartPos.transform.position).normalized;
                     }
 
-                    //Debug.DrawRay(this.transform.position, Dir * 10.0f);
-                    this.transform.Translate((Dir * 10.0f) * Time.deltaTime);
+                    //Debug.DrawRay(this.transform.position, Dir * 200.0f, Color.green, 100.0f);
+                    this.transform.Translate((Dir * 75.0f) * Time.deltaTime);
                 }
                 break;
 

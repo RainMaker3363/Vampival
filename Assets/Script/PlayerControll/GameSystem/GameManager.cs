@@ -39,6 +39,16 @@ public enum EnemyState
     Detect
 }
 
+// 적들 공격 포인트 값
+public enum EnemyAttackPoint
+{
+    SOUTH = 0,
+    WEST,
+    NORTH,
+    EAST,
+    TOTAL
+}
+
 public class GameManager : MonoBehaviour {
 
     //===============================================================================================================================

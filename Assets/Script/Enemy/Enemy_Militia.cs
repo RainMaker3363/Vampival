@@ -18,6 +18,9 @@ public class Enemy_Militia : MonoBehaviour {
 
     private EnemyState enemystate;
     private GameState Gamestate;
+    //private EnemyAttackPoint AttackPointSet;
+
+    //public int AttackPointIndex;
 
     private Vector3 StartPos = Vector3.zero;
     private Vector3 targetPosOnScreen;
@@ -39,6 +42,7 @@ public class Enemy_Militia : MonoBehaviour {
     
     // 스피다스 체크
     private float SpidasDistance;
+    private float EnemySpeed;
 
     private bool CameraMarkingOn;
     private bool SwarmAttackingOn;
@@ -50,6 +54,8 @@ public class Enemy_Militia : MonoBehaviour {
 
     void Awake()
     {
+        StopCoroutine(WebTrapProcess(1));
+
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyCorpse"), LayerMask.NameToLayer("SkillParticle"), true);
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyCorpse"), LayerMask.NameToLayer("Projectile"), true);
         
@@ -58,13 +64,48 @@ public class Enemy_Militia : MonoBehaviour {
         EnemySpot.gameObject.SetActive(false);
         EnemyArrow.gameObject.SetActive(false);
 
-        if (Target == null || Spidas == null)
+        if (Spidas == null)
         {
-            Target = GameObject.FindWithTag("AttackPoint");
             Spidas = GameObject.FindWithTag("Spidas");
         }
 
+        if(Target == null)
+        {
+            Target = GameObject.FindWithTag("AttackPoint");
+        }
 
+        //switch (AttackPointSet)
+        //{
+        //    case EnemyAttackPoint.EAST:
+        //        {
+
+        //        }
+        //        break;
+
+        //    case EnemyAttackPoint.NORTH:
+        //        {
+
+        //        }
+        //        break;
+
+        //    case EnemyAttackPoint.SOUTH:
+        //        {
+
+        //        }
+        //        break;
+
+        //    case EnemyAttackPoint.WEST:
+        //        {
+
+        //        }
+        //        break;
+
+        //    default:
+        //        {
+        //           Target = GameObject.FindWithTag("AttackPoint");
+        //        }
+        //        break;
+        //}
 
         enemystate = EnemyState.Run;
         Gamestate = GameManager.Gamestate;
@@ -73,6 +114,9 @@ public class Enemy_Militia : MonoBehaviour {
         AttackPoint = 10;
         NowCorpseStack = 0;
         NowSoulStack = 0;
+
+        EnemySpeed = 3.5f;
+
         DeathCheck = false;
         FearMeterCheck = false;
         CameraMarkingOn = false;
@@ -122,15 +166,23 @@ public class Enemy_Militia : MonoBehaviour {
 
     void OnEnable()
     {
-        if(Target == null || Spidas == null)
+        StopCoroutine(WebTrapProcess(1));
+
+        if (Spidas == null)
+        {
+            Spidas = GameObject.FindWithTag("Spidas");
+        }
+
+        if (Target == null)
         {
             Target = GameObject.FindWithTag("AttackPoint");
-            Spidas = GameObject.FindWithTag("Spidas");
         }
 
 
         HP = 10;
         AttackPoint = 10;
+        EnemySpeed = 3.5f;
+
         DeathCheck = false;
         FearMeterCheck = false;
         CameraMarkingOn = false;
@@ -261,7 +313,7 @@ public class Enemy_Militia : MonoBehaviour {
 
                                 if (SwarmAttackingOn == true)
                                 {
-                                    Agent.speed = 3.5f;
+                                    Agent.speed = EnemySpeed;
                                 }
 
                                 if (Agent.enabled == false && this.gameObject.activeSelf == true)
@@ -613,6 +665,13 @@ public class Enemy_Militia : MonoBehaviour {
         return new Vector3((B2 * C1[edgeLine] - B1[edgeLine] * C2) / det, (A1[edgeLine] * C2 - A2 * C1[edgeLine]) / det, 0);
     }
 
+    IEnumerator WebTrapProcess(int idx)
+    {
+        yield return new WaitForSeconds(4.0f);
+
+        Agent.speed = EnemySpeed;
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.transform.tag.Equals("AttackPoint") == true)
@@ -664,7 +723,51 @@ public class Enemy_Militia : MonoBehaviour {
         if (other.transform.tag.Equals("PlayerTrap") == true)
         {
             Agent.speed = 0.0f;
-            SwarmAttackingOn = true;
+
+            StartCoroutine(WebTrapProcess(1));
+
+            //if (HP > 0)
+            //{
+            //    HP -= 10;
+            //}
+            //else if (HP <= 0)
+            //{
+            //    GameManager.Fear_Parameter += 1;
+            //    Agent.enabled = false;
+
+            //    //Instantiate(Corpse, this.transform.position, Quaternion.identity);
+            //    if (Corpse[NowCorpseStack].gameObject.activeSelf == false)
+            //    {
+
+            //        Corpse[NowCorpseStack].transform.position = this.transform.position;
+            //        Corpse_Souls[NowSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.0f, this.transform.position.z);
+
+            //        Corpse[NowCorpseStack].gameObject.SetActive(true);
+            //        Corpse_Souls[NowSoulStack].gameObject.SetActive(true);
+            //    }
+
+            //    if (NowCorpseStack >= (Corpse.Length - 1))
+            //    {
+            //        NowCorpseStack = 0;
+            //    }
+            //    else
+            //    {
+            //        NowCorpseStack++;
+            //    }
+
+            //    if (NowSoulStack >= (Corpse_Souls.Length - 1))
+            //    {
+            //        NowSoulStack = 0;
+            //    }
+            //    else
+            //    {
+            //        NowSoulStack++;
+            //    }
+
+            //    this.gameObject.SetActive(false);
+
+            //    //Destroy(this.gameObject);
+            //}
         }
     }
 
