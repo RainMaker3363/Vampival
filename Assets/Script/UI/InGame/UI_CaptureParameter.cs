@@ -43,11 +43,38 @@ public class UI_CaptureParameter : MonoBehaviour {
 
             case GameState.GameStart:
                 {
-                    if (IsChangeMeter != GameManager.Capture_Parameter)
+
+                    if(GameManager.Elizabat_Eclipse_On == true)
                     {
-                        IsChangeMeter = GameManager.Capture_Parameter;
-                        ani.SetTrigger("Capture_Spark");
+                        ani.SetBool("Capture_Spark", true);
                     }
+                    else
+                    {
+                        if (IsChangeMeter < GameManager.Capture_Parameter)
+                        {
+                            IsChangeMeter = GameManager.Capture_Parameter;
+                            //ani.SetTrigger("Soul_Decrease");
+                            ani.SetBool("Capture_Spark", true);
+                        }
+                        else
+                        {
+                            ani.SetBool("Capture_Spark", false);
+                        }
+
+                        if (IsChangeMeter > GameManager.Capture_Parameter)
+                        {
+                            IsChangeMeter = GameManager.Capture_Parameter;
+                            ani.SetBool("Capture_Decrease", true);
+
+                            //ani.SetTrigger("Soul_Spark");
+                        }
+                        else
+                        {
+
+                            ani.SetBool("Capture_Decrease", false);
+                        }
+                    }
+
                 }
                 break;
 

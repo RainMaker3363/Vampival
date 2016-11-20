@@ -393,7 +393,7 @@ public class Elizabat : MonoBehaviour {
                                 {
 
 
-                                    if (Input.GetKeyDown(KeyCode.X))
+                                    if (Input.GetKeyDown(KeyCode.X) && GameManager.Soul_MP_Parameter >= SonicWaveCost)
                                     {
                                         CameraChecker.transform.position = CheckerStartPos;
 
@@ -405,10 +405,27 @@ public class Elizabat : MonoBehaviour {
                                         SkillTarget.gameObject.SetActive(false);
 
                                         Debug.Log("Command Start!");
+
+                                        if ((GameManager.Soul_MP_Parameter - SonicWaveCost) <= 0.0f)
+                                        {
+                                            GameManager.Soul_MP_Parameter = 0.0f;
+                                        }
+                                        else
+                                        {
+                                            GameManager.Soul_MP_Parameter -= SonicWaveCost;
+                                        }
 
                                         CommandInitilization(1);
+
+
+
                                     }
-                                    else if (Input.GetKeyDown(KeyCode.C))
+                                    else
+                                    {
+                                        // 실패 사운드 출력
+                                    }
+                                    
+                                    if (Input.GetKeyDown(KeyCode.C) && GameManager.Soul_MP_Parameter >= EclipseCost)
                                     {
                                         CameraChecker.transform.position = CheckerStartPos;
 
@@ -421,9 +438,26 @@ public class Elizabat : MonoBehaviour {
                                         
                                         Debug.Log("Command Start!");
 
+                                        if ((GameManager.Soul_MP_Parameter - EclipseCost) <= 0.0f)
+                                        {
+                                            GameManager.Soul_MP_Parameter = 0.0f;
+                                        }
+                                        else
+                                        {
+                                            GameManager.Soul_MP_Parameter -= EclipseCost;
+                                        }
+
                                         CommandInitilization(2);
+
+
+
                                     }
-                                    else if (Input.GetKeyDown(KeyCode.V))
+                                    else
+                                    {
+                                        // 실패 사운드 출력
+                                    }
+
+                                    if (Input.GetKeyDown(KeyCode.V) && GameManager.Soul_MP_Parameter >= DecentCost)
                                     {
                                         CameraChecker.transform.position = CheckerStartPos;
 
@@ -436,9 +470,26 @@ public class Elizabat : MonoBehaviour {
                                         
                                         Debug.Log("Command Start!");
 
+                                        if ((GameManager.Soul_MP_Parameter - DecentCost) <= 0.0f)
+                                        {
+                                            GameManager.Soul_MP_Parameter = 0.0f;
+                                        }
+                                        else
+                                        {
+                                            GameManager.Soul_MP_Parameter -= DecentCost;
+                                        }
+
                                         CommandInitilization(3);
+
+
+
                                     }
-                                    else if (Input.GetKeyDown(KeyCode.B))
+                                    else
+                                    {
+                                        // 실패 사운드 출력
+                                    }
+
+                                    if (Input.GetKeyDown(KeyCode.B) && GameManager.Soul_MP_Parameter >= SwarmCost)
                                     {
                                         CameraChecker.transform.position = CheckerStartPos;
 
@@ -451,7 +502,23 @@ public class Elizabat : MonoBehaviour {
 
                                         Debug.Log("Command Start!");
 
+
+                                        if ((GameManager.Soul_MP_Parameter - SwarmCost) <= 0.0f)
+                                        {
+                                            GameManager.Soul_MP_Parameter = 0.0f;
+                                        }
+                                        else
+                                        {
+                                            GameManager.Soul_MP_Parameter -= SwarmCost;
+                                        }
+
                                         CommandInitilization(4);
+
+
+                                    }
+                                    else
+                                    {
+                                        // 실패 사운드 출력
                                     }
 
                                         //if(Input.GetKeyDown(KeyCode.UpArrow))
@@ -575,21 +642,14 @@ public class Elizabat : MonoBehaviour {
                                         {
                                             // 일식
                                             if(GameManager.Elizabat_Eclipse_On == false && GameManager.Elizabat_Eclipse_Ready == true &&
-                                                GameManager.Elizabat_Eclipse_Unlock == true &&  GameManager.Soul_MP_Parameter >= EclipseCost)
+                                                GameManager.Elizabat_Eclipse_Unlock == true)
                                             {
                                                 
                                                 NowSkillChecking = 2;
 
                                                 print("NowSkillChecking : " + NowSkillChecking);
 
-                                                if((GameManager.Soul_MP_Parameter - EclipseCost) <= 0.0f)
-                                                {
-                                                    GameManager.Soul_MP_Parameter = 0.0f;
-                                                }
-                                                else
-                                                {
-                                                    GameManager.Soul_MP_Parameter -= EclipseCost;
-                                                }
+
                                                 
                                                 CommandStartOn = true;
                                             }
@@ -603,19 +663,12 @@ public class Elizabat : MonoBehaviour {
                                         {
                                             // 스웜 공격
                                             if (GameManager.Elizabat_Swarm_On == false && GameManager.Elizabat_Swarm_Ready == true &&
-                                                GameManager.Elizabat_Swarm_Unlock == true && GameManager.Soul_MP_Parameter >= SwarmCost)
+                                                GameManager.Elizabat_Swarm_Unlock == true)
                                             {
 
                                                 NowSkillChecking = 4;
 
-                                                if ((GameManager.Soul_MP_Parameter - SwarmCost) <= 0.0f)
-                                                {
-                                                    GameManager.Soul_MP_Parameter = 0.0f;
-                                                }
-                                                else
-                                                {
-                                                    GameManager.Soul_MP_Parameter -= SwarmCost;
-                                                }
+
 
                                                 CommandStartOn = true;
                                             }
@@ -629,20 +682,12 @@ public class Elizabat : MonoBehaviour {
                                         {
                                             // 강하 공격
                                             if (GameManager.Elizabat_Decent_On == false && GameManager.Elizabat_Decent_Ready == true &&
-                                                GameManager.Elizabat_Decent_Unlock == true && GameManager.Soul_MP_Parameter >= DecentCost)
+                                                GameManager.Elizabat_Decent_Unlock == true)
                                             {
 
 
                                                 NowSkillChecking = 3;
 
-                                                if ((GameManager.Soul_MP_Parameter - DecentCost) <= 0.0f)
-                                                {
-                                                    GameManager.Soul_MP_Parameter = 0.0f;
-                                                }
-                                                else
-                                                {
-                                                    GameManager.Soul_MP_Parameter -= DecentCost;
-                                                }
 
                                                 CommandStartOn = true;
                                             }
@@ -655,18 +700,10 @@ public class Elizabat : MonoBehaviour {
                                         {
                                             // 소닉 웨이브
                                             if (GameManager.Elizabat_SonicWave_On == false && GameManager.Elizabat_SonicWave_Ready == true &&
-                                                GameManager.Elizabat_SonicWave_Unlock == true && GameManager.Soul_MP_Parameter >= SonicWaveCost)
+                                                GameManager.Elizabat_SonicWave_Unlock == true)
                                             {
                                                 NowSkillChecking = 1;
 
-                                                if ((GameManager.Soul_MP_Parameter - SonicWaveCost) <= 0.0f)
-                                                {
-                                                    GameManager.Soul_MP_Parameter = 0.0f;
-                                                }
-                                                else
-                                                {
-                                                    GameManager.Soul_MP_Parameter -= SonicWaveCost;
-                                                }
 
                                                 CommandStartOn = true;
                                             }
@@ -775,7 +812,7 @@ public class Elizabat : MonoBehaviour {
                                     
 
 
-                                    if (Input.GetButtonDown("P1_360_XButton"))
+                                    if (Input.GetButtonDown("P1_360_XButton") && GameManager.Soul_MP_Parameter >= SonicWaveCost)
                                     {
                                         Debug.Log("Command Start!");
 
@@ -787,10 +824,25 @@ public class Elizabat : MonoBehaviour {
                                         // Skill UI 활성화 사운드
                                         Audio.clip = CommandStart_Sound;
                                         Audio.Play();
+
+                                        if ((GameManager.Soul_MP_Parameter - SonicWaveCost) <= 0.0f)
+                                        {
+                                            GameManager.Soul_MP_Parameter = 0.0f;
+                                        }
+                                        else
+                                        {
+                                            GameManager.Soul_MP_Parameter -= SonicWaveCost;
+                                        }
+
 
                                         CommandInitilization(1);
                                     }
-                                    else if (Input.GetButtonDown("P1_360_BButton"))
+                                    else
+                                    {
+                                        // 실패 사운드 출력
+                                    }
+                                    
+                                    if (Input.GetButtonDown("P1_360_BButton") && GameManager.Soul_MP_Parameter >= EclipseCost)
                                     {
                                         Debug.Log("Command Start!");
 
@@ -803,9 +855,25 @@ public class Elizabat : MonoBehaviour {
                                         Audio.clip = CommandStart_Sound;
                                         Audio.Play();
 
+
+                                        if ((GameManager.Soul_MP_Parameter - EclipseCost) <= 0.0f)
+                                        {
+                                            GameManager.Soul_MP_Parameter = 0.0f;
+                                        }
+                                        else
+                                        {
+                                            GameManager.Soul_MP_Parameter -= EclipseCost;
+                                        }
+
+
                                         CommandInitilization(2);
                                     }
-                                    else if (Input.GetButtonDown("P1_360_AButton"))
+                                    else
+                                    {
+                                        // 실패 사운드 출력
+                                    }
+                                    
+                                    if (Input.GetButtonDown("P1_360_AButton") && GameManager.Soul_MP_Parameter >= DecentCost)
                                     {
                                         Debug.Log("Command Start!");
 
@@ -818,9 +886,24 @@ public class Elizabat : MonoBehaviour {
                                         Audio.clip = CommandStart_Sound;
                                         Audio.Play();
 
+                                        if ((GameManager.Soul_MP_Parameter - DecentCost) <= 0.0f)
+                                        {
+                                            GameManager.Soul_MP_Parameter = 0.0f;
+                                        }
+                                        else
+                                        {
+                                            GameManager.Soul_MP_Parameter -= DecentCost;
+                                        }
+
+
                                         CommandInitilization(3);
                                     }
-                                    else if (Input.GetButtonDown("P1_360_YButton"))
+                                    else
+                                    {
+                                        // 실패 사운드 출력
+                                    }
+
+                                    if (Input.GetButtonDown("P1_360_YButton") && GameManager.Soul_MP_Parameter >= SwarmCost)
                                     {
                                         light.enabled = true;
                                         SkillTarget.gameObject.SetActive(true);
@@ -831,9 +914,23 @@ public class Elizabat : MonoBehaviour {
                                         Audio.clip = CommandStart_Sound;
                                         Audio.Play();
 
+                                        if ((GameManager.Soul_MP_Parameter - SwarmCost) <= 0.0f)
+                                        {
+                                            GameManager.Soul_MP_Parameter = 0.0f;
+                                        }
+                                        else
+                                        {
+                                            GameManager.Soul_MP_Parameter -= SwarmCost;
+                                        }
+
+
+
                                         CommandInitilization(4);
                                     }
-
+                                    else
+                                    {
+                                        // 실패 사운드 출력
+                                    }
                                    
                                 }
 
@@ -986,22 +1083,13 @@ public class Elizabat : MonoBehaviour {
                                         {
                                             // 일식
                                             if (GameManager.Elizabat_Eclipse_On == false && GameManager.Elizabat_Eclipse_Ready == true &&
-                                                GameManager.Elizabat_Eclipse_Unlock == true && GameManager.Soul_MP_Parameter >= EclipseCost)
+                                                GameManager.Elizabat_Eclipse_Unlock == true)
                                             {
                                                 if (!KeyDownEnable)
                                                 {
                                                     KeyDownEnable = true;
 
                                                     NowSkillChecking = 2;
-
-                                                    if ((GameManager.Soul_MP_Parameter - EclipseCost) <= 0.0f)
-                                                    {
-                                                        GameManager.Soul_MP_Parameter = 0.0f;
-                                                    }
-                                                    else
-                                                    {
-                                                        GameManager.Soul_MP_Parameter -= EclipseCost;
-                                                    }
 
                                                     CommandStartOn = true;
                                                 }
@@ -1017,22 +1105,13 @@ public class Elizabat : MonoBehaviour {
 
                                             // 스웜 공격
                                             if (GameManager.Elizabat_Swarm_On == false && GameManager.Elizabat_Swarm_Ready == true &&
-                                                GameManager.Elizabat_Swarm_Unlock == true && GameManager.Soul_MP_Parameter >= SwarmCost)
+                                                GameManager.Elizabat_Swarm_Unlock == true)
                                             {
                                                 if (!KeyDownEnable)
                                                 {
                                                     KeyDownEnable = true;
 
                                                     NowSkillChecking = 4;
-
-                                                    if ((GameManager.Soul_MP_Parameter - SwarmCost) <= 0.0f)
-                                                    {
-                                                        GameManager.Soul_MP_Parameter = 0.0f;
-                                                    }
-                                                    else
-                                                    {
-                                                        GameManager.Soul_MP_Parameter -= SwarmCost;
-                                                    }
 
 
                                                     CommandStartOn = true;
@@ -1048,7 +1127,7 @@ public class Elizabat : MonoBehaviour {
                                         {
                                             // 강하 공격
                                             if (GameManager.Elizabat_Decent_On == false && GameManager.Elizabat_Decent_Ready == true &&
-                                                GameManager.Elizabat_Decent_Unlock == true && GameManager.Soul_MP_Parameter >= DecentCost)
+                                                GameManager.Elizabat_Decent_Unlock == true)
                                             {
                                                 if (!KeyDownEnable)
                                                 {
@@ -1056,15 +1135,6 @@ public class Elizabat : MonoBehaviour {
                                                     KeyDownEnable = true;
                                                     NowSkillChecking = 3;
 
-
-                                                    if ((GameManager.Soul_MP_Parameter - DecentCost) <= 0.0f)
-                                                    {
-                                                        GameManager.Soul_MP_Parameter = 0.0f;
-                                                    }
-                                                    else
-                                                    {
-                                                        GameManager.Soul_MP_Parameter -= DecentCost;
-                                                    }
 
 
                                                     CommandStartOn = true;
@@ -1080,7 +1150,7 @@ public class Elizabat : MonoBehaviour {
                                         {
                                             // 소닉 웨이브
                                             if (GameManager.Elizabat_SonicWave_On == false && GameManager.Elizabat_SonicWave_Ready == true &&
-                                                GameManager.Elizabat_SonicWave_Unlock == true && GameManager.Soul_MP_Parameter >= SonicWaveCost)
+                                                GameManager.Elizabat_SonicWave_Unlock == true)
                                             {
                                                 if (!KeyDownEnable)
                                                 {
@@ -1090,14 +1160,6 @@ public class Elizabat : MonoBehaviour {
                                                     NowSkillChecking = 1;
 
 
-                                                    if ((GameManager.Soul_MP_Parameter - SonicWaveCost) <= 0.0f)
-                                                    {
-                                                        GameManager.Soul_MP_Parameter = 0.0f;
-                                                    }
-                                                    else
-                                                    {
-                                                        GameManager.Soul_MP_Parameter -= SonicWaveCost;
-                                                    }
 
 
                                                     CommandStartOn = true;
@@ -1502,7 +1564,11 @@ public class Elizabat : MonoBehaviour {
                             {
 
                                 // 스킬 커맨드 표를 활성화 시켜준다.
-                                Skill_SonicWave_Command_Chart.gameObject.SetActive(true);
+                                if (GameManager.Elizabat_SonicWave_Ready == true)
+                                {
+                                    Skill_SonicWave_Command_Chart.gameObject.SetActive(true);
+                                }
+
 
                                 ClockTimer.text = SonicTimeLimit.ToString();
 
@@ -1562,7 +1628,12 @@ public class Elizabat : MonoBehaviour {
                         case 2:
                             {
                                 // 스킬 커맨드 표를 활성화 시켜준다.
-                                Skill_Eclipse_Command_Chart.gameObject.SetActive(true);
+
+                                if (GameManager.Elizabat_Eclipse_Ready == true)
+                                {
+                                    Skill_Eclipse_Command_Chart.gameObject.SetActive(true);
+                                }
+
 
                                 ClockTimer.text = EclipseTimeLimit.ToString();
 
@@ -1623,7 +1694,12 @@ public class Elizabat : MonoBehaviour {
                         case 3:
                             {
                                 // 스킬 커맨드 표를 활성화 시켜준다.
-                                Skill_Decent_Command_Chart.gameObject.SetActive(true);
+
+                                if (GameManager.Elizabat_Decent_Ready == true)
+                                {
+                                    Skill_Decent_Command_Chart.gameObject.SetActive(true);
+                                }
+
 
                                 ClockTimer.text = DecentTimeLimit.ToString();
 
@@ -1683,7 +1759,13 @@ public class Elizabat : MonoBehaviour {
                         case 4:
                             {
                                 // 스킬 커맨드 표를 활성화 시켜준다.
-                                Skill_Swarm_Command_Chart.gameObject.SetActive(true);
+
+
+                                if (GameManager.Elizabat_Swarm_Ready == true)
+                                {
+                                    Skill_Swarm_Command_Chart.gameObject.SetActive(true);
+                                }
+                                
 
                                 ClockTimer.text = SwarmTimeLimit.ToString();
                                 CommandCheckTimer = SwarmTimeLimit;
@@ -1795,7 +1877,7 @@ public class Elizabat : MonoBehaviour {
             Skill_Swarm_Commands[j].color = new Color(0, 0, 0, 0);
         }
 
-        // 스킬 커맨드 표를 활성화 시켜준다.
+        // 스킬 커맨드 표를 비 활성화 시켜준다.
         Skill_SonicWave_Command_Chart.gameObject.SetActive(false);
         Skill_Eclipse_Command_Chart.gameObject.SetActive(false);
         Skill_Decent_Command_Chart.gameObject.SetActive(false);

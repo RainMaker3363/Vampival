@@ -15,7 +15,7 @@ public class CarrySpider : MonoBehaviour {
     public float normalMoveSpeed = 7;
     public float FastMoveSpeed = 40;
 
-    private bool ConsumeOn;
+    private bool TrapSetOn;
 
     public GameObject SpiderRayChecker;
     public GameObject SpiderSpot;
@@ -33,7 +33,7 @@ public class CarrySpider : MonoBehaviour {
         ViewMode = GameManager.ViewMode;
         Gamestate = GameManager.Gamestate;
 
-        SpiderSpot.SetActive(false);
+        SpiderSpot.SetActive(true);
 
         layermask = (1<<LayerMask.NameToLayer("LayCastIn"));//(-1) - (1 << 9) | (1 << 10) | (1 << 12) | (1 << 15);
         ObjectLayerMask = (1 << LayerMask.NameToLayer("LayObjectCheck"));
@@ -42,7 +42,8 @@ public class CarrySpider : MonoBehaviour {
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Projectile"), LayerMask.NameToLayer("CarryPlayer"), true);
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyCorpse"), LayerMask.NameToLayer("CarryPlayer"), true);
 
-        ConsumeOn = false;
+        // 함정 설치 가능 여부
+        TrapSetOn = true;
 
         // 현재 함정의 수
         NowWebTrapStack = 0;
@@ -105,7 +106,7 @@ public class CarrySpider : MonoBehaviour {
                                         //print(hit.point.y);
                                         this.transform.position = new Vector3(this.transform.position.x, hit.point.y + 3.0f, this.transform.position.z);
 
-                                        if (Input.GetKeyDown(KeyCode.Y) && GameManager.Soul_MP_Parameter >= WebTrapCost)
+                                        if (Input.GetKeyDown(KeyCode.Y) && GameManager.Soul_MP_Parameter >= WebTrapCost && TrapSetOn == true)
                                         {
                                             if (Spider_Web_Trap[NowWebTrapStack].gameObject.activeSelf == false)
                                             {
@@ -170,10 +171,10 @@ public class CarrySpider : MonoBehaviour {
                                 }
 
 
-                                if (Input.GetKeyDown(KeyCode.H))
-                                {
-                                    ConsumeOn = true;
-                                }
+                                //if (Input.GetKeyDown(KeyCode.H))
+                                //{
+                                //    ConsumeOn = true;
+                                //}
 
 
 
@@ -203,7 +204,7 @@ public class CarrySpider : MonoBehaviour {
                                         //print(hit.point.y);
                                         this.transform.position = new Vector3(this.transform.position.x, hit.point.y + 3.0f, this.transform.position.z);
 
-                                        if (Input.GetButtonDown("P3_360_BButton") && GameManager.Soul_MP_Parameter >= WebTrapCost)
+                                        if (Input.GetButtonDown("P3_360_BButton") && GameManager.Soul_MP_Parameter >= WebTrapCost && TrapSetOn == true)
                                         {
                                             if (Spider_Web_Trap[NowWebTrapStack].gameObject.activeSelf == false)
                                             {
@@ -261,10 +262,10 @@ public class CarrySpider : MonoBehaviour {
                                     transform.Translate(new Vector3(0, 0, -2.5f) * normalMoveSpeed * Time.deltaTime);
                                 }
 
-                                if (Input.GetButtonDown("P3_360_AButton"))
-                                {
-                                    ConsumeOn = true;
-                                }
+                                //if (Input.GetButtonDown("P3_360_AButton"))
+                                //{
+                                //    ConsumeOn = true;
+                                //}
                                 //else if (Input.GetButtonUp("P3_360_AButton"))
                                 //{
                                 //    ConsumeOn = false;
@@ -309,16 +310,28 @@ public class CarrySpider : MonoBehaviour {
 
     }
 
+    void OnTriggerExit(Collider other)
+    {
+        if (other.transform.tag.Equals("PlayerTrap") == true)
+        {
+            TrapSetOn = true;
+
+            
+        }
+    }
+
     void OnTriggerStay(Collider other)
     {
-        if (other.transform.tag.Equals("Souls") == true)
-        {
-            if (ConsumeOn)
-            {
-                print("Spidas Soul Recharging");
+        //if (other.transform.tag.Equals("Souls") == true)
+        //{
 
-                ConsumeOn = false;
-            }
+        //}
+
+        if (other.transform.tag.Equals("PlayerTrap") == true)
+        {
+            TrapSetOn = false;
+
+            
         }
     }
 }

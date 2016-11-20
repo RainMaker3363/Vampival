@@ -46,7 +46,7 @@ public class Spidas_WebTrap : MonoBehaviour {
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("PlayerSetObject"), LayerMask.NameToLayer("PlayerSetObject"), true);
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Projectile"), LayerMask.NameToLayer("PlayerSetObject"), true);
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyCorpse"), LayerMask.NameToLayer("PlayerSetObject"), true);
-        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("CarryPlayer"), LayerMask.NameToLayer("PlayerSetObject"), true);
+        //Physics.IgnoreLayerCollision(LayerMask.NameToLayer("CarryPlayer"), LayerMask.NameToLayer("PlayerSetObject"), true);
     }
 
     void OnEnable()

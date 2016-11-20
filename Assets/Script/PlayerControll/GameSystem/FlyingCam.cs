@@ -189,37 +189,63 @@ public class FlyingCam : MonoBehaviour {
                                     // 줌 인 & 아웃 기능 구현
                                     if (Input.GetKey(KeyCode.R))
                                     {
-                                        if (ZoomInOut <= 2.5f)
+                                        if (ZoomInOut <= 2.9f)
                                         {
                                             ZoomInOut += 2.8f * Time.deltaTime;
 
-                                            MainCameraRoot.transform.Translate(new Vector3(0, 0, -ZoomInOut));
+                                            
+                                            MainCameraRoot.transform.Translate(new Vector3(0, 0, 48f) * Time.deltaTime);
                                         }
 
-                                        StartZoomPos = new Vector3(MainCameraRoot.transform.localPosition.x, StartYPos, MainCameraRoot.transform.localPosition.z);
-                                    }
-                                    else if (Input.GetKeyUp(KeyCode.R))
-                                    {
-                                        MainCameraRoot.transform.localPosition = StartZoomPos;
-                                        ZoomInOut = 0.0f;
+                                        
+                                        //StartZoomPos = new Vector3(MainCameraRoot.transform.localPosition.x, StartYPos, MainCameraRoot.transform.localPosition.z);
                                     }
 
                                     if (Input.GetKey(KeyCode.F))
                                     {
-                                        if (ZoomInOut <= 2.5f)
+                                        if (ZoomInOut >= -2.9f)
                                         {
-                                            ZoomInOut += 2.8f * Time.deltaTime;
+                                            ZoomInOut -= 2.8f * Time.deltaTime;
 
-                                            MainCameraRoot.transform.Translate(new Vector3(0, 0, ZoomInOut));
+                                            MainCameraRoot.transform.Translate(new Vector3(0, 0, -48f) * Time.deltaTime);
                                         }
+                                        
+                                        //StartZoomPos = new Vector3(MainCameraRoot.transform.localPosition.x, StartYPos, MainCameraRoot.transform.localPosition.z);
+                                    }
 
-                                        StartZoomPos = new Vector3(MainCameraRoot.transform.localPosition.x, StartYPos, MainCameraRoot.transform.localPosition.z);
-                                    }
-                                    else if (Input.GetKeyUp(KeyCode.F))
-                                    {
-                                        MainCameraRoot.transform.localPosition = StartZoomPos;
-                                        ZoomInOut = 0.0f;
-                                    }
+                                    //if (Input.GetKey(KeyCode.R))
+                                    //{
+                                    //    if (ZoomInOut <= 2.5f)
+                                    //    {
+                                    //        ZoomInOut += 2.8f * Time.deltaTime;
+
+                                    //        MainCameraRoot.transform.Translate(new Vector3(0, 0, -ZoomInOut));
+                                    //    }
+
+                                    //    StartZoomPos = new Vector3(MainCameraRoot.transform.localPosition.x, StartYPos, MainCameraRoot.transform.localPosition.z);
+                                    //}
+                                    //else if (Input.GetKeyUp(KeyCode.R))
+                                    //{
+                                    //    MainCameraRoot.transform.localPosition = StartZoomPos;
+                                    //    ZoomInOut = 0.0f;
+                                    //}
+
+                                    //if (Input.GetKey(KeyCode.F))
+                                    //{
+                                    //    if (ZoomInOut <= 2.5f)
+                                    //    {
+                                    //        ZoomInOut += 2.8f * Time.deltaTime;
+
+                                    //        MainCameraRoot.transform.Translate(new Vector3(0, 0, ZoomInOut));
+                                    //    }
+
+                                    //    StartZoomPos = new Vector3(MainCameraRoot.transform.localPosition.x, StartYPos, MainCameraRoot.transform.localPosition.z);
+                                    //}
+                                    //else if (Input.GetKeyUp(KeyCode.F))
+                                    //{
+                                    //    MainCameraRoot.transform.localPosition = StartZoomPos;
+                                    //    ZoomInOut = 0.0f;
+                                    //}
                                 }
                                 break;
 
@@ -306,48 +332,70 @@ public class FlyingCam : MonoBehaviour {
                                     }
 
                                     // 줌 인 & 줌 아웃 기능
-
                                     if (Input.GetAxis("P1_360_Trigger") > 0.001)
                                     {
-
-                                        Debug.Log("Right Trigger!");
-
-                                        if (ZoomInOut <= 2.5f)
+                                        if (ZoomInOut <= 2.9f)
                                         {
                                             ZoomInOut += 2.8f * Time.deltaTime;
 
-                                            MainCameraRoot.transform.Translate(new Vector3(0, 0, -ZoomInOut));
+                                            MainCameraRoot.transform.Translate(new Vector3(0, 0, 48.0f) * Time.deltaTime);
                                         }
 
-                                        StartZoomPos = new Vector3(MainCameraRoot.transform.localPosition.x, StartYPos, MainCameraRoot.transform.localPosition.z);
-
-                                        JoyPadZoomInOut = true;
+                                        //StartZoomPos = new Vector3(MainCameraRoot.transform.localPosition.x, StartYPos, MainCameraRoot.transform.localPosition.z);
                                     }
 
                                     if (Input.GetAxis("P1_360_Trigger") < 0)
                                     {
-
-                                        Debug.Log("Left Trigger!");
-
-                                        if (ZoomInOut <= 2.5f)
+                                        if (ZoomInOut >= -2.9f)
                                         {
-                                            ZoomInOut += 2.8f * Time.deltaTime;
+                                            ZoomInOut -= 2.8f * Time.deltaTime;
 
-                                            MainCameraRoot.transform.Translate(new Vector3(0, 0, ZoomInOut));
+                                            MainCameraRoot.transform.Translate(new Vector3(0, 0, -48.0f) * Time.deltaTime);
                                         }
 
-                                        StartZoomPos = new Vector3(MainCameraRoot.transform.localPosition.x, StartYPos, MainCameraRoot.transform.localPosition.z);
+                                        //StartZoomPos = new Vector3(MainCameraRoot.transform.localPosition.x, StartYPos, MainCameraRoot.transform.localPosition.z);
+                                    }
+                                    //if (Input.GetAxis("P1_360_Trigger") > 0.001)
+                                    //{
 
-                                        JoyPadZoomInOut = true;
+                                    //    Debug.Log("Right Trigger!");
+
+                                    //    if (ZoomInOut <= 2.5f)
+                                    //    {
+                                    //        ZoomInOut += 2.8f * Time.deltaTime;
+
+                                    //        MainCameraRoot.transform.Translate(new Vector3(0, 0, -ZoomInOut));
+                                    //    }
+
+                                    //    StartZoomPos = new Vector3(MainCameraRoot.transform.localPosition.x, StartYPos, MainCameraRoot.transform.localPosition.z);
+
+                                    //    JoyPadZoomInOut = true;
+                                    //}
+
+                                    //if (Input.GetAxis("P1_360_Trigger") < 0)
+                                    //{
+
+                                    //    Debug.Log("Left Trigger!");
+
+                                    //    if (ZoomInOut <= 2.5f)
+                                    //    {
+                                    //        ZoomInOut += 2.8f * Time.deltaTime;
+
+                                    //        MainCameraRoot.transform.Translate(new Vector3(0, 0, ZoomInOut));
+                                    //    }
+
+                                    //    StartZoomPos = new Vector3(MainCameraRoot.transform.localPosition.x, StartYPos, MainCameraRoot.transform.localPosition.z);
+
+                                    //    JoyPadZoomInOut = true;
                                         
-                                    }
+                                    //}
 
-                                    if (Input.GetAxis("P1_360_Trigger") == 0 && JoyPadZoomInOut == true)
-                                    {
-                                        MainCameraRoot.transform.localPosition = StartZoomPos;
-                                        ZoomInOut = 0.0f;
-                                        JoyPadZoomInOut = false;
-                                    }
+                                    //if (Input.GetAxis("P1_360_Trigger") == 0 && JoyPadZoomInOut == true)
+                                    //{
+                                    //    MainCameraRoot.transform.localPosition = StartZoomPos;
+                                    //    ZoomInOut = 0.0f;
+                                    //    JoyPadZoomInOut = false;
+                                    //}
 
                                     
                                     

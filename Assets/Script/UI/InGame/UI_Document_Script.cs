@@ -35,6 +35,8 @@ public class UI_Document_Script : MonoBehaviour {
 
             case GameState.GameStart:
                 {
+
+
                     this.transform.Rotate(new Vector3(0, 0, 180), 180 * Time.deltaTime);
                 }
                 break;

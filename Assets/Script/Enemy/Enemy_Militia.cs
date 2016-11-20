@@ -18,8 +18,8 @@ public class Enemy_Militia : MonoBehaviour {
 
     private EnemyState enemystate;
     private GameState Gamestate;
-    //private EnemyAttackPoint AttackPointSet;
 
+    // 공격 지점 설정
     //public int AttackPointIndex;
 
     private Vector3 StartPos = Vector3.zero;
@@ -71,38 +71,52 @@ public class Enemy_Militia : MonoBehaviour {
 
         if(Target == null)
         {
-            Target = GameObject.FindWithTag("AttackPoint");
+            Target = GameObject.Find("AttackPoint");
         }
 
-        //switch (AttackPointSet)
+        //if (AttackPointIndex >= 3)
         //{
-        //    case EnemyAttackPoint.EAST:
-        //        {
+        //    AttackPointIndex = 3;
+        //}
+        //else if (AttackPointIndex <= 0)
+        //{
+        //    AttackPointIndex = 0;
+            
+        //}
 
+        //switch (AttackPointIndex)
+        //{
+        //        // EAST(동쪽
+        //    case 0:
+        //        {
+        //            Target = GameObject.Find("AttackPoint_East");
         //        }
         //        break;
 
-        //    case EnemyAttackPoint.NORTH:
+        //        // South(남쪽)
+        //    case 1:
         //        {
-
+        //            Target = GameObject.Find("AttackPoint_South");
         //        }
         //        break;
 
-        //    case EnemyAttackPoint.SOUTH:
+        //        // WEST(서쪽)
+        //    case 2:
         //        {
-
+        //            Target = GameObject.Find("AttackPoint_West");
         //        }
         //        break;
 
-        //    case EnemyAttackPoint.WEST:
+        //        // North(북쪽)
+        //    case 3:
         //        {
-
+        //            Target = GameObject.Find("AttackPoint_North");
         //        }
         //        break;
 
         //    default:
         //        {
-        //           Target = GameObject.FindWithTag("AttackPoint");
+        //            Target = GameObject.FindWithTag("AttackPoint");
         //        }
         //        break;
         //}
@@ -143,9 +157,11 @@ public class Enemy_Militia : MonoBehaviour {
             Agent.enabled = true;
 
             Agent.destination = new Vector3(Target.transform.position.x, Target.transform.position.y, Target.transform.position.z);
+
+            
         }
 
-
+        
         //print("StartPos : " + StartPos);
         //print("Agent.destination : " + Agent.destination);
         //print("Active : " + this.enabled);
@@ -886,6 +902,53 @@ public class Enemy_Militia : MonoBehaviour {
         {
             print("Balling !!");
 
+            if (HP > 0)
+            {
+                HP -= 10;
+            }
+            else if (HP <= 0)
+            {
+                //Instantiate(Corpse, this.transform.position, Quaternion.identity);
+
+                Agent.enabled = false;
+
+                if (Corpse[NowCorpseStack].gameObject.activeSelf == false)
+                {
+
+                    Corpse[NowCorpseStack].transform.position = this.transform.position;
+                    Corpse_Souls[NowSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.0f, this.transform.position.z);
+
+                    Corpse[NowCorpseStack].gameObject.SetActive(true);
+                    Corpse_Souls[NowSoulStack].gameObject.SetActive(true);
+                }
+
+                if (NowCorpseStack >= (Corpse.Length - 1))
+                {
+                    NowCorpseStack = 0;
+                }
+                else
+                {
+                    NowCorpseStack++;
+                }
+
+
+                if (NowSoulStack >= (Corpse_Souls.Length - 1))
+                {
+                    NowSoulStack = 0;
+                }
+                else
+                {
+                    NowSoulStack++;
+                }
+
+                this.gameObject.SetActive(false);
+
+                //Destroy(this.gameObject);
+            }
+        }
+
+        if (collision.transform.tag.Equals("WildFire") == true)
+        {
             if (HP > 0)
             {
                 HP -= 10;

@@ -8,6 +8,9 @@ public class Second_Cannon : MonoBehaviour {
     private ViewControllMode ViewMode;
     private GameState Gamestate;
 
+    private float RotationPossibleMax;
+    private float RotationPossibleMin;
+    private float RotationPossibleValue;
     private float TargetDis;
     private CannonNumber MyCannonNumber;
 
@@ -26,6 +29,10 @@ public class Second_Cannon : MonoBehaviour {
         Gamestate = GameManager.Gamestate;
 
         MyCannonNumber = GameManager.CannonControl_Number;
+
+        RotationPossibleMax = 54.0f;
+        RotationPossibleMin = -54.0f;
+        RotationPossibleValue = 0.0f;
 
         SelectLight.enabled = false;
         CrossHair_Icon.SetActive(false);
@@ -101,8 +108,12 @@ public class Second_Cannon : MonoBehaviour {
 
                                             if (Input.GetKey(KeyCode.LeftArrow))
                                             {
+                                                if (RotationPossibleValue <= RotationPossibleMax)
+                                                {
+                                                    RotationPossibleValue += 42.0f * Time.deltaTime;
+                                                    this.transform.Rotate(new Vector3(0, 0, -90), 60 * Time.deltaTime);
+                                                }
 
-                                                this.transform.Rotate(new Vector3(0, 0, -90), 60 * Time.deltaTime);
                                                 //Cannons[0].transform.Rotate(new Vector3(0, 0, -90), 35 * Time.deltaTime);
 
                                                 //CrossHair_Icon.transform.position += new Vector3(-1.8f, 0, 0) * normalMoveSpeed * Time.deltaTime;
@@ -111,7 +122,12 @@ public class Second_Cannon : MonoBehaviour {
                                             }
                                             if (Input.GetKey(KeyCode.RightArrow))
                                             {
-                                                this.transform.Rotate(new Vector3(0, 0, 90), 60 * Time.deltaTime);
+                                                if (RotationPossibleValue >= RotationPossibleMin)
+                                                {
+                                                    RotationPossibleValue -= 42.0f * Time.deltaTime;
+                                                    this.transform.Rotate(new Vector3(0, 0, 90), 60 * Time.deltaTime);
+                                                }
+
                                                 //Cannons[0].transform.Rotate(new Vector3(0, 0, 90), 35 * Time.deltaTime);
 
                                                 //CrossHair_Icon.transform.position += new Vector3(1.8f, 0, 0) * normalMoveSpeed * Time.deltaTime;
@@ -239,17 +255,26 @@ public class Second_Cannon : MonoBehaviour {
                                             if (Input.GetAxisRaw("P2_360_R_RightStick") >= 0.5f)
                                             {
 
-                                                //Debug.Log("RightStick!");
+                                                Debug.Log("RightStick!");
 
-                                                this.transform.Rotate(new Vector3(0, 0, 90), 60 * Time.deltaTime);
+                                                if (RotationPossibleValue <= RotationPossibleMax)
+                                                {
+                                                    RotationPossibleValue += 42.0f * Time.deltaTime;
+                                                    this.transform.Rotate(new Vector3(0, 0, -90), 60 * Time.deltaTime);
+                                                }
+
                                             }
 
                                             if (Input.GetAxisRaw("P2_360_R_RightStick") <= -0.5f)
                                             {
 
-                                                //Debug.Log("LeftStick!");
+                                                Debug.Log("LeftStick!");
 
-                                                this.transform.Rotate(new Vector3(0, 0, -90), 60 * Time.deltaTime);
+                                                if (RotationPossibleValue >= RotationPossibleMin)
+                                                {
+                                                    RotationPossibleValue -= 42.0f * Time.deltaTime;
+                                                    this.transform.Rotate(new Vector3(0, 0, 90), 60 * Time.deltaTime);
+                                                }
                                             }
 
                                             if (Input.GetAxisRaw("P2_360_L_UpStick") <= -0.5f)

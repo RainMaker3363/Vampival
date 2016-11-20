@@ -6,8 +6,6 @@ public class Resource_Souls : MonoBehaviour {
     private ViewControllMode ViewMode;
     private GameState Gamestate;
 
-    private bool ConsumeOn;
-
 	// Use this for initialization
 	void Start () 
     {
@@ -19,8 +17,6 @@ public class Resource_Souls : MonoBehaviour {
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("InGameItem"), true);
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Projectile"), LayerMask.NameToLayer("InGameItem"), true);
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyCorpse"), LayerMask.NameToLayer("InGameItem"), true);
-
-        ConsumeOn = false;
 
         StartCoroutine(DeadOrAliveRoutin(1));
 	}
@@ -53,30 +49,12 @@ public class Resource_Souls : MonoBehaviour {
 
                     // 마우스 작업
 
-                    if (Input.GetKeyDown(KeyCode.H))
-                    {
-                        ConsumeOn = true;
-                    }
-                    //else if(Input.GetKeyUp(KeyCode.H))
-                    //{
-                    //    ConsumeOn = false;
-                    //}
-
                 }
                 break;
 
             case ViewControllMode.GamePad:
                 {
                     // 게임 패드 작업
-
-                    if (Input.GetButtonDown("P3_360_AButton"))
-                    {
-                        ConsumeOn = true;
-                    }
-                    //else if(Input.GetButtonUp("P3_360_AButton"))
-                    //{
-                    //    ConsumeOn = false;
-                    //}
 
 
                 }
@@ -95,7 +73,7 @@ public class Resource_Souls : MonoBehaviour {
     {
         if (other.transform.tag.Equals("Spidas") == true)
         {
-            if (ConsumeOn)
+            if (Input.GetKeyDown(KeyCode.H))
             {
                 print("Soul Recharging");
 
@@ -103,9 +81,18 @@ public class Resource_Souls : MonoBehaviour {
 
                 GameManager.Soul_MP_Parameter += 2.0f;
 
-                ConsumeOn = false;
             }
 
+
+            if (Input.GetButtonDown("P3_360_AButton"))
+            {
+                print("Soul Recharging");
+
+                this.gameObject.SetActive(false);
+
+                GameManager.Soul_MP_Parameter += 2.0f;
+
+            }
 
         }
     }

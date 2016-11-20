@@ -43,10 +43,29 @@ public class UI_SoulParameter : MonoBehaviour {
 
             case GameState.GameStart:
                 {
-                    if (IsChangeMeter != GameManager.Soul_MP_Parameter)
+                    //IsChangeMeter = GameManager.Soul_MP_Parameter;
+                    if (IsChangeMeter < GameManager.Soul_MP_Parameter)
                     {
                         IsChangeMeter = GameManager.Soul_MP_Parameter;
-                        ani.SetTrigger("Soul_Spark");
+                        //ani.SetTrigger("Soul_Decrease");
+                        ani.SetBool("Soul_Increase", true);
+                    }
+                    else
+                    {
+                        ani.SetBool("Soul_Increase", false);
+                    }
+                    
+                    if (IsChangeMeter > GameManager.Soul_MP_Parameter)
+                    {
+                        IsChangeMeter = GameManager.Soul_MP_Parameter;
+                        ani.SetBool("Soul_Decrease", true);
+
+                        //ani.SetTrigger("Soul_Spark");
+                    }
+                    else
+                    {
+
+                        ani.SetBool("Soul_Decrease", false);
                     }
                 }
                 break;

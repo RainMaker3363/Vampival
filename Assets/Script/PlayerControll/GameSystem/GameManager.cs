@@ -39,16 +39,6 @@ public enum EnemyState
     Detect
 }
 
-// 적들 공격 포인트 값
-public enum EnemyAttackPoint
-{
-    SOUTH = 0,
-    WEST,
-    NORTH,
-    EAST,
-    TOTAL
-}
-
 public class GameManager : MonoBehaviour {
 
     //===============================================================================================================================
@@ -342,7 +332,7 @@ public class GameManager : MonoBehaviour {
                     {
                         SoulMP_Parameter_Gage.fillAmount = (Soul_MP_Parameter / Soul_MP_Max);
                     }
-                    else
+                    else if (Soul_MP_Parameter >= Soul_MP_Max)
                     {
                         Soul_MP_Parameter = Soul_MP_Max;
                         SoulMP_Parameter_Gage.fillAmount = 1.0f;
