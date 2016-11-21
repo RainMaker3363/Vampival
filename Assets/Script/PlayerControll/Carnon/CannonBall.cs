@@ -281,6 +281,41 @@ public class CannonBall : MonoBehaviour {
                                     IsFire = true;
                                 }
 
+                                if (Physics.Raycast(this.transform.position, (ObjectChecker.transform.position - this.transform.position).normalized, out hit, 3.0f, layermask))
+                                {
+
+                                    if (hit.transform.gameObject.layer == LayerMask.NameToLayer("LayObjectCheck"))
+                                    {
+                                        Explode_Particle.gameObject.SetActive(true);
+
+                                        Explode_Particle.Play();
+
+                                        Audio.Play();
+
+                                        //Explode_Particle.transform.position = collision.transform.position;
+
+                                        if (SphereCol != null)
+                                        {
+                                            SphereCol.enabled = false;
+                                        }
+
+                                        if (Explode_Particle.isStopped == true)
+                                        {
+                                            this.gameObject.SetActive(false);
+                                        }
+
+                                    }
+
+
+                                    //if (hit.collider.tag.Equals("Ground") == true)
+                                    //{
+                                    //    Leng = this.transform.localPosition.z + Vector3.Distance(this.transform.position, hit.point);
+
+                                    //    AimTarget.transform.localPosition = new Vector3(AimTarget.transform.localPosition.x, AimTarget.transform.localPosition.y, Leng);
+
+                                    //}
+                                }
+
                                 // distance between target and source
                                 dist = Vector3.Distance(StartPoint, targetPoint);
 

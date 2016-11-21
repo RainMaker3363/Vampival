@@ -987,22 +987,68 @@ public class Elizabat : MonoBehaviour {
                                 //    KeyDownEnable = false;
                                 //}
 
-                                if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 0 ||
-                                    Input.GetAxisRaw("P1_360_VerticalDPAD") == 0)
+                                if (Input.GetAxisRaw("P1_360_HorizontalDPAD") >= -0.9f ||
+                                    Input.GetAxisRaw("P1_360_HorizontalDPAD") <= 0.9f ||
+                                    Input.GetAxisRaw("P1_360_VerticalDPAD") <= 0.9 ||
+                                    Input.GetAxisRaw("P1_360_VerticalDPAD") >= -0.9)
                                 {
                                     KeyDownEnable = false;
 
                                     //print("KeyDownEnable : " + KeyDownEnable);
                                 }
-                                else
+                                //else
+                                //{
+                                //    KeyDownEnable = true;
+                                //}
+
+
+                                if (Input.GetAxis("P1_360_HorizontalDPAD") == -1)
                                 {
-                                    KeyDownEnable = true;
+                                    if (!KeyDownEnable)
+                                    {
+
+                                        KeyDownEnable = true;
+
+                                        
+                                    }
+                                }
+                                else if (Input.GetAxis("P1_360_HorizontalDPAD") == 1)
+                                {
+
+                                    if (!KeyDownEnable)
+                                    {
+
+                                        KeyDownEnable = true;
+
+
+                                    }
+                                }
+                                else if (Input.GetAxis("P1_360_VerticalDPAD") == -1)
+                                {
+                                    if (!KeyDownEnable)
+                                    {
+
+                                        KeyDownEnable = true;
+
+
+                                    }
+                                }
+                                else if (Input.GetAxis("P1_360_VerticalDPAD") == 1)
+                                {
+                                    if (!KeyDownEnable)
+                                    {
+
+                                        KeyDownEnable = true;
+
+
+                                    }
                                 }
 
-                                
-
+                                print("P1_360_HorizontalDPAD : " + Input.GetAxisRaw("P1_360_HorizontalDPAD"));
+                                print("P1_360_VerticalDPAD : " + Input.GetAxisRaw("P1_360_VerticalDPAD"));
                                 if (GameManager.Elizabat_CommandStart)
                                 {
+                                    
 
                                     targetPosOnScreen = Camera.main.WorldToScreenPoint(CameraChecker.transform.position);
 
@@ -1079,7 +1125,7 @@ public class Elizabat : MonoBehaviour {
 
                                     if (!CommandStartOn)
                                     {
-                                        if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
+                                        if (Input.GetAxis("P1_360_HorizontalDPAD") == -1)
                                         {
                                             // 일식
                                             if (GameManager.Elizabat_Eclipse_On == false && GameManager.Elizabat_Eclipse_Ready == true &&
@@ -1100,7 +1146,7 @@ public class Elizabat : MonoBehaviour {
                                                 // 실패 사운드 출력
                                             }
                                         }
-                                        else if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
+                                        else if (Input.GetAxis("P1_360_HorizontalDPAD") == 1)
                                         {
 
                                             // 스웜 공격
@@ -1123,7 +1169,7 @@ public class Elizabat : MonoBehaviour {
                                                 // 실패 사운드 출력
                                             }
                                         }
-                                        else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
+                                        else if (Input.GetAxis("P1_360_VerticalDPAD") == -1)
                                         {
                                             // 강하 공격
                                             if (GameManager.Elizabat_Decent_On == false && GameManager.Elizabat_Decent_Ready == true &&
@@ -1146,7 +1192,7 @@ public class Elizabat : MonoBehaviour {
                                                 // 실패 사운드 출력
                                             }
                                         }
-                                        else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
+                                        else if (Input.GetAxis("P1_360_VerticalDPAD") == 1)
                                         {
                                             // 소닉 웨이브
                                             if (GameManager.Elizabat_SonicWave_On == false && GameManager.Elizabat_SonicWave_Ready == true &&
@@ -3298,7 +3344,7 @@ public class Elizabat : MonoBehaviour {
                                             //    }
 
                                             //}
-                                            KeyDownEnable = false;
+                                            //KeyDownEnable = false;
 
                                             // 시간내에 입력하지 못하면 실패
                                             if (CommandCheckTimer <= 0.0f)
@@ -3347,7 +3393,7 @@ public class Elizabat : MonoBehaviour {
                                                 CommandCheckTimer -= Time.deltaTime;
                                                 ClockTimer.text = string.Format("{0:N1}", CommandCheckTimer);
 
-                                                if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
+                                                if (Input.GetAxis("P1_360_HorizontalDPAD") == -1)
                                                 {
                                                     if (!KeyDownEnable)
                                                     {
@@ -3415,7 +3461,7 @@ public class Elizabat : MonoBehaviour {
                                                     }
                                                    
                                                 }
-                                                else if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
+                                                else if (Input.GetAxis("P1_360_HorizontalDPAD") == 1)
                                                 {
                                                     if (!KeyDownEnable)
                                                     {
@@ -3483,7 +3529,7 @@ public class Elizabat : MonoBehaviour {
                                                     }
                                                     
                                                 }
-                                                else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
+                                                else if (Input.GetAxis("P1_360_VerticalDPAD") == -1)
                                                 {
                                                     if (!KeyDownEnable)
                                                     {
@@ -3551,7 +3597,7 @@ public class Elizabat : MonoBehaviour {
                                                     }
                                                     
                                                 }
-                                                else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
+                                                else if (Input.GetAxis("P1_360_VerticalDPAD") == 1)
                                                 {
                                                     if (!KeyDownEnable)
                                                     {
@@ -3721,7 +3767,7 @@ public class Elizabat : MonoBehaviour {
                                                 CommandCheckTimer -= Time.deltaTime;
                                                 ClockTimer.text = string.Format("{0:N1}", CommandCheckTimer);
 
-                                                if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
+                                                if (Input.GetAxis("P1_360_HorizontalDPAD") == -1)
                                                 {
                                                     if (!KeyDownEnable)
                                                     {
@@ -3787,7 +3833,7 @@ public class Elizabat : MonoBehaviour {
                                                     }
                                                     
                                                 }
-                                                else if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
+                                                else if (Input.GetAxis("P1_360_HorizontalDPAD") == 1)
                                                 {
                                                     if (!KeyDownEnable)
                                                     {
@@ -3853,7 +3899,7 @@ public class Elizabat : MonoBehaviour {
                                                     }
                                                    
                                                 }
-                                                else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
+                                                else if (Input.GetAxis("P1_360_VerticalDPAD") == -1)
                                                 {
                                                     if (!KeyDownEnable)
                                                     {
@@ -3919,7 +3965,7 @@ public class Elizabat : MonoBehaviour {
                                                     }
                                                    
                                                 }
-                                                else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
+                                                else if (Input.GetAxis("P1_360_VerticalDPAD") == 1)
                                                 {
                                                     if (!KeyDownEnable)
                                                     {
@@ -4088,7 +4134,7 @@ public class Elizabat : MonoBehaviour {
                                                 CommandCheckTimer -= Time.deltaTime;
                                                 ClockTimer.text = string.Format("{0:N1}", CommandCheckTimer);
 
-                                                if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
+                                                if (Input.GetAxis("P1_360_HorizontalDPAD") == -1)
                                                 {
                                                     if (!KeyDownEnable)
                                                     {
@@ -4155,7 +4201,7 @@ public class Elizabat : MonoBehaviour {
                                                     }
                                                     
                                                 }
-                                                else if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
+                                                else if (Input.GetAxis("P1_360_HorizontalDPAD") == 1)
                                                 {
                                                     if (!KeyDownEnable)
                                                     {
@@ -4222,7 +4268,7 @@ public class Elizabat : MonoBehaviour {
                                                     }
                                                     
                                                 }
-                                                else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
+                                                else if (Input.GetAxis("P1_360_VerticalDPAD") == -1)
                                                 {
                                                     if (!KeyDownEnable)
                                                     {
@@ -4289,7 +4335,7 @@ public class Elizabat : MonoBehaviour {
                                                     }
                                                    
                                                 }
-                                                else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
+                                                else if (Input.GetAxis("P1_360_VerticalDPAD") == 1)
                                                 {
                                                     if (!KeyDownEnable)
                                                     {
@@ -4462,7 +4508,7 @@ public class Elizabat : MonoBehaviour {
                                                 CommandCheckTimer -= Time.deltaTime;
                                                 ClockTimer.text = string.Format("{0:N1}", CommandCheckTimer);
 
-                                                if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
+                                                if (Input.GetAxis("P1_360_HorizontalDPAD") == -1)
                                                 {
                                                     if (!KeyDownEnable)
                                                     {
@@ -4529,7 +4575,7 @@ public class Elizabat : MonoBehaviour {
                                                     }
                                                    
                                                 }
-                                                else if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
+                                                else if (Input.GetAxis("P1_360_HorizontalDPAD") == 1)
                                                 {
                                                     if (!KeyDownEnable)
                                                     {
@@ -4597,7 +4643,7 @@ public class Elizabat : MonoBehaviour {
                                                     }
                                                     
                                                 }
-                                                else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
+                                                else if (Input.GetAxis("P1_360_VerticalDPAD") == -1)
                                                 {
                                                     if (!KeyDownEnable)
                                                     {
@@ -4665,7 +4711,7 @@ public class Elizabat : MonoBehaviour {
                                                     }
                                                     
                                                 }
-                                                else if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
+                                                else if (Input.GetAxis("P1_360_VerticalDPAD") == 1)
                                                 {
                                                     if (!KeyDownEnable)
                                                     {

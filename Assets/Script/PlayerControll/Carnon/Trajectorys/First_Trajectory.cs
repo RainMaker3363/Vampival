@@ -18,6 +18,7 @@ public class First_Trajectory : MonoBehaviour {
     private ViewControllMode ViewMode;
     private GameState Gamestate;
     private CannonNumber MyCannonNumber;
+    private CannonWeapon MyCannonMode;
 
     private AudioSource Audio;
     public AudioClip FireSound;
@@ -28,12 +29,14 @@ public class First_Trajectory : MonoBehaviour {
 
     public GameObject AimTarget;
     public GameObject[] CannonBalls;
+    public GameObject[] BuffCannonBalls;
     public ParticleSystem Spark;
 
     private RaycastHit hit;
 
     private float CannonCost;
     private int NowCannonIdx;
+    private int NowBuffCannonIdx;
 
     void Awake()
     {
@@ -49,6 +52,7 @@ public class First_Trajectory : MonoBehaviour {
         ViewMode = GameManager.ViewMode;
         Gamestate = GameManager.Gamestate;
         MyCannonNumber = GameManager.CannonControl_Number;
+        MyCannonMode = GameManager.CannonWeapon_Toggle;
 
         if(Audio == null)
         {
@@ -61,8 +65,14 @@ public class First_Trajectory : MonoBehaviour {
             CannonBalls[i].SetActive(false);
         }
 
+        for (int i = 0; i < BuffCannonBalls.Length; i++)
+        {
+            BuffCannonBalls[i].SetActive(false);
+        }
+
         CannonCost = 2.0f;//CannonBalls.Length;
         NowCannonIdx = 0;
+        NowBuffCannonIdx = 0;
 
         Spark.gameObject.SetActive(false);
     }
@@ -80,6 +90,7 @@ public class First_Trajectory : MonoBehaviour {
         Gamestate = GameManager.Gamestate;
 
         MyCannonNumber = GameManager.CannonControl_Number;
+        MyCannonMode = GameManager.CannonWeapon_Toggle;
 
         if (Audio == null)
         {
@@ -103,6 +114,7 @@ public class First_Trajectory : MonoBehaviour {
         }
 
         MyCannonNumber = GameManager.CannonControl_Number;
+        MyCannonMode = GameManager.CannonWeapon_Toggle;
         Gamestate = GameManager.Gamestate;
         ViewMode = GameManager.ViewMode;
 
@@ -154,50 +166,93 @@ public class First_Trajectory : MonoBehaviour {
                                             //Debug.DrawLine(AimLight.transform.position, AimTarget.transform.position, Color.blue);
 
 
-
-                                            if (Input.GetKeyDown(KeyCode.Space) && FireReady && (GameManager.Soul_MP_Parameter >= CannonCost))
+                                            switch (MyCannonMode)
                                             {
-                                                FireReady = false;
+                                                case CannonWeapon.Normal:
+                                                    {
+                                                        if (Input.GetKeyDown(KeyCode.Space) && FireReady && (GameManager.Soul_MP_Parameter >= CannonCost))
+                                                        {
+                                                            FireReady = false;
 
-                                                Audio.Play();
+                                                            Audio.Play();
 
-                                                //private RaycastHit hit;
- 
+                                                            if (CannonBalls[NowCannonIdx].activeSelf == false)
+                                                            {
+                                                                //print("Cannon Go!!");
 
-                                                if (CannonBalls[NowCannonIdx].activeSelf == false)
-                                                {
-                                                    //print("Cannon Go!!");
-                                                    
-                                                    Spark.Play();
-                                                    CannonBalls[NowCannonIdx].gameObject.transform.position = this.transform.position;
-                                                    CannonBalls[NowCannonIdx].SetActive(true);
-                                                }
+                                                                Spark.Play();
+                                                                CannonBalls[NowCannonIdx].gameObject.transform.position = this.transform.position;
+                                                                CannonBalls[NowCannonIdx].SetActive(true);
+                                                            }
 
-                                                if (NowCannonIdx >= (CannonBalls.Length-1))
-                                                {
-                                                    NowCannonIdx = 0;
-                                                }
-                                                else
-                                                {
+                                                            if (NowCannonIdx >= (CannonBalls.Length - 1))
+                                                            {
+                                                                NowCannonIdx = 0;
+                                                            }
+                                                            else
+                                                            {
 
-                                                    NowCannonIdx++;
-                                                    //CannonCost--;
-                                                }
+                                                                NowCannonIdx++;
+                                                                //CannonCost--;
+                                                            }
 
-                                                if(GameManager.Soul_MP_Parameter <= 0.0f)
-                                                {
-                                                    GameManager.Soul_MP_Parameter = 0.0f;
-                                                }
-                                                else
-                                                {
-                                                    GameManager.Soul_MP_Parameter -= CannonCost;
-                                                }
-                                                
+                                                            if (GameManager.Soul_MP_Parameter <= 0.0f)
+                                                            {
+                                                                GameManager.Soul_MP_Parameter = 0.0f;
+                                                            }
+                                                            else
+                                                            {
+                                                                GameManager.Soul_MP_Parameter -= CannonCost;
+                                                            }
+                                                            //private RaycastHit hit;
 
-                                                //print("CannonBalls.Length : " + CannonBalls.Length);
-                                                //print("CannonCost : " + CannonCost);
-                                                //Instantiate(CannonBall, this.transform.position, Quaternion.identity);
+
+
+
+
+                                                            //print("CannonBalls.Length : " + CannonBalls.Length);
+                                                            //print("CannonCost : " + CannonCost);
+                                                            //Instantiate(CannonBall, this.transform.position, Quaternion.identity);
+                                                        }
+                                                    }
+                                                    break;
+
+                                                case CannonWeapon.Buff:
+                                                    {
+                                                        if (Input.GetKeyDown(KeyCode.Space) && FireReady && GameManager.BuffCannonStack > 0)
+                                                        {
+                                                            FireReady = false;
+
+                                                            Audio.Play();
+
+
+                                                            if (BuffCannonBalls[NowBuffCannonIdx].activeSelf == false)
+                                                            {
+                                                                //print("Cannon Go!!");
+
+                                                                Spark.Play();
+                                                                BuffCannonBalls[NowBuffCannonIdx].gameObject.transform.position = this.transform.position;
+                                                                BuffCannonBalls[NowBuffCannonIdx].SetActive(true);
+                                                            }
+
+                                                            if (NowBuffCannonIdx >= (BuffCannonBalls.Length - 1))
+                                                            {
+                                                                NowBuffCannonIdx = 0;
+                                                            }
+                                                            else
+                                                            {
+
+                                                                NowBuffCannonIdx++;
+                                                                //CannonCost--;
+                                                            }
+
+                                                            GameManager.BuffCannonStack -= 1;
+                                                        }
+                                                        
+                                                    }
+                                                    break;
                                             }
+                                            
 
                                             //if (null == Camera.main)
                                             //    return;
@@ -352,78 +407,157 @@ public class First_Trajectory : MonoBehaviour {
                                                 FireTimer += Time.deltaTime;
                                             }
 
-                                            if (Input.GetAxis("P2_360_Trigger") > 0.001 && FireReady && (GameManager.Soul_MP_Parameter >= CannonCost))
+                                            switch (MyCannonMode)
                                             {
+                                                case CannonWeapon.Normal:
+                                                    {
+                                                        if (Input.GetAxis("P2_360_Trigger") > 0.001 && FireReady && (GameManager.Soul_MP_Parameter >= CannonCost))
+                                                        {
 
-                                                Debug.Log("Right Trigger!");
+                                                            Debug.Log("Right Trigger!");
 
-                                                FireReady = false;
+                                                            FireReady = false;
 
-                                                Audio.Play();
+                                                            Audio.Play();
 
-                                                if (CannonBalls[NowCannonIdx].activeSelf == false)
-                                                {
-                                                    //print("Cannon Go!!");
+                                                            if (CannonBalls[NowCannonIdx].activeSelf == false)
+                                                            {
+                                                                //print("Cannon Go!!");
 
-                                                    Spark.Play();
+                                                                Spark.Play();
 
-                                                    CannonBalls[NowCannonIdx].gameObject.transform.position = this.transform.position;
-                                                    CannonBalls[NowCannonIdx].SetActive(true);
-                                                }
+                                                                CannonBalls[NowCannonIdx].gameObject.transform.position = this.transform.position;
+                                                                CannonBalls[NowCannonIdx].SetActive(true);
+                                                            }
 
-                                                if (NowCannonIdx >= (CannonBalls.Length - 1))
-                                                {
-                                                    NowCannonIdx = 0;
-                                                }
-                                                else
-                                                {
+                                                            if (NowCannonIdx >= (CannonBalls.Length - 1))
+                                                            {
+                                                                NowCannonIdx = 0;
+                                                            }
+                                                            else
+                                                            {
 
-                                                    NowCannonIdx++;
-                                                    //CannonCost--;
-                                                }
-                                                //Instantiate(CannonBall, this.transform.position, Quaternion.identity);
+                                                                NowCannonIdx++;
+                                                                //CannonCost--;
+                                                            }
+                                                            //Instantiate(CannonBall, this.transform.position, Quaternion.identity);
+                                                        }
+
+                                                        if (Input.GetAxis("P2_360_Trigger") < 0 && FireReady && (GameManager.Soul_MP_Parameter >= CannonCost))
+                                                        {
+
+                                                            Debug.Log("Left Trigger!");
+
+                                                            FireReady = false;
+
+                                                            Audio.Play();
+
+                                                            if (CannonBalls[NowCannonIdx].activeSelf == false)
+                                                            {
+                                                                print("Cannon Go!!");
+
+                                                                CannonBalls[NowCannonIdx].gameObject.transform.position = this.transform.position;
+                                                                CannonBalls[NowCannonIdx].SetActive(true);
+                                                            }
+
+                                                            if (NowCannonIdx >= (CannonBalls.Length - 1))
+                                                            {
+                                                                NowCannonIdx = 0;
+                                                            }
+                                                            else
+                                                            {
+
+                                                                NowCannonIdx++;
+                                                                //CannonCost--;
+                                                            }
+                                                            //Instantiate(CannonBall, this.transform.position, Quaternion.identity);
+
+                                                            if (GameManager.Soul_MP_Parameter <= 0.0f)
+                                                            {
+                                                                GameManager.Soul_MP_Parameter = 0.0f;
+                                                            }
+                                                            else
+                                                            {
+                                                                GameManager.Soul_MP_Parameter -= CannonCost;
+                                                            }
+
+                                                        }
+
+                                                    }
+                                                    break;
+
+                                                case CannonWeapon.Buff:
+                                                    {
+                                                        if (Input.GetAxis("P2_360_Trigger") > 0.001 && FireReady && (GameManager.BuffCannonStack > 0))
+                                                        {
+
+                                                            Debug.Log("Right Trigger!");
+
+                                                            FireReady = false;
+
+                                                            Audio.Play();
+
+
+                                                            if (BuffCannonBalls[NowBuffCannonIdx].activeSelf == false)
+                                                            {
+                                                                //print("Cannon Go!!");
+
+                                                                Spark.Play();
+                                                                BuffCannonBalls[NowBuffCannonIdx].gameObject.transform.position = this.transform.position;
+                                                                BuffCannonBalls[NowBuffCannonIdx].SetActive(true);
+                                                            }
+
+                                                            if (NowBuffCannonIdx >= (BuffCannonBalls.Length - 1))
+                                                            {
+                                                                NowBuffCannonIdx = 0;
+                                                            }
+                                                            else
+                                                            {
+
+                                                                NowBuffCannonIdx++;
+                                                                //CannonCost--;
+                                                            }
+
+                                                            GameManager.BuffCannonStack -= 1;
+                                                        }
+
+                                                        if (Input.GetAxis("P2_360_Trigger") < 0 && FireReady && (GameManager.BuffCannonStack > 0))
+                                                        {
+
+                                                            Debug.Log("Left Trigger!");
+
+                                                            FireReady = false;
+
+                                                            Audio.Play();
+
+
+                                                            if (BuffCannonBalls[NowBuffCannonIdx].activeSelf == false)
+                                                            {
+                                                                //print("Cannon Go!!");
+
+                                                                Spark.Play();
+                                                                BuffCannonBalls[NowBuffCannonIdx].gameObject.transform.position = this.transform.position;
+                                                                BuffCannonBalls[NowBuffCannonIdx].SetActive(true);
+                                                            }
+
+                                                            if (NowBuffCannonIdx >= (BuffCannonBalls.Length - 1))
+                                                            {
+                                                                NowBuffCannonIdx = 0;
+                                                            }
+                                                            else
+                                                            {
+
+                                                                NowBuffCannonIdx++;
+                                                                //CannonCost--;
+                                                            }
+
+                                                            GameManager.BuffCannonStack -= 1;
+                                                        }
+
+                                                    }
+                                                    break;
                                             }
-
-                                            if (Input.GetAxis("P2_360_Trigger") < 0 && FireReady && (GameManager.Soul_MP_Parameter >= CannonCost))
-                                            {
-
-                                                Debug.Log("Left Trigger!");
-
-                                                FireReady = false;
-
-                                                Audio.Play();
-
-                                                if (CannonBalls[NowCannonIdx].activeSelf == false)
-                                                {
-                                                    print("Cannon Go!!");
-
-                                                    CannonBalls[NowCannonIdx].gameObject.transform.position = this.transform.position;
-                                                    CannonBalls[NowCannonIdx].SetActive(true);
-                                                }
-
-                                                if (NowCannonIdx >= (CannonBalls.Length - 1))
-                                                {
-                                                    NowCannonIdx = 0;
-                                                }
-                                                else
-                                                {
-
-                                                    NowCannonIdx++;
-                                                    //CannonCost--;
-                                                }
-                                                //Instantiate(CannonBall, this.transform.position, Quaternion.identity);
-
-                                                if (GameManager.Soul_MP_Parameter <= 0.0f)
-                                                {
-                                                    GameManager.Soul_MP_Parameter = 0.0f;
-                                                }
-                                                else
-                                                {
-                                                    GameManager.Soul_MP_Parameter -= CannonCost;
-                                                }
-
-                                            }
-
+                                     
 
                                             // Get the point along the ray that hits the calculated distance.			
                                             targetPoint = AimTarget.transform.position;//ray.GetPoint(hitdist);

@@ -8,6 +8,8 @@ public class CarrySpider : MonoBehaviour {
 
     private Quaternion Rotate;
     private Vector3 Dir;
+    private Vector3 MyScale;
+    private Vector3 PowerUpScale;
     private int layermask;
     private int ObjectLayerMask;
     private RaycastHit hit;
@@ -41,6 +43,12 @@ public class CarrySpider : MonoBehaviour {
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("CarryPlayer"), true);
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Projectile"), LayerMask.NameToLayer("CarryPlayer"), true);
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyCorpse"), LayerMask.NameToLayer("CarryPlayer"), true);
+
+        MyScale = Vector3.zero;
+        PowerUpScale = Vector3.zero;
+
+        MyScale = this.gameObject.transform.localScale;
+        PowerUpScale = new Vector3(MyScale.x + 3.0f, MyScale.y + 3.0f, MyScale.z + 3.0f);
 
         // 함정 설치 가능 여부
         TrapSetOn = true;
@@ -130,6 +138,18 @@ public class CarrySpider : MonoBehaviour {
                                         }
                                     }
                                 }
+
+
+                                //if (GameManager.Spidas_PowerUp_On == true)
+                                //{
+                                //    this.gameObject.transform.localScale = PowerUpScale;
+                                //    normalMoveSpeed = 12.0f;
+                                //}
+                                //else
+                                //{
+                                //    this.gameObject.transform.localScale = MyScale;
+                                //    normalMoveSpeed = 7.0f;
+                                //}
 
                                 //Debug.DrawRay(this.transform.position, (ObjectChecker.transform.position - this.transform.position).normalized * 4.5f, Color.cyan);
 
@@ -285,18 +305,44 @@ public class CarrySpider : MonoBehaviour {
 	  
 	}
 
-    //void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.transform.tag == "CannonBall")
-    //    {
-    //        print("Friendly Fire!!");
-    //    }
+    // 스피다스 버프 효과
+    IEnumerator PowerUp(int idx)
+    {
+        GameManager.Spidas_PowerUp_On = true;
 
-    //    if (collision.transform.tag.Equals("Souls") == true)
-    //    {
-    //        print("Soul Recharging");
-    //    }
-    //}
+        this.gameObject.transform.localScale = PowerUpScale;
+        normalMoveSpeed = 12.0f;
+
+        //if (GameManager.Spidas_PowerUp_On == true)
+        //{
+        //    this.gameObject.transform.localScale = PowerUpScale;
+        //    normalMoveSpeed = 12.0f;
+        //}
+        //else
+        //{
+        //    this.gameObject.transform.localScale = MyScale;
+        //    normalMoveSpeed = 7.0f;
+        //}
+
+        yield return new WaitForSeconds(8.0f);
+
+        GameManager.Spidas_PowerUp_On = false;
+
+        this.gameObject.transform.localScale = MyScale;
+        normalMoveSpeed = 7.0f;
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.transform.tag.Equals("BuffCannonBall") == true)
+        {
+            print("Power Up!!");
+
+            StopCoroutine(PowerUp(1));
+
+            StartCoroutine(PowerUp(1));
+        }
+    }
 
     void OnTriggerEnter(Collider other)
     {

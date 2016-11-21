@@ -1,0 +1,417 @@
+fileFormatVersion: 2
+guid: e335184e222337f46bbc7ebef061d734
+timeCreated: 1479737310
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: Box092
+    100002: Box107
+    100004: Box124
+    100006: Box125
+    100008: Box126
+    100010: Box127
+    100012: Box128
+    100014: Box129
+    100016: Box130
+    100018: Box131
+    100020: Box132
+    100022: Box133
+    100024: Box134
+    100026: Box135
+    100028: Box136
+    100030: Box137
+    100032: Box138
+    100034: Box139
+    100036: Box140
+    100038: Box1777
+    100040: Box1778
+    100042: Box1779
+    100044: Box1780
+    100046: Box1785
+    100048: Box1787
+    100050: bridge
+    100052: castle1
+    100054: castle2
+    100056: cliff
+    100058: Cylinder467
+    100060: fance box
+    100062: fance008
+    100064: fance011
+    100066: fance019
+    100068: fance020
+    100070: fance021
+    100072: fance022
+    100074: fance023
+    100076: fance024
+    100078: //RootNode
+    100080: Group014
+    100082: Group015
+    100084: Group017
+    100086: Group019
+    100088: Group020
+    100090: Group022
+    100092: Group023
+    100094: Group025
+    100096: Group026
+    100098: house 01
+    100100: house 02
+    100102: land1
+    100104: mountain
+    100106: Object118
+    100108: Plane774
+    100110: pot
+    100112: road
+    100114: Sphere014
+    100116: Sphere015
+    100118: Sphere016
+    100120: Sphere017
+    100122: tower
+    100124: tower001
+    100126: tower002
+    100128: tower003
+    100130: tree_ rock
+    100132: turn
+    100134: turn001
+    100136: turn002
+    100138: turn003
+    100140: wall
+    100142: well_waggon
+    100144: windmill
+    100146: windmill001
+    100148: windmill002
+    100150: windmill003
+    400000: Box092
+    400002: Box107
+    400004: Box124
+    400006: Box125
+    400008: Box126
+    400010: Box127
+    400012: Box128
+    400014: Box129
+    400016: Box130
+    400018: Box131
+    400020: Box132
+    400022: Box133
+    400024: Box134
+    400026: Box135
+    400028: Box136
+    400030: Box137
+    400032: Box138
+    400034: Box139
+    400036: Box140
+    400038: Box1777
+    400040: Box1778
+    400042: Box1779
+    400044: Box1780
+    400046: Box1785
+    400048: Box1787
+    400050: bridge
+    400052: castle1
+    400054: castle2
+    400056: cliff
+    400058: Cylinder467
+    400060: fance box
+    400062: fance008
+    400064: fance011
+    400066: fance019
+    400068: fance020
+    400070: fance021
+    400072: fance022
+    400074: fance023
+    400076: fance024
+    400078: //RootNode
+    400080: Group014
+    400082: Group015
+    400084: Group017
+    400086: Group019
+    400088: Group020
+    400090: Group022
+    400092: Group023
+    400094: Group025
+    400096: Group026
+    400098: house 01
+    400100: house 02
+    400102: land1
+    400104: mountain
+    400106: Object118
+    400108: Plane774
+    400110: pot
+    400112: road
+    400114: Sphere014
+    400116: Sphere015
+    400118: Sphere016
+    400120: Sphere017
+    400122: tower
+    400124: tower001
+    400126: tower002
+    400128: tower003
+    400130: tree_ rock
+    400132: turn
+    400134: turn001
+    400136: turn002
+    400138: turn003
+    400140: wall
+    400142: well_waggon
+    400144: windmill
+    400146: windmill001
+    400148: windmill002
+    400150: windmill003
+    2300000: Box092
+    2300002: Box107
+    2300004: Box124
+    2300006: Box125
+    2300008: Box126
+    2300010: Box127
+    2300012: Box128
+    2300014: Box129
+    2300016: Box130
+    2300018: Box131
+    2300020: Box132
+    2300022: Box133
+    2300024: Box134
+    2300026: Box135
+    2300028: Box136
+    2300030: Box137
+    2300032: Box138
+    2300034: Box139
+    2300036: Box140
+    2300038: Box1777
+    2300040: Box1778
+    2300042: Box1779
+    2300044: Box1780
+    2300046: Box1785
+    2300048: Box1787
+    2300050: castle1
+    2300052: castle2
+    2300054: cliff
+    2300056: Cylinder467
+    2300058: fance box
+    2300060: fance008
+    2300062: fance011
+    2300064: fance019
+    2300066: fance020
+    2300068: fance021
+    2300070: fance022
+    2300072: fance023
+    2300074: fance024
+    2300076: house 01
+    2300078: house 02
+    2300080: land1
+    2300082: mountain
+    2300084: Object118
+    2300086: Plane774
+    2300088: pot
+    2300090: road
+    2300092: Sphere014
+    2300094: Sphere015
+    2300096: Sphere016
+    2300098: Sphere017
+    2300100: tower
+    2300102: tower001
+    2300104: tower002
+    2300106: tower003
+    2300108: tree_ rock
+    2300110: turn
+    2300112: turn001
+    2300114: turn002
+    2300116: turn003
+    2300118: wall
+    2300120: well_waggon
+    2300122: windmill001
+    2300124: windmill002
+    2300126: windmill003
+    3300000: Box092
+    3300002: Box107
+    3300004: Box124
+    3300006: Box125
+    3300008: Box126
+    3300010: Box127
+    3300012: Box128
+    3300014: Box129
+    3300016: Box130
+    3300018: Box131
+    3300020: Box132
+    3300022: Box133
+    3300024: Box134
+    3300026: Box135
+    3300028: Box136
+    3300030: Box137
+    3300032: Box138
+    3300034: Box139
+    3300036: Box140
+    3300038: Box1777
+    3300040: Box1778
+    3300042: Box1779
+    3300044: Box1780
+    3300046: Box1785
+    3300048: Box1787
+    3300050: castle1
+    3300052: castle2
+    3300054: cliff
+    3300056: Cylinder467
+    3300058: fance box
+    3300060: fance008
+    3300062: fance011
+    3300064: fance019
+    3300066: fance020
+    3300068: fance021
+    3300070: fance022
+    3300072: fance023
+    3300074: fance024
+    3300076: house 01
+    3300078: house 02
+    3300080: land1
+    3300082: mountain
+    3300084: Object118
+    3300086: Plane774
+    3300088: pot
+    3300090: road
+    3300092: Sphere014
+    3300094: Sphere015
+    3300096: Sphere016
+    3300098: Sphere017
+    3300100: tower
+    3300102: tower001
+    3300104: tower002
+    3300106: tower003
+    3300108: tree_ rock
+    3300110: turn
+    3300112: turn001
+    3300114: turn002
+    3300116: turn003
+    3300118: wall
+    3300120: well_waggon
+    3300122: windmill001
+    3300124: windmill002
+    3300126: windmill003
+    4300000: Box1780
+    4300002: fance008
+    4300004: Cylinder467
+    4300006: house 02
+    4300008: fance011
+    4300010: well_waggon
+    4300012: Box1785
+    4300014: Box1787
+    4300016: Plane774
+    4300018: house 01
+    4300020: fance019
+    4300022: fance020
+    4300024: fance021
+    4300026: fance022
+    4300028: fance023
+    4300030: fance024
+    4300032: fance box
+    4300034: land1
+    4300036: cliff
+    4300038: castle2
+    4300040: tower
+    4300042: turn
+    4300044: Sphere014
+    4300046: castle1
+    4300048: wall
+    4300050: pot
+    4300052: tree_ rock
+    4300054: Box1778
+    4300056: turn001
+    4300058: Sphere015
+    4300060: tower001
+    4300062: Box137
+    4300064: Box138
+    4300066: Box139
+    4300068: Box140
+    4300070: Box125
+    4300072: Box126
+    4300074: Box092
+    4300076: Box124
+    4300078: Box107
+    4300080: Box127
+    4300082: Box128
+    4300084: Box133
+    4300086: Box134
+    4300088: Box135
+    4300090: Box136
+    4300092: Box129
+    4300094: Box130
+    4300096: Box131
+    4300098: Box132
+    4300100: turn002
+    4300102: Sphere016
+    4300104: tower002
+    4300106: tower003
+    4300108: turn003
+    4300110: Sphere017
+    4300112: Box1777
+    4300114: Box1779
+    4300116: road
+    4300118: mountain
+    4300120: windmill001
+    4300122: windmill002
+    4300124: windmill003
+    4300126: Object118
+    7400000: Take 001
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

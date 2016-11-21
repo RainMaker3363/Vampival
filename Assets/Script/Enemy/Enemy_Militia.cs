@@ -20,7 +20,7 @@ public class Enemy_Militia : MonoBehaviour {
     private GameState Gamestate;
 
     // 공격 지점 설정
-    //public int AttackPointIndex;
+    public int AttackPointIndex;
 
     private Vector3 StartPos = Vector3.zero;
     private Vector3 targetPosOnScreen;
@@ -43,6 +43,7 @@ public class Enemy_Militia : MonoBehaviour {
     // 스피다스 체크
     private float SpidasDistance;
     private float EnemySpeed;
+    private bool KnockBackCheck;
 
     private bool CameraMarkingOn;
     private bool SwarmAttackingOn;
@@ -58,8 +59,11 @@ public class Enemy_Militia : MonoBehaviour {
 
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyCorpse"), LayerMask.NameToLayer("SkillParticle"), true);
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyCorpse"), LayerMask.NameToLayer("Projectile"), true);
-        
-        //rigid = GetComponent<Rigidbody>();
+
+        //if (rigid == null)
+        //{
+        //    rigid = GetComponent<Rigidbody>();
+        //}
 
         EnemySpot.gameObject.SetActive(false);
         EnemyArrow.gameObject.SetActive(false);
@@ -69,57 +73,57 @@ public class Enemy_Militia : MonoBehaviour {
             Spidas = GameObject.FindWithTag("Spidas");
         }
 
-        if(Target == null)
+        //if(Target == null)
+        //{
+        //    Target = GameObject.Find("AttackPoint");
+        //}
+
+        if (AttackPointIndex >= 3)
         {
-            Target = GameObject.Find("AttackPoint");
+            AttackPointIndex = 3;
+        }
+        else if (AttackPointIndex <= 0)
+        {
+            AttackPointIndex = 0;
+
         }
 
-        //if (AttackPointIndex >= 3)
-        //{
-        //    AttackPointIndex = 3;
-        //}
-        //else if (AttackPointIndex <= 0)
-        //{
-        //    AttackPointIndex = 0;
-            
-        //}
+        switch (AttackPointIndex)
+        {
+            // EAST(동쪽
+            case 0:
+                {
+                    Target = GameObject.Find("AttackPoint_East");
+                }
+                break;
 
-        //switch (AttackPointIndex)
-        //{
-        //        // EAST(동쪽
-        //    case 0:
-        //        {
-        //            Target = GameObject.Find("AttackPoint_East");
-        //        }
-        //        break;
+            // South(남쪽)
+            case 1:
+                {
+                    Target = GameObject.Find("AttackPoint_South");
+                }
+                break;
 
-        //        // South(남쪽)
-        //    case 1:
-        //        {
-        //            Target = GameObject.Find("AttackPoint_South");
-        //        }
-        //        break;
+            // WEST(서쪽)
+            case 2:
+                {
+                    Target = GameObject.Find("AttackPoint_West");
+                }
+                break;
 
-        //        // WEST(서쪽)
-        //    case 2:
-        //        {
-        //            Target = GameObject.Find("AttackPoint_West");
-        //        }
-        //        break;
+            // North(북쪽)
+            case 3:
+                {
+                    Target = GameObject.Find("AttackPoint_North");
+                }
+                break;
 
-        //        // North(북쪽)
-        //    case 3:
-        //        {
-        //            Target = GameObject.Find("AttackPoint_North");
-        //        }
-        //        break;
-
-        //    default:
-        //        {
-        //            Target = GameObject.FindWithTag("AttackPoint");
-        //        }
-        //        break;
-        //}
+            default:
+                {
+                    Target = GameObject.Find("AttackPoint");
+                }
+                break;
+        }
 
         enemystate = EnemyState.Run;
         Gamestate = GameManager.Gamestate;
@@ -131,6 +135,7 @@ public class Enemy_Militia : MonoBehaviour {
 
         EnemySpeed = 3.5f;
 
+        KnockBackCheck = false;
         DeathCheck = false;
         FearMeterCheck = false;
         CameraMarkingOn = false;
@@ -155,7 +160,7 @@ public class Enemy_Militia : MonoBehaviour {
         else
         {
             Agent.enabled = true;
-
+            Agent.Resume();
             Agent.destination = new Vector3(Target.transform.position.x, Target.transform.position.y, Target.transform.position.z);
 
             
@@ -199,6 +204,7 @@ public class Enemy_Militia : MonoBehaviour {
         AttackPoint = 10;
         EnemySpeed = 3.5f;
 
+        KnockBackCheck = false;
         DeathCheck = false;
         FearMeterCheck = false;
         CameraMarkingOn = false;
@@ -221,7 +227,7 @@ public class Enemy_Militia : MonoBehaviour {
         else
         {
             Agent.enabled = true;
-
+            Agent.Resume();
             Agent.destination = new Vector3(Target.transform.position.x, Target.transform.position.y, Target.transform.position.z);
         }
 
@@ -688,6 +694,70 @@ public class Enemy_Militia : MonoBehaviour {
         Agent.speed = EnemySpeed;
     }
 
+    IEnumerator KnockBack(int idx)
+    {
+        KnockBackCheck = true;
+
+        Agent.Stop();
+
+        //KnockDir = (Target.transform.position - this.gameObject.transform.position).normalized;
+        Agent.Move((Target.transform.position - this.gameObject.transform.position).normalized * -6.5f);
+        Agent.Move(new Vector3(0, 5.0f, 0));
+
+        if (HP > 0)
+        {
+            HP -= 10;
+        }
+        else if (HP <= 0)
+        {
+            //GameManager.Fear_Parameter += 1;
+            Agent.enabled = false;
+
+            //Instantiate(Corpse, this.transform.position, Quaternion.identity);
+            if (Corpse[NowCorpseStack].gameObject.activeSelf == false)
+            {
+
+                Corpse[NowCorpseStack].transform.position = this.transform.position;
+                Corpse_Souls[NowSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.0f, this.transform.position.z);
+
+                Corpse[NowCorpseStack].gameObject.SetActive(true);
+                Corpse_Souls[NowSoulStack].gameObject.SetActive(true);
+            }
+
+            if (NowCorpseStack >= (Corpse.Length - 1))
+            {
+                NowCorpseStack = 0;
+            }
+            else
+            {
+                NowCorpseStack++;
+            }
+
+            if (NowSoulStack >= (Corpse_Souls.Length - 1))
+            {
+                NowSoulStack = 0;
+            }
+            else
+            {
+                NowSoulStack++;
+            }
+
+            this.gameObject.SetActive(false);
+
+            //Destroy(this.gameObject);
+        }
+        //Agent.Move(new Vector3(-18.0f, 5.0f, 0.0f));
+        //rigid.AddForce(new Vector3(4.0f, 4.0f, 0.0f), ForceMode.Impulse);
+        
+        //rigid.AddRelativeForce(new Vector3(3.0f, 3.0f, 0f), ForceMode.Impulse);
+
+        yield return new WaitForSeconds(0.8f);
+
+        KnockBackCheck = false;
+
+        Agent.Resume();
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.transform.tag.Equals("AttackPoint") == true)
@@ -784,6 +854,21 @@ public class Enemy_Militia : MonoBehaviour {
 
             //    //Destroy(this.gameObject);
             //}
+        }
+
+        // 파워업 스피다스에게 부딪혔을 경우..
+        if (other.transform.tag.Equals("SpidasChecker") == true)
+        {
+            if(GameManager.Spidas_PowerUp_On == true)
+            {
+                StopCoroutine(KnockBack(1));
+
+                if (KnockBackCheck == false)
+                {
+                    StartCoroutine(KnockBack(1));
+                }
+                
+            }
         }
     }
 

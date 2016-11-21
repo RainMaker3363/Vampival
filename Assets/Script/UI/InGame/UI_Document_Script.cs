@@ -54,7 +54,7 @@ public class UI_Document_Script : MonoBehaviour {
     {
         if (other.transform.tag.Equals("Spidas") == true)
         {
-            other.gameObject.SetActive(false);
+            //this.gameObject.SetActive(false);
 
             GameManager.Gamestate = GameState.GamePause;
         }

@@ -24,6 +24,11 @@ public class WildFire : MonoBehaviour {
         if (col == null)
         {
             col = GetComponent<SphereCollider>();
+            col.enabled = true;
+        }
+        else
+        {
+            col.enabled = true;
         }
 
         //TargetPos.transform.position = Vector3.zero;
@@ -91,7 +96,6 @@ public class WildFire : MonoBehaviour {
         {
             TargetPos = GameObject.FindWithTag("SkillTarget");
         }
-        
 
         this.transform.parent = null;
         this.transform.localEulerAngles = new Vector3(0, 0, 0);
@@ -163,16 +167,27 @@ public class WildFire : MonoBehaviour {
     {
         if (collision.transform.tag.Equals("Enemy") == true)
         {
+
+            if (col != null)
+            {
+                col.enabled = false;
+            }
+
             this.gameObject.SetActive(false);
 
-            print("I'm Out");
+            
         }
 
         if (collision.transform.tag.Equals("Ground") == true)
         {
+            if (col != null)
+            {
+                col.enabled = false;
+            }
+
             this.gameObject.SetActive(false);
 
-            print("I'm Out");
+            
         }
 
     }

@@ -45,53 +45,53 @@ public class UIManager : MonoBehaviour {
                     {
                         audioSource.enabled = true;
 
-                        //switch (Doc_Num)
-                        //{
-                        //    case 0:
-                        //        {
-                        //            GameManager.Elizabat_SonicWave_Unlock = true;
+                        switch (Doc_Num)
+                        {
+                            case 0:
+                                {
+                                    GameManager.Elizabat_SonicWave_Unlock = true;
 
-                        //            Document_BG.gameObject.SetActive(true);
-                        //            Documents[0].gameObject.SetActive(true);
-                        //        }
-                        //        break;
+                                    Document_BG.gameObject.SetActive(true);
+                                    Documents[0].gameObject.SetActive(true);
+                                }
+                                break;
 
-                        //    case 1:
-                        //        {
-                        //            GameManager.Elizabat_Eclipse_Unlock = true;
+                            case 1:
+                                {
+                                    GameManager.Elizabat_Eclipse_Unlock = true;
 
-                        //            Document_BG.gameObject.SetActive(true);
-                        //            Documents[1].gameObject.SetActive(true);
-                        //        }
-                        //        break;
+                                    Document_BG.gameObject.SetActive(true);
+                                    Documents[1].gameObject.SetActive(true);
+                                }
+                                break;
 
-                        //    case 2:
-                        //        {
-                        //            GameManager.Elizabat_Decent_Unlock = true;
+                            case 2:
+                                {
+                                    GameManager.Elizabat_Decent_Unlock = true;
 
-                        //            Document_BG.gameObject.SetActive(true);
-                        //            Documents[2].gameObject.SetActive(true);
-                        //        }
-                        //        break;
+                                    Document_BG.gameObject.SetActive(true);
+                                    Documents[2].gameObject.SetActive(true);
+                                }
+                                break;
 
-                        //    case 3:
-                        //        {
-                        //            GameManager.Elizabat_Swarm_Unlock = true;
+                            case 3:
+                                {
+                                    GameManager.Elizabat_Swarm_Unlock = true;
 
-                        //            Document_BG.gameObject.SetActive(true);
-                        //            Documents[3].gameObject.SetActive(true);
-                        //        }
-                        //        break;
+                                    Document_BG.gameObject.SetActive(true);
+                                    Documents[3].gameObject.SetActive(true);
+                                }
+                                break;
 
-                        //    default:
-                        //        {
+                            default:
+                                {
 
-                        //        }
-                        //        break;
-                        //}
+                                }
+                                break;
+                        }
 
-                        Document_BG.gameObject.SetActive(true);
-                        Documents[Doc_Num].gameObject.SetActive(true);
+                        //Document_BG.gameObject.SetActive(true);
+                        //Documents[Doc_Num].gameObject.SetActive(true);
 
                         if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("P1_360_AButton"))
                         {

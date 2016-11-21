@@ -54,24 +54,24 @@ public class UI_CaptureParameter : MonoBehaviour {
                         {
                             IsChangeMeter = GameManager.Capture_Parameter;
                             //ani.SetTrigger("Soul_Decrease");
-                            ani.SetBool("Capture_Spark", true);
+                            ani.SetBool("Capture_Decrease", true);
                         }
                         else
                         {
-                            ani.SetBool("Capture_Spark", false);
+                            ani.SetBool("Capture_Decrease", false);
                         }
 
                         if (IsChangeMeter > GameManager.Capture_Parameter)
                         {
                             IsChangeMeter = GameManager.Capture_Parameter;
-                            ani.SetBool("Capture_Decrease", true);
+                            ani.SetBool("Capture_Spark", true);
 
                             //ani.SetTrigger("Soul_Spark");
                         }
                         else
                         {
 
-                            ani.SetBool("Capture_Decrease", false);
+                            ani.SetBool("Capture_Spark", false);
                         }
                     }
 

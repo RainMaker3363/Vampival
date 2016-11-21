@@ -29,6 +29,13 @@ public enum CannonNumber
     Fourth
 }
 
+// 대포 모드
+public enum CannonWeapon
+{
+    Normal = 0,
+    Buff
+}
+
 // 적들 상태 값
 public enum EnemyState
 {
@@ -85,11 +92,22 @@ public class GameManager : MonoBehaviour {
 
     // 현재 조작하는 대포의 번호
     static public CannonNumber CannonControl_Number;
+    static public CannonWeapon CannonWeapon_Toggle;
 
+    static public int BuffCannonStack;
 
     //===============================================================================================================================
     // 3P 스피다스의 조작
     //===============================================================================================================================
+
+    // 스피다스의 파워업 여부
+    static public bool Spidas_PowerUp_On;
+    
+    // 스피다스의 사망 여부
+    static public bool Spidas_Death_On;
+
+    // 스피다스의 부활 여부
+    static public bool Spidas_Revive_On;
 
     //===============================================================================================================================
     // 게임 설정 값
@@ -139,6 +157,9 @@ public class GameManager : MonoBehaviour {
 
     void Awake()
     {
+        //===========================================================
+        // 게임 내부 조정 값
+        //===========================================================
         SpawnOn = false;
         NowLevel = 1;
         Fear_Parameter = 0;
@@ -161,6 +182,10 @@ public class GameManager : MonoBehaviour {
         Capture_Meter = Capture_Max;
 
         //light.intensity = 1f;
+
+        //===========================================================
+        // 엘리자벳 스킬 여부
+        //===========================================================
         Elizabat_CommandStart = false;
         Elizabat_SkillStart = false;
 
@@ -178,6 +203,25 @@ public class GameManager : MonoBehaviour {
         Elizabat_Decent_Unlock = true;
         Elizabat_SonicWave_Unlock = true;
         Elizabat_Swarm_Unlock = true;
+
+        //===========================================================
+        // 스피다스 조작 부분
+        //===========================================================
+        Spidas_PowerUp_On = true;
+        Spidas_Death_On = false;
+        Spidas_Revive_On = true;
+
+        //===========================================================
+        // 카로 조작 부분
+        //===========================================================
+
+        BuffCannonStack = 50;
+
+        //===========================================================
+        // ETC...
+        //===========================================================
+
+        
 
         if (audioSource == null)
         {
@@ -197,7 +241,7 @@ public class GameManager : MonoBehaviour {
         Gamestate = GameState.GameStart;
         ViewMode = ViewControllMode.Mouse;
         CannonControl_Number = CannonNumber.First;
-
+        CannonWeapon_Toggle = CannonWeapon.Normal;
 
         //ViewMode = ViewControllMode.Mouse;
         //CannonControl_Number = CannonNumber.First;
@@ -338,6 +382,11 @@ public class GameManager : MonoBehaviour {
                         SoulMP_Parameter_Gage.fillAmount = 1.0f;
                     }
                     
+                    // 대포 스킬 스택 관리
+                    if(BuffCannonStack <= 0)
+                    {
+                        BuffCannonStack = 0;
+                    }
                     
 
                     // 리스폰 타이머
@@ -393,6 +442,20 @@ public class GameManager : MonoBehaviour {
                                     }
                                 }
 
+                                // 대포 모드 변경
+                                if(Input.GetKeyDown(KeyCode.LeftControl))
+                                {
+                                    if(CannonWeapon_Toggle == CannonWeapon.Normal)
+                                    {
+                                        CannonWeapon_Toggle = CannonWeapon.Buff;
+                                    }
+                                    else
+                                    {
+                                        CannonWeapon_Toggle = CannonWeapon.Normal;
+                                    }
+                                    
+                                }
+
                                 if (Input.GetKeyDown(KeyCode.P))
                                 {
                                     if (Gamestate == GameState.GamePause)
@@ -434,6 +497,19 @@ public class GameManager : MonoBehaviour {
                                     {
                                         CannonControl_Number = CannonNumber.First;
                                     }
+                                }
+
+                                if (Input.GetButtonDown("P2_360_YButton"))
+                                {
+                                    if (CannonWeapon_Toggle == CannonWeapon.Normal)
+                                    {
+                                        CannonWeapon_Toggle = CannonWeapon.Buff;
+                                    }
+                                    else
+                                    {
+                                        CannonWeapon_Toggle = CannonWeapon.Normal;
+                                    }
+
                                 }
 
                                 if (Input.GetButtonDown("P1_360_StartButton") ||
