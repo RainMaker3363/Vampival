@@ -172,14 +172,15 @@ public class GameManager : MonoBehaviour {
         light.intensity = 0.35f;
 
         CaptureTimer = 0.0f;
-        Capture_Max = 100.0f;
-        
+        Capture_Max = 250.0f;
+        Capture_Meter = Capture_Max;
+
         Fear_Max = 50.0f;
         
         Soul_MP_Max = 50.0f;
         Soul_MP_Parameter = Soul_MP_Max;
 
-        Capture_Meter = Capture_Max;
+        
 
         //light.intensity = 1f;
 

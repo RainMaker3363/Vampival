@@ -105,7 +105,7 @@ public class First_Cannon : MonoBehaviour {
                                                 if (RotationPossibleValue <= RotationPossibleMax)
                                                 {
                                                     RotationPossibleValue += 42.0f * Time.deltaTime;
-                                                    this.transform.Rotate(new Vector3(0, 0, -90), 60 * Time.deltaTime);
+                                                    this.transform.Rotate(new Vector3(0, 0, 90), 60 * Time.deltaTime);
                                                 }
                                                 
                                                 //Cannons[0].transform.Rotate(new Vector3(0, 0, -90), 35 * Time.deltaTime);
@@ -119,7 +119,7 @@ public class First_Cannon : MonoBehaviour {
                                                 if (RotationPossibleValue >= RotationPossibleMin)
                                                 {
                                                     RotationPossibleValue -= 42.0f * Time.deltaTime;
-                                                    this.transform.Rotate(new Vector3(0, 0, 90), 60 * Time.deltaTime);
+                                                    this.transform.Rotate(new Vector3(0, 0, -90), 60 * Time.deltaTime);
                                                 }
                                                 
                                                 //Cannons[0].transform.Rotate(new Vector3(0, 0, 90), 35 * Time.deltaTime);
@@ -167,7 +167,7 @@ public class First_Cannon : MonoBehaviour {
                                                 if (RotationPossibleValue <= RotationPossibleMax)
                                                 {
                                                     RotationPossibleValue += 42.0f * Time.deltaTime;
-                                                    this.transform.Rotate(new Vector3(0, 0, -90), 60 * Time.deltaTime);
+                                                    this.transform.Rotate(new Vector3(0, 0, 90), 60 * Time.deltaTime);
                                                 }
                                                 
                                             }
@@ -180,7 +180,7 @@ public class First_Cannon : MonoBehaviour {
                                                 if (RotationPossibleValue >= RotationPossibleMin)
                                                 {
                                                     RotationPossibleValue -= 42.0f * Time.deltaTime;
-                                                    this.transform.Rotate(new Vector3(0, 0, 90), 60 * Time.deltaTime);
+                                                    this.transform.Rotate(new Vector3(0, 0, -90), 60 * Time.deltaTime);
                                                 }
                                             }
 
