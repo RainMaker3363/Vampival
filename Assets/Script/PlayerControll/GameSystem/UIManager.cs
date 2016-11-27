@@ -16,6 +16,8 @@ public class UIManager : MonoBehaviour {
     public Image[] Documents;
     public GameObject[] Documents_Icon;
 
+    public GameObject Main_BG;
+
 
 	// Use this for initialization
 	void Start () {
@@ -113,6 +115,13 @@ public class UIManager : MonoBehaviour {
                                 Doc_Num = 0;
                             }
                         }
+                    }
+                    else
+                    {
+                        GameManager.Gamestate = GameState.GamePause;
+                        GameManager.GamePauseOn = true;
+
+                        Main_BG.SetActive(true);
                     }
                     
                 }

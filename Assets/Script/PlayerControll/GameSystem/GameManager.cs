@@ -131,6 +131,7 @@ public class GameManager : MonoBehaviour {
     public Image Capture_Parameter_Gage;
     public Image GameOver_BG;
 
+    public GameObject Menu_UI;
     public GameObject Main_UI;
     public GameObject MiniMap_UI;
 
@@ -233,6 +234,7 @@ public class GameManager : MonoBehaviour {
 
         SoundChecker = false;
 
+        Menu_UI.SetActive(false);
         Main_UI.SetActive(false);
         MiniMap_UI.SetActive(false);
 
@@ -545,6 +547,7 @@ public class GameManager : MonoBehaviour {
             case GameState.GameEnd:
                 {
                     //audioSource.Play();
+                    Menu_UI.SetActive(true);
                 }
                 break;
 

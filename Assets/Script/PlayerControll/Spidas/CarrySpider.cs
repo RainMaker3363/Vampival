@@ -23,6 +23,8 @@ public class CarrySpider : MonoBehaviour {
     public GameObject SpiderSpot;
     //public GameObject Look;
 
+    public GameObject Berserk_Particle;
+
     public GameObject ObjectChecker;
     private RaycastHit Objecthit;
 
@@ -49,6 +51,9 @@ public class CarrySpider : MonoBehaviour {
 
         MyScale = this.gameObject.transform.localScale;
         PowerUpScale = new Vector3(MyScale.x + 3.0f, MyScale.y + 3.0f, MyScale.z + 3.0f);
+        
+        // 광폭화 이펙트 활성화 여부
+        Berserk_Particle.gameObject.SetActive(false);
 
         // 함정 설치 가능 여부
         TrapSetOn = true;
@@ -310,6 +315,7 @@ public class CarrySpider : MonoBehaviour {
     {
         GameManager.Spidas_PowerUp_On = true;
 
+        Berserk_Particle.gameObject.SetActive(true);
         this.gameObject.transform.localScale = PowerUpScale;
         normalMoveSpeed = 12.0f;
 
@@ -324,10 +330,11 @@ public class CarrySpider : MonoBehaviour {
         //    normalMoveSpeed = 7.0f;
         //}
 
-        yield return new WaitForSeconds(8.0f);
+        yield return new WaitForSeconds(9.0f);
 
         GameManager.Spidas_PowerUp_On = false;
 
+        Berserk_Particle.gameObject.SetActive(false);
         this.gameObject.transform.localScale = MyScale;
         normalMoveSpeed = 7.0f;
     }

@@ -9,6 +9,7 @@ public class WildFire : MonoBehaviour {
 
     public GameObject TargetPos;
     public GameObject StartPos;
+    public ParticleSystem Explode_Particle;
     private Vector3 Dir;
 
     private bool TargetChecker;
@@ -31,6 +32,7 @@ public class WildFire : MonoBehaviour {
             col.enabled = true;
         }
 
+
         //TargetPos.transform.position = Vector3.zero;
         //Dir = (TargetPos.transform.position - this.transform.position).normalized;
         if (StartPos == null)
@@ -52,6 +54,9 @@ public class WildFire : MonoBehaviour {
         this.transform.localEulerAngles = new Vector3(0, 0, 0);
 
         TargetChecker = false;
+
+        Explode_Particle.gameObject.SetActive(false);
+        Explode_Particle.Stop();
 
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("PlayerSetObject"), LayerMask.NameToLayer("SkillParticle"), true);
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Projectile"), LayerMask.NameToLayer("SkillParticle"), true);
@@ -100,6 +105,9 @@ public class WildFire : MonoBehaviour {
         this.transform.parent = null;
         this.transform.localEulerAngles = new Vector3(0, 0, 0);
         TargetChecker = false;
+
+        Explode_Particle.gameObject.SetActive(false);
+        Explode_Particle.Stop();
 
         print("TargetPos : " + TargetPos.transform.position);
         print("StartPos : " + StartPos.transform.position);
@@ -167,25 +175,43 @@ public class WildFire : MonoBehaviour {
     {
         if (collision.transform.tag.Equals("Enemy") == true)
         {
+            //print("WildFire Hit");
 
             if (col != null)
             {
                 col.enabled = false;
             }
 
-            this.gameObject.SetActive(false);
+            Explode_Particle.gameObject.SetActive(true);
+            Explode_Particle.Play();
+
+            if (Explode_Particle.isStopped == true)
+            {
+                this.gameObject.SetActive(false);
+
+            }
+            
 
             
         }
 
         if (collision.transform.tag.Equals("Ground") == true)
         {
+            //print("WildFire Hit");
+
             if (col != null)
             {
                 col.enabled = false;
             }
 
-            this.gameObject.SetActive(false);
+            Explode_Particle.gameObject.SetActive(true);
+            Explode_Particle.Play();
+
+            if (Explode_Particle.isStopped == true)
+            {
+                this.gameObject.SetActive(false);
+
+            }
 
             
         }

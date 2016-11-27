@@ -245,7 +245,7 @@ public class CannonBall : MonoBehaviour {
                                 globalVelocity = transform.TransformVector(localVelocity);
 
                                 // launch the cube by setting its initial velocity
-                                GetComponent<Rigidbody>().velocity = (globalVelocity * 2.5f);
+                                GetComponent<Rigidbody>().velocity = (globalVelocity * 2.0f);
 
                                 if (_rotate)
                                     transform.rotation = Quaternion.LookRotation(globalVelocity);

@@ -122,6 +122,13 @@ public class Elizabat : MonoBehaviour {
     private float Leng;
     private int layermask;
 
+    private bool Joystick_Left_Button;
+    private bool Joystick_Right_Button;
+    private bool Joystick_Up_Button;
+    private bool Joystick_Down_Button;
+
+    private float LastDPadX;
+    private float LastDPadY;
 
     private bool KeyDownEnable = false;
     //private RaycastHit hit;
@@ -209,6 +216,14 @@ public class Elizabat : MonoBehaviour {
         SwarmTimeLimit = 3.0f;
 
         CommandCheckTimer = 0.0f;
+
+        Joystick_Down_Button = false;
+        Joystick_Left_Button = false;
+        Joystick_Right_Button = false;
+        Joystick_Up_Button = false;
+
+        LastDPadX = 0.0f;
+        LastDPadY = 0.0f;
 
         TimeClock.SetActive(false);
         ClockTimer.text = "";
@@ -348,6 +363,7 @@ public class Elizabat : MonoBehaviour {
                                     if (Skill_Eclipse_Cool_Icon.fillAmount > 0.0f)
                                     {
                                         Skill_Eclipse_Cool_Icon.fillAmount -= EclipseCoolTime;
+                                        GameManager.Elizabat_Eclipse_Ready = false;
                                     }
                                     else if (Skill_Eclipse_Cool_Icon.fillAmount <= 0.0f)
                                     {
@@ -358,6 +374,7 @@ public class Elizabat : MonoBehaviour {
                                     if (Skill_SonicWave_Cool_Icon.fillAmount > 0.0f)
                                     {
                                         Skill_SonicWave_Cool_Icon.fillAmount -= SonicCoolTime;
+                                        GameManager.Elizabat_SonicWave_Ready = false;
                                     }
                                     else if (Skill_SonicWave_Cool_Icon.fillAmount <= 0.0f)
                                     {
@@ -368,6 +385,7 @@ public class Elizabat : MonoBehaviour {
                                     if (Skill_Swarm_Cool_Icon.fillAmount > 0.0f)
                                     {
                                         Skill_Swarm_Cool_Icon.fillAmount -= SwarmCoolTime;
+                                        GameManager.Elizabat_Swarm_Ready = false;
                                     }
                                     else if (Skill_Swarm_Cool_Icon.fillAmount <= 0.0f)
                                     {
@@ -378,6 +396,7 @@ public class Elizabat : MonoBehaviour {
                                     if (Skill_Decent_Cool_Icon.fillAmount > 0.0f)
                                     {
                                         Skill_Decent_Cool_Icon.fillAmount -= DecentCoolTime;
+                                        GameManager.Elizabat_Decent_Ready = false;
                                     }
                                     else if (Skill_Decent_Cool_Icon.fillAmount <= 0.0f)
                                     {
@@ -393,7 +412,7 @@ public class Elizabat : MonoBehaviour {
                                 {
 
 
-                                    if (Input.GetKeyDown(KeyCode.X) && GameManager.Soul_MP_Parameter >= SonicWaveCost)
+                                    if (Input.GetKeyDown(KeyCode.X) && GameManager.Soul_MP_Parameter >= SonicWaveCost && GameManager.Elizabat_SonicWave_Ready == true)
                                     {
                                         CameraChecker.transform.position = CheckerStartPos;
 
@@ -425,7 +444,7 @@ public class Elizabat : MonoBehaviour {
                                         // 실패 사운드 출력
                                     }
                                     
-                                    if (Input.GetKeyDown(KeyCode.C) && GameManager.Soul_MP_Parameter >= EclipseCost)
+                                    if (Input.GetKeyDown(KeyCode.C) && GameManager.Soul_MP_Parameter >= EclipseCost && GameManager.Elizabat_Eclipse_Ready == true)
                                     {
                                         CameraChecker.transform.position = CheckerStartPos;
 
@@ -457,7 +476,7 @@ public class Elizabat : MonoBehaviour {
                                         // 실패 사운드 출력
                                     }
 
-                                    if (Input.GetKeyDown(KeyCode.V) && GameManager.Soul_MP_Parameter >= DecentCost)
+                                    if (Input.GetKeyDown(KeyCode.V) && GameManager.Soul_MP_Parameter >= DecentCost && GameManager.Elizabat_Decent_Ready == true)
                                     {
                                         CameraChecker.transform.position = CheckerStartPos;
 
@@ -489,7 +508,7 @@ public class Elizabat : MonoBehaviour {
                                         // 실패 사운드 출력
                                     }
 
-                                    if (Input.GetKeyDown(KeyCode.B) && GameManager.Soul_MP_Parameter >= SwarmCost)
+                                    if (Input.GetKeyDown(KeyCode.B) && GameManager.Soul_MP_Parameter >= SwarmCost && GameManager.Elizabat_Swarm_Ready == true)
                                     {
                                         CameraChecker.transform.position = CheckerStartPos;
 
@@ -768,6 +787,7 @@ public class Elizabat : MonoBehaviour {
                                     if (Skill_Eclipse_Cool_Icon.fillAmount > 0.0f)
                                     {
                                         Skill_Eclipse_Cool_Icon.fillAmount -= EclipseCoolTime;
+                                        GameManager.Elizabat_Eclipse_Ready = false;
                                     }
                                     else if (Skill_Eclipse_Cool_Icon.fillAmount <= 0.0f)
                                     {
@@ -778,6 +798,7 @@ public class Elizabat : MonoBehaviour {
                                     if (Skill_SonicWave_Cool_Icon.fillAmount > 0.0f)
                                     {
                                         Skill_SonicWave_Cool_Icon.fillAmount -= SonicCoolTime;
+                                        GameManager.Elizabat_SonicWave_Ready = false;
                                     }
                                     else if (Skill_SonicWave_Cool_Icon.fillAmount <= 0.0f)
                                     {
@@ -788,6 +809,7 @@ public class Elizabat : MonoBehaviour {
                                     if (Skill_Swarm_Cool_Icon.fillAmount > 0.0f)
                                     {
                                         Skill_Swarm_Cool_Icon.fillAmount -= SwarmCoolTime;
+                                        GameManager.Elizabat_Swarm_Ready = false;
                                     }
                                     else if (Skill_Swarm_Cool_Icon.fillAmount <= 0.0f)
                                     {
@@ -798,6 +820,7 @@ public class Elizabat : MonoBehaviour {
                                     if (Skill_Decent_Cool_Icon.fillAmount > 0.0f)
                                     {
                                         Skill_Decent_Cool_Icon.fillAmount -= DecentCoolTime;
+                                        GameManager.Elizabat_Decent_Ready = false;
                                     }
                                     else if (Skill_Decent_Cool_Icon.fillAmount <= 0.0f)
                                     {
@@ -812,7 +835,7 @@ public class Elizabat : MonoBehaviour {
                                     
 
 
-                                    if (Input.GetButtonDown("P1_360_XButton") && GameManager.Soul_MP_Parameter >= SonicWaveCost)
+                                    if (Input.GetButtonDown("P1_360_XButton") && GameManager.Soul_MP_Parameter >= SonicWaveCost && GameManager.Elizabat_SonicWave_Ready == true)
                                     {
                                         Debug.Log("Command Start!");
 
@@ -842,7 +865,7 @@ public class Elizabat : MonoBehaviour {
                                         // 실패 사운드 출력
                                     }
                                     
-                                    if (Input.GetButtonDown("P1_360_BButton") && GameManager.Soul_MP_Parameter >= EclipseCost)
+                                    if (Input.GetButtonDown("P1_360_BButton") && GameManager.Soul_MP_Parameter >= EclipseCost && GameManager.Elizabat_Eclipse_Ready == true)
                                     {
                                         Debug.Log("Command Start!");
 
@@ -873,7 +896,7 @@ public class Elizabat : MonoBehaviour {
                                         // 실패 사운드 출력
                                     }
                                     
-                                    if (Input.GetButtonDown("P1_360_AButton") && GameManager.Soul_MP_Parameter >= DecentCost)
+                                    if (Input.GetButtonDown("P1_360_AButton") && GameManager.Soul_MP_Parameter >= DecentCost && GameManager.Elizabat_Decent_Ready == true)
                                     {
                                         Debug.Log("Command Start!");
 
@@ -903,7 +926,7 @@ public class Elizabat : MonoBehaviour {
                                         // 실패 사운드 출력
                                     }
 
-                                    if (Input.GetButtonDown("P1_360_YButton") && GameManager.Soul_MP_Parameter >= SwarmCost)
+                                    if (Input.GetButtonDown("P1_360_YButton") && GameManager.Soul_MP_Parameter >= SwarmCost && GameManager.Elizabat_Swarm_Ready == true)
                                     {
                                         light.enabled = true;
                                         SkillTarget.gameObject.SetActive(true);
@@ -979,73 +1002,108 @@ public class Elizabat : MonoBehaviour {
                                 //}
 
 
-                                //if (Input.GetAxisRaw("P1_360_HorizontalDPAD") >= 0.1f &&
-                                //    Input.GetAxisRaw("P1_360_HorizontalDPAD") <= -0.1f &&
-                                //    Input.GetAxisRaw("P1_360_VerticalDPAD") <= -0.1f &&
-                                //    Input.GetAxisRaw("P1_360_VerticalDPAD") >= 0.1f)
+                                //if(KeyDownEnable == true)
                                 //{
-                                //    KeyDownEnable = false;
+                                //    if (Input.GetAxisRaw("P1_360_HorizontalDPAD") >= 0.1f &&
+                                //Input.GetAxisRaw("P1_360_HorizontalDPAD") <= -0.1f &&
+                                //Input.GetAxisRaw("P1_360_VerticalDPAD") <= -0.1f &&
+                                //Input.GetAxisRaw("P1_360_VerticalDPAD") >= 0.1f)
+                                //    {
+                                //        KeyDownEnable = false;
+                                //    }
+                                //}
+                            
+
+                                //if(KeyDownEnable == true)
+                                //{
+                                //    if (JoystickButtonTimer <= 0.0f)
+                                //    {
+                                //        KeyDownEnable = false;
+                                //        JoystickButtonTimer = 0f;
+                                //    }
+                                //    else
+                                //    {
+                                //        JoystickButtonTimer -= Time.deltaTime;
+                                //    }
+                                    
                                 //}
 
-                                if (Input.GetAxisRaw("P1_360_HorizontalDPAD") >= -0.9f ||
-                                    Input.GetAxisRaw("P1_360_HorizontalDPAD") <= 0.9f ||
-                                    Input.GetAxisRaw("P1_360_VerticalDPAD") <= 0.9 ||
-                                    Input.GetAxisRaw("P1_360_VerticalDPAD") >= -0.9)
-                                {
-                                    KeyDownEnable = false;
+                                //if (Input.GetAxisRaw("P1_360_HorizontalDPAD") >= -0.9f ||
+                                //    Input.GetAxisRaw("P1_360_HorizontalDPAD") <= 0.9f ||
+                                //    Input.GetAxisRaw("P1_360_VerticalDPAD") <= 0.9 ||
+                                //    Input.GetAxisRaw("P1_360_VerticalDPAD") >= -0.9)
+                                //{
+                                //    KeyDownEnable = false;
 
-                                    //print("KeyDownEnable : " + KeyDownEnable);
-                                }
+                                //    //print("KeyDownEnable : " + KeyDownEnable);
+                                //}
                                 //else
                                 //{
                                 //    KeyDownEnable = true;
                                 //}
 
+                                //LastDPadX = Input.GetAxisRaw("P1_360_HorizontalDPAD");
+                                //LastDPadY = Input.GetAxisRaw("P1_360_VerticalDPAD");
+                                //Joystick_Up_Button = false;
+                                //Joystick_Down_Button = false;
+                                //Joystick_Left_Button = false;
+                                //Joystick_Right_Button = false;
 
-                                if (Input.GetAxis("P1_360_HorizontalDPAD") == -1)
+                                if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == -1)
                                 {
-                                    if (!KeyDownEnable)
-                                    {
-
-                                        KeyDownEnable = true;
-
-                                        
-                                    }
+                                    Joystick_Left_Button = true;
+                                    
+                                    LastDPadX += 1.0f;
                                 }
-                                else if (Input.GetAxis("P1_360_HorizontalDPAD") == 1)
+                                else
                                 {
-
-                                    if (!KeyDownEnable)
-                                    {
-
-                                        KeyDownEnable = true;
-
-
-                                    }
-                                }
-                                else if (Input.GetAxis("P1_360_VerticalDPAD") == -1)
-                                {
-                                    if (!KeyDownEnable)
-                                    {
-
-                                        KeyDownEnable = true;
-
-
-                                    }
-                                }
-                                else if (Input.GetAxis("P1_360_VerticalDPAD") == 1)
-                                {
-                                    if (!KeyDownEnable)
-                                    {
-
-                                        KeyDownEnable = true;
-
-
-                                    }
+                                    Joystick_Left_Button = false;
                                 }
 
-                                print("P1_360_HorizontalDPAD : " + Input.GetAxisRaw("P1_360_HorizontalDPAD"));
-                                print("P1_360_VerticalDPAD : " + Input.GetAxisRaw("P1_360_VerticalDPAD"));
+                                if (Input.GetAxisRaw("P1_360_HorizontalDPAD") == 1)
+                                {
+
+                                    Joystick_Right_Button = true;
+                                    
+                                    LastDPadX += 1.0f;
+                                }
+                                else
+                                {
+                                    Joystick_Right_Button = false;
+                                }
+
+                                if (Input.GetAxisRaw("P1_360_VerticalDPAD") == -1)
+                                {
+                                    Joystick_Down_Button = true;
+
+                                    LastDPadY += 1.0f;
+                                }
+                                else
+                                {
+                                    Joystick_Down_Button = false;
+                                }
+
+                                if (Input.GetAxisRaw("P1_360_VerticalDPAD") == 1)
+                                {
+                                    Joystick_Up_Button = true;
+
+                                    LastDPadY += 1.0f;
+                                }
+                                else
+                                {
+                                    Joystick_Up_Button = false;
+                                }
+
+                                //print("P1_360_HorizontalDPAD : " + Input.GetAxisRaw("P1_360_HorizontalDPAD"));
+                                //print("P1_360_VerticalDPAD : " + Input.GetAxisRaw("P1_360_VerticalDPAD"));
+                                print("LastDPad X : " + LastDPadX);
+                                print("LastDPad Y : " + LastDPadY);
+                                print("Joystick_Left_Button : " + Joystick_Left_Button);
+                                print("Joystick_Right_Button : " + Joystick_Right_Button);
+                                print("JoyStick_Up_button : " + Joystick_Up_Button);
+                                print("Joystick_Down_Button : " + Joystick_Down_Button);
+
+                                
                                 if (GameManager.Elizabat_CommandStart)
                                 {
                                     
@@ -1131,10 +1189,8 @@ public class Elizabat : MonoBehaviour {
                                             if (GameManager.Elizabat_Eclipse_On == false && GameManager.Elizabat_Eclipse_Ready == true &&
                                                 GameManager.Elizabat_Eclipse_Unlock == true)
                                             {
-                                                if (!KeyDownEnable)
+                                                if(Joystick_Left_Button == true)
                                                 {
-                                                    KeyDownEnable = true;
-
                                                     NowSkillChecking = 2;
 
                                                     CommandStartOn = true;
@@ -1153,16 +1209,12 @@ public class Elizabat : MonoBehaviour {
                                             if (GameManager.Elizabat_Swarm_On == false && GameManager.Elizabat_Swarm_Ready == true &&
                                                 GameManager.Elizabat_Swarm_Unlock == true)
                                             {
-                                                if (!KeyDownEnable)
+                                                if (Joystick_Right_Button == true)
                                                 {
-                                                    KeyDownEnable = true;
-
                                                     NowSkillChecking = 4;
-
 
                                                     CommandStartOn = true;
                                                 }
-
                                             }
                                             else
                                             {
@@ -1175,17 +1227,12 @@ public class Elizabat : MonoBehaviour {
                                             if (GameManager.Elizabat_Decent_On == false && GameManager.Elizabat_Decent_Ready == true &&
                                                 GameManager.Elizabat_Decent_Unlock == true)
                                             {
-                                                if (!KeyDownEnable)
+                                                if (Joystick_Down_Button == true)
                                                 {
-
-                                                    KeyDownEnable = true;
                                                     NowSkillChecking = 3;
-
-
 
                                                     CommandStartOn = true;
                                                 }
-
                                             }
                                             else
                                             {
@@ -1198,19 +1245,12 @@ public class Elizabat : MonoBehaviour {
                                             if (GameManager.Elizabat_SonicWave_On == false && GameManager.Elizabat_SonicWave_Ready == true &&
                                                 GameManager.Elizabat_SonicWave_Unlock == true)
                                             {
-                                                if (!KeyDownEnable)
+                                                if (Joystick_Up_Button == true)
                                                 {
-
-                                                    KeyDownEnable = true;
-
                                                     NowSkillChecking = 1;
-
-
-
 
                                                     CommandStartOn = true;
                                                 }
-
                                             }
                                             else
                                             {
@@ -1454,7 +1494,7 @@ public class Elizabat : MonoBehaviour {
         
         // 스웜 이펙트 출력
 
-        CarrionSwarmEffect.transform.position = SkillTarget.transform.position;
+        CarrionSwarmEffect.transform.position = SkillTarget.transform.position + new Vector3(0, 1.5f, 0);
         CarrionSwarmEffect.transform.parent = null;
         CarrionSwarmEffect.SetActive(true);
         
@@ -3395,10 +3435,8 @@ public class Elizabat : MonoBehaviour {
 
                                                 if (Input.GetAxis("P1_360_HorizontalDPAD") == -1)
                                                 {
-                                                    if (!KeyDownEnable)
+                                                    if (Joystick_Left_Button == true)
                                                     {
-                                                        KeyDownEnable = true;
-
                                                         Inputcommand = 2;
 
                                                         print("currentNum : " + currentNum);
@@ -3463,10 +3501,8 @@ public class Elizabat : MonoBehaviour {
                                                 }
                                                 else if (Input.GetAxis("P1_360_HorizontalDPAD") == 1)
                                                 {
-                                                    if (!KeyDownEnable)
+                                                    if(Joystick_Right_Button == true)
                                                     {
-                                                        KeyDownEnable = true;
-
                                                         Inputcommand = 4;
 
                                                         print("currentNum : " + currentNum);
@@ -3531,9 +3567,8 @@ public class Elizabat : MonoBehaviour {
                                                 }
                                                 else if (Input.GetAxis("P1_360_VerticalDPAD") == -1)
                                                 {
-                                                    if (!KeyDownEnable)
+                                                    if(Joystick_Down_Button == true)
                                                     {
-                                                        KeyDownEnable = true;
 
                                                         Inputcommand = 3;
 
@@ -3595,15 +3630,11 @@ public class Elizabat : MonoBehaviour {
                                                             SkillTarget.gameObject.SetActive(false);
                                                         }
                                                     }
-                                                    
                                                 }
                                                 else if (Input.GetAxis("P1_360_VerticalDPAD") == 1)
                                                 {
-                                                    if (!KeyDownEnable)
+                                                    if(Joystick_Up_Button == true)
                                                     {
-                                                        KeyDownEnable = true;
-
-
                                                         Inputcommand = 1;
 
                                                         print("currentNum : " + currentNum);
