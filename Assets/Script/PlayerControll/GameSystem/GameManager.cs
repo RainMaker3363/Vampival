@@ -53,8 +53,17 @@ public class GameManager : MonoBehaviour {
     //===============================================================================================================================
 
     //public Transform[] RespawnPoint;
-    public GameObject[] Enemies;
     public GameObject[] Militia_Enemies;
+
+    public GameObject[] Respawns_East_Enemies;
+    public GameObject[] Respawn_South_Enemies;
+    public GameObject[] Respawns_West_Enemies;
+    public GameObject[] Respawns_North_Enemies;
+
+    // 현재 어느 적이 리스폰이 되어야할지의 여부를 체크해준다.
+    private float LevelChecker;
+    private bool RespawnCheck;
+    private int Level;
 
     //===============================================================================================================================
     // 1P 엘리자벳의 조작
@@ -220,10 +229,40 @@ public class GameManager : MonoBehaviour {
         BuffCannonStack = 50;
 
         //===========================================================
+        // 적들 리스폰 조작 (Stage01)
+        //===========================================================
+        
+        //for (int i = 0; i < Respawns_East_Enemies.Length; i++)
+        //{
+        //    Respawns_East_Enemies[i].SetActive(false);
+        //}
+
+        //for (int i = 0; i < Respawn_South_Enemies.Length; i++)
+        //{
+        //    Respawn_South_Enemies[i].SetActive(false);
+        //}
+
+        //for (int i = 0; i < Respawns_West_Enemies.Length; i++)
+        //{
+        //    Respawns_West_Enemies[i].SetActive(false);
+        //}
+
+        //for (int i = 0; i < Respawns_North_Enemies.Length; i++)
+        //{
+        //    Respawns_North_Enemies[i].SetActive(false);
+        //}
+
+        //Respawns_East_Enemies[0].SetActive(true);
+        //Respawn_South_Enemies[0].SetActive(true);
+        //Respawns_North_Enemies[0].SetActive(true);
+
+        LevelChecker = 0.0f;
+        Level = 0;
+        RespawnCheck = false;
+
+        //===========================================================
         // ETC...
         //===========================================================
-
-        
 
         if (audioSource == null)
         {
@@ -391,6 +430,19 @@ public class GameManager : MonoBehaviour {
                         BuffCannonStack = 0;
                     }
                     
+
+                    // 리스폰 타이머
+                    //LevelChecker += Time.deltaTime;
+
+                    //if(((LevelChecker / 14.0f) >= 1 ||
+                    //    (LevelChecker / 22.0f) >= 1) &&
+                    //    RespawnCheck == false)
+                    //{
+                    //    Stage01RespawnEnemies((int)(LevelChecker / 14),
+                    //        (int)(LevelChecker / 14),
+                    //        (int)(LevelChecker / 14),
+                    //        (int)(LevelChecker / 22));
+                    //}
 
                     // 리스폰 타이머
                     if (RespawnTimer <= 0.0f)
@@ -600,6 +652,285 @@ public class GameManager : MonoBehaviour {
 
         }
 	}
+
+    // 스테이지 01의 리스폰이다.
+    // 각각 4방향에서 적들에 대한 설정
+    void Stage01RespawnEnemies(int EastLevel, int SouthLevel, int WestLevel, int NorthLevel)
+    {
+        // 동쪽 적들 리스폰 설정
+        switch(EastLevel)
+        {
+            case 1:
+                {
+                    Respawns_East_Enemies[1].SetActive(true);
+                }
+                break;
+
+            case 2:
+                {
+                    Respawns_East_Enemies[2].SetActive(true);
+                }
+                break;
+
+            case 3:
+                {
+                    
+                }
+                break;
+
+            case 4:
+                {
+                    Respawns_East_Enemies[3].SetActive(true);
+                }
+                break;
+
+            case 5:
+                {
+
+                }
+                break;
+
+            case 6:
+                {
+                    Respawns_East_Enemies[4].SetActive(true);
+                    Respawns_East_Enemies[5].SetActive(true);
+                }
+                break;
+
+            case 7:
+                {
+                    Respawns_East_Enemies[6].SetActive(true);
+                    Respawns_East_Enemies[7].SetActive(true);
+                }
+                break;
+
+            case 8:
+                {
+
+                }
+                break;
+
+            case 9:
+                {
+                    Respawns_East_Enemies[8].SetActive(true);
+                    Respawns_East_Enemies[9].SetActive(true);
+                }
+                break;
+
+            case 10:
+                {
+
+                }
+                break;
+        }
+
+        // 남쪽 
+        switch (SouthLevel)
+        {
+            case 1:
+                {
+                    Respawn_South_Enemies[1].SetActive(true);
+                }
+                break;
+
+            case 2:
+                {
+                    Respawn_South_Enemies[2].SetActive(true);
+                }
+                break;
+
+            case 3:
+                {
+                    Respawn_South_Enemies[3].SetActive(true);
+                    Respawn_South_Enemies[4].SetActive(true);
+                }
+                break;
+
+            case 4:
+                {
+                    Respawn_South_Enemies[5].SetActive(true);
+                }
+                break;
+
+            case 5:
+                {
+                    Respawn_South_Enemies[6].SetActive(true);
+                    Respawn_South_Enemies[7].SetActive(true);
+                }
+                break;
+
+            case 6:
+                {
+                    Respawn_South_Enemies[8].SetActive(true);
+                    Respawn_South_Enemies[9].SetActive(true);
+                }
+                break;
+
+            case 7:
+                {
+                    Respawn_South_Enemies[10].SetActive(true);
+                    Respawn_South_Enemies[11].SetActive(true);
+                }
+                break;
+
+            case 8:
+                {
+                    Respawn_South_Enemies[12].SetActive(true);
+                    Respawn_South_Enemies[13].SetActive(true);
+                }
+                break;
+
+            case 9:
+                {
+                    Respawn_South_Enemies[14].SetActive(true);
+                    Respawn_South_Enemies[15].SetActive(true);
+                }
+                break;
+
+            case 10:
+                {
+
+                }
+                break;
+        }
+
+        // 서쪽
+        switch (WestLevel)
+        {
+            case 1:
+                {
+                    Respawns_West_Enemies[0].SetActive(true);
+                }
+                break;
+
+            case 2:
+                {
+                    Respawns_West_Enemies[1].SetActive(true);
+                }
+                break;
+
+            case 3:
+                {
+                    Respawns_West_Enemies[2].SetActive(true);
+                }
+                break;
+
+            case 4:
+                {
+
+                }
+                break;
+
+            case 5:
+                {
+                    Respawns_West_Enemies[3].SetActive(true);
+                    Respawns_West_Enemies[4].SetActive(true);
+                }
+                break;
+
+            case 6:
+                {
+                    Respawns_West_Enemies[5].SetActive(true);
+                }
+                break;
+
+            case 7:
+                {
+
+                }
+                break;
+
+            case 8:
+                {
+                    Respawns_West_Enemies[6].SetActive(true);
+                    Respawns_West_Enemies[7].SetActive(true);
+                }
+                break;
+
+            case 9:
+                {
+                    Respawns_West_Enemies[8].SetActive(true);
+                    Respawns_West_Enemies[9].SetActive(true);
+                }
+                break;
+
+            case 10:
+                {
+
+                }
+                break;
+        }
+
+        // 북쪽
+        switch (NorthLevel)
+        {
+            case 1:
+                {
+
+                }
+                break;
+
+            case 2:
+                {
+                    Respawns_North_Enemies[1].SetActive(true);
+                }
+                break;
+
+            case 3:
+                {
+                    Respawns_North_Enemies[2].SetActive(true);
+                }
+                break;
+
+            case 4:
+                {
+                    Respawns_North_Enemies[3].SetActive(true);
+                }
+                break;
+
+            case 5:
+                {
+
+                }
+                break;
+
+            case 6:
+                {
+
+                }
+                break;
+
+            case 7:
+                {
+                    Respawns_North_Enemies[4].SetActive(true);
+                    Respawns_North_Enemies[5].SetActive(true);
+                }
+                break;
+
+            case 8:
+                {
+                    Respawns_North_Enemies[6].SetActive(true);
+                    Respawns_North_Enemies[7].SetActive(true);
+                }
+                break;
+
+            case 9:
+                {
+                    Respawns_North_Enemies[8].SetActive(true);
+                    Respawns_North_Enemies[9].SetActive(true);
+                }
+                break;
+
+            case 10:
+                {
+
+                }
+                break;
+        }
+
+        // 리스폰 체크를 풀어준다.
+        RespawnCheck = false;
+    }
 
     void RespawnEnemy(int Level, int Type, int Location)
     {

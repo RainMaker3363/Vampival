@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Enemy_Militia : MonoBehaviour {
@@ -48,6 +49,7 @@ public class Enemy_Militia : MonoBehaviour {
     private bool CameraMarkingOn;
     private bool SwarmAttackingOn;
 
+    public Image HP_bar;
     public int HP;
     public int AttackPoint;
     public float Speed;
@@ -135,6 +137,9 @@ public class Enemy_Militia : MonoBehaviour {
 
         EnemySpeed = 3.5f;
 
+        HP_bar.gameObject.SetActive(false);
+        HP_bar.fillAmount = HP / 10.0f;
+
         KnockBackCheck = false;
         DeathCheck = false;
         FearMeterCheck = false;
@@ -203,6 +208,9 @@ public class Enemy_Militia : MonoBehaviour {
         HP = 10;
         AttackPoint = 10;
         EnemySpeed = 3.5f;
+
+        HP_bar.gameObject.SetActive(false);
+        HP_bar.fillAmount = HP / 10.0f;
 
         KnockBackCheck = false;
         DeathCheck = false;
@@ -350,6 +358,8 @@ public class Enemy_Militia : MonoBehaviour {
                                 // 화면 밖 처리
                                 if ((targetPosOnScreen.x > Screen.width || targetPosOnScreen.x < 0 || targetPosOnScreen.y > Screen.height || targetPosOnScreen.y < 0))
                                 {
+                                    HP_bar.gameObject.SetActive(false);
+
                                     if (GameManager.Elizabat_SonicWave_On == false)
                                     {
                                         if (CameraMarkingOn)
@@ -457,6 +467,9 @@ public class Enemy_Militia : MonoBehaviour {
                                 }
                                 else
                                 {
+                                    HP_bar.gameObject.SetActive(true);
+                                    HP_bar.transform.position = new Vector3(this.transform.position.x, HP_bar.transform.position.y, this.transform.position.z);
+                                    HP_bar.fillAmount = HP / 10.0f;
 
                                     CameraMarkingOn = true;
 
