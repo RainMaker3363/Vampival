@@ -130,14 +130,14 @@ public class Enemy_Militia : MonoBehaviour {
         enemystate = EnemyState.Run;
         Gamestate = GameManager.Gamestate;
 
-        HP = 10;
+        HP = 30;
         AttackPoint = 10;
         NowCorpseStack = 0;
         NowSoulStack = 0;
 
         EnemySpeed = 3.5f;
 
-        HP_bar.gameObject.SetActive(false);
+        HP_bar.gameObject.SetActive(true);
         HP_bar.fillAmount = HP / 10.0f;
 
         KnockBackCheck = false;
@@ -205,12 +205,12 @@ public class Enemy_Militia : MonoBehaviour {
         }
 
 
-        HP = 10;
+        HP = 30;
         AttackPoint = 10;
         EnemySpeed = 3.5f;
 
-        HP_bar.gameObject.SetActive(false);
-        HP_bar.fillAmount = HP / 10.0f;
+        HP_bar.gameObject.SetActive(true);
+        HP_bar.fillAmount = HP / 30.0f;
 
         KnockBackCheck = false;
         DeathCheck = false;
@@ -308,6 +308,7 @@ public class Enemy_Militia : MonoBehaviour {
                                     DeathCheck = true;
                                     //Instantiate(Corpse, this.transform.position, Quaternion.identity);
                                     Agent.enabled = false;
+                                    HP_bar.gameObject.SetActive(false);
 
                                     if (Corpse[NowCorpseStack].gameObject.activeSelf == false)
                                     {
@@ -469,7 +470,7 @@ public class Enemy_Militia : MonoBehaviour {
                                 {
                                     HP_bar.gameObject.SetActive(true);
                                     HP_bar.transform.position = new Vector3(this.transform.position.x, HP_bar.transform.position.y, this.transform.position.z);
-                                    HP_bar.fillAmount = HP / 10.0f;
+                                    HP_bar.fillAmount = HP / 30.0f;
 
                                     CameraMarkingOn = true;
 
@@ -531,6 +532,7 @@ public class Enemy_Militia : MonoBehaviour {
                                     Corpse_Souls[NowSoulStack].gameObject.SetActive(true);
 
                                     Agent.enabled = false;
+                                    HP_bar.gameObject.SetActive(false);
                                     //Destroy(this.gameObject);
                                 }
 
@@ -725,6 +727,7 @@ public class Enemy_Militia : MonoBehaviour {
         {
             //GameManager.Fear_Parameter += 1;
             Agent.enabled = false;
+            HP_bar.gameObject.SetActive(false);
 
             //Instantiate(Corpse, this.transform.position, Quaternion.identity);
             if (Corpse[NowCorpseStack].gameObject.activeSelf == false)
@@ -780,6 +783,7 @@ public class Enemy_Militia : MonoBehaviour {
             Agent.enabled = false;
 
             this.gameObject.SetActive(false);
+            HP_bar.gameObject.SetActive(false);
             //Destroy(this.gameObject);
 
         }
@@ -959,6 +963,7 @@ public class Enemy_Militia : MonoBehaviour {
             {
                 GameManager.Fear_Parameter += 1;
                 Agent.enabled = false;
+                HP_bar.gameObject.SetActive(false);
 
                 //Instantiate(Corpse, this.transform.position, Quaternion.identity);
                 if (Corpse[NowCorpseStack].gameObject.activeSelf == false)
@@ -1009,6 +1014,7 @@ public class Enemy_Militia : MonoBehaviour {
                 //Instantiate(Corpse, this.transform.position, Quaternion.identity);
 
                 Agent.enabled = false;
+                HP_bar.gameObject.SetActive(false);
 
                 if (Corpse[NowCorpseStack].gameObject.activeSelf == false)
                 {
@@ -1056,6 +1062,7 @@ public class Enemy_Militia : MonoBehaviour {
                 //Instantiate(Corpse, this.transform.position, Quaternion.identity);
 
                 Agent.enabled = false;
+                HP_bar.gameObject.SetActive(false);
 
                 if (Corpse[NowCorpseStack].gameObject.activeSelf == false)
                 {

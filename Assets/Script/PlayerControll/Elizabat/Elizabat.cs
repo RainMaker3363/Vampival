@@ -1125,9 +1125,9 @@ public class Elizabat : MonoBehaviour {
                                     }
 
                                     // 스킬 캔슬 여부
-                                    if (Input.GetButtonDown("P1_360_BButton"))
+                                    if (Input.GetButtonDown("P1_360_BackButton"))
                                     {
-                                        //CommandCancel();
+                                        CommandCancel();
 
                                         // Skill UI를 활성화 시킨다.
                                         //Skill_Not_Yangpigi.gameObject.SetActive(false);

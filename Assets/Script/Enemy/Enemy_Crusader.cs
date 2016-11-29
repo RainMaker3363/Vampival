@@ -138,7 +138,7 @@ public class Enemy_Crusader : MonoBehaviour
 
         EnemySpeed = 3.5f;
 
-        HP_bar.gameObject.SetActive(false);
+        HP_bar.gameObject.SetActive(true);
         HP_bar.fillAmount = HP / 10.0f;
 
         KnockBackCheck = false;
@@ -210,7 +210,7 @@ public class Enemy_Crusader : MonoBehaviour
         AttackPoint = 10;
         EnemySpeed = 3.5f;
 
-        HP_bar.gameObject.SetActive(false);
+        HP_bar.gameObject.SetActive(true);
         HP_bar.fillAmount = HP / 10.0f;
 
         KnockBackCheck = false;
@@ -309,6 +309,7 @@ public class Enemy_Crusader : MonoBehaviour
                                     DeathCheck = true;
                                     //Instantiate(Corpse, this.transform.position, Quaternion.identity);
                                     Agent.enabled = false;
+                                    HP_bar.gameObject.SetActive(false);
 
                                     if (Corpse[NowCorpseStack].gameObject.activeSelf == false)
                                     {
@@ -532,6 +533,7 @@ public class Enemy_Crusader : MonoBehaviour
                                     Corpse_Souls[NowSoulStack].gameObject.SetActive(true);
 
                                     Agent.enabled = false;
+                                    HP_bar.gameObject.SetActive(false);
                                     //Destroy(this.gameObject);
                                 }
 
@@ -726,6 +728,7 @@ public class Enemy_Crusader : MonoBehaviour
         {
             //GameManager.Fear_Parameter += 1;
             Agent.enabled = false;
+            HP_bar.gameObject.SetActive(false);
 
             //Instantiate(Corpse, this.transform.position, Quaternion.identity);
             if (Corpse[NowCorpseStack].gameObject.activeSelf == false)
@@ -781,6 +784,7 @@ public class Enemy_Crusader : MonoBehaviour
             Agent.enabled = false;
 
             this.gameObject.SetActive(false);
+            HP_bar.gameObject.SetActive(false);
             //Destroy(this.gameObject);
 
         }
@@ -960,6 +964,7 @@ public class Enemy_Crusader : MonoBehaviour
             {
                 GameManager.Fear_Parameter += 1;
                 Agent.enabled = false;
+                HP_bar.gameObject.SetActive(false);
 
                 //Instantiate(Corpse, this.transform.position, Quaternion.identity);
                 if (Corpse[NowCorpseStack].gameObject.activeSelf == false)
@@ -1010,6 +1015,7 @@ public class Enemy_Crusader : MonoBehaviour
                 //Instantiate(Corpse, this.transform.position, Quaternion.identity);
 
                 Agent.enabled = false;
+                HP_bar.gameObject.SetActive(false);
 
                 if (Corpse[NowCorpseStack].gameObject.activeSelf == false)
                 {
@@ -1057,6 +1063,7 @@ public class Enemy_Crusader : MonoBehaviour
                 //Instantiate(Corpse, this.transform.position, Quaternion.identity);
 
                 Agent.enabled = false;
+                HP_bar.gameObject.SetActive(false);
 
                 if (Corpse[NowCorpseStack].gameObject.activeSelf == false)
                 {
