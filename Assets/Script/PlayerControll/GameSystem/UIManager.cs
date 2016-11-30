@@ -7,7 +7,7 @@ public class UIManager : MonoBehaviour {
     private GameState Gamestate;
 
     // 읽은 문서의 고유 번호
-    private int Doc_Num;
+    //private int Doc_Num;
 
     public AudioClip Diary_BGM;
     private AudioSource audioSource;
@@ -18,6 +18,9 @@ public class UIManager : MonoBehaviour {
 
     public GameObject Main_BG;
 
+    // 현재 몇번째 문서를 읽었는지의 정보
+    static public int Document_Number;
+    private bool DocumentRespawnChecker;
 
 	// Use this for initialization
 	void Start () {
@@ -26,7 +29,14 @@ public class UIManager : MonoBehaviour {
         audioSource.clip = Diary_BGM;
         audioSource.enabled = false;
 
-        Doc_Num = 0;
+        Document_Number = -1;
+        DocumentRespawnChecker = false;
+        //Doc_Num = 0;
+
+        if(GameManager.FirstBloodCheck == false)
+        {
+            Documents_Icon[1].SetActive(false);
+        }
 	}
 	
 	// Update is called once per frame
@@ -43,57 +53,14 @@ public class UIManager : MonoBehaviour {
 
             case GameState.GamePause:
                 {
+
+
                     if(GameManager.GamePauseOn == false)
                     {
                         audioSource.enabled = true;
 
-                        switch (Doc_Num)
-                        {
-                            case 0:
-                                {
-                                    GameManager.Elizabat_SonicWave_Unlock = true;
-
-                                    Document_BG.gameObject.SetActive(true);
-                                    Documents[0].gameObject.SetActive(true);
-                                }
-                                break;
-
-                            case 1:
-                                {
-                                    GameManager.Elizabat_Eclipse_Unlock = true;
-
-                                    Document_BG.gameObject.SetActive(true);
-                                    Documents[1].gameObject.SetActive(true);
-                                }
-                                break;
-
-                            case 2:
-                                {
-                                    GameManager.Elizabat_Decent_Unlock = true;
-
-                                    Document_BG.gameObject.SetActive(true);
-                                    Documents[2].gameObject.SetActive(true);
-                                }
-                                break;
-
-                            case 3:
-                                {
-                                    GameManager.Elizabat_Swarm_Unlock = true;
-
-                                    Document_BG.gameObject.SetActive(true);
-                                    Documents[3].gameObject.SetActive(true);
-                                }
-                                break;
-
-                            default:
-                                {
-
-                                }
-                                break;
-                        }
-
-                        //Document_BG.gameObject.SetActive(true);
-                        //Documents[Doc_Num].gameObject.SetActive(true);
+                        Document_BG.gameObject.SetActive(true);
+                        Documents[Document_Number].gameObject.SetActive(true);
 
                         if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("P1_360_AButton"))
                         {
@@ -102,18 +69,18 @@ public class UIManager : MonoBehaviour {
                             audioSource.enabled = false;
 
                             Document_BG.gameObject.SetActive(false);
-                            Documents[Doc_Num].gameObject.SetActive(false);
-                            Documents_Icon[Doc_Num].gameObject.SetActive(false);
+                            Documents[Document_Number].gameObject.SetActive(false);
+                            Documents_Icon[Document_Number].gameObject.SetActive(false);
 
 
-                            if (Doc_Num <= Documents.Length)
-                            {
-                                Doc_Num++;
-                            }
-                            else
-                            {
-                                Doc_Num = 0;
-                            }
+                            //if (Doc_Num <= Documents.Length)
+                            //{
+                            //    Doc_Num++;
+                            //}
+                            //else
+                            //{
+                            //    Doc_Num = 0;
+                            //}
                         }
                     }
                     else
@@ -129,7 +96,15 @@ public class UIManager : MonoBehaviour {
 
             case GameState.GameStart:
                 {
-                    
+                    if (GameManager.FirstBloodCheck == true && DocumentRespawnChecker == false)
+                    {
+                        Documents_Icon[1].SetActive(true);
+                        Documents_Icon[1].transform.position = GameManager.FirstBloodPos;
+
+                        print(GameManager.FirstBloodCheck);
+                        print(GameManager.FirstBloodPos);
+                        DocumentRespawnChecker = true;
+                    }
                 }
                 break;
 

@@ -125,6 +125,10 @@ public class GameManager : MonoBehaviour {
     static public ViewControllMode ViewMode;
     static public bool GamePauseOn;
 
+    // Stage01 시연 기믹 용
+    static public bool FirstBloodCheck;
+    static public Vector3 FirstBloodPos;
+
     /// <summary>
     // 공포도의 영향을 줄 빛
     /// </summary>
@@ -210,10 +214,10 @@ public class GameManager : MonoBehaviour {
         Elizabat_SonicWave_Ready = true;
         Elizabat_Swarm_Ready = true;
 
-        Elizabat_Eclipse_Unlock = true;
-        Elizabat_Decent_Unlock = true;
-        Elizabat_SonicWave_Unlock = true;
-        Elizabat_Swarm_Unlock = true;
+        Elizabat_Eclipse_Unlock = false;
+        Elizabat_Decent_Unlock = false;
+        Elizabat_SonicWave_Unlock = false;
+        Elizabat_Swarm_Unlock = false;
 
         //===========================================================
         // 스피다스 조작 부분
@@ -278,6 +282,8 @@ public class GameManager : MonoBehaviour {
         MiniMap_UI.SetActive(false);
 
         GamePauseOn = false;
+        FirstBloodCheck = false;
+        FirstBloodPos = Vector3.zero;
 
         //Gamestate = GameState.GameIntro;
         Gamestate = GameState.GameStart;

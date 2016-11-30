@@ -357,6 +357,28 @@ public class CarrySpider : MonoBehaviour {
         {
             other.gameObject.SetActive(false);
 
+            if(other.gameObject.name.Equals("Document_SonicWave"))
+            {
+                GameManager.Elizabat_SonicWave_Unlock = true;
+                UIManager.Document_Number = 0;
+            }
+            else if(other.gameObject.name.Equals("Document_Eclipse"))
+            {
+                GameManager.Elizabat_Eclipse_Unlock = true;
+                UIManager.Document_Number = 1;
+            }
+            else if (other.gameObject.name.Equals("Document_WildFire"))
+            {
+                GameManager.Elizabat_Decent_Unlock = true;
+                UIManager.Document_Number = 2;
+            }
+            else if (other.gameObject.name.Equals("Document_Swarm"))
+            {
+                GameManager.Elizabat_Swarm_Unlock = true;
+                UIManager.Document_Number = 3;
+            }
+
+
             GameManager.Gamestate = GameState.GamePause;
         }
 

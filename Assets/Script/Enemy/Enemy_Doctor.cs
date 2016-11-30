@@ -338,6 +338,12 @@ public class Enemy_Doctor : MonoBehaviour
                                         NowSoulStack++;
                                     }
 
+                                    if (GameManager.FirstBloodCheck == false)
+                                    {
+                                        GameManager.FirstBloodPos = this.transform.position;
+                                        GameManager.FirstBloodCheck = true;
+                                    }
+
                                     this.gameObject.SetActive(false);
                                     
                                     //Destroy(this.gameObject);
@@ -759,6 +765,12 @@ public class Enemy_Doctor : MonoBehaviour
                 NowSoulStack++;
             }
 
+            if (GameManager.FirstBloodCheck == false)
+            {
+                GameManager.FirstBloodPos = this.transform.position;
+                GameManager.FirstBloodCheck = true;
+            }
+
             this.gameObject.SetActive(false);
 
             //Destroy(this.gameObject);
@@ -995,6 +1007,12 @@ public class Enemy_Doctor : MonoBehaviour
                     NowSoulStack++;
                 }
 
+                if (GameManager.FirstBloodCheck == false)
+                {
+                    GameManager.FirstBloodPos = this.transform.position;
+                    GameManager.FirstBloodCheck = true;
+                }
+
                 this.gameObject.SetActive(false);
 
                 //Destroy(this.gameObject);
@@ -1046,6 +1064,12 @@ public class Enemy_Doctor : MonoBehaviour
                     NowSoulStack++;
                 }
 
+                if (GameManager.FirstBloodCheck == false)
+                {
+                    GameManager.FirstBloodPos = this.transform.position;
+                    GameManager.FirstBloodCheck = true;
+                }
+
                 this.gameObject.SetActive(false);
 
                 //Destroy(this.gameObject);
@@ -1056,7 +1080,7 @@ public class Enemy_Doctor : MonoBehaviour
         {
             if (HP > 0)
             {
-                HP -= 10;
+                HP -= HP;
             }
             else if (HP <= 0)
             {
@@ -1092,6 +1116,12 @@ public class Enemy_Doctor : MonoBehaviour
                 else
                 {
                     NowSoulStack++;
+                }
+
+                if (GameManager.FirstBloodCheck == false)
+                {
+                    GameManager.FirstBloodPos = this.transform.position;
+                    GameManager.FirstBloodCheck = true;
                 }
 
                 this.gameObject.SetActive(false);
