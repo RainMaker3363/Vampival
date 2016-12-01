@@ -25,7 +25,13 @@ public class CarrySpider : MonoBehaviour {
 
     public GameObject Berserk_Particle;
 
-    public GameObject ObjectChecker;
+    public GameObject ObjectCheckers;
+    public GameObject StartObjectChecker;
+    public GameObject EndObjectChecker;
+
+    private bool FrontRotationOn;
+    private bool BackRotationOn;
+
     private RaycastHit Objecthit;
 
     public GameObject[] Spider_Web_Trap;
@@ -39,8 +45,8 @@ public class CarrySpider : MonoBehaviour {
 
         SpiderSpot.SetActive(true);
 
-        layermask = (1<<LayerMask.NameToLayer("LayCastIn"));//(-1) - (1 << 9) | (1 << 10) | (1 << 12) | (1 << 15);
-        ObjectLayerMask = (1 << LayerMask.NameToLayer("LayObjectCheck"));
+        layermask = (1 << LayerMask.NameToLayer("LayCastIn"));//(-1) - (1 << 9) | (1 << 10) | (1 << 12) | (1 << 15);
+        ObjectLayerMask = (((1 << LayerMask.NameToLayer("LayCastIn")) | (1 << LayerMask.NameToLayer("LayObjectCheck"))));
         
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("CarryPlayer"), true);
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Projectile"), LayerMask.NameToLayer("CarryPlayer"), true);
@@ -67,6 +73,8 @@ public class CarrySpider : MonoBehaviour {
             Spider_Web_Trap[i].SetActive(false);
         }
 
+        FrontRotationOn = true;
+        BackRotationOn = false;
 	}
 	
 	// Update is called once per frame
@@ -156,14 +164,21 @@ public class CarrySpider : MonoBehaviour {
                                 //    normalMoveSpeed = 7.0f;
                                 //}
 
-                                //Debug.DrawRay(this.transform.position, (ObjectChecker.transform.position - this.transform.position).normalized * 4.5f, Color.cyan);
+                                //Debug.DrawRay(EndObjectChecker.transform.position, (StartObjectChecker.transform.position - EndObjectChecker.transform.position).normalized * 10.0f, Color.cyan);
 
                                 if (Input.GetKey(KeyCode.I))
                                 {
 
-                                    if (!Physics.Raycast(this.transform.position, (ObjectChecker.transform.position - this.transform.position).normalized, out Objecthit, 5.0f, ObjectLayerMask))
+                                    if (FrontRotationOn == false)
                                     {
-                                        transform.Translate(new Vector3(0, 0, 4.0f) * normalMoveSpeed * Time.deltaTime);
+                                        ObjectCheckers.transform.Rotate(new Vector3(180.0f, 0.0f, 0.0f));
+                                        BackRotationOn = false;
+                                        FrontRotationOn = true;
+                                    }
+
+                                    if (!Physics.Raycast(EndObjectChecker.transform.position, (StartObjectChecker.transform.position - EndObjectChecker.transform.position).normalized, out Objecthit, 10.0f, ObjectLayerMask))
+                                    {
+                                        transform.Translate(new Vector3(0, 0, 5.0f) * normalMoveSpeed * Time.deltaTime);
                                     }
                                     //Dir = (Look.transform.position - this.transform.position).normalized;
                                     //transform.position += Dir * normalMoveSpeed * Time.deltaTime;
@@ -181,17 +196,28 @@ public class CarrySpider : MonoBehaviour {
 
                                     //transform.position += new Vector3(0.05f, hit.normal.y, 0) * normalMoveSpeed * Time.deltaTime;
 
-                                    transform.Translate(new Vector3(0, 0, -4.0f) * normalMoveSpeed * Time.deltaTime);
+                                    if (BackRotationOn == false)
+                                    {
+                                        ObjectCheckers.transform.Rotate(new Vector3(180.0f, 0.0f, 0.0f));
+                                        BackRotationOn = true;
+                                        FrontRotationOn = false;
+                                    }
+
+                                    if (!Physics.Raycast(EndObjectChecker.transform.position, (StartObjectChecker.transform.position - EndObjectChecker.transform.position).normalized, out Objecthit, 10.0f, ObjectLayerMask))
+                                    {
+                                        transform.Translate(new Vector3(0, 0, -5.0f) * normalMoveSpeed * Time.deltaTime);
+                                    }
+                                    
                                     
                                 }
                                 if (Input.GetKey(KeyCode.J))
                                 {
-                                    this.transform.Rotate(new Vector3(0, -180, 0), 140 * Time.deltaTime);
+                                    this.transform.Rotate(new Vector3(0, -180, 0), 160 * Time.deltaTime);
                                     //transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
                                 }
                                 if (Input.GetKey(KeyCode.L))
                                 {
-                                    this.transform.Rotate(new Vector3(0, -180, 0), -140 * Time.deltaTime);
+                                    this.transform.Rotate(new Vector3(0, -180, 0), -160 * Time.deltaTime);
                                     //transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
                                 }
 
@@ -257,34 +283,54 @@ public class CarrySpider : MonoBehaviour {
                                 if (Input.GetAxisRaw("P3_360_L_RightStick") >= 0.5f)
                                 {
 
-                                    Debug.Log("RightStick!");
+                                    //Debug.Log("RightStick!");
 
-                                    this.transform.Rotate(new Vector3(0, 180, 0), 140 * Time.deltaTime);
+                                    this.transform.Rotate(new Vector3(0, 180, 0), 160 * Time.deltaTime);
                                 }
 
                                 if (Input.GetAxisRaw("P3_360_L_RightStick") <= -0.5f)
                                 {
 
-                                    Debug.Log("LeftStick!");
+                                    //Debug.Log("LeftStick!");
 
-                                    this.transform.Rotate(new Vector3(0, -180, 0), 140 * Time.deltaTime);
+                                    this.transform.Rotate(new Vector3(0, -180, 0), 160 * Time.deltaTime);
                                 }
 
                                 if (Input.GetAxisRaw("P3_360_R_UpStick") <= -0.5f)
                                 {
 
-                                    Debug.Log("UpStick!");
+                                    //Debug.Log("UpStick!");
 
-                                    transform.Translate(new Vector3(0, 0, 2.5f) * normalMoveSpeed * Time.deltaTime);
+                                    if (FrontRotationOn == false)
+                                    {
+                                        ObjectCheckers.transform.Rotate(new Vector3(180.0f, 0.0f, 0.0f));
+                                        BackRotationOn = false;
+                                        FrontRotationOn = true;
+                                    }
+
+                                    if (!Physics.Raycast(EndObjectChecker.transform.position, (StartObjectChecker.transform.position - EndObjectChecker.transform.position).normalized, out Objecthit, 10.0f, ObjectLayerMask))
+                                    {
+                                        transform.Translate(new Vector3(0, 0, 5.0f) * normalMoveSpeed * Time.deltaTime);
+                                    }
 
                                 }
 
                                 if (Input.GetAxisRaw("P3_360_R_UpStick") >= 0.5f)
                                 {
 
-                                    Debug.Log("DownStick!");
+                                    //Debug.Log("DownStick!");
 
-                                    transform.Translate(new Vector3(0, 0, -2.5f) * normalMoveSpeed * Time.deltaTime);
+                                    if (BackRotationOn == false)
+                                    {
+                                        ObjectCheckers.transform.Rotate(new Vector3(180.0f, 0.0f, 0.0f));
+                                        BackRotationOn = true;
+                                        FrontRotationOn = false;
+                                    }
+
+                                    if (!Physics.Raycast(EndObjectChecker.transform.position, (StartObjectChecker.transform.position - EndObjectChecker.transform.position).normalized, out Objecthit, 10.0f, ObjectLayerMask))
+                                    {
+                                        transform.Translate(new Vector3(0, 0, -5.0f) * normalMoveSpeed * Time.deltaTime);
+                                    }
                                 }
 
                                 //if (Input.GetButtonDown("P3_360_AButton"))
@@ -343,8 +389,9 @@ public class CarrySpider : MonoBehaviour {
     {
         if (collision.transform.tag.Equals("BuffCannonBall") == true)
         {
-            print("Power Up!!");
+            //print("Power Up!!");
 
+            GameManager.Spidas_PowerUp_On = false;
             StopCoroutine(PowerUp(1));
 
             StartCoroutine(PowerUp(1));

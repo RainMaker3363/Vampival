@@ -76,7 +76,7 @@ ModelImporter:
     400066: Object001
     400068: //RootNode
     4300000: Object001
-    7400000: Take 001
+    7400000: Walk
     9500000: //RootNode
     13700000: Object001
   materials:
@@ -99,7 +99,105 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Walk
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 40
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Bone001
+        weight: 1
+      - path: Bone001/Bone002
+        weight: 1
+      - path: Bone001/Bone002/Bone003
+        weight: 1
+      - path: Bone001/Bone002/Bone003/Bone004
+        weight: 1
+      - path: Bone009
+        weight: 1
+      - path: Bone009/Bone010
+        weight: 1
+      - path: Bone009/Bone010/Bone011
+        weight: 1
+      - path: Bone009/Bone010/Bone011/Bone012
+        weight: 1
+      - path: Bone009/Bone010/Bone011/Bone012/Bone013
+        weight: 1
+      - path: Bone017
+        weight: 1
+      - path: Bone017/Bone016
+        weight: 1
+      - path: Bone018
+        weight: 1
+      - path: Bone018/Bone019
+        weight: 1
+      - path: Bone024
+        weight: 1
+      - path: Bone024/Bone021
+        weight: 1
+      - path: Bone026
+        weight: 1
+      - path: Bone026/Bone023
+        weight: 1
+      - path: Bone027
+        weight: 1
+      - path: Bone027/Bone020
+        weight: 1
+      - path: Bone029
+        weight: 1
+      - path: Bone029/Bone030
+        weight: 1
+      - path: Bone029/Bone030/Bone028
+        weight: 1
+      - path: Bone029/Bone030/Bone028/Bone025
+        weight: 1
+      - path: Bone029/Bone030/Bone028/Bone025/Bone022
+        weight: 1
+      - path: IK Chain001
+        weight: 1
+      - path: IK Chain002
+        weight: 1
+      - path: IK Chain003
+        weight: 1
+      - path: IK Chain004
+        weight: 1
+      - path: IK Chain005
+        weight: 1
+      - path: IK Chain006
+        weight: 1
+      - path: IK Chain007
+        weight: 1
+      - path: L_reg
+        weight: 1
+      - path: L_reg/Bone015
+        weight: 1
+      - path: Object001
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []

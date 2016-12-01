@@ -222,7 +222,7 @@ public class GameManager : MonoBehaviour {
         //===========================================================
         // 스피다스 조작 부분
         //===========================================================
-        Spidas_PowerUp_On = true;
+        Spidas_PowerUp_On = false;
         Spidas_Death_On = false;
         Spidas_Revive_On = true;
 

@@ -6,6 +6,6 @@ public class MainTitle_BG_Cloude : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        this.transform.Rotate(new Vector3(0, 0, -10.0f) * Time.deltaTime);
+        this.transform.Rotate(new Vector3(0, 0, -6.0f) * Time.deltaTime);
 	}
 }

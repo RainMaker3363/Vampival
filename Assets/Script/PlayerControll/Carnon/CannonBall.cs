@@ -27,7 +27,8 @@ public class CannonBall : MonoBehaviour {
     private bool IsFire;
     private bool _rotate;
 
-    public GameObject ObjectChecker;
+    public GameObject StartObjectChecker;
+    public GameObject EndObjectChecker;
     private int layermask;
     private RaycastHit hit;
 
@@ -79,6 +80,7 @@ public class CannonBall : MonoBehaviour {
         _rotate = true;
 
         layermask = (1 << LayerMask.NameToLayer("LayObjectCheck"));
+        //layermask = (((1 << LayerMask.NameToLayer("LayCastIn")) | (1 << LayerMask.NameToLayer("LayObjectCheck"))));
 
         //Explode_Particle.gameObject.SetActive(false);
         Explode_Particle.Stop();
@@ -138,7 +140,7 @@ public class CannonBall : MonoBehaviour {
     IEnumerator DeadOrAliveRoutin()
     {
         yield return new WaitForSeconds(3.25f);
-
+        
         this.gameObject.SetActive(false);
     }
 
@@ -188,11 +190,29 @@ public class CannonBall : MonoBehaviour {
 
 
                                 //Debug.DrawRay(this.transform.position, (ObjectChecker.transform.position - this.transform.position).normalized * 3.0f, Color.cyan);
+                                //Debug.DrawRay(StartObjectChecker.transform.position, (EndObjectChecker.transform.position - StartObjectChecker.transform.position).normalized * 10.0f, Color.cyan);
 
-                                if (Physics.Raycast(this.transform.position, (ObjectChecker.transform.position - this.transform.position).normalized, out hit, 3.0f, layermask))
+                                if (Physics.Raycast(StartObjectChecker.transform.position, (EndObjectChecker.transform.position - StartObjectChecker.transform.position).normalized, out hit, 10.0f, layermask))
                                 {
+                                    //Explode_Particle.gameObject.SetActive(true);
 
-                                    if(hit.transform.gameObject.layer == LayerMask.NameToLayer("LayObjectCheck"))
+                                    //Explode_Particle.Play();
+
+                                    //Audio.Play();
+
+                                    ////Explode_Particle.transform.position = collision.transform.position;
+
+                                    //if (SphereCol != null)
+                                    //{
+                                    //    SphereCol.enabled = false;
+                                    //}
+
+                                    //if (Explode_Particle.isStopped == true)
+                                    //{
+                                    //    this.gameObject.SetActive(false);
+                                    //}
+
+                                    if (hit.transform.gameObject.layer == LayerMask.NameToLayer("LayObjectCheck"))
                                     {
                                         Explode_Particle.gameObject.SetActive(true);
 
@@ -281,8 +301,25 @@ public class CannonBall : MonoBehaviour {
                                     IsFire = true;
                                 }
 
-                                if (Physics.Raycast(this.transform.position, (ObjectChecker.transform.position - this.transform.position).normalized, out hit, 3.0f, layermask))
+                                if (Physics.Raycast(StartObjectChecker.transform.position, (EndObjectChecker.transform.position - StartObjectChecker.transform.position).normalized, out hit, 10.0f, layermask))
                                 {
+                                    //Explode_Particle.gameObject.SetActive(true);
+
+                                    //Explode_Particle.Play();
+
+                                    //Audio.Play();
+
+                                    ////Explode_Particle.transform.position = collision.transform.position;
+
+                                    //if (SphereCol != null)
+                                    //{
+                                    //    SphereCol.enabled = false;
+                                    //}
+
+                                    //if (Explode_Particle.isStopped == true)
+                                    //{
+                                    //    this.gameObject.SetActive(false);
+                                    //}
 
                                     if (hit.transform.gameObject.layer == LayerMask.NameToLayer("LayObjectCheck"))
                                     {
@@ -305,6 +342,28 @@ public class CannonBall : MonoBehaviour {
                                         }
 
                                     }
+
+                                    //if (hit.transform.gameObject.layer == LayerMask.NameToLayer("LayObjectCheck"))
+                                    //{
+                                    //    Explode_Particle.gameObject.SetActive(true);
+
+                                    //    Explode_Particle.Play();
+
+                                    //    Audio.Play();
+
+                                    //    //Explode_Particle.transform.position = collision.transform.position;
+
+                                    //    if (SphereCol != null)
+                                    //    {
+                                    //        SphereCol.enabled = false;
+                                    //    }
+
+                                    //    if (Explode_Particle.isStopped == true)
+                                    //    {
+                                    //        this.gameObject.SetActive(false);
+                                    //    }
+
+                                    //}
 
 
                                     //if (hit.collider.tag.Equals("Ground") == true)
