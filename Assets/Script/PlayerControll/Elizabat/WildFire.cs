@@ -7,12 +7,17 @@ public class WildFire : MonoBehaviour {
 
     private SphereCollider col;
 
+    public AudioSource audio;
+    public AudioClip WildFire_Respawn_Sound;
+    public AudioClip ExplodeSound;
+
     public GameObject TargetPos;
     public GameObject StartPos;
     public ParticleSystem Explode_Particle;
     private Vector3 Dir;
 
     private bool TargetChecker;
+    private bool Projectile_Move_On;
 
     // Use this for initialization
     void Start()
@@ -30,6 +35,18 @@ public class WildFire : MonoBehaviour {
         else
         {
             col.enabled = true;
+        }
+
+        if (audio == null)
+        {
+            audio = GetComponent<AudioSource>();
+            audio.clip = WildFire_Respawn_Sound;
+            audio.Play();
+        }
+        else
+        {
+            audio.clip = WildFire_Respawn_Sound;
+            audio.Play();
         }
 
 
@@ -54,9 +71,10 @@ public class WildFire : MonoBehaviour {
         this.transform.localEulerAngles = new Vector3(0, 0, 0);
 
         TargetChecker = false;
+        Projectile_Move_On = true;
 
         Explode_Particle.gameObject.SetActive(false);
-        Explode_Particle.Stop();
+        //Explode_Particle.Pause();
 
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("PlayerSetObject"), LayerMask.NameToLayer("SkillParticle"), true);
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Projectile"), LayerMask.NameToLayer("SkillParticle"), true);
@@ -85,6 +103,18 @@ public class WildFire : MonoBehaviour {
             col.enabled = true;
         }
 
+        if (audio == null)
+        {
+            audio = GetComponent<AudioSource>();
+            audio.clip = WildFire_Respawn_Sound;
+            audio.Play();
+        }
+        else
+        {
+            audio.clip = WildFire_Respawn_Sound;
+            audio.Play();
+        }
+
         //TargetPos.transform.position = Vector3.zero;
         //Dir = (TargetPos.transform.position - this.transform.position).normalized;
         if (StartPos == null)
@@ -104,10 +134,12 @@ public class WildFire : MonoBehaviour {
 
         this.transform.parent = null;
         this.transform.localEulerAngles = new Vector3(0, 0, 0);
+        
         TargetChecker = false;
+        Projectile_Move_On = true;
 
         Explode_Particle.gameObject.SetActive(false);
-        Explode_Particle.Stop();
+        //Explode_Particle.Pause();
 
         print("TargetPos : " + TargetPos.transform.position);
         print("StartPos : " + StartPos.transform.position);
@@ -159,7 +191,11 @@ public class WildFire : MonoBehaviour {
                     }
 
                     //Debug.DrawRay(this.transform.position, Dir * 200.0f, Color.green, 100.0f);
-                    this.transform.Translate((Dir * 75.0f) * Time.deltaTime);
+                    if (Projectile_Move_On == true)
+                    {
+                        this.transform.Translate((Dir * 75.0f) * Time.deltaTime);
+                    }
+                    
                 }
                 break;
 
@@ -182,6 +218,14 @@ public class WildFire : MonoBehaviour {
                 col.enabled = false;
             }
 
+            if (audio != null)
+            {
+                audio.clip = ExplodeSound;
+                audio.Play();
+            }
+
+            Projectile_Move_On = false;
+
             Explode_Particle.gameObject.SetActive(true);
             Explode_Particle.Play();
 
@@ -203,6 +247,14 @@ public class WildFire : MonoBehaviour {
             {
                 col.enabled = false;
             }
+
+            if (audio != null)
+            {
+                audio.clip = ExplodeSound;
+                audio.Play();
+            }
+
+            Projectile_Move_On = false;
 
             Explode_Particle.gameObject.SetActive(true);
             Explode_Particle.Play();

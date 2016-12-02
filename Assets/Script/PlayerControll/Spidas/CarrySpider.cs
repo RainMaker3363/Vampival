@@ -6,6 +6,8 @@ public class CarrySpider : MonoBehaviour {
     private ViewControllMode ViewMode;
     private GameState Gamestate;
 
+    private Animator ani;
+
     private Quaternion Rotate;
     private Vector3 Dir;
     private Vector3 MyScale;
@@ -16,6 +18,15 @@ public class CarrySpider : MonoBehaviour {
 
     public float normalMoveSpeed = 7;
     public float FastMoveSpeed = 40;
+
+    // 인디케이터 설정 부분
+    public GameObject Spider_Indicator;
+    private Vector3 targetPosOnScreen;
+    private Vector3 center;
+    private float angle;
+    private float coef;
+    private int edgeLine;
+    private float degreeRange;
 
     private bool TrapSetOn;
 
@@ -43,6 +54,11 @@ public class CarrySpider : MonoBehaviour {
         ViewMode = GameManager.ViewMode;
         Gamestate = GameManager.Gamestate;
 
+        if (ani == null)
+        {
+            ani = GetComponent<Animator>();
+        }
+
         SpiderSpot.SetActive(true);
 
         layermask = (1 << LayerMask.NameToLayer("LayCastIn"));//(-1) - (1 << 9) | (1 << 10) | (1 << 12) | (1 << 15);
@@ -56,7 +72,7 @@ public class CarrySpider : MonoBehaviour {
         PowerUpScale = Vector3.zero;
 
         MyScale = this.gameObject.transform.localScale;
-        PowerUpScale = new Vector3(MyScale.x + 3.0f, MyScale.y + 3.0f, MyScale.z + 3.0f);
+        PowerUpScale = new Vector3(MyScale.x + 1.0f, MyScale.y + 1.0f, MyScale.z + 1.0f);
         
         // 광폭화 이펙트 활성화 여부
         Berserk_Particle.gameObject.SetActive(false);
@@ -75,6 +91,8 @@ public class CarrySpider : MonoBehaviour {
 
         FrontRotationOn = true;
         BackRotationOn = false;
+
+        Spider_Indicator.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -164,7 +182,7 @@ public class CarrySpider : MonoBehaviour {
                                 //    normalMoveSpeed = 7.0f;
                                 //}
 
-                                //Debug.DrawRay(EndObjectChecker.transform.position, (StartObjectChecker.transform.position - EndObjectChecker.transform.position).normalized * 10.0f, Color.cyan);
+                                //Debug.DrawRay(EndObjectChecker.transform.position, (StartObjectChecker.transform.position - EndObjectChecker.transform.position).normalized * 6.0f, Color.cyan);
 
                                 if (Input.GetKey(KeyCode.I))
                                 {
@@ -176,8 +194,15 @@ public class CarrySpider : MonoBehaviour {
                                         FrontRotationOn = true;
                                     }
 
-                                    if (!Physics.Raycast(EndObjectChecker.transform.position, (StartObjectChecker.transform.position - EndObjectChecker.transform.position).normalized, out Objecthit, 10.0f, ObjectLayerMask))
+                                    if (ani != null)
                                     {
+                                        ani.SetBool("Walk", true);
+                                    }
+
+                                    if (!Physics.Raycast(EndObjectChecker.transform.position, (StartObjectChecker.transform.position - EndObjectChecker.transform.position).normalized, out Objecthit, 6.0f, ObjectLayerMask))
+                                    {
+  
+
                                         transform.Translate(new Vector3(0, 0, 5.0f) * normalMoveSpeed * Time.deltaTime);
                                     }
                                     //Dir = (Look.transform.position - this.transform.position).normalized;
@@ -189,6 +214,14 @@ public class CarrySpider : MonoBehaviour {
 
                                     
                                 }
+                                else if (Input.GetKeyUp(KeyCode.I))
+                                {
+                                    if (ani != null)
+                                    {
+                                        ani.SetBool("Walk", false);
+                                    }
+                                }
+
                                 if (Input.GetKey(KeyCode.K))
                                 {
                                     //Dir = (Look.transform.position - this.transform.position).normalized;
@@ -203,33 +236,144 @@ public class CarrySpider : MonoBehaviour {
                                         FrontRotationOn = false;
                                     }
 
+                                    if (ani != null)
+                                    {
+                                        ani.SetBool("Walk", true);
+                                    }
+
                                     if (!Physics.Raycast(EndObjectChecker.transform.position, (StartObjectChecker.transform.position - EndObjectChecker.transform.position).normalized, out Objecthit, 10.0f, ObjectLayerMask))
                                     {
+
+
                                         transform.Translate(new Vector3(0, 0, -5.0f) * normalMoveSpeed * Time.deltaTime);
                                     }
                                     
                                     
                                 }
+                                else if(Input.GetKeyUp(KeyCode.K))
+                                {
+                                    if (ani != null)
+                                    {
+                                        ani.SetBool("Walk", false);
+                                    }
+                                }
+
                                 if (Input.GetKey(KeyCode.J))
                                 {
+                                    if (ani != null)
+                                    {
+                                        ani.SetBool("Walk", true);
+                                    }
+
                                     this.transform.Rotate(new Vector3(0, -180, 0), 160 * Time.deltaTime);
                                     //transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
                                 }
+                                else if(Input.GetKeyUp(KeyCode.J))
+                                {
+                                    if (ani != null)
+                                    {
+                                        ani.SetBool("Walk", false);
+                                    }
+                                }
+
                                 if (Input.GetKey(KeyCode.L))
                                 {
+                                    if (ani != null)
+                                    {
+                                        ani.SetBool("Walk", true);
+                                    }
                                     this.transform.Rotate(new Vector3(0, -180, 0), -160 * Time.deltaTime);
                                     //transform.rotation *= Quaternion.FromToRotation(transform.up, hit.normal);
                                 }
-
-
+                                else if (Input.GetKeyUp(KeyCode.L))
+                                {
+                                    if (ani != null)
+                                    {
+                                        ani.SetBool("Walk", false);
+                                    }
+                                }
                                 //if (Input.GetKeyDown(KeyCode.H))
                                 //{
                                 //    ConsumeOn = true;
                                 //}
+                                targetPosOnScreen = Camera.main.WorldToScreenPoint(this.gameObject.transform.position);
+
+                                // 화면 밖 처리
+                                if ((targetPosOnScreen.x > Screen.width || targetPosOnScreen.x < 0 || targetPosOnScreen.y > Screen.height || targetPosOnScreen.y < 0))
+                                {
+
+                                    Spider_Indicator.gameObject.SetActive(true);
+
+
+                                    center = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
+
+                                    angle = Mathf.Atan2(targetPosOnScreen.y - center.y, targetPosOnScreen.x - center.x) * Mathf.Rad2Deg;
+
+                                    if (Screen.width > Screen.height)
+                                        coef = Screen.width / Screen.height;
+                                    else
+                                        coef = Screen.height / Screen.width;
+
+                                    degreeRange = 360f / (coef + 1);
+
+
+                                    if (angle < 0)
+                                        angle = angle + 360;
+
+                                    if (angle < degreeRange / 4f)
+                                        edgeLine = 0;
+                                    else if (angle < 180 - degreeRange / 4f)
+                                        edgeLine = 1;
+                                    else if (angle < 180 + degreeRange / 4f)
+                                        edgeLine = 2;
+                                    else if (angle < 360 - degreeRange / 4f)
+                                        edgeLine = 3;
+                                    else
+                                        edgeLine = 0;
 
 
 
-                                
+                                    switch (edgeLine)
+                                    {
+                                        case 0:
+                                            {
+                                                //print("edgeLine = " + edgeLine);
+                                                Spider_Indicator.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(-30, -30, 10));
+                                                Spider_Indicator.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
+                                            }
+                                            break;
+
+                                        case 1:
+                                            {
+                                                //print("edgeLine = " + edgeLine);
+                                                Spider_Indicator.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(30, -30, 10));
+                                                Spider_Indicator.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
+                                            }
+                                            break;
+
+                                        case 2:
+                                            {
+                                                //print("edgeLine = " + edgeLine);
+                                                Spider_Indicator.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(40, 30, 10));
+                                                Spider_Indicator.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
+                                            }
+                                            break;
+
+                                        case 3:
+                                            {
+                                                //print("edgeLine = " + edgeLine);
+                                                Spider_Indicator.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(-40, 30, 10));
+                                                Spider_Indicator.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
+                                            }
+                                            break;
+                                    }
+
+
+                                }
+                                else
+                                {
+                                    Spider_Indicator.gameObject.SetActive(false);
+                                }
                                 //else if (Input.GetKeyUp(KeyCode.H))
                                 //{
                                 //    ConsumeOn = false;
@@ -280,10 +424,24 @@ public class CarrySpider : MonoBehaviour {
                                     }
                                 }
 
+                                if (Input.GetAxisRaw("P3_360_L_RightStick") == 0 && Input.GetAxisRaw("P3_360_R_UpStick") == 0)
+                                {
+                                    if (ani != null)
+                                    {
+                                        ani.SetBool("Walk", false);
+                                    }
+                                }
+
+
                                 if (Input.GetAxisRaw("P3_360_L_RightStick") >= 0.5f)
                                 {
 
                                     //Debug.Log("RightStick!");
+
+                                    if (ani != null)
+                                    {
+                                        ani.SetBool("Walk", true);
+                                    }
 
                                     this.transform.Rotate(new Vector3(0, 180, 0), 160 * Time.deltaTime);
                                 }
@@ -293,9 +451,14 @@ public class CarrySpider : MonoBehaviour {
 
                                     //Debug.Log("LeftStick!");
 
+                                    if (ani != null)
+                                    {
+                                        ani.SetBool("Walk", true);
+                                    }
+
                                     this.transform.Rotate(new Vector3(0, -180, 0), 160 * Time.deltaTime);
                                 }
-
+                                
                                 if (Input.GetAxisRaw("P3_360_R_UpStick") <= -0.5f)
                                 {
 
@@ -306,6 +469,11 @@ public class CarrySpider : MonoBehaviour {
                                         ObjectCheckers.transform.Rotate(new Vector3(180.0f, 0.0f, 0.0f));
                                         BackRotationOn = false;
                                         FrontRotationOn = true;
+                                    }
+
+                                    if (ani != null)
+                                    {
+                                        ani.SetBool("Walk", true);
                                     }
 
                                     if (!Physics.Raycast(EndObjectChecker.transform.position, (StartObjectChecker.transform.position - EndObjectChecker.transform.position).normalized, out Objecthit, 10.0f, ObjectLayerMask))
@@ -327,12 +495,96 @@ public class CarrySpider : MonoBehaviour {
                                         FrontRotationOn = false;
                                     }
 
+                                    if (ani != null)
+                                    {
+                                        ani.SetBool("Walk", true);
+                                    }
+
                                     if (!Physics.Raycast(EndObjectChecker.transform.position, (StartObjectChecker.transform.position - EndObjectChecker.transform.position).normalized, out Objecthit, 10.0f, ObjectLayerMask))
                                     {
                                         transform.Translate(new Vector3(0, 0, -5.0f) * normalMoveSpeed * Time.deltaTime);
                                     }
                                 }
 
+
+                                targetPosOnScreen = Camera.main.WorldToScreenPoint(this.gameObject.transform.position);
+
+                                // 화면 밖 처리
+                                if ((targetPosOnScreen.x > Screen.width || targetPosOnScreen.x < 0 || targetPosOnScreen.y > Screen.height || targetPosOnScreen.y < 0))
+                                {
+
+                                    Spider_Indicator.gameObject.SetActive(true);
+
+
+                                    center = new Vector3(Screen.width / 2f, Screen.height / 2f, 0);
+
+                                    angle = Mathf.Atan2(targetPosOnScreen.y - center.y, targetPosOnScreen.x - center.x) * Mathf.Rad2Deg;
+
+                                    if (Screen.width > Screen.height)
+                                        coef = Screen.width / Screen.height;
+                                    else
+                                        coef = Screen.height / Screen.width;
+
+                                    degreeRange = 360f / (coef + 1);
+
+
+                                    if (angle < 0)
+                                        angle = angle + 360;
+
+                                    if (angle < degreeRange / 4f)
+                                        edgeLine = 0;
+                                    else if (angle < 180 - degreeRange / 4f)
+                                        edgeLine = 1;
+                                    else if (angle < 180 + degreeRange / 4f)
+                                        edgeLine = 2;
+                                    else if (angle < 360 - degreeRange / 4f)
+                                        edgeLine = 3;
+                                    else
+                                        edgeLine = 0;
+
+
+
+                                    switch (edgeLine)
+                                    {
+                                        case 0:
+                                            {
+                                                //print("edgeLine = " + edgeLine);
+                                                Spider_Indicator.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(-30, -30, 10));
+                                                Spider_Indicator.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
+                                            }
+                                            break;
+
+                                        case 1:
+                                            {
+                                                //print("edgeLine = " + edgeLine);
+                                                Spider_Indicator.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(30, -30, 10));
+                                                Spider_Indicator.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
+                                            }
+                                            break;
+
+                                        case 2:
+                                            {
+                                                //print("edgeLine = " + edgeLine);
+                                                Spider_Indicator.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(40, 30, 10));
+                                                Spider_Indicator.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
+                                            }
+                                            break;
+
+                                        case 3:
+                                            {
+                                                //print("edgeLine = " + edgeLine);
+                                                Spider_Indicator.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(-40, 30, 10));
+                                                Spider_Indicator.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
+                                            }
+                                            break;
+                                    }
+
+
+                                }
+                                else
+                                {
+                                    Spider_Indicator.gameObject.SetActive(false);
+                                }
                                 //if (Input.GetButtonDown("P3_360_AButton"))
                                 //{
                                 //    ConsumeOn = true;
@@ -355,6 +607,22 @@ public class CarrySpider : MonoBehaviour {
         }
 	  
 	}
+
+    // 인디케이터 연산 부분
+    Vector3 intersect(int edgeLine, Vector3 line2point1, Vector3 line2point2)
+    {
+        float[] A1 = { -Screen.height, 0, Screen.height, 0 };
+        float[] B1 = { 0, -Screen.width, 0, Screen.width };
+        float[] C1 = { -Screen.width * Screen.height, -Screen.width * Screen.height, 0, 0 };
+
+        float A2 = line2point2.y - line2point1.y;
+        float B2 = line2point1.x - line2point2.x;
+        float C2 = A2 * line2point1.x + B2 * line2point1.y;
+
+        float det = A1[edgeLine] * B2 - A2 * B1[edgeLine];
+
+        return new Vector3((B2 * C1[edgeLine] - B1[edgeLine] * C2) / det, (A1[edgeLine] * C2 - A2 * C1[edgeLine]) / det, 0);
+    }
 
     // 스피다스 버프 효과
     IEnumerator PowerUp(int idx)

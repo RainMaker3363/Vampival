@@ -214,10 +214,10 @@ public class GameManager : MonoBehaviour {
         Elizabat_SonicWave_Ready = true;
         Elizabat_Swarm_Ready = true;
 
-        Elizabat_Eclipse_Unlock = false;
-        Elizabat_Decent_Unlock = false;
-        Elizabat_SonicWave_Unlock = false;
-        Elizabat_Swarm_Unlock = false;
+        Elizabat_Eclipse_Unlock = true;
+        Elizabat_Decent_Unlock = true;
+        Elizabat_SonicWave_Unlock = true;
+        Elizabat_Swarm_Unlock = true;
 
         //===========================================================
         // 스피다스 조작 부분
@@ -401,7 +401,7 @@ public class GameManager : MonoBehaviour {
                         {
                             if (Elizabat_Eclipse_On)
                             {
-                                Capture_Meter -= ((Capture_Parameter * 0.5f) * 0.8f);
+                                Capture_Meter -= ((Capture_Parameter * 0.5f) - ((Capture_Parameter * 0.5f) * 0.8f));
                             }
                             else
                             {

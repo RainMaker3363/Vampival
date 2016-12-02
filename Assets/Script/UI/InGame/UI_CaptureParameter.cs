@@ -46,7 +46,7 @@ public class UI_CaptureParameter : MonoBehaviour {
 
                     if(GameManager.Elizabat_Eclipse_On == true)
                     {
-                        ani.SetBool("Capture_Spark", true);
+                        ani.SetBool("Capture_Decrease", true);
                     }
                     else
                     {

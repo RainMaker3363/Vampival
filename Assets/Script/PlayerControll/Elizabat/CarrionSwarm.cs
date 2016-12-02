@@ -4,6 +4,8 @@ using System.Collections;
 public class CarrionSwarm : MonoBehaviour {
 
     private GameState Gamestate;
+    public AudioSource Audio;
+    public AudioClip SwarmOn;
 
     private SphereCollider col;
 
@@ -19,6 +21,17 @@ public class CarrionSwarm : MonoBehaviour {
             col = GetComponent<SphereCollider>();
         }
 
+        if (Audio == null)
+        {
+            Audio = GetComponent<AudioSource>();
+            Audio.clip = SwarmOn;
+            Audio.Play();
+        }
+        else
+        {
+            Audio.clip = SwarmOn;
+            Audio.Play();
+        }
 
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("PlayerSetObject"), LayerMask.NameToLayer("SkillParticle"), true);
         Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Projectile"), LayerMask.NameToLayer("SkillParticle"), true);
@@ -44,12 +57,25 @@ public class CarrionSwarm : MonoBehaviour {
             col.enabled = true;
         }
 
+
+        if (Audio == null)
+        {
+            Audio = GetComponent<AudioSource>();
+            Audio.clip = SwarmOn;
+            Audio.Play();
+        }
+        else
+        {
+            Audio.clip = SwarmOn;
+            Audio.Play();
+        }
+
         StartCoroutine(DeadOrAliveRoutin(1));
     }
 
     IEnumerator DeadOrAliveRoutin(int temp)
     {
-        yield return new WaitForSeconds(4.0f);
+        yield return new WaitForSeconds(6.0f);
 
         this.gameObject.SetActive(false);
     }

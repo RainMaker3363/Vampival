@@ -16,6 +16,9 @@ public class Elizabat : MonoBehaviour {
     public AudioClip SonicWave_Command_Correct_Sound;
     public AudioClip Eclipse_Command_Correct_Sound;
     public AudioClip Swarm_Command_Correct_Sound;
+    //public AudioClip WildFireSound;
+    //public AudioClip SwarmSound;
+    public AudioClip SkillFailSound;
     public AudioClip CommandStart_Sound;
 
     private bool ElizabatDecentOn;
@@ -39,6 +42,7 @@ public class Elizabat : MonoBehaviour {
     public GameObject Skill_Eclipse_Icon;
     public GameObject Skill_Eclipse_Command_Chart;
     public Image Skill_Eclipse_Cool_Icon;
+    public GameObject Skill_Eclipse_Effect_BG;
 
     public GameObject Skill_Decent_Icon_Block;
     public GameObject Skill_Decent_Icon;
@@ -155,6 +159,8 @@ public class Elizabat : MonoBehaviour {
         Skill_Decent_Icon.gameObject.SetActive(false);
         Skill_Eclipse_Icon.gameObject.SetActive(false);
         Skill_Swarm_Icon.gameObject.SetActive(false);
+
+        Skill_Eclipse_Effect_BG.SetActive(false);
 
         // 스킬 커맨드 관련...
 
@@ -412,134 +418,160 @@ public class Elizabat : MonoBehaviour {
                                 {
 
 
-                                    if (Input.GetKeyDown(KeyCode.X) && GameManager.Soul_MP_Parameter >= SonicWaveCost && GameManager.Elizabat_SonicWave_Ready == true)
+                                    if (Input.GetKeyDown(KeyCode.X))
                                     {
-                                        CameraChecker.transform.position = CheckerStartPos;
-
-                                        // Skill UI 활성화 사운드
-                                        Audio.clip = CommandStart_Sound;
-                                        Audio.Play();
-
-                                        light.enabled = false;
-                                        SkillTarget.gameObject.SetActive(false);
-
-                                        Debug.Log("Command Start!");
-
-                                        if ((GameManager.Soul_MP_Parameter - SonicWaveCost) <= 0.0f)
+                                        if (GameManager.Soul_MP_Parameter >= SonicWaveCost && GameManager.Elizabat_SonicWave_Ready == true)
                                         {
-                                            GameManager.Soul_MP_Parameter = 0.0f;
+                                            CameraChecker.transform.position = CheckerStartPos;
+
+                                            // Skill UI 활성화 사운드
+                                            Audio.clip = CommandStart_Sound;
+                                            Audio.Play();
+
+                                            light.enabled = false;
+                                            SkillTarget.gameObject.SetActive(false);
+
+                                            Debug.Log("Command Start!");
+
+                                            if ((GameManager.Soul_MP_Parameter - SonicWaveCost) <= 0.0f)
+                                            {
+                                                GameManager.Soul_MP_Parameter = 0.0f;
+                                            }
+                                            else
+                                            {
+                                                GameManager.Soul_MP_Parameter -= SonicWaveCost;
+                                            }
+
+                                            CommandInitilization(1);
                                         }
                                         else
                                         {
-                                            GameManager.Soul_MP_Parameter -= SonicWaveCost;
+                                            // 실패 사운드 출력
+                                            Audio.clip = SkillFailSound;
+                                            Audio.Play();
                                         }
-
-                                        CommandInitilization(1);
-
+                                   
 
 
-                                    }
-                                    else
-                                    {
-                                        // 실패 사운드 출력
+
                                     }
                                     
-                                    if (Input.GetKeyDown(KeyCode.C) && GameManager.Soul_MP_Parameter >= EclipseCost && GameManager.Elizabat_Eclipse_Ready == true)
+                                    if (Input.GetKeyDown(KeyCode.C))
                                     {
-                                        CameraChecker.transform.position = CheckerStartPos;
+                                        if (GameManager.Soul_MP_Parameter >= EclipseCost && GameManager.Elizabat_Eclipse_Ready == true)
+                                        {
+                                            CameraChecker.transform.position = CheckerStartPos;
 
-                                        // Skill UI 활성화 사운드
-                                        Audio.clip = CommandStart_Sound;
-                                        Audio.Play();
+                                            // Skill UI 활성화 사운드
+                                            Audio.clip = CommandStart_Sound;
+                                            Audio.Play();
 
-                                        light.enabled = false;
-                                        SkillTarget.gameObject.SetActive(false);
+                                            light.enabled = false;
+                                            SkillTarget.gameObject.SetActive(false);
+
+                                            Debug.Log("Command Start!");
+
+                                            if ((GameManager.Soul_MP_Parameter - EclipseCost) <= 0.0f)
+                                            {
+                                                GameManager.Soul_MP_Parameter = 0.0f;
+                                            }
+                                            else
+                                            {
+                                                GameManager.Soul_MP_Parameter -= EclipseCost;
+                                            }
+
+                                            CommandInitilization(2);
+                                        }
+                                        else
+                                        {
+                                            // 실패 사운드 출력
+
+                                            Audio.clip = SkillFailSound;
+                                            Audio.Play();
+                                        }
+                                     
+
+
+
+                                    }
+
+                                    if (Input.GetKeyDown(KeyCode.V))
+                                    {
+                                        if (GameManager.Soul_MP_Parameter >= DecentCost && GameManager.Elizabat_Decent_Ready == true)
+                                        {
+                                            CameraChecker.transform.position = CheckerStartPos;
+
+                                            // Skill UI 활성화 사운드
+                                            Audio.clip = CommandStart_Sound;
+                                            Audio.Play();
+
+                                            light.enabled = true;
+                                            SkillTarget.gameObject.SetActive(true);
+
+                                            Debug.Log("Command Start!");
+
+                                            if ((GameManager.Soul_MP_Parameter - DecentCost) <= 0.0f)
+                                            {
+                                                GameManager.Soul_MP_Parameter = 0.0f;
+                                            }
+                                            else
+                                            {
+                                                GameManager.Soul_MP_Parameter -= DecentCost;
+                                            }
+
+                                            CommandInitilization(3);
+                                        }
+                                        else
+                                        {
+                                            // 실패 사운드 출력
+
+                                            Audio.clip = SkillFailSound;
+                                            Audio.Play();
+                                        }
                                         
-                                        Debug.Log("Command Start!");
 
-                                        if ((GameManager.Soul_MP_Parameter - EclipseCost) <= 0.0f)
+
+
+                                    }
+
+                                    if (Input.GetKeyDown(KeyCode.B))
+                                    {
+                                        if (GameManager.Soul_MP_Parameter >= SwarmCost && GameManager.Elizabat_Swarm_Ready == true)
                                         {
-                                            GameManager.Soul_MP_Parameter = 0.0f;
+                                            CameraChecker.transform.position = CheckerStartPos;
+
+                                            // Skill UI 활성화 사운드
+                                            Audio.clip = CommandStart_Sound;
+                                            Audio.Play();
+
+                                            light.enabled = true;
+                                            SkillTarget.gameObject.SetActive(true);
+
+                                            Debug.Log("Command Start!");
+
+
+                                            if ((GameManager.Soul_MP_Parameter - SwarmCost) <= 0.0f)
+                                            {
+                                                GameManager.Soul_MP_Parameter = 0.0f;
+                                            }
+                                            else
+                                            {
+                                                GameManager.Soul_MP_Parameter -= SwarmCost;
+                                            }
+
+                                            CommandInitilization(4);
                                         }
                                         else
                                         {
-                                            GameManager.Soul_MP_Parameter -= EclipseCost;
+                                            // 실패 사운드 출력
+
+                                            Audio.clip = SkillFailSound;
+                                            Audio.Play();
                                         }
-
-                                        CommandInitilization(2);
-
+                                       
 
 
                                     }
-                                    else
-                                    {
-                                        // 실패 사운드 출력
-                                    }
-
-                                    if (Input.GetKeyDown(KeyCode.V) && GameManager.Soul_MP_Parameter >= DecentCost && GameManager.Elizabat_Decent_Ready == true)
-                                    {
-                                        CameraChecker.transform.position = CheckerStartPos;
-
-                                        // Skill UI 활성화 사운드
-                                        Audio.clip = CommandStart_Sound;
-                                        Audio.Play();
-
-                                        light.enabled = true;
-                                        SkillTarget.gameObject.SetActive(true);
-                                        
-                                        Debug.Log("Command Start!");
-
-                                        if ((GameManager.Soul_MP_Parameter - DecentCost) <= 0.0f)
-                                        {
-                                            GameManager.Soul_MP_Parameter = 0.0f;
-                                        }
-                                        else
-                                        {
-                                            GameManager.Soul_MP_Parameter -= DecentCost;
-                                        }
-
-                                        CommandInitilization(3);
-
-
-
-                                    }
-                                    else
-                                    {
-                                        // 실패 사운드 출력
-                                    }
-
-                                    if (Input.GetKeyDown(KeyCode.B) && GameManager.Soul_MP_Parameter >= SwarmCost && GameManager.Elizabat_Swarm_Ready == true)
-                                    {
-                                        CameraChecker.transform.position = CheckerStartPos;
-
-                                        // Skill UI 활성화 사운드
-                                        Audio.clip = CommandStart_Sound;
-                                        Audio.Play();
-
-                                        light.enabled = true;
-                                        SkillTarget.gameObject.SetActive(true);
-
-                                        Debug.Log("Command Start!");
-
-
-                                        if ((GameManager.Soul_MP_Parameter - SwarmCost) <= 0.0f)
-                                        {
-                                            GameManager.Soul_MP_Parameter = 0.0f;
-                                        }
-                                        else
-                                        {
-                                            GameManager.Soul_MP_Parameter -= SwarmCost;
-                                        }
-
-                                        CommandInitilization(4);
-
-
-                                    }
-                                    else
-                                    {
-                                        // 실패 사운드 출력
-                                    }
-
                                         //if(Input.GetKeyDown(KeyCode.UpArrow))
                                         //{
                                         //    Debug.Log("Command Start!");
@@ -835,124 +867,150 @@ public class Elizabat : MonoBehaviour {
                                     
 
 
-                                    if (Input.GetButtonDown("P1_360_XButton") && GameManager.Soul_MP_Parameter >= SonicWaveCost && GameManager.Elizabat_SonicWave_Ready == true)
+                                    if (Input.GetButtonDown("P1_360_XButton"))
                                     {
-                                        Debug.Log("Command Start!");
-
-                                        light.enabled = false;
-                                        SkillTarget.gameObject.SetActive(false);
-
-                                        CameraChecker.transform.position = CheckerStartPos;
-
-                                        // Skill UI 활성화 사운드
-                                        Audio.clip = CommandStart_Sound;
-                                        Audio.Play();
-
-                                        if ((GameManager.Soul_MP_Parameter - SonicWaveCost) <= 0.0f)
+                                        if(GameManager.Soul_MP_Parameter >= SonicWaveCost && GameManager.Elizabat_SonicWave_Ready == true)
                                         {
-                                            GameManager.Soul_MP_Parameter = 0.0f;
+                                            Debug.Log("Command Start!");
+
+                                            light.enabled = false;
+                                            SkillTarget.gameObject.SetActive(false);
+
+                                            CameraChecker.transform.position = CheckerStartPos;
+
+                                            // Skill UI 활성화 사운드
+                                            Audio.clip = CommandStart_Sound;
+                                            Audio.Play();
+
+                                            if ((GameManager.Soul_MP_Parameter - SonicWaveCost) <= 0.0f)
+                                            {
+                                                GameManager.Soul_MP_Parameter = 0.0f;
+                                            }
+                                            else
+                                            {
+                                                GameManager.Soul_MP_Parameter -= SonicWaveCost;
+                                            }
+
+
+                                            CommandInitilization(1);
                                         }
                                         else
                                         {
-                                            GameManager.Soul_MP_Parameter -= SonicWaveCost;
+                                            // 실패 사운드 출력
+                                            Audio.clip = SkillFailSound;
+                                            Audio.Play();
                                         }
-
-
-                                        CommandInitilization(1);
-                                    }
-                                    else
-                                    {
-                                        // 실패 사운드 출력
+                                      
                                     }
                                     
-                                    if (Input.GetButtonDown("P1_360_BButton") && GameManager.Soul_MP_Parameter >= EclipseCost && GameManager.Elizabat_Eclipse_Ready == true)
+                                    if (Input.GetButtonDown("P1_360_BButton"))
                                     {
-                                        Debug.Log("Command Start!");
-
-                                        light.enabled = false;
-                                        SkillTarget.gameObject.SetActive(false);
-
-                                        CameraChecker.transform.position = CheckerStartPos;
-
-                                        // Skill UI 활성화 사운드
-                                        Audio.clip = CommandStart_Sound;
-                                        Audio.Play();
-
-
-                                        if ((GameManager.Soul_MP_Parameter - EclipseCost) <= 0.0f)
+                                        if(GameManager.Soul_MP_Parameter >= EclipseCost && GameManager.Elizabat_Eclipse_Ready == true)
                                         {
-                                            GameManager.Soul_MP_Parameter = 0.0f;
+                                            Debug.Log("Command Start!");
+
+                                            light.enabled = false;
+                                            SkillTarget.gameObject.SetActive(false);
+
+                                            CameraChecker.transform.position = CheckerStartPos;
+
+                                            // Skill UI 활성화 사운드
+                                            Audio.clip = CommandStart_Sound;
+                                            Audio.Play();
+
+
+                                            if ((GameManager.Soul_MP_Parameter - EclipseCost) <= 0.0f)
+                                            {
+                                                GameManager.Soul_MP_Parameter = 0.0f;
+                                            }
+                                            else
+                                            {
+                                                GameManager.Soul_MP_Parameter -= EclipseCost;
+                                            }
+
+
+                                            CommandInitilization(2);
                                         }
                                         else
                                         {
-                                            GameManager.Soul_MP_Parameter -= EclipseCost;
+                                            // 실패 사운드 출력
+                                            Audio.clip = SkillFailSound;
+                                            Audio.Play();
                                         }
 
-
-                                        CommandInitilization(2);
-                                    }
-                                    else
-                                    {
-                                        // 실패 사운드 출력
+                                       
                                     }
                                     
-                                    if (Input.GetButtonDown("P1_360_AButton") && GameManager.Soul_MP_Parameter >= DecentCost && GameManager.Elizabat_Decent_Ready == true)
+                                    if (Input.GetButtonDown("P1_360_AButton"))
                                     {
-                                        Debug.Log("Command Start!");
-
-                                        light.enabled = true;
-                                        SkillTarget.gameObject.SetActive(true);
-
-                                        CameraChecker.transform.position = CheckerStartPos;
-
-                                        // Skill UI 활성화 사운드
-                                        Audio.clip = CommandStart_Sound;
-                                        Audio.Play();
-
-                                        if ((GameManager.Soul_MP_Parameter - DecentCost) <= 0.0f)
+                                        if(GameManager.Soul_MP_Parameter >= DecentCost && GameManager.Elizabat_Decent_Ready == true)
                                         {
-                                            GameManager.Soul_MP_Parameter = 0.0f;
+                                            Debug.Log("Command Start!");
+
+                                            light.enabled = true;
+                                            SkillTarget.gameObject.SetActive(true);
+
+                                            CameraChecker.transform.position = CheckerStartPos;
+
+                                            // Skill UI 활성화 사운드
+                                            Audio.clip = CommandStart_Sound;
+                                            Audio.Play();
+
+                                            if ((GameManager.Soul_MP_Parameter - DecentCost) <= 0.0f)
+                                            {
+                                                GameManager.Soul_MP_Parameter = 0.0f;
+                                            }
+                                            else
+                                            {
+                                                GameManager.Soul_MP_Parameter -= DecentCost;
+                                            }
+
+
+                                            CommandInitilization(3);
                                         }
                                         else
                                         {
-                                            GameManager.Soul_MP_Parameter -= DecentCost;
+                                            // 실패 사운드 출력
+                                            Audio.clip = SkillFailSound;
+                                            Audio.Play();
+
                                         }
-
-
-                                        CommandInitilization(3);
-                                    }
-                                    else
-                                    {
-                                        // 실패 사운드 출력
+                                       
                                     }
 
-                                    if (Input.GetButtonDown("P1_360_YButton") && GameManager.Soul_MP_Parameter >= SwarmCost && GameManager.Elizabat_Swarm_Ready == true)
+                                    if (Input.GetButtonDown("P1_360_YButton"))
                                     {
-                                        light.enabled = true;
-                                        SkillTarget.gameObject.SetActive(true);
-
-                                        CameraChecker.transform.position = CheckerStartPos;
-
-                                        // Skill UI 활성화 사운드
-                                        Audio.clip = CommandStart_Sound;
-                                        Audio.Play();
-
-                                        if ((GameManager.Soul_MP_Parameter - SwarmCost) <= 0.0f)
+                                        if(GameManager.Soul_MP_Parameter >= SwarmCost && GameManager.Elizabat_Swarm_Ready == true)
                                         {
-                                            GameManager.Soul_MP_Parameter = 0.0f;
+                                            light.enabled = true;
+                                            SkillTarget.gameObject.SetActive(true);
+
+                                            CameraChecker.transform.position = CheckerStartPos;
+
+                                            // Skill UI 활성화 사운드
+                                            Audio.clip = CommandStart_Sound;
+                                            Audio.Play();
+
+                                            if ((GameManager.Soul_MP_Parameter - SwarmCost) <= 0.0f)
+                                            {
+                                                GameManager.Soul_MP_Parameter = 0.0f;
+                                            }
+                                            else
+                                            {
+                                                GameManager.Soul_MP_Parameter -= SwarmCost;
+                                            }
+
+
+
+                                            CommandInitilization(4);
                                         }
                                         else
                                         {
-                                            GameManager.Soul_MP_Parameter -= SwarmCost;
+                                            // 실패 사운드 출력
+                                            Audio.clip = SkillFailSound;
+                                            Audio.Play();
                                         }
-
-
-
-                                        CommandInitilization(4);
-                                    }
-                                    else
-                                    {
-                                        // 실패 사운드 출력
+                                        
                                     }
                                    
                                 }
@@ -1465,7 +1523,15 @@ public class Elizabat : MonoBehaviour {
 
         Skill_Decent_Logo.gameObject.SetActive(true);
 
-        // 와일드 파이어 이펙트 출력
+        // 와일드 파이어 이펙트 출력 및 사운드 출력
+
+        //Audio.clip = WildFireSound;
+
+        //if (Audio.isPlaying == false)
+        //{
+        //    Audio.Play();
+        //}
+        
 
         WildFireEffect.gameObject.SetActive(true);
 
@@ -1492,7 +1558,16 @@ public class Elizabat : MonoBehaviour {
 
         Skill_Swarm_Logo.gameObject.SetActive(true);
         
-        // 스웜 이펙트 출력
+        // 스웜 이펙트 및 사운드 출력
+
+        //Audio.clip = SwarmSound;
+
+
+        //if (Audio.isPlaying == false)
+        //{
+        //    Audio.Play();
+        //}
+        
 
         CarrionSwarmEffect.transform.position = SkillTarget.transform.position + new Vector3(0, 1.5f, 0);
         CarrionSwarmEffect.transform.parent = null;
@@ -1515,6 +1590,8 @@ public class Elizabat : MonoBehaviour {
         
         GameManager.Elizabat_SkillStart = false;
 
+        Skill_Eclipse_Effect_BG.SetActive(true);
+
         Skill_Eclipse_Cool_Icon.fillAmount = 1.0f;
 
         // 일식 효과
@@ -1536,6 +1613,8 @@ public class Elizabat : MonoBehaviour {
         print("Eclipse Skill Off");
 
         Skill_Eclipse_Logo.gameObject.SetActive(false);
+
+        Skill_Eclipse_Effect_BG.SetActive(false);
 
         GameManager.Elizabat_Eclipse_On = false;
     }
@@ -1989,6 +2068,10 @@ public class Elizabat : MonoBehaviour {
                                             if (CommandCheckTimer <= 0.0f)
                                             {
                                                 print("Time Over!");
+                                                
+                                                // 커맨드 실패 사운드를 출력
+                                                Audio.clip = SkillFailSound;
+                                                Audio.Play();
 
                                                 GameManager.Elizabat_CommandStart = false;
                                                 GameManager.Elizabat_SkillStart = false;
@@ -2044,6 +2127,10 @@ public class Elizabat : MonoBehaviour {
                                                     {
                                                         print("Command Failed!");
 
+                                                        // 커맨드 실패 사운드를 출력
+                                                        Audio.clip = SkillFailSound;
+                                                        Audio.Play();
+
                                                         GameManager.Elizabat_CommandStart = false;
                                                         GameManager.Elizabat_SkillStart = false;
                                                         CommandStartOn = false;
@@ -2098,6 +2185,10 @@ public class Elizabat : MonoBehaviour {
                                                     else
                                                     {
                                                         print("Command Failed!");
+
+                                                        // 커맨드 실패 사운드를 출력
+                                                        Audio.clip = SkillFailSound;
+                                                        Audio.Play();
 
                                                         GameManager.Elizabat_CommandStart = false;
                                                         GameManager.Elizabat_SkillStart = false;
@@ -2159,6 +2250,10 @@ public class Elizabat : MonoBehaviour {
                                                     {
                                                         print("Command Failed!");
 
+                                                        // 커맨드 실패 사운드를 출력
+                                                        Audio.clip = SkillFailSound;
+                                                        Audio.Play();
+
                                                         GameManager.Elizabat_CommandStart = false;
                                                         GameManager.Elizabat_SkillStart = false;
                                                         CommandStartOn = false;
@@ -2218,6 +2313,10 @@ public class Elizabat : MonoBehaviour {
                                                     else
                                                     {
                                                         print("Command Failed!");
+
+                                                        // 커맨드 실패 사운드를 출력
+                                                        Audio.clip = SkillFailSound;
+                                                        Audio.Play();
 
                                                         GameManager.Elizabat_CommandStart = false;
                                                         GameManager.Elizabat_SkillStart = false;
@@ -2314,6 +2413,11 @@ public class Elizabat : MonoBehaviour {
                                             // 시간내에 입력하지 못하면 실패
                                             if (CommandCheckTimer <= 0.0f)
                                             {
+
+                                                // 커맨드 실패 사운드를 출력
+                                                Audio.clip = SkillFailSound;
+                                                Audio.Play();
+
                                                 GameManager.Elizabat_CommandStart = false;
                                                 GameManager.Elizabat_SkillStart = false;
                                                 CommandStartOn = false;
@@ -2362,6 +2466,10 @@ public class Elizabat : MonoBehaviour {
                                                     else
                                                     {
                                                         print("Command Failed!");
+
+                                                        // 커맨드 실패 사운드를 출력
+                                                        Audio.clip = SkillFailSound;
+                                                        Audio.Play();
 
                                                         GameManager.Elizabat_CommandStart = false;
                                                         GameManager.Elizabat_SkillStart = false;
@@ -2424,6 +2532,10 @@ public class Elizabat : MonoBehaviour {
                                                     {
                                                         print("Command Failed!");
 
+                                                        // 커맨드 실패 사운드를 출력
+                                                        Audio.clip = SkillFailSound;
+                                                        Audio.Play();
+
                                                         GameManager.Elizabat_CommandStart = false;
                                                         GameManager.Elizabat_SkillStart = false;
                                                         CommandStartOn = false;
@@ -2484,6 +2596,10 @@ public class Elizabat : MonoBehaviour {
                                                     else
                                                     {
                                                         print("Command Failed!");
+
+                                                        // 커맨드 실패 사운드를 출력
+                                                        Audio.clip = SkillFailSound;
+                                                        Audio.Play();
 
                                                         GameManager.Elizabat_CommandStart = false;
                                                         GameManager.Elizabat_SkillStart = false;
@@ -2546,6 +2662,10 @@ public class Elizabat : MonoBehaviour {
                                                     else
                                                     {
                                                         print("Command Failed!");
+
+                                                        // 커맨드 실패 사운드를 출력
+                                                        Audio.clip = SkillFailSound;
+                                                        Audio.Play();
 
                                                         GameManager.Elizabat_CommandStart = false;
                                                         GameManager.Elizabat_SkillStart = false;
@@ -2648,6 +2768,10 @@ public class Elizabat : MonoBehaviour {
                                             // 시간내에 입력하지 못하면 실패
                                             if (CommandCheckTimer <= 0.0f)
                                             {
+                                                // 커맨드 실패 사운드를 출력
+                                                Audio.clip = SkillFailSound;
+                                                Audio.Play();
+
                                                 GameManager.Elizabat_CommandStart = false;
                                                 GameManager.Elizabat_SkillStart = false;
                                                 CommandStartOn = false;
@@ -2713,6 +2837,10 @@ public class Elizabat : MonoBehaviour {
                                                     {
                                                         print("Command Failed!");
 
+                                                        // 커맨드 실패 사운드를 출력
+                                                        Audio.clip = SkillFailSound;
+                                                        Audio.Play();
+
                                                         GameManager.Elizabat_CommandStart = false;
                                                         GameManager.Elizabat_SkillStart = false;
                                                         CommandStartOn = false;
@@ -2772,6 +2900,10 @@ public class Elizabat : MonoBehaviour {
                                                     else
                                                     {
                                                         print("Command Failed!");
+
+                                                        // 커맨드 실패 사운드를 출력
+                                                        Audio.clip = SkillFailSound;
+                                                        Audio.Play();
 
                                                         GameManager.Elizabat_CommandStart = false;
                                                         GameManager.Elizabat_SkillStart = false;
@@ -2833,6 +2965,10 @@ public class Elizabat : MonoBehaviour {
                                                     {
                                                         print("Command Failed!");
 
+                                                        // 커맨드 실패 사운드를 출력
+                                                        Audio.clip = SkillFailSound;
+                                                        Audio.Play();
+
                                                         GameManager.Elizabat_CommandStart = false;
                                                         GameManager.Elizabat_SkillStart = false;
                                                         CommandStartOn = false;
@@ -2892,6 +3028,10 @@ public class Elizabat : MonoBehaviour {
                                                     else
                                                     {
                                                         print("Command Failed!");
+
+                                                        // 커맨드 실패 사운드를 출력
+                                                        Audio.clip = SkillFailSound;
+                                                        Audio.Play();
 
                                                         GameManager.Elizabat_CommandStart = false;
                                                         GameManager.Elizabat_SkillStart = false;
@@ -2989,6 +3129,10 @@ public class Elizabat : MonoBehaviour {
                                             // 시간내에 입력하지 못하면 실패
                                             if (CommandCheckTimer <= 0.0f)
                                             {
+                                                // 커맨드 실패 사운드를 출력
+                                                Audio.clip = SkillFailSound;
+                                                Audio.Play();
+
                                                 GameManager.Elizabat_CommandStart = false;
                                                 GameManager.Elizabat_SkillStart = false;
                                                 CommandStartOn = false;
@@ -3053,6 +3197,10 @@ public class Elizabat : MonoBehaviour {
                                                     {
                                                         print("Command Failed!");
 
+                                                        // 커맨드 실패 사운드를 출력
+                                                        Audio.clip = SkillFailSound;
+                                                        Audio.Play();
+
                                                         GameManager.Elizabat_CommandStart = false;
                                                         GameManager.Elizabat_SkillStart = false;
                                                         CommandStartOn = false;
@@ -3112,6 +3260,10 @@ public class Elizabat : MonoBehaviour {
                                                     else
                                                     {
                                                         print("Command Failed!");
+
+                                                        // 커맨드 실패 사운드를 출력
+                                                        Audio.clip = SkillFailSound;
+                                                        Audio.Play();
 
                                                         GameManager.Elizabat_CommandStart = false;
                                                         GameManager.Elizabat_SkillStart = false;
@@ -3173,6 +3325,10 @@ public class Elizabat : MonoBehaviour {
                                                     {
                                                         print("Command Failed!");
 
+                                                        // 커맨드 실패 사운드를 출력
+                                                        Audio.clip = SkillFailSound;
+                                                        Audio.Play();
+
                                                         GameManager.Elizabat_CommandStart = false;
                                                         GameManager.Elizabat_SkillStart = false;
                                                         CommandStartOn = false;
@@ -3233,6 +3389,10 @@ public class Elizabat : MonoBehaviour {
                                                     else
                                                     {
                                                         print("Command Failed!");
+
+                                                        // 커맨드 실패 사운드를 출력
+                                                        Audio.clip = SkillFailSound;
+                                                        Audio.Play();
 
                                                         GameManager.Elizabat_CommandStart = false;
                                                         GameManager.Elizabat_SkillStart = false;
@@ -3391,6 +3551,10 @@ public class Elizabat : MonoBehaviour {
                                             {
                                                 print("Command Failed!");
 
+                                                // 커맨드 실패 사운드를 출력
+                                                Audio.clip = SkillFailSound;
+                                                Audio.Play();
+
                                                 GameManager.Elizabat_CommandStart = false;
                                                 GameManager.Elizabat_SkillStart = false;
                                                 CommandStartOn = false;
@@ -3433,7 +3597,7 @@ public class Elizabat : MonoBehaviour {
                                                 CommandCheckTimer -= Time.deltaTime;
                                                 ClockTimer.text = string.Format("{0:N1}", CommandCheckTimer);
 
-                                                if (Input.GetAxis("P1_360_HorizontalDPAD") == -1)
+                                                if (Input.GetAxis("P1_360_HorizontalDPAD") == -1 || Input.GetKeyDown(KeyCode.LeftArrow))
                                                 {
                                                     if (Joystick_Left_Button == true)
                                                     {
@@ -3458,6 +3622,10 @@ public class Elizabat : MonoBehaviour {
                                                         else
                                                         {
                                                             print("Command Failed!");
+
+                                                            // 커맨드 실패 사운드를 출력
+                                                            Audio.clip = SkillFailSound;
+                                                            Audio.Play();
 
                                                             GameManager.Elizabat_CommandStart = false;
                                                             GameManager.Elizabat_SkillStart = false;
@@ -3499,7 +3667,7 @@ public class Elizabat : MonoBehaviour {
                                                     }
                                                    
                                                 }
-                                                else if (Input.GetAxis("P1_360_HorizontalDPAD") == 1)
+                                                else if (Input.GetAxis("P1_360_HorizontalDPAD") == 1 || Input.GetKeyDown(KeyCode.RightArrow))
                                                 {
                                                     if(Joystick_Right_Button == true)
                                                     {
@@ -3524,6 +3692,10 @@ public class Elizabat : MonoBehaviour {
                                                         else
                                                         {
                                                             print("Command Failed!");
+
+                                                            // 커맨드 실패 사운드를 출력
+                                                            Audio.clip = SkillFailSound;
+                                                            Audio.Play();
 
                                                             GameManager.Elizabat_CommandStart = false;
                                                             GameManager.Elizabat_SkillStart = false;
@@ -3565,7 +3737,7 @@ public class Elizabat : MonoBehaviour {
                                                     }
                                                     
                                                 }
-                                                else if (Input.GetAxis("P1_360_VerticalDPAD") == -1)
+                                                else if (Input.GetAxis("P1_360_VerticalDPAD") == -1 || Input.GetKeyDown(KeyCode.DownArrow))
                                                 {
                                                     if(Joystick_Down_Button == true)
                                                     {
@@ -3591,6 +3763,10 @@ public class Elizabat : MonoBehaviour {
                                                         else
                                                         {
                                                             print("Command Failed!");
+
+                                                            // 커맨드 실패 사운드를 출력
+                                                            Audio.clip = SkillFailSound;
+                                                            Audio.Play();
 
                                                             GameManager.Elizabat_CommandStart = false;
                                                             GameManager.Elizabat_SkillStart = false;
@@ -3631,7 +3807,7 @@ public class Elizabat : MonoBehaviour {
                                                         }
                                                     }
                                                 }
-                                                else if (Input.GetAxis("P1_360_VerticalDPAD") == 1)
+                                                else if (Input.GetAxis("P1_360_VerticalDPAD") == 1 || Input.GetKeyDown(KeyCode.UpArrow))
                                                 {
                                                     if(Joystick_Up_Button == true)
                                                     {
@@ -3656,6 +3832,10 @@ public class Elizabat : MonoBehaviour {
                                                         else
                                                         {
                                                             print("Command Failed!");
+
+                                                            // 커맨드 실패 사운드를 출력
+                                                            Audio.clip = SkillFailSound;
+                                                            Audio.Play();
 
                                                             GameManager.Elizabat_CommandStart = false;
                                                             GameManager.Elizabat_SkillStart = false;
@@ -3756,6 +3936,10 @@ public class Elizabat : MonoBehaviour {
                                             {
                                                 print("Command Failed!");
 
+                                                // 커맨드 실패 사운드를 출력
+                                                Audio.clip = SkillFailSound;
+                                                Audio.Play();
+
                                                 GameManager.Elizabat_CommandStart = false;
                                                 GameManager.Elizabat_SkillStart = false;
                                                 CommandStartOn = false;
@@ -3798,7 +3982,7 @@ public class Elizabat : MonoBehaviour {
                                                 CommandCheckTimer -= Time.deltaTime;
                                                 ClockTimer.text = string.Format("{0:N1}", CommandCheckTimer);
 
-                                                if (Input.GetAxis("P1_360_HorizontalDPAD") == -1)
+                                                if (Input.GetAxis("P1_360_HorizontalDPAD") == -1 || Input.GetKeyDown(KeyCode.LeftArrow))
                                                 {
                                                     if (!KeyDownEnable)
                                                     {
@@ -3823,6 +4007,10 @@ public class Elizabat : MonoBehaviour {
                                                         else
                                                         {
                                                             print("Command Failed!");
+
+                                                            // 커맨드 실패 사운드를 출력
+                                                            Audio.clip = SkillFailSound;
+                                                            Audio.Play();
 
                                                             GameManager.Elizabat_CommandStart = false;
                                                             GameManager.Elizabat_SkillStart = false;
@@ -3864,7 +4052,7 @@ public class Elizabat : MonoBehaviour {
                                                     }
                                                     
                                                 }
-                                                else if (Input.GetAxis("P1_360_HorizontalDPAD") == 1)
+                                                else if (Input.GetAxis("P1_360_HorizontalDPAD") == 1 || Input.GetKeyDown(KeyCode.RightArrow))
                                                 {
                                                     if (!KeyDownEnable)
                                                     {
@@ -3890,6 +4078,10 @@ public class Elizabat : MonoBehaviour {
                                                         {
                                                             print("Command Failed!");
 
+                                                            // 커맨드 실패 사운드를 출력
+                                                            Audio.clip = SkillFailSound;
+                                                            Audio.Play();
+
                                                             GameManager.Elizabat_CommandStart = false;
                                                             GameManager.Elizabat_SkillStart = false;
                                                             CommandStartOn = false;
@@ -3930,7 +4122,7 @@ public class Elizabat : MonoBehaviour {
                                                     }
                                                    
                                                 }
-                                                else if (Input.GetAxis("P1_360_VerticalDPAD") == -1)
+                                                else if (Input.GetAxis("P1_360_VerticalDPAD") == -1 || Input.GetKeyDown(KeyCode.DownArrow))
                                                 {
                                                     if (!KeyDownEnable)
                                                     {
@@ -3956,6 +4148,10 @@ public class Elizabat : MonoBehaviour {
                                                         {
                                                             print("Command Failed!");
 
+                                                            // 커맨드 실패 사운드를 출력
+                                                            Audio.clip = SkillFailSound;
+                                                            Audio.Play();
+
                                                             GameManager.Elizabat_CommandStart = false;
                                                             GameManager.Elizabat_SkillStart = false;
                                                             CommandStartOn = false;
@@ -3996,7 +4192,7 @@ public class Elizabat : MonoBehaviour {
                                                     }
                                                    
                                                 }
-                                                else if (Input.GetAxis("P1_360_VerticalDPAD") == 1)
+                                                else if (Input.GetAxis("P1_360_VerticalDPAD") == 1 || Input.GetKeyDown(KeyCode.UpArrow))
                                                 {
                                                     if (!KeyDownEnable)
                                                     {
@@ -4021,6 +4217,10 @@ public class Elizabat : MonoBehaviour {
                                                         else
                                                         {
                                                             print("Command Failed!");
+
+                                                            // 커맨드 실패 사운드를 출력
+                                                            Audio.clip = SkillFailSound;
+                                                            Audio.Play();
 
                                                             GameManager.Elizabat_CommandStart = false;
                                                             GameManager.Elizabat_SkillStart = false;
@@ -4122,6 +4322,10 @@ public class Elizabat : MonoBehaviour {
                                             {
                                                 print("Command TimeOver!");
 
+                                                // 커맨드 실패 사운드를 출력
+                                                Audio.clip = SkillFailSound;
+                                                Audio.Play();
+
                                                 GameManager.Elizabat_CommandStart = false;
                                                 GameManager.Elizabat_SkillStart = false;
 
@@ -4165,7 +4369,7 @@ public class Elizabat : MonoBehaviour {
                                                 CommandCheckTimer -= Time.deltaTime;
                                                 ClockTimer.text = string.Format("{0:N1}", CommandCheckTimer);
 
-                                                if (Input.GetAxis("P1_360_HorizontalDPAD") == -1)
+                                                if (Input.GetAxis("P1_360_HorizontalDPAD") == -1 || Input.GetKeyDown(KeyCode.LeftArrow))
                                                 {
                                                     if (!KeyDownEnable)
                                                     {
@@ -4191,6 +4395,10 @@ public class Elizabat : MonoBehaviour {
                                                         {
                                                             print("Command Failed!");
 
+                                                            // 커맨드 실패 사운드를 출력
+                                                            Audio.clip = SkillFailSound;
+                                                            Audio.Play();
+
                                                             GameManager.Elizabat_CommandStart = false;
                                                             GameManager.Elizabat_SkillStart = false;
 
@@ -4232,7 +4440,7 @@ public class Elizabat : MonoBehaviour {
                                                     }
                                                     
                                                 }
-                                                else if (Input.GetAxis("P1_360_HorizontalDPAD") == 1)
+                                                else if (Input.GetAxis("P1_360_HorizontalDPAD") == 1 || Input.GetKeyDown(KeyCode.RightArrow))
                                                 {
                                                     if (!KeyDownEnable)
                                                     {
@@ -4258,6 +4466,10 @@ public class Elizabat : MonoBehaviour {
                                                         {
                                                             print("Command Failed!");
 
+                                                            // 커맨드 실패 사운드를 출력
+                                                            Audio.clip = SkillFailSound;
+                                                            Audio.Play();
+
                                                             GameManager.Elizabat_CommandStart = false;
                                                             GameManager.Elizabat_SkillStart = false;
 
@@ -4299,7 +4511,7 @@ public class Elizabat : MonoBehaviour {
                                                     }
                                                     
                                                 }
-                                                else if (Input.GetAxis("P1_360_VerticalDPAD") == -1)
+                                                else if (Input.GetAxis("P1_360_VerticalDPAD") == -1 || Input.GetKeyDown(KeyCode.DownArrow))
                                                 {
                                                     if (!KeyDownEnable)
                                                     {
@@ -4324,6 +4536,10 @@ public class Elizabat : MonoBehaviour {
                                                         else
                                                         {
                                                             print("Command Failed!");
+
+                                                            // 커맨드 실패 사운드를 출력
+                                                            Audio.clip = SkillFailSound;
+                                                            Audio.Play();
 
                                                             GameManager.Elizabat_CommandStart = false;
                                                             GameManager.Elizabat_SkillStart = false;
@@ -4366,7 +4582,7 @@ public class Elizabat : MonoBehaviour {
                                                     }
                                                    
                                                 }
-                                                else if (Input.GetAxis("P1_360_VerticalDPAD") == 1)
+                                                else if (Input.GetAxis("P1_360_VerticalDPAD") == 1 || Input.GetKeyDown(KeyCode.UpArrow))
                                                 {
                                                     if (!KeyDownEnable)
                                                     {
@@ -4391,6 +4607,10 @@ public class Elizabat : MonoBehaviour {
                                                         else
                                                         {
                                                             print("Command Failed!");
+
+                                                            // 커맨드 실패 사운드를 출력
+                                                            Audio.clip = SkillFailSound;
+                                                            Audio.Play();
 
                                                             GameManager.Elizabat_CommandStart = false;
                                                             GameManager.Elizabat_SkillStart = false;
@@ -4496,6 +4716,10 @@ public class Elizabat : MonoBehaviour {
                                             {
                                                 print("Command Failed!");
 
+                                                // 커맨드 실패 사운드를 출력
+                                                Audio.clip = SkillFailSound;
+                                                Audio.Play();
+
                                                 GameManager.Elizabat_CommandStart = false;
                                                 GameManager.Elizabat_SkillStart = false;
 
@@ -4539,7 +4763,7 @@ public class Elizabat : MonoBehaviour {
                                                 CommandCheckTimer -= Time.deltaTime;
                                                 ClockTimer.text = string.Format("{0:N1}", CommandCheckTimer);
 
-                                                if (Input.GetAxis("P1_360_HorizontalDPAD") == -1)
+                                                if (Input.GetAxis("P1_360_HorizontalDPAD") == -1 || Input.GetKeyDown(KeyCode.LeftArrow))
                                                 {
                                                     if (!KeyDownEnable)
                                                     {
@@ -4564,6 +4788,10 @@ public class Elizabat : MonoBehaviour {
                                                         else
                                                         {
                                                             print("Command Failed!");
+
+                                                            // 커맨드 실패 사운드를 출력
+                                                            Audio.clip = SkillFailSound;
+                                                            Audio.Play();
 
                                                             GameManager.Elizabat_CommandStart = false;
                                                             GameManager.Elizabat_SkillStart = false;
@@ -4606,7 +4834,7 @@ public class Elizabat : MonoBehaviour {
                                                     }
                                                    
                                                 }
-                                                else if (Input.GetAxis("P1_360_HorizontalDPAD") == 1)
+                                                else if (Input.GetAxis("P1_360_HorizontalDPAD") == 1 || Input.GetKeyDown(KeyCode.RightArrow))
                                                 {
                                                     if (!KeyDownEnable)
                                                     {
@@ -4633,6 +4861,10 @@ public class Elizabat : MonoBehaviour {
                                                         {
                                                             print("Command Failed!");
 
+                                                            // 커맨드 실패 사운드를 출력
+                                                            Audio.clip = SkillFailSound;
+                                                            Audio.Play();
+
                                                             GameManager.Elizabat_CommandStart = false;
                                                             GameManager.Elizabat_SkillStart = false;
 
@@ -4674,7 +4906,7 @@ public class Elizabat : MonoBehaviour {
                                                     }
                                                     
                                                 }
-                                                else if (Input.GetAxis("P1_360_VerticalDPAD") == -1)
+                                                else if (Input.GetAxis("P1_360_VerticalDPAD") == -1 || Input.GetKeyDown(KeyCode.DownArrow))
                                                 {
                                                     if (!KeyDownEnable)
                                                     {
@@ -4701,6 +4933,10 @@ public class Elizabat : MonoBehaviour {
                                                         {
                                                             print("Command Failed!");
 
+                                                            // 커맨드 실패 사운드를 출력
+                                                            Audio.clip = SkillFailSound;
+                                                            Audio.Play();
+
                                                             GameManager.Elizabat_CommandStart = false;
                                                             GameManager.Elizabat_SkillStart = false;
 
@@ -4742,7 +4978,7 @@ public class Elizabat : MonoBehaviour {
                                                     }
                                                     
                                                 }
-                                                else if (Input.GetAxis("P1_360_VerticalDPAD") == 1)
+                                                else if (Input.GetAxis("P1_360_VerticalDPAD") == 1 || Input.GetKeyDown(KeyCode.UpArrow))
                                                 {
                                                     if (!KeyDownEnable)
                                                     {
@@ -4768,6 +5004,10 @@ public class Elizabat : MonoBehaviour {
                                                         else
                                                         {
                                                             print("Command Failed!");
+
+                                                            // 커맨드 실패 사운드를 출력
+                                                            Audio.clip = SkillFailSound;
+                                                            Audio.Play();
 
                                                             GameManager.Elizabat_CommandStart = false;
                                                             GameManager.Elizabat_SkillStart = false;

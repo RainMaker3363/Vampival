@@ -8,6 +8,10 @@ public class Spidas_WebTrap : MonoBehaviour {
     private Rigidbody rigid;
     private SphereCollider col;
 
+    public AudioSource Audio;
+    public AudioClip WebSet_Sound;
+    public AudioClip WebActive_Sound;
+
     public ParticleSystem WebSetUp;
     public ParticleSystem WebActive;
 
@@ -38,6 +42,18 @@ public class Spidas_WebTrap : MonoBehaviour {
         if (WebSetUp != null)
         {
             WebSetUp.Play();
+        }
+
+        if (Audio == null)
+        {
+            Audio = GetComponent<AudioSource>();
+            Audio.clip = WebSet_Sound;
+            Audio.Play();
+        }
+        else
+        {
+            Audio.clip = WebSet_Sound;
+            Audio.Play();
         }
 
         ParticleTimer = 0.0f;
@@ -80,6 +96,18 @@ public class Spidas_WebTrap : MonoBehaviour {
         if(WebSetUp != null)
         {
             WebSetUp.Play();
+        }
+
+        if (Audio == null)
+        {
+            Audio = GetComponent<AudioSource>();
+            Audio.clip = WebSet_Sound;
+            Audio.Play();
+        }
+        else
+        {
+            Audio.clip = WebSet_Sound;
+            Audio.Play();
         }
 
         ParticleTimer = 0.0f;
@@ -153,6 +181,12 @@ public class Spidas_WebTrap : MonoBehaviour {
                 
 
             rigid.useGravity = false;
+
+            if(Audio != null)
+            {
+                Audio.clip = WebActive_Sound;
+                Audio.Play();
+            }
 
             //WebActive.gameObject.SetActive(true);
 
