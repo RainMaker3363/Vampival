@@ -339,7 +339,7 @@ public class CarrySpider : MonoBehaviour {
                                             {
                                                 //print("edgeLine = " + edgeLine);
                                                 Spider_Indicator.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(-30, -30, 10));
-                                                Spider_Indicator.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
+                                                //Spider_Indicator.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
                                             }
                                             break;
 
@@ -347,7 +347,7 @@ public class CarrySpider : MonoBehaviour {
                                             {
                                                 //print("edgeLine = " + edgeLine);
                                                 Spider_Indicator.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(30, -30, 10));
-                                                Spider_Indicator.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
+                                                //Spider_Indicator.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
                                             }
                                             break;
 
@@ -355,7 +355,7 @@ public class CarrySpider : MonoBehaviour {
                                             {
                                                 //print("edgeLine = " + edgeLine);
                                                 Spider_Indicator.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(40, 30, 10));
-                                                Spider_Indicator.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
+                                                //Spider_Indicator.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
                                             }
                                             break;
 
@@ -363,7 +363,7 @@ public class CarrySpider : MonoBehaviour {
                                             {
                                                 //print("edgeLine = " + edgeLine);
                                                 Spider_Indicator.gameObject.transform.position = Camera.main.ScreenToWorldPoint(intersect(edgeLine, center, targetPosOnScreen) + new Vector3(-40, 30, 10));
-                                                Spider_Indicator.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
+                                                //Spider_Indicator.gameObject.transform.eulerAngles = new Vector3(90, 0, angle);
                                             }
                                             break;
                                     }

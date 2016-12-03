@@ -12,6 +12,8 @@ public class UIManager : MonoBehaviour {
     public AudioClip Diary_BGM;
     private AudioSource audioSource;
 
+    public GameObject Minimap;
+    public GameObject Ok_Button;
     public Image Document_BG;
     public Image[] Documents;
     public GameObject[] Documents_Icon;
@@ -59,6 +61,8 @@ public class UIManager : MonoBehaviour {
                     {
                         audioSource.enabled = true;
 
+                        Minimap.SetActive(false);
+                        Ok_Button.SetActive(true);
                         Document_BG.gameObject.SetActive(true);
                         Documents[Document_Number].gameObject.SetActive(true);
 
@@ -66,8 +70,10 @@ public class UIManager : MonoBehaviour {
                         {
                             GameManager.Gamestate = GameState.GameStart;
 
+
                             audioSource.enabled = false;
 
+                            Ok_Button.SetActive(false);
                             Document_BG.gameObject.SetActive(false);
                             Documents[Document_Number].gameObject.SetActive(false);
                             Documents_Icon[Document_Number].gameObject.SetActive(false);
@@ -87,7 +93,7 @@ public class UIManager : MonoBehaviour {
                     {
                         GameManager.Gamestate = GameState.GamePause;
                         GameManager.GamePauseOn = true;
-
+                        
                         Main_BG.SetActive(true);
                     }
                     

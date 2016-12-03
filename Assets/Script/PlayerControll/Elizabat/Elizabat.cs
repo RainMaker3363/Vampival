@@ -34,22 +34,26 @@ public class Elizabat : MonoBehaviour {
     public Image Skill_Button;
 
     public GameObject Skill_SonicWave_Icon_Block;
+    public GameObject Skill_SonicWave_Icon_BackLight;
     public GameObject Skill_SonicWave_Icon;
     public GameObject Skill_SonicWave_Command_Chart;
     public Image Skill_SonicWave_Cool_Icon;
 
     public GameObject Skill_Eclipse_Icon_Block;
+    public GameObject Skill_Eclipse_Icon_BackLight;
     public GameObject Skill_Eclipse_Icon;
     public GameObject Skill_Eclipse_Command_Chart;
     public Image Skill_Eclipse_Cool_Icon;
     public GameObject Skill_Eclipse_Effect_BG;
 
     public GameObject Skill_Decent_Icon_Block;
+    public GameObject Skill_Decent_Icon_BackLight;
     public GameObject Skill_Decent_Icon;
     public GameObject Skill_Decent_Command_Chart;
     public Image Skill_Decent_Cool_Icon;
 
     public GameObject Skill_Swarm_Icon_Block;
+    public GameObject Skill_Swarm_Icon_BackLight;
     public GameObject Skill_Swarm_Icon;
     public GameObject Skill_Swarm_Command_Chart;
     public Image Skill_Swarm_Cool_Icon;
@@ -154,6 +158,11 @@ public class Elizabat : MonoBehaviour {
         Skill_Eclipse_Icon_Block.SetActive(true);
         Skill_Decent_Icon_Block.SetActive(true);
         Skill_Swarm_Icon_Block.SetActive(true);
+
+        Skill_SonicWave_Icon_BackLight.SetActive(false);
+        Skill_Eclipse_Icon_BackLight.SetActive(false);
+        Skill_Decent_Icon_BackLight.SetActive(false);
+        Skill_Swarm_Icon_BackLight.SetActive(false);
 
         Skill_SonicWave_Icon.gameObject.SetActive(false);
         Skill_Decent_Icon.gameObject.SetActive(false);
@@ -369,10 +378,22 @@ public class Elizabat : MonoBehaviour {
                                     if (Skill_Eclipse_Cool_Icon.fillAmount > 0.0f)
                                     {
                                         Skill_Eclipse_Cool_Icon.fillAmount -= EclipseCoolTime;
+
+                                        if (GameManager.Elizabat_Eclipse_Unlock == true)
+                                        {
+                                            Skill_Eclipse_Icon_BackLight.SetActive(false);
+                                        }
+
                                         GameManager.Elizabat_Eclipse_Ready = false;
+
                                     }
                                     else if (Skill_Eclipse_Cool_Icon.fillAmount <= 0.0f)
                                     {
+                                        if (GameManager.Elizabat_Eclipse_Unlock == true)
+                                        {
+                                            Skill_Eclipse_Icon_BackLight.SetActive(true);
+                                        }
+
                                         GameManager.Elizabat_Eclipse_Ready = true;
                                     }
 
@@ -380,10 +401,22 @@ public class Elizabat : MonoBehaviour {
                                     if (Skill_SonicWave_Cool_Icon.fillAmount > 0.0f)
                                     {
                                         Skill_SonicWave_Cool_Icon.fillAmount -= SonicCoolTime;
+
+                                        if (GameManager.Elizabat_SonicWave_Unlock == true)
+                                        {
+                                            Skill_SonicWave_Icon_BackLight.SetActive(false);
+                                        }
+
+
                                         GameManager.Elizabat_SonicWave_Ready = false;
                                     }
                                     else if (Skill_SonicWave_Cool_Icon.fillAmount <= 0.0f)
                                     {
+                                        if (GameManager.Elizabat_SonicWave_Unlock == true)
+                                        {
+                                            Skill_SonicWave_Icon_BackLight.SetActive(true);
+                                        }
+
                                         GameManager.Elizabat_SonicWave_Ready = true;
                                     }
 
@@ -391,10 +424,21 @@ public class Elizabat : MonoBehaviour {
                                     if (Skill_Swarm_Cool_Icon.fillAmount > 0.0f)
                                     {
                                         Skill_Swarm_Cool_Icon.fillAmount -= SwarmCoolTime;
+
+                                        if (GameManager.Elizabat_Swarm_Unlock == true)
+                                        {
+                                            Skill_Swarm_Icon_BackLight.SetActive(false);
+                                        }
+
                                         GameManager.Elizabat_Swarm_Ready = false;
                                     }
                                     else if (Skill_Swarm_Cool_Icon.fillAmount <= 0.0f)
                                     {
+                                        if (GameManager.Elizabat_Swarm_Unlock == true)
+                                        {
+                                            Skill_Swarm_Icon_BackLight.SetActive(true);
+                                        }
+
                                         GameManager.Elizabat_Swarm_Ready = true;
                                     }
 
@@ -402,17 +446,26 @@ public class Elizabat : MonoBehaviour {
                                     if (Skill_Decent_Cool_Icon.fillAmount > 0.0f)
                                     {
                                         Skill_Decent_Cool_Icon.fillAmount -= DecentCoolTime;
+
+                                        if (GameManager.Elizabat_Decent_Unlock == true)
+                                        {
+                                            Skill_Decent_Icon_BackLight.SetActive(false);
+                                        }
+
                                         GameManager.Elizabat_Decent_Ready = false;
                                     }
                                     else if (Skill_Decent_Cool_Icon.fillAmount <= 0.0f)
                                     {
+                                        if (GameManager.Elizabat_Decent_Unlock == true)
+                                        {
+                                            Skill_Decent_Icon_BackLight.SetActive(true);
+                                        }
+
                                         GameManager.Elizabat_Decent_Ready = true;
                                     }
 
                                     SkillCoolTimer = 0.0f;
                                 }
-                                
-
 
                                 if (!GameManager.Elizabat_CommandStart && !GameManager.Elizabat_SkillStart)
                                 {
@@ -420,7 +473,8 @@ public class Elizabat : MonoBehaviour {
 
                                     if (Input.GetKeyDown(KeyCode.X))
                                     {
-                                        if (GameManager.Soul_MP_Parameter >= SonicWaveCost && GameManager.Elizabat_SonicWave_Ready == true)
+                                        if (GameManager.Soul_MP_Parameter >= SonicWaveCost && GameManager.Elizabat_SonicWave_Ready == true
+                                             && GameManager.Elizabat_SonicWave_Unlock == true)
                                         {
                                             CameraChecker.transform.position = CheckerStartPos;
 
@@ -458,7 +512,8 @@ public class Elizabat : MonoBehaviour {
                                     
                                     if (Input.GetKeyDown(KeyCode.C))
                                     {
-                                        if (GameManager.Soul_MP_Parameter >= EclipseCost && GameManager.Elizabat_Eclipse_Ready == true)
+                                        if (GameManager.Soul_MP_Parameter >= EclipseCost && GameManager.Elizabat_Eclipse_Ready == true
+                                             && GameManager.Elizabat_Eclipse_Unlock == true)
                                         {
                                             CameraChecker.transform.position = CheckerStartPos;
 
@@ -497,7 +552,8 @@ public class Elizabat : MonoBehaviour {
 
                                     if (Input.GetKeyDown(KeyCode.V))
                                     {
-                                        if (GameManager.Soul_MP_Parameter >= DecentCost && GameManager.Elizabat_Decent_Ready == true)
+                                        if (GameManager.Soul_MP_Parameter >= DecentCost && GameManager.Elizabat_Decent_Ready == true
+                                             && GameManager.Elizabat_Decent_Unlock == true)
                                         {
                                             CameraChecker.transform.position = CheckerStartPos;
 
@@ -536,7 +592,8 @@ public class Elizabat : MonoBehaviour {
 
                                     if (Input.GetKeyDown(KeyCode.B))
                                     {
-                                        if (GameManager.Soul_MP_Parameter >= SwarmCost && GameManager.Elizabat_Swarm_Ready == true)
+                                        if (GameManager.Soul_MP_Parameter >= SwarmCost && GameManager.Elizabat_Swarm_Ready == true
+                                            && GameManager.Elizabat_Swarm_Unlock == true)
                                         {
                                             CameraChecker.transform.position = CheckerStartPos;
 
@@ -811,7 +868,6 @@ public class Elizabat : MonoBehaviour {
                                 if (SkillCoolTimer < 1.0f)
                                 {
                                     SkillCoolTimer += Time.deltaTime;
-
                                 }
                                 else
                                 {
@@ -819,10 +875,22 @@ public class Elizabat : MonoBehaviour {
                                     if (Skill_Eclipse_Cool_Icon.fillAmount > 0.0f)
                                     {
                                         Skill_Eclipse_Cool_Icon.fillAmount -= EclipseCoolTime;
+
+                                        if (GameManager.Elizabat_Eclipse_Unlock == true)
+                                        {
+                                            Skill_Eclipse_Icon_BackLight.SetActive(false);
+                                        }
+
                                         GameManager.Elizabat_Eclipse_Ready = false;
+
                                     }
                                     else if (Skill_Eclipse_Cool_Icon.fillAmount <= 0.0f)
                                     {
+                                        if (GameManager.Elizabat_Eclipse_Unlock == true)
+                                        {
+                                            Skill_Eclipse_Icon_BackLight.SetActive(true);
+                                        }
+
                                         GameManager.Elizabat_Eclipse_Ready = true;
                                     }
 
@@ -830,10 +898,22 @@ public class Elizabat : MonoBehaviour {
                                     if (Skill_SonicWave_Cool_Icon.fillAmount > 0.0f)
                                     {
                                         Skill_SonicWave_Cool_Icon.fillAmount -= SonicCoolTime;
+
+                                        if (GameManager.Elizabat_SonicWave_Unlock == true)
+                                        {
+                                            Skill_SonicWave_Icon_BackLight.SetActive(false);
+                                        }
+
+
                                         GameManager.Elizabat_SonicWave_Ready = false;
                                     }
                                     else if (Skill_SonicWave_Cool_Icon.fillAmount <= 0.0f)
                                     {
+                                        if (GameManager.Elizabat_SonicWave_Unlock == true)
+                                        {
+                                            Skill_SonicWave_Icon_BackLight.SetActive(true);
+                                        }
+
                                         GameManager.Elizabat_SonicWave_Ready = true;
                                     }
 
@@ -841,10 +921,21 @@ public class Elizabat : MonoBehaviour {
                                     if (Skill_Swarm_Cool_Icon.fillAmount > 0.0f)
                                     {
                                         Skill_Swarm_Cool_Icon.fillAmount -= SwarmCoolTime;
+
+                                        if (GameManager.Elizabat_Swarm_Unlock == true)
+                                        {
+                                            Skill_Swarm_Icon_BackLight.SetActive(false);
+                                        }
+
                                         GameManager.Elizabat_Swarm_Ready = false;
                                     }
                                     else if (Skill_Swarm_Cool_Icon.fillAmount <= 0.0f)
                                     {
+                                        if (GameManager.Elizabat_Swarm_Unlock == true)
+                                        {
+                                            Skill_Swarm_Icon_BackLight.SetActive(true);
+                                        }
+
                                         GameManager.Elizabat_Swarm_Ready = true;
                                     }
 
@@ -852,10 +943,21 @@ public class Elizabat : MonoBehaviour {
                                     if (Skill_Decent_Cool_Icon.fillAmount > 0.0f)
                                     {
                                         Skill_Decent_Cool_Icon.fillAmount -= DecentCoolTime;
+
+                                        if (GameManager.Elizabat_Decent_Unlock == true)
+                                        {
+                                            Skill_Decent_Icon_BackLight.SetActive(false);
+                                        }
+
                                         GameManager.Elizabat_Decent_Ready = false;
                                     }
                                     else if (Skill_Decent_Cool_Icon.fillAmount <= 0.0f)
                                     {
+                                        if (GameManager.Elizabat_Decent_Unlock == true)
+                                        {
+                                            Skill_Decent_Icon_BackLight.SetActive(true);
+                                        }
+
                                         GameManager.Elizabat_Decent_Ready = true;
                                     }
 
@@ -869,7 +971,8 @@ public class Elizabat : MonoBehaviour {
 
                                     if (Input.GetButtonDown("P1_360_XButton"))
                                     {
-                                        if(GameManager.Soul_MP_Parameter >= SonicWaveCost && GameManager.Elizabat_SonicWave_Ready == true)
+                                        if(GameManager.Soul_MP_Parameter >= SonicWaveCost && GameManager.Elizabat_SonicWave_Ready == true
+                                            && GameManager.Elizabat_SonicWave_Unlock == true)
                                         {
                                             Debug.Log("Command Start!");
 
@@ -905,7 +1008,8 @@ public class Elizabat : MonoBehaviour {
                                     
                                     if (Input.GetButtonDown("P1_360_BButton"))
                                     {
-                                        if(GameManager.Soul_MP_Parameter >= EclipseCost && GameManager.Elizabat_Eclipse_Ready == true)
+                                        if(GameManager.Soul_MP_Parameter >= EclipseCost && GameManager.Elizabat_Eclipse_Ready == true
+                                            && GameManager.Elizabat_Eclipse_Unlock == true)
                                         {
                                             Debug.Log("Command Start!");
 
@@ -943,7 +1047,8 @@ public class Elizabat : MonoBehaviour {
                                     
                                     if (Input.GetButtonDown("P1_360_AButton"))
                                     {
-                                        if(GameManager.Soul_MP_Parameter >= DecentCost && GameManager.Elizabat_Decent_Ready == true)
+                                        if(GameManager.Soul_MP_Parameter >= DecentCost && GameManager.Elizabat_Decent_Ready == true
+                                            && GameManager.Elizabat_Decent_Unlock == true)
                                         {
                                             Debug.Log("Command Start!");
 
@@ -980,7 +1085,8 @@ public class Elizabat : MonoBehaviour {
 
                                     if (Input.GetButtonDown("P1_360_YButton"))
                                     {
-                                        if(GameManager.Soul_MP_Parameter >= SwarmCost && GameManager.Elizabat_Swarm_Ready == true)
+                                        if(GameManager.Soul_MP_Parameter >= SwarmCost && GameManager.Elizabat_Swarm_Ready == true
+                                            && GameManager.Elizabat_Swarm_Unlock == true)
                                         {
                                             light.enabled = true;
                                             SkillTarget.gameObject.SetActive(true);

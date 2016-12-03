@@ -138,7 +138,7 @@ public class Enemy_Doctor : MonoBehaviour
 
         EnemySpeed = 3.5f;
 
-        HP_bar.gameObject.SetActive(true);
+        HP_bar.gameObject.SetActive(false);
         HP_bar.fillAmount = HP / 10.0f;
 
         KnockBackCheck = false;
@@ -210,7 +210,7 @@ public class Enemy_Doctor : MonoBehaviour
         AttackPoint = 10;
         EnemySpeed = 3.5f;
 
-        HP_bar.gameObject.SetActive(true);
+        HP_bar.gameObject.SetActive(false);
         HP_bar.fillAmount = HP / 10.0f;
 
         KnockBackCheck = false;
@@ -650,17 +650,34 @@ public class Enemy_Doctor : MonoBehaviour
                                 }
                                 else
                                 {
+                                    HP_bar.gameObject.SetActive(true);
+                                    HP_bar.transform.position = new Vector3(this.transform.position.x, HP_bar.transform.position.y, this.transform.position.z);
+                                    HP_bar.fillAmount = HP / 10.0f;
+
+                                    CameraMarkingOn = true;
+
                                     if (GameManager.Elizabat_SonicWave_On == false)
                                     {
-                                        EnemySpot.gameObject.SetActive(true);
+                                        if (CameraMarkingOn)
+                                        {
+                                            EnemySpot.gameObject.SetActive(true);
+                                        }
+                                        else
+                                        {
+                                            EnemySpot.gameObject.SetActive(false);
+                                        }
+
                                         EnemyArrow.gameObject.SetActive(false);
+
                                     }
                                     else
                                     {
                                         EnemySpot.gameObject.SetActive(true);
-                                        EnemyArrow.gameObject.SetActive(false);
-                                    }
 
+                                        EnemyArrow.gameObject.SetActive(false);
+
+
+                                    }
                                 }
 
                                 

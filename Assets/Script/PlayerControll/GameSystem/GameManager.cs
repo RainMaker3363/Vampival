@@ -214,6 +214,11 @@ public class GameManager : MonoBehaviour {
         Elizabat_SonicWave_Ready = true;
         Elizabat_Swarm_Ready = true;
 
+        //Elizabat_Eclipse_Unlock = false;
+        //Elizabat_Decent_Unlock = false;
+        //Elizabat_SonicWave_Unlock = false;
+        //Elizabat_Swarm_Unlock = false;
+
         Elizabat_Eclipse_Unlock = true;
         Elizabat_Decent_Unlock = true;
         Elizabat_SonicWave_Unlock = true;
