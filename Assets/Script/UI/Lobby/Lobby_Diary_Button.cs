@@ -34,6 +34,32 @@ public class Lobby_Diary_Button : MonoBehaviour, IPointerEnterHandler, ISelectHa
             else
                 ViewMode = ViewControllMode.GamePad;
         }
+
+        switch (ViewMode)
+        {
+            case ViewControllMode.Mouse:
+                {
+                    //DiaryPanel.SetActive(true);
+
+                    //SDManager.PlaySfx(SceneChange);
+
+                    //AutoFade.LoadLevel("Stage01", 0.1f, 0.1f, Color.black);
+                }
+                break;
+
+            case ViewControllMode.GamePad:
+                {
+                    if (DiaryPanel.activeSelf == true)
+                    {
+                        if (Input.GetButtonDown("P1_360_BButton"))
+                        {
+                            DiaryPanel.SetActive(false);
+                        }
+                    }
+                }
+                break;
+        }
+
     }
 
     public void OnSelect(BaseEventData eventData)
@@ -42,7 +68,7 @@ public class Lobby_Diary_Button : MonoBehaviour, IPointerEnterHandler, ISelectHa
         {
             case ViewControllMode.Mouse:
                 {
-                    DiaryPanel.SetActive(true);
+                    //DiaryPanel.SetActive(true);
 
                     //SDManager.PlaySfx(SceneChange);
 
@@ -53,6 +79,11 @@ public class Lobby_Diary_Button : MonoBehaviour, IPointerEnterHandler, ISelectHa
             case ViewControllMode.GamePad:
                 {
                     Select_BG.color = new Color32(255, 255, 255, 255);
+
+                    if (Input.GetButtonDown("P1_360_AButton"))
+                    {
+                        DiaryPanel.SetActive(true);
+                    }
                     //DiaryPanel.SetActive(true);
                 }
                 break;
@@ -77,6 +108,7 @@ public class Lobby_Diary_Button : MonoBehaviour, IPointerEnterHandler, ISelectHa
             case ViewControllMode.GamePad:
                 {
                     Select_BG.color = new Color32(255, 255, 255, 0);
+
                 }
                 break;
         }
@@ -88,6 +120,7 @@ public class Lobby_Diary_Button : MonoBehaviour, IPointerEnterHandler, ISelectHa
         {
             case ViewControllMode.Mouse:
                 {
+                    DiaryPanel.SetActive(true);
                     //SDManager.PlaySfx(SceneChange);
 
                     //AutoFade.LoadLevel("Stage01", 0.1f, 0.1f, Color.black);
@@ -97,7 +130,7 @@ public class Lobby_Diary_Button : MonoBehaviour, IPointerEnterHandler, ISelectHa
 
             case ViewControllMode.GamePad:
                 {
-                    DiaryPanel.SetActive(true);
+                    
                 }
                 break;
         }

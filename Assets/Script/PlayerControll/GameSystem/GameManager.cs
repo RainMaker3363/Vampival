@@ -128,6 +128,7 @@ public class GameManager : MonoBehaviour {
     // Stage01 시연 기믹 용
     static public bool FirstBloodCheck;
     static public Vector3 FirstBloodPos;
+    public GameObject[] WaveMeters;
 
     /// <summary>
     // 공포도의 영향을 줄 빛
@@ -268,6 +269,13 @@ public class GameManager : MonoBehaviour {
         LevelChecker = 0.0f;
         Level = 0;
         RespawnCheck = false;
+
+        for(int i = 0; i<WaveMeters.Length; i++)
+        {
+            WaveMeters[i].SetActive(false);
+        }
+
+        WaveMeters[0].SetActive(true);
 
         //===========================================================
         // ETC...
@@ -679,6 +687,7 @@ public class GameManager : MonoBehaviour {
 
             case 2:
                 {
+                    WaveMeters[1].SetActive(true);
                     Respawns_East_Enemies[2].SetActive(true);
                 }
                 break;
@@ -691,6 +700,7 @@ public class GameManager : MonoBehaviour {
 
             case 4:
                 {
+                    WaveMeters[2].SetActive(true);
                     Respawns_East_Enemies[3].SetActive(true);
                 }
                 break;
@@ -703,6 +713,8 @@ public class GameManager : MonoBehaviour {
 
             case 6:
                 {
+                    WaveMeters[3].SetActive(true);
+
                     Respawns_East_Enemies[4].SetActive(true);
                     Respawns_East_Enemies[5].SetActive(true);
                 }
@@ -717,7 +729,7 @@ public class GameManager : MonoBehaviour {
 
             case 8:
                 {
-
+                    WaveMeters[4].SetActive(true);
                 }
                 break;
 

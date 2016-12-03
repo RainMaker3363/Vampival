@@ -10,6 +10,7 @@ public class Enemy_Militia : MonoBehaviour {
 
     public GameObject[] Corpse;
     public GameObject[] Corpse_Souls;
+    public GameObject[] Corpse_BuffSouls;
 
     public GameObject Target;
     public GameObject Spidas;
@@ -34,6 +35,8 @@ public class Enemy_Militia : MonoBehaviour {
     // 현재 남아있는 시체 및 영혼 수
     private int NowCorpseStack;
     private int NowSoulStack;
+    private int NowBuffSoulStack;
+    private int BuffSoulDrop;
     
     // 공포도 체크
     private bool FearMeterCheck;
@@ -187,6 +190,11 @@ public class Enemy_Militia : MonoBehaviour {
             Corpse_Souls[i].SetActive(false);
         }
 
+        for (int i = 0; i < Corpse_BuffSouls.Length; i++)
+        {
+            Corpse_BuffSouls[i].SetActive(false);
+        }
+
         this.gameObject.SetActive(false);
     }
 
@@ -260,6 +268,14 @@ public class Enemy_Militia : MonoBehaviour {
             }
         }
 
+        for (int i = 0; i < Corpse_BuffSouls.Length; i++)
+        {
+            if (Corpse_BuffSouls[i].gameObject.activeSelf == false)
+            {
+                Corpse_BuffSouls[i].SetActive(false);
+            }
+
+        }
     }
 
     // Update is called once per frame
@@ -317,6 +333,23 @@ public class Enemy_Militia : MonoBehaviour {
 
                                         Corpse[NowCorpseStack].gameObject.SetActive(true);
                                         Corpse_Souls[NowSoulStack].gameObject.SetActive(true);
+
+                                        BuffSoulDrop = Random.Range(0, 9);
+
+                                        if (BuffSoulDrop == 0)
+                                        {
+                                            Corpse_BuffSouls[NowBuffSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.0f, this.transform.position.z);
+                                            Corpse_BuffSouls[NowBuffSoulStack].gameObject.SetActive(true);
+
+                                            if (NowBuffSoulStack >= (Corpse_BuffSouls.Length - 1))
+                                            {
+                                                NowBuffSoulStack = 0;
+                                            }
+                                            else
+                                            {
+                                                NowBuffSoulStack++;
+                                            }
+                                        }
                                     }
 
                                     if (NowCorpseStack >= (Corpse.Length - 1))
@@ -744,6 +777,23 @@ public class Enemy_Militia : MonoBehaviour {
 
                 Corpse[NowCorpseStack].gameObject.SetActive(true);
                 Corpse_Souls[NowSoulStack].gameObject.SetActive(true);
+
+                BuffSoulDrop = Random.Range(0, 9);
+
+                if (BuffSoulDrop == 0)
+                {
+                    Corpse_BuffSouls[NowBuffSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.0f, this.transform.position.z);
+                    Corpse_BuffSouls[NowBuffSoulStack].gameObject.SetActive(true);
+
+                    if (NowBuffSoulStack >= (Corpse_BuffSouls.Length - 1))
+                    {
+                        NowBuffSoulStack = 0;
+                    }
+                    else
+                    {
+                        NowBuffSoulStack++;
+                    }
+                }
             }
 
             if (NowCorpseStack >= (Corpse.Length - 1))
@@ -986,6 +1036,23 @@ public class Enemy_Militia : MonoBehaviour {
 
                     Corpse[NowCorpseStack].gameObject.SetActive(true);
                     Corpse_Souls[NowSoulStack].gameObject.SetActive(true);
+
+                    BuffSoulDrop = Random.Range(0, 9);
+
+                    if (BuffSoulDrop == 0)
+                    {
+                        Corpse_BuffSouls[NowBuffSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.0f, this.transform.position.z);
+                        Corpse_BuffSouls[NowBuffSoulStack].gameObject.SetActive(true);
+
+                        if (NowBuffSoulStack >= (Corpse_BuffSouls.Length - 1))
+                        {
+                            NowBuffSoulStack = 0;
+                        }
+                        else
+                        {
+                            NowBuffSoulStack++;
+                        }
+                    }
                 }
 
                 if (NowCorpseStack >= (Corpse.Length - 1))
@@ -1042,6 +1109,23 @@ public class Enemy_Militia : MonoBehaviour {
 
                     Corpse[NowCorpseStack].gameObject.SetActive(true);
                     Corpse_Souls[NowSoulStack].gameObject.SetActive(true);
+
+                    BuffSoulDrop = Random.Range(0, 9);
+
+                    if (BuffSoulDrop == 0)
+                    {
+                        Corpse_BuffSouls[NowBuffSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.0f, this.transform.position.z);
+                        Corpse_BuffSouls[NowBuffSoulStack].gameObject.SetActive(true);
+
+                        if (NowBuffSoulStack >= (Corpse_BuffSouls.Length - 1))
+                        {
+                            NowBuffSoulStack = 0;
+                        }
+                        else
+                        {
+                            NowBuffSoulStack++;
+                        }
+                    }
                 }
 
                 if (NowCorpseStack >= (Corpse.Length - 1))
@@ -1096,6 +1180,23 @@ public class Enemy_Militia : MonoBehaviour {
 
                     Corpse[NowCorpseStack].gameObject.SetActive(true);
                     Corpse_Souls[NowSoulStack].gameObject.SetActive(true);
+
+                    BuffSoulDrop = Random.Range(0, 9);
+
+                    if (BuffSoulDrop == 0)
+                    {
+                        Corpse_BuffSouls[NowBuffSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.0f, this.transform.position.z);
+                        Corpse_BuffSouls[NowBuffSoulStack].gameObject.SetActive(true);
+
+                        if (NowBuffSoulStack >= (Corpse_BuffSouls.Length - 1))
+                        {
+                            NowBuffSoulStack = 0;
+                        }
+                        else
+                        {
+                            NowBuffSoulStack++;
+                        }
+                    }
                 }
 
                 if (NowCorpseStack >= (Corpse.Length - 1))
