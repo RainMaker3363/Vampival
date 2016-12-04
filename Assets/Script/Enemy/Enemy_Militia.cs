@@ -195,7 +195,7 @@ public class Enemy_Militia : MonoBehaviour {
             Corpse_BuffSouls[i].SetActive(false);
         }
 
-        this.gameObject.SetActive(false);
+        this.gameObject.SetActive(true);
     }
 
     void OnEnable()
@@ -329,7 +329,7 @@ public class Enemy_Militia : MonoBehaviour {
                                     if (Corpse[NowCorpseStack].gameObject.activeSelf == false)
                                     {
                                         Corpse[NowCorpseStack].transform.position = this.transform.position;
-                                        Corpse_Souls[NowSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.0f, this.transform.position.z);
+                                        Corpse_Souls[NowSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 1.5f, this.transform.position.z);
 
                                         Corpse[NowCorpseStack].gameObject.SetActive(true);
                                         Corpse_Souls[NowSoulStack].gameObject.SetActive(true);
@@ -338,7 +338,7 @@ public class Enemy_Militia : MonoBehaviour {
 
                                         if (BuffSoulDrop == 0)
                                         {
-                                            Corpse_BuffSouls[NowBuffSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.0f, this.transform.position.z);
+                                            Corpse_BuffSouls[NowBuffSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 1.5f, this.transform.position.z);
                                             Corpse_BuffSouls[NowBuffSoulStack].gameObject.SetActive(true);
 
                                             if (NowBuffSoulStack >= (Corpse_BuffSouls.Length - 1))
@@ -508,7 +508,7 @@ public class Enemy_Militia : MonoBehaviour {
                                 else
                                 {
                                     HP_bar.gameObject.SetActive(true);
-                                    HP_bar.transform.position = new Vector3(this.transform.position.x, HP_bar.transform.position.y, this.transform.position.z);
+                                    HP_bar.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 5.2f, this.transform.position.z);
                                     HP_bar.fillAmount = HP / 10.0f;
 
                                     CameraMarkingOn = true;
@@ -773,7 +773,7 @@ public class Enemy_Militia : MonoBehaviour {
             {
 
                 Corpse[NowCorpseStack].transform.position = this.transform.position;
-                Corpse_Souls[NowSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.0f, this.transform.position.z);
+                Corpse_Souls[NowSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 1.5f, this.transform.position.z);
 
                 Corpse[NowCorpseStack].gameObject.SetActive(true);
                 Corpse_Souls[NowSoulStack].gameObject.SetActive(true);
@@ -782,7 +782,7 @@ public class Enemy_Militia : MonoBehaviour {
 
                 if (BuffSoulDrop == 0)
                 {
-                    Corpse_BuffSouls[NowBuffSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.0f, this.transform.position.z);
+                    Corpse_Souls[NowBuffSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 1.5f, this.transform.position.z);
                     Corpse_BuffSouls[NowBuffSoulStack].gameObject.SetActive(true);
 
                     if (NowBuffSoulStack >= (Corpse_BuffSouls.Length - 1))
@@ -1032,7 +1032,7 @@ public class Enemy_Militia : MonoBehaviour {
                 {
 
                     Corpse[NowCorpseStack].transform.position = this.transform.position;
-                    Corpse_Souls[NowSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.0f, this.transform.position.z);
+                    Corpse_Souls[NowSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 1.5f, this.transform.position.z);
 
                     Corpse[NowCorpseStack].gameObject.SetActive(true);
                     Corpse_Souls[NowSoulStack].gameObject.SetActive(true);
@@ -1041,7 +1041,7 @@ public class Enemy_Militia : MonoBehaviour {
 
                     if (BuffSoulDrop == 0)
                     {
-                        Corpse_BuffSouls[NowBuffSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.0f, this.transform.position.z);
+                        Corpse_Souls[NowBuffSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 1.5f, this.transform.position.z);
                         Corpse_BuffSouls[NowBuffSoulStack].gameObject.SetActive(true);
 
                         if (NowBuffSoulStack >= (Corpse_BuffSouls.Length - 1))
@@ -1105,7 +1105,7 @@ public class Enemy_Militia : MonoBehaviour {
                 {
 
                     Corpse[NowCorpseStack].transform.position = this.transform.position;
-                    Corpse_Souls[NowSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.0f, this.transform.position.z);
+                    Corpse_Souls[NowSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 1.5f, this.transform.position.z);
 
                     Corpse[NowCorpseStack].gameObject.SetActive(true);
                     Corpse_Souls[NowSoulStack].gameObject.SetActive(true);
@@ -1114,7 +1114,7 @@ public class Enemy_Militia : MonoBehaviour {
 
                     if (BuffSoulDrop == 0)
                     {
-                        Corpse_BuffSouls[NowBuffSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.0f, this.transform.position.z);
+                        Corpse_Souls[NowBuffSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 1.5f, this.transform.position.z);
                         Corpse_BuffSouls[NowBuffSoulStack].gameObject.SetActive(true);
 
                         if (NowBuffSoulStack >= (Corpse_BuffSouls.Length - 1))
@@ -1176,7 +1176,7 @@ public class Enemy_Militia : MonoBehaviour {
                 {
 
                     Corpse[NowCorpseStack].transform.position = this.transform.position;
-                    Corpse_Souls[NowSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.0f, this.transform.position.z);
+                    Corpse_Souls[NowSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 1.5f, this.transform.position.z);
 
                     Corpse[NowCorpseStack].gameObject.SetActive(true);
                     Corpse_Souls[NowSoulStack].gameObject.SetActive(true);
@@ -1185,7 +1185,7 @@ public class Enemy_Militia : MonoBehaviour {
 
                     if (BuffSoulDrop == 0)
                     {
-                        Corpse_BuffSouls[NowBuffSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 0.0f, this.transform.position.z);
+                        Corpse_BuffSouls[NowBuffSoulStack].transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 1.5f, this.transform.position.z);
                         Corpse_BuffSouls[NowBuffSoulStack].gameObject.SetActive(true);
 
                         if (NowBuffSoulStack >= (Corpse_BuffSouls.Length - 1))

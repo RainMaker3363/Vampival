@@ -197,7 +197,7 @@ public class Enemy_Tracker : MonoBehaviour
             Corpse_BuffSouls[i].SetActive(false);
         }
 
-            this.gameObject.SetActive(false);
+            this.gameObject.SetActive(true);
     }
 
     void OnEnable()
@@ -512,7 +512,7 @@ public class Enemy_Tracker : MonoBehaviour
                                 else
                                 {
                                     HP_bar.gameObject.SetActive(true);
-                                    HP_bar.transform.position = new Vector3(this.transform.position.x, HP_bar.transform.position.y, this.transform.position.z);
+                                    HP_bar.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 2.2f, this.transform.position.z);
                                     HP_bar.fillAmount = HP / 10.0f;
 
                                     CameraMarkingOn = true;

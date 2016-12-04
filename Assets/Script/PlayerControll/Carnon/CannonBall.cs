@@ -192,7 +192,7 @@ public class CannonBall : MonoBehaviour {
                                 //Debug.DrawRay(this.transform.position, (ObjectChecker.transform.position - this.transform.position).normalized * 3.0f, Color.cyan);
                                 //Debug.DrawRay(StartObjectChecker.transform.position, (EndObjectChecker.transform.position - StartObjectChecker.transform.position).normalized * 10.0f, Color.cyan);
 
-                                if (Physics.Raycast(StartObjectChecker.transform.position, (EndObjectChecker.transform.position - StartObjectChecker.transform.position).normalized, out hit, 10.0f, layermask))
+                                if (Physics.Raycast(StartObjectChecker.transform.position, (EndObjectChecker.transform.position - StartObjectChecker.transform.position).normalized, out hit, 3.0f, layermask))
                                 {
                                     //Explode_Particle.gameObject.SetActive(true);
 
@@ -301,7 +301,7 @@ public class CannonBall : MonoBehaviour {
                                     IsFire = true;
                                 }
 
-                                if (Physics.Raycast(StartObjectChecker.transform.position, (EndObjectChecker.transform.position - StartObjectChecker.transform.position).normalized, out hit, 10.0f, layermask))
+                                if (Physics.Raycast(StartObjectChecker.transform.position, (EndObjectChecker.transform.position - StartObjectChecker.transform.position).normalized, out hit, 3.0f, layermask))
                                 {
                                     //Explode_Particle.gameObject.SetActive(true);
 

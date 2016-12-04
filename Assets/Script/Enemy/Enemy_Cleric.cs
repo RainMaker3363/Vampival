@@ -135,7 +135,7 @@ public class Enemy_Cleric : MonoBehaviour
         enemystate = EnemyState.Run;
         Gamestate = GameManager.Gamestate;
 
-        HP = 20;
+        HP = 10;
         AttackPoint = 10;
         NowCorpseStack = 0;
         NowSoulStack = 0;
@@ -143,7 +143,7 @@ public class Enemy_Cleric : MonoBehaviour
         EnemySpeed = 3.5f;
 
         HP_bar.gameObject.SetActive(false);
-        HP_bar.fillAmount = HP / 20.0f;
+        HP_bar.fillAmount = HP / 10.0f;
 
         KnockBackCheck = false;
         DeathCheck = false;
@@ -197,7 +197,7 @@ public class Enemy_Cleric : MonoBehaviour
             Corpse_BuffSouls[i].SetActive(false);
         }
 
-        this.gameObject.SetActive(false);
+        this.gameObject.SetActive(true);
     }
 
     void OnEnable()
@@ -215,12 +215,12 @@ public class Enemy_Cleric : MonoBehaviour
         }
 
 
-        HP = 20;
+        HP = 10;
         AttackPoint = 10;
         EnemySpeed = 3.5f;
 
         HP_bar.gameObject.SetActive(false);
-        HP_bar.fillAmount = HP / 20.0f;
+        HP_bar.fillAmount = HP / 10.0f;
 
         KnockBackCheck = false;
         DeathCheck = false;
@@ -510,8 +510,8 @@ public class Enemy_Cleric : MonoBehaviour
                                 else
                                 {
                                     HP_bar.gameObject.SetActive(true);
-                                    HP_bar.transform.position = new Vector3(this.transform.position.x, HP_bar.transform.position.y, this.transform.position.z);
-                                    HP_bar.fillAmount = HP / 20.0f;
+                                    HP_bar.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 2.2f, this.transform.position.z);
+                                    HP_bar.fillAmount = HP / 10.0f;
 
                                     CameraMarkingOn = true;
 
@@ -686,7 +686,7 @@ public class Enemy_Cleric : MonoBehaviour
                                 {
                                     HP_bar.gameObject.SetActive(true);
                                     HP_bar.transform.position = new Vector3(this.transform.position.x, HP_bar.transform.position.y, this.transform.position.z);
-                                    HP_bar.fillAmount = HP / 20.0f;
+                                    HP_bar.fillAmount = HP / 10.0f;
 
                                     CameraMarkingOn = true;
 

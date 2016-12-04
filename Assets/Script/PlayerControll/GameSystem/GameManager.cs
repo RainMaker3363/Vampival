@@ -241,30 +241,30 @@ public class GameManager : MonoBehaviour {
         //===========================================================
         // 적들 리스폰 조작 (Stage01)
         //===========================================================
-        
-        //for (int i = 0; i < Respawns_East_Enemies.Length; i++)
-        //{
-        //    Respawns_East_Enemies[i].SetActive(false);
-        //}
 
-        //for (int i = 0; i < Respawn_South_Enemies.Length; i++)
-        //{
-        //    Respawn_South_Enemies[i].SetActive(false);
-        //}
+        for (int i = 0; i < Respawns_East_Enemies.Length; i++)
+        {
+            Respawns_East_Enemies[i].SetActive(false);
+        }
 
-        //for (int i = 0; i < Respawns_West_Enemies.Length; i++)
-        //{
-        //    Respawns_West_Enemies[i].SetActive(false);
-        //}
+        for (int i = 0; i < Respawn_South_Enemies.Length; i++)
+        {
+            Respawn_South_Enemies[i].SetActive(false);
+        }
 
-        //for (int i = 0; i < Respawns_North_Enemies.Length; i++)
-        //{
-        //    Respawns_North_Enemies[i].SetActive(false);
-        //}
+        for (int i = 0; i < Respawns_West_Enemies.Length; i++)
+        {
+            Respawns_West_Enemies[i].SetActive(false);
+        }
 
-        //Respawns_East_Enemies[0].SetActive(true);
-        //Respawn_South_Enemies[0].SetActive(true);
-        //Respawns_North_Enemies[0].SetActive(true);
+        for (int i = 0; i < Respawns_North_Enemies.Length; i++)
+        {
+            Respawns_North_Enemies[i].SetActive(false);
+        }
+
+        Respawns_East_Enemies[0].SetActive(true);
+        Respawn_South_Enemies[0].SetActive(true);
+        Respawns_North_Enemies[0].SetActive(true);
 
         LevelChecker = 0.0f;
         Level = 0;
@@ -451,41 +451,41 @@ public class GameManager : MonoBehaviour {
                     
 
                     // 리스폰 타이머
-                    //LevelChecker += Time.deltaTime;
+                    LevelChecker += Time.deltaTime;
 
-                    //if(((LevelChecker / 14.0f) >= 1 ||
-                    //    (LevelChecker / 22.0f) >= 1) &&
-                    //    RespawnCheck == false)
-                    //{
-                    //    Stage01RespawnEnemies((int)(LevelChecker / 14),
-                    //        (int)(LevelChecker / 14),
-                    //        (int)(LevelChecker / 14),
-                    //        (int)(LevelChecker / 22));
-                    //}
+                    if (((LevelChecker / 14.0f) >= 1 ||
+                        (LevelChecker / 22.0f) >= 1) &&
+                        RespawnCheck == false)
+                    {
+                        Stage01RespawnEnemies((int)(LevelChecker / 14),
+                            (int)(LevelChecker / 14),
+                            (int)(LevelChecker / 14),
+                            (int)(LevelChecker / 22));
+                    }
 
                     // 리스폰 타이머
-                    if (RespawnTimer <= 0.0f)
-                    {
-                        RespawnTimer = 3.0f;
+                    //if (RespawnTimer <= 0.0f)
+                    //{
+                    //    RespawnTimer = 3.0f;
 
-                        SpawnOn = true;
-                    }
-                    else
-                    {
-                        RespawnTimer -= Time.deltaTime;
-                    }
+                    //    SpawnOn = true;
+                    //}
+                    //else
+                    //{
+                    //    RespawnTimer -= Time.deltaTime;
+                    //}
 
-                     // 리스폰을 한번씩 해준다.
-                    if (SpawnOn)
-                    {
-                        SpawnOn = false;
+                    // // 리스폰을 한번씩 해준다.
+                    //if (SpawnOn)
+                    //{
+                    //    SpawnOn = false;
 
-                        int EnemyType = Random.Range(0, 1);
-                        int EnemyLocation = Random.Range(0, 4);
+                    //    int EnemyType = Random.Range(0, 1);
+                    //    int EnemyLocation = Random.Range(0, 4);
 
-                        RespawnEnemy(NowLevel, EnemyType, EnemyLocation);
-                        //StartCoroutine(RespawnEnemy(NowLevel, EnemyType, EnemyLocation));
-                    }
+                    //    RespawnEnemy(NowLevel, EnemyType, EnemyLocation);
+                    //    //StartCoroutine(RespawnEnemy(NowLevel, EnemyType, EnemyLocation));
+                    //}
 
                     switch(ViewMode)
                     {
