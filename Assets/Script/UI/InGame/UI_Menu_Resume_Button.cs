@@ -22,7 +22,16 @@ public class UI_Menu_Resume_Button : MonoBehaviour, IPointerEnterHandler, ISelec
     // Update is called once per frame
     void Update()
     {
+        if (this.gameObject.activeSelf == true)
+        {
+            if (Input.GetButtonDown("P1_360_AButton"))
+            {
+                GameManager.GamePauseOn = false;
+                GameManager.Gamestate = GameState.GameStart;
 
+                Menu_BG.SetActive(false);
+            }
+        }
     }
 
     public void OnSelect(BaseEventData eventData)

@@ -131,6 +131,12 @@ public class Third_Trajectory : MonoBehaviour {
                 }
                 break;
 
+            case GameState.GameVictory:
+                {
+
+                }
+                break;
+
             case GameState.GameStart:
                 {
                     switch (ViewMode)

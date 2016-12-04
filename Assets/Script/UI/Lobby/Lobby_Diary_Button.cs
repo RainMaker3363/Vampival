@@ -53,6 +53,7 @@ public class Lobby_Diary_Button : MonoBehaviour, IPointerEnterHandler, ISelectHa
                     {
                         if (Input.GetButtonDown("P1_360_BButton"))
                         {
+                            SDManager.PlaySfx(SceneChange);
                             DiaryPanel.SetActive(false);
                         }
                     }
@@ -82,6 +83,7 @@ public class Lobby_Diary_Button : MonoBehaviour, IPointerEnterHandler, ISelectHa
 
                     if (Input.GetButtonDown("P1_360_AButton"))
                     {
+                        SDManager.PlaySfx(SceneChange);
                         DiaryPanel.SetActive(true);
                     }
                     //DiaryPanel.SetActive(true);
@@ -120,6 +122,7 @@ public class Lobby_Diary_Button : MonoBehaviour, IPointerEnterHandler, ISelectHa
         {
             case ViewControllMode.Mouse:
                 {
+                    SDManager.PlaySfx(SceneChange);
                     DiaryPanel.SetActive(true);
                     //SDManager.PlaySfx(SceneChange);
 

@@ -76,6 +76,12 @@ public class Second_Cannon : MonoBehaviour {
                 }
                 break;
 
+            case GameState.GameVictory:
+                {
+
+                }
+                break;
+
             case GameState.GameStart:
                 {
                     switch (ViewMode)

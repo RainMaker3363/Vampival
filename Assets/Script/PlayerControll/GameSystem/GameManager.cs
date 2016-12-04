@@ -65,6 +65,9 @@ public class GameManager : MonoBehaviour {
     private bool RespawnCheck;
     private int Level;
 
+    // 스테이지 마다의 적군 처치 승리조건
+    static public int EnemyCounter;
+
     //===============================================================================================================================
     // 1P 엘리자벳의 조작
     //===============================================================================================================================
@@ -144,6 +147,7 @@ public class GameManager : MonoBehaviour {
     public Image SoulMP_Parameter_Gage;
     public Image Capture_Parameter_Gage;
     public Image GameOver_BG;
+    public GameObject GameVictory_BG;
 
     public GameObject Menu_UI;
     public GameObject Main_UI;
@@ -184,7 +188,7 @@ public class GameManager : MonoBehaviour {
         RespawnTimer = 1.0f;
         GameTimer = 0.0f;
 
-        light.intensity = 0.35f;
+        //light.intensity = 0.35f;
 
         CaptureTimer = 0.0f;
         Capture_Max = 250.0f;
@@ -242,24 +246,30 @@ public class GameManager : MonoBehaviour {
         // 적들 리스폰 조작 (Stage01)
         //===========================================================
 
+        EnemyCounter = 0;
+
         for (int i = 0; i < Respawns_East_Enemies.Length; i++)
         {
             Respawns_East_Enemies[i].SetActive(false);
+            EnemyCounter += 3;
         }
 
         for (int i = 0; i < Respawn_South_Enemies.Length; i++)
         {
             Respawn_South_Enemies[i].SetActive(false);
+            EnemyCounter += 3;
         }
 
         for (int i = 0; i < Respawns_West_Enemies.Length; i++)
         {
             Respawns_West_Enemies[i].SetActive(false);
+            EnemyCounter += 3;
         }
 
         for (int i = 0; i < Respawns_North_Enemies.Length; i++)
         {
             Respawns_North_Enemies[i].SetActive(false);
+            EnemyCounter += 3;
         }
 
         Respawns_East_Enemies[0].SetActive(true);
@@ -276,6 +286,8 @@ public class GameManager : MonoBehaviour {
         }
 
         WaveMeters[0].SetActive(true);
+
+        
 
         //===========================================================
         // ETC...
@@ -449,6 +461,13 @@ public class GameManager : MonoBehaviour {
                         BuffCannonStack = 0;
                     }
                     
+                    // 승리조건 체크
+                    if (EnemyCounter <= 0)
+                    {
+                        Gamestate = GameState.GameVictory;
+                    }
+
+                    //print("EnemyCounter : " + EnemyCounter);
 
                     // 리스폰 타이머
                     LevelChecker += Time.deltaTime;
@@ -611,7 +630,7 @@ public class GameManager : MonoBehaviour {
 
             case GameState.GameVictory:
                 {
-
+                    GameVictory_BG.SetActive(true);
                 }
                 break;
 

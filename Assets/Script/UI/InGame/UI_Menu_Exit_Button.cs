@@ -21,7 +21,15 @@ public class UI_Menu_Exit_Button : MonoBehaviour, IPointerEnterHandler, ISelectH
     // Update is called once per frame
     void Update()
     {
+        if(this.gameObject.activeSelf == true)
+        {
+            if(Input.GetButtonDown("P1_360_BButton"))
+            {
+                Menu_BG.SetActive(false);
 
+                AutoFade.LoadLevel("Title", 0.2f, 0.2f, Color.black);
+            }
+        }
     }
 
     public void OnSelect(BaseEventData eventData)

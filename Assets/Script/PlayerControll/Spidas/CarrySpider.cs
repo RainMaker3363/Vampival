@@ -123,6 +123,17 @@ public class CarrySpider : MonoBehaviour {
                 }
                 break;
 
+            case GameState.GameVictory:
+                {
+                    if (ani != null)
+                    {
+                        ani.SetBool("Walk", false);
+                    }
+
+                    Spider_Indicator.gameObject.SetActive(false);
+                }
+                break;
+
             case GameState.GameStart:
                 {
                     switch (ViewMode)

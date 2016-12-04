@@ -47,6 +47,13 @@ public class Lobby_Start_Button : MonoBehaviour, IPointerEnterHandler, ISelectHa
             case ViewControllMode.GamePad:
                 {
                     Select_BG.color = new Color32(255, 255, 255, 255);
+
+                    if (Input.GetButtonDown("P1_360_AButton"))
+                    {
+                        SDManager.PlaySfx(SceneChange);
+
+                        AutoFade.LoadLevel("Stage01", 0.3f, 0.01f, Color.black);
+                    }
                 }
                 break;
         }
@@ -81,9 +88,9 @@ public class Lobby_Start_Button : MonoBehaviour, IPointerEnterHandler, ISelectHa
         {
             case ViewControllMode.Mouse:
                 {
-                    //SDManager.PlaySfx(SceneChange);
+                    SDManager.PlaySfx(SceneChange);
 
-                    //AutoFade.LoadLevel("Stage01", 0.1f, 0.1f, Color.black);
+                    AutoFade.LoadLevel("Stage01", 0.3f, 0.01f, Color.black);
                     //DiaryPanel.SetActive(true);
                 }
                 break;

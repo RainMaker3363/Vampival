@@ -44,13 +44,23 @@ public class Lobby_Tutorial_Button : MonoBehaviour, IPointerEnterHandler, ISelec
                     //SDManager.PlaySfx(SceneChange);
 
                     //AutoFade.LoadLevel("Stage01", 0.1f, 0.1f, Color.black);
-                    TutorialPanel.SetActive(true);
+                 
                 }
                 break;
 
             case ViewControllMode.GamePad:
                 {
                     Select_BG.color = new Color32(255, 255, 255, 255);
+
+                    if (TutorialPanel.activeSelf == false)
+                    {
+                        if (Input.GetButtonDown("P1_360_AButton"))
+                        {
+                            SDManager.PlaySfx(SceneChange);
+                            TutorialPanel.SetActive(true);
+                            LobbyManager.Tutorial_On = true;
+                        }
+                    }
                 }
                 break;
         }
@@ -87,14 +97,26 @@ public class Lobby_Tutorial_Button : MonoBehaviour, IPointerEnterHandler, ISelec
             case ViewControllMode.Mouse:
                 {
                     //SDManager.PlaySfx(SceneChange);
+                    SDManager.PlaySfx(SceneChange);
 
+                    TutorialPanel.SetActive(true);
+                    LobbyManager.Tutorial_On = true;
                     //AutoFade.LoadLevel("Stage01", 0.1f, 0.1f, Color.black);
                 }
                 break;
 
             case ViewControllMode.GamePad:
                 {
-                    TutorialPanel.SetActive(true);
+                    if (TutorialPanel.activeSelf == false)
+                    {
+                        if (Input.GetButtonDown("P1_360_AButton"))
+                        {
+                            SDManager.PlaySfx(SceneChange);
+                            TutorialPanel.SetActive(true);
+                            LobbyManager.Tutorial_On = true;
+                        }
+                    }
+
                 }
                 break;
         }

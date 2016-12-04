@@ -83,7 +83,7 @@ public class Lobby_Option_Button : MonoBehaviour, IPointerEnterHandler, ISelectH
             case ViewControllMode.Mouse:
                 {
                     //SDManager.PlaySfx(SceneChange);
-
+                    SDManager.PlaySfx(SceneChange);
                     //AutoFade.LoadLevel("Stage01", 0.1f, 0.1f, Color.black);
                 }
                 break;

@@ -78,6 +78,12 @@ public class First_Cannon : MonoBehaviour {
                 }
                 break;
 
+            case GameState.GameVictory:
+                {
+
+                }
+                break;
+
             case GameState.GameStart:
                 {
                     switch (MyCannonNumber)

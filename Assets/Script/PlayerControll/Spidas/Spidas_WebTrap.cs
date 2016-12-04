@@ -143,7 +143,7 @@ public class Spidas_WebTrap : MonoBehaviour {
 
                     if(ParticleTimerOn == true)
                     {
-                        if(ParticleTimer <= 0.5f)
+                        if(ParticleTimer <= 3.0f)
                         {
                             ParticleTimer += Time.deltaTime;
                         }

@@ -49,6 +49,12 @@ public class Enemy_Health_Bar : MonoBehaviour {
 
                 }
                 break;
+
+            case GameState.GameVictory:
+                {
+
+                }
+                break;
         }
 
 	}

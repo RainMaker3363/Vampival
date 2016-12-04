@@ -378,6 +378,7 @@ public class Enemy_Doctor : MonoBehaviour
                                         GameManager.FirstBloodCheck = true;
                                     }
 
+                                    GameManager.EnemyCounter -= 1;
                                     this.gameObject.SetActive(false);
                                     
                                     //Destroy(this.gameObject);
@@ -730,6 +731,8 @@ public class Enemy_Doctor : MonoBehaviour
 
                     EnemySpot.gameObject.SetActive(false);
                     EnemyArrow.gameObject.SetActive(false);
+
+                    HP_bar.gameObject.SetActive(false);
                 }
                 break;
 
@@ -839,6 +842,7 @@ public class Enemy_Doctor : MonoBehaviour
                 GameManager.FirstBloodCheck = true;
             }
 
+            GameManager.EnemyCounter -= 1;
             this.gameObject.SetActive(false);
 
             //Destroy(this.gameObject);
@@ -865,6 +869,8 @@ public class Enemy_Doctor : MonoBehaviour
 
             this.gameObject.SetActive(false);
             HP_bar.gameObject.SetActive(false);
+
+            GameManager.EnemyCounter -= 1;
             //Destroy(this.gameObject);
 
         }
@@ -1098,6 +1104,7 @@ public class Enemy_Doctor : MonoBehaviour
                     GameManager.FirstBloodCheck = true;
                 }
 
+                GameManager.EnemyCounter -= 1;
                 this.gameObject.SetActive(false);
 
                 //Destroy(this.gameObject);
@@ -1172,6 +1179,7 @@ public class Enemy_Doctor : MonoBehaviour
                     GameManager.FirstBloodCheck = true;
                 }
 
+                GameManager.EnemyCounter -= 1;
                 this.gameObject.SetActive(false);
 
                 //Destroy(this.gameObject);
@@ -1243,6 +1251,7 @@ public class Enemy_Doctor : MonoBehaviour
                     GameManager.FirstBloodCheck = true;
                 }
 
+                GameManager.EnemyCounter -= 1;
                 this.gameObject.SetActive(false);
 
                 //Destroy(this.gameObject);
