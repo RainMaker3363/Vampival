@@ -111,7 +111,7 @@ public class FlyingCam : MonoBehaviour {
                                     {
                                         if (Input.GetKey(KeyCode.A))
                                         {
-                                            MainCameraRoot.transform.Translate(new Vector3(2.8f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                            MainCameraRoot.transform.Translate(new Vector3(3.3f, 0, 0) * normalMoveSpeed * Time.deltaTime);
 
 
 
@@ -124,7 +124,7 @@ public class FlyingCam : MonoBehaviour {
                                     {
                                         if (Input.GetKey(KeyCode.D))
                                         {
-                                            MainCameraRoot.transform.Translate(new Vector3(-2.8f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                            MainCameraRoot.transform.Translate(new Vector3(-3.3f, 0, 0) * normalMoveSpeed * Time.deltaTime);
 
 
 
@@ -140,7 +140,7 @@ public class FlyingCam : MonoBehaviour {
                                         if (Input.GetKey(KeyCode.W))
                                         {
 
-                                            MainCameraRoot.transform.Translate(new Vector3(0, -3.2f, 0) * normalMoveSpeed * Time.deltaTime);
+                                            MainCameraRoot.transform.Translate(new Vector3(0, -4.2f, 0) * normalMoveSpeed * Time.deltaTime);
 
                                             MainCameraChecker.transform.Translate(new Vector3(0, -0.7f, 0) * normalMoveSpeed * Time.deltaTime);
 
@@ -152,7 +152,7 @@ public class FlyingCam : MonoBehaviour {
                                         if (Input.GetKey(KeyCode.S))
                                         {
 
-                                            MainCameraRoot.transform.Translate(new Vector3(0, 3.2f, 0) * normalMoveSpeed * Time.deltaTime);
+                                            MainCameraRoot.transform.Translate(new Vector3(0, 4.2f, 0) * normalMoveSpeed * Time.deltaTime);
 
                                             MainCameraChecker.transform.Translate(new Vector3(0, 0.7f, 0) * normalMoveSpeed * Time.deltaTime);
                                         }
@@ -255,7 +255,7 @@ public class FlyingCam : MonoBehaviour {
                                     {
                                         if (Input.GetKey(KeyCode.A) || Input.GetAxisRaw("P1_360_L_RightStick") <= -0.5f)
                                         {
-                                            MainCameraRoot.transform.Translate(new Vector3(2.8f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                            MainCameraRoot.transform.Translate(new Vector3(3.3f, 0, 0) * normalMoveSpeed * Time.deltaTime);
 
 
 
@@ -268,7 +268,7 @@ public class FlyingCam : MonoBehaviour {
                                     {
                                         if (Input.GetKey(KeyCode.D) || Input.GetAxisRaw("P1_360_L_RightStick") >= 0.5f)
                                         {
-                                            MainCameraRoot.transform.Translate(new Vector3(-2.8f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                            MainCameraRoot.transform.Translate(new Vector3(-3.3f, 0, 0) * normalMoveSpeed * Time.deltaTime);
 
 
 
@@ -284,7 +284,7 @@ public class FlyingCam : MonoBehaviour {
                                         if (Input.GetKey(KeyCode.W) || Input.GetAxisRaw("P1_360_L_UpStick") <= -0.5f)
                                         {
 
-                                            MainCameraRoot.transform.Translate(new Vector3(0, -3.2f, 0) * normalMoveSpeed * Time.deltaTime);
+                                            MainCameraRoot.transform.Translate(new Vector3(0, -4.0f, 0) * normalMoveSpeed * Time.deltaTime);
 
                                             MainCameraChecker.transform.Translate(new Vector3(0, -0.7f, 0) * normalMoveSpeed * Time.deltaTime);
 
@@ -296,14 +296,14 @@ public class FlyingCam : MonoBehaviour {
                                         if (Input.GetKey(KeyCode.S) || Input.GetAxisRaw("P1_360_L_UpStick") >= 0.5f)
                                         {
 
-                                            MainCameraRoot.transform.Translate(new Vector3(0, 3.2f, 0) * normalMoveSpeed * Time.deltaTime);
+                                            MainCameraRoot.transform.Translate(new Vector3(0, 4.0f, 0) * normalMoveSpeed * Time.deltaTime);
 
                                             MainCameraChecker.transform.Translate(new Vector3(0, 0.7f, 0) * normalMoveSpeed * Time.deltaTime);
                                         }
                                     }
 
                                     // 회전 기능
-                                    if (Input.GetButton("P1_360_LeftBumper"))
+                                    if (Input.GetButton("P1_360_LeftBumper") || Input.GetKeyDown(KeyCode.Q))
                                     {
                                         //if (MainCameraRoot.transform.localEulerAngles.y > 96.0f && MainCameraRoot.transform.localEulerAngles.y < 360.0f)
                                         //{
@@ -317,7 +317,7 @@ public class FlyingCam : MonoBehaviour {
                                         MainCameraRoot.transform.Rotate(new Vector3(0, 0, -1), 50 * Time.deltaTime);
                                     }
 
-                                    if (Input.GetButton("P1_360_RightBumper"))
+                                    if (Input.GetButton("P1_360_RightBumper") || Input.GetKeyDown(KeyCode.E))
                                     {
                                         //if (MainCameraRoot.transform.localEulerAngles.y < 360.0f && MainCameraRoot.transform.localEulerAngles.y >= 340.0f)
                                         //{
@@ -332,7 +332,7 @@ public class FlyingCam : MonoBehaviour {
                                     }
 
                                     // 줌 인 & 줌 아웃 기능
-                                    if (Input.GetAxis("P1_360_Trigger") > 0.001)
+                                    if (Input.GetAxis("P1_360_Trigger") > 0.001 || Input.GetKeyDown(KeyCode.R))
                                     {
                                         if (ZoomInOut <= 2.9f)
                                         {
@@ -344,7 +344,7 @@ public class FlyingCam : MonoBehaviour {
                                         //StartZoomPos = new Vector3(MainCameraRoot.transform.localPosition.x, StartYPos, MainCameraRoot.transform.localPosition.z);
                                     }
 
-                                    if (Input.GetAxis("P1_360_Trigger") < 0)
+                                    if (Input.GetAxis("P1_360_Trigger") < 0 || Input.GetKeyDown(KeyCode.F))
                                     {
                                         if (ZoomInOut >= -2.9f)
                                         {

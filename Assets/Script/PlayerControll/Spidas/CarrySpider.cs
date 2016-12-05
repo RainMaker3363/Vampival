@@ -410,7 +410,7 @@ public class CarrySpider : MonoBehaviour {
                                         //print(hit.point.y);
                                         this.transform.position = new Vector3(this.transform.position.x, hit.point.y + 3.0f, this.transform.position.z);
 
-                                        if (Input.GetButtonDown("P3_360_BButton") && GameManager.Soul_MP_Parameter >= WebTrapCost && TrapSetOn == true)
+                                        if ((Input.GetButtonDown("P3_360_BButton") || Input.GetKeyDown(KeyCode.Y)) && GameManager.Soul_MP_Parameter >= WebTrapCost && TrapSetOn == true)
                                         {
                                             if (Spider_Web_Trap[NowWebTrapStack].gameObject.activeSelf == false)
                                             {
@@ -444,7 +444,7 @@ public class CarrySpider : MonoBehaviour {
                                 }
 
 
-                                if (Input.GetAxisRaw("P3_360_L_RightStick") >= 0.5f)
+                                if (Input.GetAxisRaw("P3_360_L_RightStick") >= 0.5f || Input.GetKeyDown(KeyCode.L))
                                 {
 
                                     //Debug.Log("RightStick!");
@@ -457,7 +457,7 @@ public class CarrySpider : MonoBehaviour {
                                     this.transform.Rotate(new Vector3(0, 180, 0), 160 * Time.deltaTime);
                                 }
 
-                                if (Input.GetAxisRaw("P3_360_L_RightStick") <= -0.5f)
+                                if (Input.GetAxisRaw("P3_360_L_RightStick") <= -0.5f || Input.GetKeyDown(KeyCode.J))
                                 {
 
                                     //Debug.Log("LeftStick!");
@@ -470,7 +470,7 @@ public class CarrySpider : MonoBehaviour {
                                     this.transform.Rotate(new Vector3(0, -180, 0), 160 * Time.deltaTime);
                                 }
                                 
-                                if (Input.GetAxisRaw("P3_360_R_UpStick") <= -0.5f)
+                                if (Input.GetAxisRaw("P3_360_R_UpStick") <= -0.5f || Input.GetKeyDown(KeyCode.I))
                                 {
 
                                     //Debug.Log("UpStick!");
@@ -494,7 +494,7 @@ public class CarrySpider : MonoBehaviour {
 
                                 }
 
-                                if (Input.GetAxisRaw("P3_360_R_UpStick") >= 0.5f)
+                                if (Input.GetAxisRaw("P3_360_R_UpStick") >= 0.5f || Input.GetKeyDown(KeyCode.K))
                                 {
 
                                     //Debug.Log("DownStick!");

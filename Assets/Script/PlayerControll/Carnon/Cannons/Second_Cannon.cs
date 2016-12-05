@@ -16,6 +16,7 @@ public class Second_Cannon : MonoBehaviour {
 
     //private RaycastHit hit;
 
+    public GameObject Cannon_Indicator;
     public GameObject Dummy;
     public GameObject CrossHair_Icon;
     public GameObject[] Cannons = new GameObject[1];
@@ -36,6 +37,7 @@ public class Second_Cannon : MonoBehaviour {
 
         SelectLight.enabled = false;
         CrossHair_Icon.SetActive(false);
+        Cannon_Indicator.SetActive(false);
         //Cannons[0].transform.LookAt(new Vector3(Dummy.transform.position.x, Cannons[0].transform.position.y, Dummy.transform.position.z));
     }
 
@@ -94,6 +96,7 @@ public class Second_Cannon : MonoBehaviour {
                                         {
                                             SelectLight.enabled = false;
                                             CrossHair_Icon.gameObject.SetActive(false);
+                                            Cannon_Indicator.SetActive(false);
                                         }
                                         break;
 
@@ -101,6 +104,7 @@ public class Second_Cannon : MonoBehaviour {
                                         {
                                             SelectLight.enabled = true;
                                             CrossHair_Icon.gameObject.SetActive(true);
+                                            Cannon_Indicator.SetActive(true);
 
                                             //Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, 100);
                                             //Vector3 direction = new Vector3(hit.normal.x, hit.normal.y * 1, hit.normal.z);
@@ -219,6 +223,7 @@ public class Second_Cannon : MonoBehaviour {
                                         {
                                             SelectLight.enabled = false;
                                             CrossHair_Icon.gameObject.SetActive(false);
+                                            Cannon_Indicator.SetActive(false);
                                         }
                                         break;
 
@@ -226,6 +231,7 @@ public class Second_Cannon : MonoBehaviour {
                                         {
                                             SelectLight.enabled = false;
                                             CrossHair_Icon.gameObject.SetActive(false);
+                                            Cannon_Indicator.SetActive(false);
                                         }
                                         break;
 
@@ -233,6 +239,7 @@ public class Second_Cannon : MonoBehaviour {
                                         {
                                             SelectLight.enabled = false;
                                             CrossHair_Icon.gameObject.SetActive(false);
+                                            Cannon_Indicator.SetActive(false);
                                         }
                                         break;
                                 }
@@ -258,32 +265,32 @@ public class Second_Cannon : MonoBehaviour {
 
                                             // 게임 패드 작업
 
-                                            if (Input.GetAxisRaw("P2_360_R_RightStick") >= 0.5f)
+                                            if (Input.GetAxisRaw("P2_360_R_RightStick") >= 0.5f || Input.GetKeyDown(KeyCode.RightArrow))
                                             {
 
                                                 Debug.Log("RightStick!");
 
                                                 if (RotationPossibleValue <= RotationPossibleMax)
                                                 {
-                                                    RotationPossibleValue += 42.0f * Time.deltaTime;
+                                                    RotationPossibleValue -= 42.0f * Time.deltaTime;
                                                     this.transform.Rotate(new Vector3(0, 0, -90), 60 * Time.deltaTime);
                                                 }
 
                                             }
 
-                                            if (Input.GetAxisRaw("P2_360_R_RightStick") <= -0.5f)
+                                            if (Input.GetAxisRaw("P2_360_R_RightStick") <= -0.5f || Input.GetKeyDown(KeyCode.LeftArrow))
                                             {
 
                                                 Debug.Log("LeftStick!");
 
                                                 if (RotationPossibleValue >= RotationPossibleMin)
                                                 {
-                                                    RotationPossibleValue -= 42.0f * Time.deltaTime;
+                                                    RotationPossibleValue += 42.0f * Time.deltaTime;
                                                     this.transform.Rotate(new Vector3(0, 0, 90), 60 * Time.deltaTime);
                                                 }
                                             }
 
-                                            if (Input.GetAxisRaw("P2_360_L_UpStick") <= -0.5f)
+                                            if (Input.GetAxisRaw("P2_360_L_UpStick") <= -0.5f || Input.GetKeyDown(KeyCode.UpArrow))
                                             {
 
                                                 //Debug.Log("UpStick!");
@@ -298,7 +305,7 @@ public class Second_Cannon : MonoBehaviour {
 
                                             }
 
-                                            if (Input.GetAxisRaw("P2_360_L_UpStick") >= 0.5f)
+                                            if (Input.GetAxisRaw("P2_360_L_UpStick") >= 0.5f || Input.GetKeyDown(KeyCode.DownArrow))
                                             {
 
                                                 //Debug.Log("DownStick!");

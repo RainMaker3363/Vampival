@@ -418,7 +418,7 @@ public class Third_Trajectory : MonoBehaviour {
                                             {
                                                 case CannonWeapon.Normal:
                                                     {
-                                                        if (Input.GetAxis("P2_360_Trigger") > 0.001 && FireReady && (GameManager.Soul_MP_Parameter >= CannonCost))
+                                                        if ((Input.GetAxis("P2_360_Trigger") > 0.001 || Input.GetKeyDown(KeyCode.Space)) && FireReady && (GameManager.Soul_MP_Parameter >= CannonCost))
                                                         {
 
                                                             Debug.Log("Right Trigger!");
@@ -450,7 +450,7 @@ public class Third_Trajectory : MonoBehaviour {
                                                             //Instantiate(CannonBall, this.transform.position, Quaternion.identity);
                                                         }
 
-                                                        if (Input.GetAxis("P2_360_Trigger") < 0 && FireReady && (GameManager.Soul_MP_Parameter >= CannonCost))
+                                                        if ((Input.GetAxis("P2_360_Trigger") < 0 || Input.GetKeyDown(KeyCode.Space)) && FireReady && (GameManager.Soul_MP_Parameter >= CannonCost))
                                                         {
 
                                                             Debug.Log("Left Trigger!");
@@ -495,7 +495,7 @@ public class Third_Trajectory : MonoBehaviour {
 
                                                 case CannonWeapon.Buff:
                                                     {
-                                                        if (Input.GetAxis("P2_360_Trigger") > 0.001 && FireReady && (GameManager.BuffCannonStack > 0))
+                                                        if ((Input.GetAxis("P2_360_Trigger") > 0.001 || Input.GetKeyDown(KeyCode.Space)) && FireReady && (GameManager.BuffCannonStack > 0))
                                                         {
 
                                                             Debug.Log("Right Trigger!");
@@ -528,7 +528,7 @@ public class Third_Trajectory : MonoBehaviour {
                                                             GameManager.BuffCannonStack -= 1;
                                                         }
 
-                                                        if (Input.GetAxis("P2_360_Trigger") < 0 && FireReady && (GameManager.BuffCannonStack > 0))
+                                                        if ((Input.GetAxis("P2_360_Trigger") < 0 || Input.GetKeyDown(KeyCode.Space)) && FireReady && (GameManager.BuffCannonStack > 0))
                                                         {
 
                                                             Debug.Log("Left Trigger!");
@@ -572,14 +572,14 @@ public class Third_Trajectory : MonoBehaviour {
                                             center = (transform.position + targetPoint) * 0.5f;
                                             center.y -= 50.0f + AimInterPol;
 
-                                            if (Input.GetAxisRaw("P2_360_L_UpStick") >= 0.5f)
+                                            if (Input.GetAxisRaw("P2_360_L_UpStick") >= 0.5f || Input.GetKeyDown(KeyCode.DownArrow))
                                             {
 
                                                 if (center.y <= -0.2)
                                                     AimInterPol += 1.0f * Time.deltaTime;
                                             }
 
-                                            if (Input.GetAxisRaw("P2_360_L_UpStick") <= -0.5f)
+                                            if (Input.GetAxisRaw("P2_360_L_UpStick") <= -0.5f || Input.GetKeyDown(KeyCode.UpArrow))
                                             {
 
                                                 if (center.y <= 1)

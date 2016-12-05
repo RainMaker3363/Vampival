@@ -37,7 +37,7 @@ public class UI_Document_Script : MonoBehaviour {
                 {
 
 
-                    this.transform.Rotate(new Vector3(90, 0, 0), 180 * Time.deltaTime);
+                    this.transform.Rotate(new Vector3(0, 0, 90), 180 * Time.deltaTime);
                 }
                 break;
 

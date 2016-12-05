@@ -147,6 +147,7 @@ public class GameManager : MonoBehaviour {
     public Image SoulMP_Parameter_Gage;
     public Image Capture_Parameter_Gage;
     public Image GameOver_BG;
+    public Text BuffSoulStack_Text;
     public GameObject GameVictory_BG;
 
     public GameObject Menu_UI;
@@ -196,7 +197,7 @@ public class GameManager : MonoBehaviour {
 
         Fear_Max = 50.0f;
         
-        Soul_MP_Max = 50.0f;
+        Soul_MP_Max = 80.0f;
         Soul_MP_Parameter = Soul_MP_Max;
 
         
@@ -219,15 +220,15 @@ public class GameManager : MonoBehaviour {
         Elizabat_SonicWave_Ready = true;
         Elizabat_Swarm_Ready = true;
 
-        //Elizabat_Eclipse_Unlock = false;
-        //Elizabat_Decent_Unlock = false;
-        //Elizabat_SonicWave_Unlock = false;
-        //Elizabat_Swarm_Unlock = false;
+        Elizabat_Eclipse_Unlock = false;
+        Elizabat_Decent_Unlock = false;
+        Elizabat_SonicWave_Unlock = false;
+        Elizabat_Swarm_Unlock = false;
 
-        Elizabat_Eclipse_Unlock = true;
-        Elizabat_Decent_Unlock = true;
-        Elizabat_SonicWave_Unlock = true;
-        Elizabat_Swarm_Unlock = true;
+        //Elizabat_Eclipse_Unlock = true;
+        //Elizabat_Decent_Unlock = true;
+        //Elizabat_SonicWave_Unlock = true;
+        //Elizabat_Swarm_Unlock = true;
 
         //===========================================================
         // 스피다스 조작 부분
@@ -415,12 +416,14 @@ public class GameManager : MonoBehaviour {
 
                         if(Capture_Parameter_Gage.fillAmount <= 0.0f)
                         {
-                            Gamestate = GameState.GameEnd;
+                            // 시연을 위해 잠깐 꺼둠
 
-                            GameOver_BG.gameObject.SetActive(true);
+                            //Gamestate = GameState.GameEnd;
+
+                            //GameOver_BG.gameObject.SetActive(true);
                             
-                            //audioSource.clip = GameOverBGM;
-                            audioSource.Stop();
+                            ////audioSource.clip = GameOverBGM;
+                            //audioSource.Stop();
                         }
                         else
                         {
@@ -459,12 +462,24 @@ public class GameManager : MonoBehaviour {
                     if(BuffCannonStack <= 0)
                     {
                         BuffCannonStack = 0;
+                        BuffSoulStack_Text.text = BuffCannonStack.ToString();
+                    }
+                    else
+                    {
+                        BuffSoulStack_Text.text = BuffCannonStack.ToString();
                     }
                     
                     // 승리조건 체크
                     if (EnemyCounter <= 0)
                     {
                         Gamestate = GameState.GameVictory;
+                    }
+                    else
+                    {
+                        if(Input.GetKeyDown(KeyCode.F11))
+                        {
+                            Gamestate = GameState.GameVictory;
+                        }
                     }
 
                     //print("EnemyCounter : " + EnemyCounter);
@@ -567,7 +582,7 @@ public class GameManager : MonoBehaviour {
 
                         case ViewControllMode.GamePad:
                             {
-                                if (Input.GetButtonDown("P2_360_LeftBumper"))
+                                if (Input.GetButtonDown("P2_360_LeftBumper") || Input.GetKeyDown(KeyCode.Alpha1))
                                 {
                                     if (CannonControl_Number > CannonNumber.First)
                                     {
@@ -580,7 +595,7 @@ public class GameManager : MonoBehaviour {
                                     }
 
                                 }
-                                else if (Input.GetButtonDown("P2_360_RightBumper"))
+                                else if (Input.GetButtonDown("P2_360_RightBumper") || Input.GetKeyDown(KeyCode.Alpha2))
                                 {
                                     if (CannonControl_Number < CannonNumber.Fourth)
                                     {
@@ -592,7 +607,7 @@ public class GameManager : MonoBehaviour {
                                     }
                                 }
 
-                                if (Input.GetButtonDown("P2_360_YButton"))
+                                if (Input.GetButtonDown("P2_360_YButton") || Input.GetKeyDown(KeyCode.LeftControl))
                                 {
                                     if (CannonWeapon_Toggle == CannonWeapon.Normal)
                                     {
@@ -607,7 +622,8 @@ public class GameManager : MonoBehaviour {
 
                                 if (Input.GetButtonDown("P1_360_StartButton") ||
                                      Input.GetButtonDown("P2_360_StartButton") ||
-                                     Input.GetButtonDown("P3_360_StartButton"))
+                                     Input.GetButtonDown("P3_360_StartButton") ||
+                                    Input.GetKeyDown(KeyCode.P))
                                 {
                                     if (Gamestate == GameState.GamePause)
                                     {
@@ -630,6 +646,7 @@ public class GameManager : MonoBehaviour {
 
             case GameState.GameVictory:
                 {
+                    audioSource.Pause();
                     GameVictory_BG.SetActive(true);
                 }
                 break;
@@ -637,6 +654,12 @@ public class GameManager : MonoBehaviour {
             case GameState.GameEnd:
                 {
                     //audioSource.Play();
+
+                    //GameOver_BG.gameObject.SetActive(true);
+
+                    ////audioSource.clip = GameOverBGM;
+                    //audioSource.Stop();
+
                     Menu_UI.SetActive(true);
                 }
                 break;
@@ -669,7 +692,8 @@ public class GameManager : MonoBehaviour {
                             {
                                 if (Input.GetButtonDown("P1_360_StartButton") ||
                                     Input.GetButtonDown("P2_360_StartButton") ||
-                                    Input.GetButtonDown("P3_360_StartButton"))
+                                    Input.GetButtonDown("P3_360_StartButton") ||
+                                    Input.GetKeyDown(KeyCode.P))
                                 {
                                     if(Gamestate == GameState.GamePause)
                                     {
