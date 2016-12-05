@@ -270,6 +270,8 @@ public class Third_Cannon : MonoBehaviour
                                             SelectLight.enabled = true;
                                             CrossHair_Icon.gameObject.SetActive(true);
 
+                                            TargetDis = Vector3.Distance(CrossHair_Icon.transform.position, Cannons[0].transform.position);
+
                                             // 게임 패드 작업
 
                                             if (Input.GetAxisRaw("P2_360_R_RightStick") >= 0.5f || Input.GetKeyDown(KeyCode.RightArrow))

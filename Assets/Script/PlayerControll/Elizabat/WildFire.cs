@@ -213,27 +213,27 @@ public class WildFire : MonoBehaviour {
         {
             //print("WildFire Hit");
 
-            if (col != null)
-            {
-                col.enabled = false;
-            }
+            //if (col != null)
+            //{
+            //    col.enabled = false;
+            //}
 
-            if (audio != null)
-            {
-                audio.clip = ExplodeSound;
-                audio.Play();
-            }
+            //if (audio != null)
+            //{
+            //    audio.clip = ExplodeSound;
+            //    audio.Play();
+            //}
 
-            Projectile_Move_On = false;
+            //Projectile_Move_On = false;
 
-            Explode_Particle.gameObject.SetActive(true);
-            Explode_Particle.Play();
+            //Explode_Particle.gameObject.SetActive(true);
+            //Explode_Particle.Play();
 
-            if (Explode_Particle.isStopped == true)
-            {
-                this.gameObject.SetActive(false);
+            //if (Explode_Particle.isStopped == true)
+            //{
+            //    this.gameObject.SetActive(false);
 
-            }
+            //}
             
 
             

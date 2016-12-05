@@ -11,42 +11,60 @@ public class Lobby_Tutorial_MoiveTexture : MonoBehaviour {
     public MovieTexture[] Spidas_Movie;
     public MovieTexture[] Caron_Movie;
 
-    private int NowPlay_Elizabat_Movie;
-    private int NowPlay_Spidas_Movie;
-    private int NowPlay_Caron_Movie;
+    private int NowPlayMovie;
 
 	// Use this for initialization
 	void Start () {
 
-        NowPlay_Elizabat_Movie = Elizabat_Movie.Length;
-        NowPlay_Caron_Movie = Caron_Movie.Length;
-        NowPlay_Spidas_Movie = Spidas_Movie.Length;
+        NowPlayMovie = 0;
 
         SelectChar = LobbyManager.SelectChar;
 
-        switch (SelectChar)
+        for (int i = 0; i < Elizabat_Movie.Length; i++ )
         {
-            case LobbySelectChar.CARON:
-                {
-                    MainMovie.texture = Caron_Movie[0];
-                    Caron_Movie[0].Play();
-                }
-                break;
-
-            case LobbySelectChar.ELIZABAT:
-                {
-                    MainMovie.texture = Elizabat_Movie[0];
-                    Elizabat_Movie[0].Play();
-                }
-                break;
-
-            case LobbySelectChar.SPIDAS:
-                {
-                    MainMovie.texture = Spidas_Movie[0];
-                    Spidas_Movie[0].Play();
-                }
-                break;
+            Elizabat_Movie[i].loop = false;
+            Elizabat_Movie[i].Stop();
         }
+
+        for (int i = 0; i < Spidas_Movie.Length; i++)
+        {
+            Spidas_Movie[i].loop = false;
+            Spidas_Movie[i].Stop();
+        }
+
+        for (int i = 0; i < Caron_Movie.Length; i++)
+        {
+            Caron_Movie[i].loop = false;
+            Caron_Movie[i].Stop();
+        }
+
+        //Spidas_Movie[0].loop = true;
+        //Elizabat_Movie[0].loop = true;
+        //Caron_Movie[0].loop = true;
+
+            switch (SelectChar)
+            {
+                case LobbySelectChar.CARON:
+                    {
+                        MainMovie.texture = Caron_Movie[0];
+                        //Caron_Movie[0].Play();
+                    }
+                    break;
+
+                case LobbySelectChar.ELIZABAT:
+                    {
+                        MainMovie.texture = Elizabat_Movie[0];
+                        //Elizabat_Movie[0].Play();
+                    }
+                    break;
+
+                case LobbySelectChar.SPIDAS:
+                    {
+                        MainMovie.texture = Spidas_Movie[0];
+                        //Spidas_Movie[0].Play();
+                    }
+                    break;
+            }
 
         
         //MainMovie.Play();
@@ -57,74 +75,107 @@ public class Lobby_Tutorial_MoiveTexture : MonoBehaviour {
 	void Update () {
         SelectChar = LobbyManager.SelectChar;
 
-        //switch(SelectChar)
-        //{
-        //    case LobbySelectChar.CARON:
-        //        {
+        if(LobbyManager.Tutorial_On == true)
+        {
+            switch (SelectChar)
+            {
+                case LobbySelectChar.CARON:
+                    {
+                        
+                        if(LobbyManager.MovieChangeOn == false)
+                        {
+                            NowPlayMovie = 0;
+                            Caron_Movie[NowPlayMovie].Stop();
+                            Caron_Movie[NowPlayMovie].Play();
 
+                            LobbyManager.MovieChangeOn = true;
+                        }
 
-        //            if(MainMovie.isPlaying == false)
-        //            {
-        //                MainMovie.Stop();
+                        if (Caron_Movie[NowPlayMovie].isPlaying == false)
+                        {
+                            Caron_Movie[NowPlayMovie].Stop();
 
-        //                if (NowPlay_Caron_Movie < Caron_Movie.Length)
-        //                {
-        //                    NowPlay_Caron_Movie++;
-        //                }
-        //                else
-        //                {
-        //                    NowPlay_Caron_Movie = 0;
-        //                }
+                            if (NowPlayMovie < Caron_Movie.Length - 1)
+                            {
+                                NowPlayMovie++;
+                            }
+                            else
+                            {
+                                NowPlayMovie = 0;
+                            }
 
-        //                MainMovie.texture = Caron_Movie[NowPlay_Caron_Movie];
-        //                MainMovie.Play();
-        //            }
-        //        }
-        //        break;
+                            MainMovie.texture = Caron_Movie[NowPlayMovie];
+                            Caron_Movie[NowPlayMovie].Play();
+                        }
+                    }
+                    break;
 
-        //    case LobbySelectChar.ELIZABAT:
-        //        {
+                case LobbySelectChar.ELIZABAT:
+                    {
 
-        //            if (MainMovie.isPlaying == false)
-        //            {
-        //                MainMovie.Stop();
+                        //Elizabat_Movie[NowPlayMovie].Play();
+                        if (LobbyManager.MovieChangeOn == false)
+                        {
+                            NowPlayMovie = 0;
 
-        //                if (NowPlay_Elizabat_Movie < Elizabat_Movie.Length)
-        //                {
-        //                    NowPlay_Elizabat_Movie++;
-        //                }
-        //                else
-        //                {
-        //                    NowPlay_Elizabat_Movie = 0;
-        //                }
+                            Elizabat_Movie[NowPlayMovie].Stop();
+                            Elizabat_Movie[NowPlayMovie].Play();
 
-        //                MainMovie.texture = Elizabat_Movie[NowPlay_Elizabat_Movie];
-        //                MainMovie.Play();
-        //            }
-        //        }
-        //        break;
+                            LobbyManager.MovieChangeOn = true;
+                        }
 
-        //    case LobbySelectChar.SPIDAS:
-        //        {
+                        if (Elizabat_Movie[NowPlayMovie].isPlaying == false)
+                        {
+                            Elizabat_Movie[NowPlayMovie].Stop();
 
-        //            if (MainMovie.isPlaying == false)
-        //            {
-        //                MainMovie.Stop();
+                            if (NowPlayMovie < Elizabat_Movie.Length - 1)
+                            {
+                                NowPlayMovie++;
+                            }
+                            else
+                            {
+                                NowPlayMovie = 0;
+                            }
 
-        //                if (NowPlay_Spidas_Movie < Spidas_Movie.Length)
-        //                {
-        //                    NowPlay_Spidas_Movie++;
-        //                }
-        //                else
-        //                {
-        //                    NowPlay_Spidas_Movie = 0;
-        //                }
+                            MainMovie.texture = Elizabat_Movie[NowPlayMovie];
+                            Elizabat_Movie[NowPlayMovie].Play();
+                        }
+                    }
+                    break;
 
-        //                MainMovie.texture = Spidas_Movie[NowPlay_Spidas_Movie];
-        //                MainMovie.Play();
-        //            }
-        //        }
-        //        break;
-        //}
+                case LobbySelectChar.SPIDAS:
+                    {
+                        //Spidas_Movie[NowPlayMovie].Play();
+                        if (LobbyManager.MovieChangeOn == false)
+                        {
+                            NowPlayMovie = 0;
+
+                            Spidas_Movie[NowPlayMovie].Stop();
+                            Spidas_Movie[NowPlayMovie].Play();
+
+                            LobbyManager.MovieChangeOn = true;
+                        }
+
+                        if (Spidas_Movie[NowPlayMovie].isPlaying == false)
+                        {
+                            Spidas_Movie[NowPlayMovie].Stop();
+
+                            if (NowPlayMovie < Spidas_Movie.Length - 1)
+                            {
+                                NowPlayMovie++;
+                            }
+                            else
+                            {
+                                NowPlayMovie = 0;
+                            }
+
+                            MainMovie.texture = Spidas_Movie[NowPlayMovie];
+                            Spidas_Movie[NowPlayMovie].Play();
+                        }
+                    }
+                    break;
+            }
+        }
+        
 	}
 }

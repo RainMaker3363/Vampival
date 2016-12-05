@@ -141,6 +141,7 @@ public class GameManager : MonoBehaviour {
     // 사운드
     private AudioSource audioSource;
     public AudioClip InGameBGM;
+    public AudioClip InGameVictoryBGM;
     //public AudioClip GameOverBGM;
 
     // 게임 내의 UI들
@@ -298,6 +299,7 @@ public class GameManager : MonoBehaviour {
         {
             audioSource = GetComponent<AudioSource>();
             audioSource.clip = InGameBGM;
+            audioSource.Play();
         }
 
 
@@ -479,6 +481,10 @@ public class GameManager : MonoBehaviour {
                         if(Input.GetKeyDown(KeyCode.F11))
                         {
                             Gamestate = GameState.GameVictory;
+                            
+                            audioSource.loop = false;
+                            audioSource.clip = InGameVictoryBGM;
+                            audioSource.Play();
                         }
                     }
 
@@ -570,6 +576,8 @@ public class GameManager : MonoBehaviour {
                                     {
                                         GamePauseOn = false;
                                         Gamestate = GameState.GameStart;
+                                        
+                                        audioSource.Play();
                                     }
                                     else
                                     {
@@ -646,7 +654,18 @@ public class GameManager : MonoBehaviour {
 
             case GameState.GameVictory:
                 {
-                    audioSource.Pause();
+                    //audioSource.Stop();
+                    //audioSource.loop = false;
+                    //audioSource.Stop();
+
+                    //audioSource.clip = InGameVictoryBGM;
+                    //audioSource.Play();
+                    //if(audioSource.isPlaying == false)
+                    //{
+                        
+                    //}
+                    
+
                     GameVictory_BG.SetActive(true);
                 }
                 break;

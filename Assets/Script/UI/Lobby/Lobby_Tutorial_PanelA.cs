@@ -3,14 +3,14 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.EventSystems;
 
-public class Lobby_Tutorial_Button : MonoBehaviour, IPointerEnterHandler, ISelectHandler, IPointerExitHandler, IPointerDownHandler, IDeselectHandler
+public class Lobby_Tutorial_PanelA : MonoBehaviour, IPointerEnterHandler, ISelectHandler, IPointerExitHandler, IPointerDownHandler, IDeselectHandler
 {
     private ViewControllMode ViewMode;
 
     public AudioClip SceneChange;
     public SoundManager SDManager;
 
-    public Image Select_BG;
+    //public Image Select_BG;
     public GameObject TutorialPanel;
 
     //public GameObject MissionInfoPanel;
@@ -19,7 +19,7 @@ public class Lobby_Tutorial_Button : MonoBehaviour, IPointerEnterHandler, ISelec
     void Start()
     {
         TutorialPanel.SetActive(false);
-        Select_BG.color = new Color32(255, 255, 255, 0);
+        //Select_BG.color = new Color32(255, 255, 255, 0);
         ViewMode = ViewControllMode.Mouse;
     }
 
@@ -50,7 +50,7 @@ public class Lobby_Tutorial_Button : MonoBehaviour, IPointerEnterHandler, ISelec
 
             case ViewControllMode.GamePad:
                 {
-                    Select_BG.color = new Color32(255, 255, 255, 255);
+                    //Select_BG.color = new Color32(255, 255, 255, 255);
 
                     if (TutorialPanel.activeSelf == false)
                     {
@@ -58,7 +58,7 @@ public class Lobby_Tutorial_Button : MonoBehaviour, IPointerEnterHandler, ISelec
                         {
                             SDManager.PlaySfx(SceneChange);
                             TutorialPanel.SetActive(true);
-                            //LobbyManager.Tutorial_On = true;
+                            LobbyManager.Tutorial_On = true;
                         }
                     }
                 }
@@ -84,7 +84,7 @@ public class Lobby_Tutorial_Button : MonoBehaviour, IPointerEnterHandler, ISelec
 
             case ViewControllMode.GamePad:
                 {
-                    Select_BG.color = new Color32(255, 255, 255, 0);
+                    //Select_BG.color = new Color32(255, 255, 255, 0);
                 }
                 break;
         }
@@ -100,7 +100,7 @@ public class Lobby_Tutorial_Button : MonoBehaviour, IPointerEnterHandler, ISelec
                     SDManager.PlaySfx(SceneChange);
 
                     TutorialPanel.SetActive(true);
-                    //LobbyManager.Tutorial_On = true;
+                    LobbyManager.Tutorial_On = true;
                     //AutoFade.LoadLevel("Stage01", 0.1f, 0.1f, Color.black);
                 }
                 break;
@@ -113,7 +113,7 @@ public class Lobby_Tutorial_Button : MonoBehaviour, IPointerEnterHandler, ISelec
                         {
                             SDManager.PlaySfx(SceneChange);
                             TutorialPanel.SetActive(true);
-                            //LobbyManager.Tutorial_On = true;
+                            LobbyManager.Tutorial_On = true;
                         }
                     }
 
@@ -126,12 +126,12 @@ public class Lobby_Tutorial_Button : MonoBehaviour, IPointerEnterHandler, ISelec
     public void OnPointerEnter(PointerEventData eventData)
     {
         //SDManager.PlaySfx(TestAudio);
-        Select_BG.color = new Color32(255, 255, 255, 255);
+        //Select_BG.color = new Color32(255, 255, 255, 255);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         //SDManager.PlaySfx(TestAudio);
-        Select_BG.color = new Color32(255, 255, 255, 0);
+        //Select_BG.color = new Color32(255, 255, 255, 0);
     }
 }

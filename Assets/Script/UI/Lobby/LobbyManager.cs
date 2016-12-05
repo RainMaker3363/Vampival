@@ -18,7 +18,8 @@ public class LobbyManager : MonoBehaviour {
     static public bool Tutorial_On;
     static public bool Skill_Button_On;
     static public bool Controll_Button_On;
-
+    static public int PlayMovieNumber;
+    static public bool MovieChangeOn;
     
     //public Image Character_Portrait;
     public Text Character_Controll_Text;
@@ -43,6 +44,9 @@ public class LobbyManager : MonoBehaviour {
 
         Skill_Button_On = false;
         Controll_Button_On = true;
+        MovieChangeOn = false;
+
+        PlayMovieNumber = 0;
     }
 	
 	// Update is called once per frame
@@ -207,10 +211,12 @@ public class LobbyManager : MonoBehaviour {
         if (SelectChar > LobbySelectChar.CARON)
         {
             SelectChar--;
+            MovieChangeOn = false;
         }
         else
         {
             SelectChar = LobbySelectChar.SPIDAS;
+            MovieChangeOn = false;
         }
     }
 
@@ -219,10 +225,12 @@ public class LobbyManager : MonoBehaviour {
         if (SelectChar < LobbySelectChar.SPIDAS)
         {
             SelectChar++;
+            MovieChangeOn = false;
         }
         else
         {
             SelectChar = LobbySelectChar.CARON;
+            MovieChangeOn = false;
         }
     }
 }

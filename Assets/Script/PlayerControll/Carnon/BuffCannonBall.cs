@@ -387,33 +387,33 @@ public class BuffCannonBall : MonoBehaviour {
     {
         if (collision.transform.tag.Equals("Enemy") == true)
         {
-            //_rotate = false;
-            //Destroy(this.gameObject, 0.2f);
+            ////_rotate = false;
+            ////Destroy(this.gameObject, 0.2f);
 
-            if (Explode_Particle != null)
-            {
-                Explode_Particle.gameObject.SetActive(true);
+            //if (Explode_Particle != null)
+            //{
+            //    Explode_Particle.gameObject.SetActive(true);
 
-                Explode_Particle.Play();
-            }
+            //    Explode_Particle.Play();
+            //}
 
             
-            Audio.Play();
+            //Audio.Play();
 
-            //Explode_Particle.transform.position = collision.transform.position;
+            ////Explode_Particle.transform.position = collision.transform.position;
 
-            if (SphereCol != null)
-            {
-                SphereCol.enabled = false;
-            }
+            //if (SphereCol != null)
+            //{
+            //    SphereCol.enabled = false;
+            //}
 
-            if (Explode_Particle != null)
-            {
-                if (Explode_Particle.isStopped == true)
-                {
-                    this.gameObject.SetActive(false);
-                }
-            }
+            //if (Explode_Particle != null)
+            //{
+            //    if (Explode_Particle.isStopped == true)
+            //    {
+            //        this.gameObject.SetActive(false);
+            //    }
+            //}
             
         }
 

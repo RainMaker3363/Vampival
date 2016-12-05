@@ -10,6 +10,7 @@ public class Lobby_Tutorial_Cancel_Button : MonoBehaviour, IPointerEnterHandler,
     public AudioClip SceneChange;
     public SoundManager SDManager;
 
+    public GameObject TutorialPanelA;
     public GameObject TutorialPanel;
 
     //public GameObject MissionInfoPanel;
@@ -56,6 +57,7 @@ public class Lobby_Tutorial_Cancel_Button : MonoBehaviour, IPointerEnterHandler,
                         {
                             SDManager.PlaySfx(SceneChange);
                             TutorialPanel.SetActive(false);
+                            TutorialPanelA.SetActive(false);
                             LobbyManager.Tutorial_On = false;
                         }
                     }
@@ -100,6 +102,7 @@ public class Lobby_Tutorial_Cancel_Button : MonoBehaviour, IPointerEnterHandler,
 
                     SDManager.PlaySfx(SceneChange);
                     TutorialPanel.SetActive(false);
+                    TutorialPanelA.SetActive(false);
                     LobbyManager.Tutorial_On = false;
                 }
                 break;
@@ -112,6 +115,7 @@ public class Lobby_Tutorial_Cancel_Button : MonoBehaviour, IPointerEnterHandler,
                         {
                             SDManager.PlaySfx(SceneChange);
                             TutorialPanel.SetActive(false);
+                            TutorialPanelA.SetActive(false);
                             LobbyManager.Tutorial_On = false;
                         }
                     }
