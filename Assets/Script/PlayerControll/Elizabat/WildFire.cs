@@ -141,8 +141,8 @@ public class WildFire : MonoBehaviour {
         Explode_Particle.gameObject.SetActive(false);
         //Explode_Particle.Pause();
 
-        print("TargetPos : " + TargetPos.transform.position);
-        print("StartPos : " + StartPos.transform.position);
+        //print("TargetPos : " + TargetPos.transform.position);
+        //print("StartPos : " + StartPos.transform.position);
 
         StartCoroutine(DeadOrAliveRoutin(1));
     }

@@ -1311,7 +1311,7 @@ public class Elizabat : MonoBehaviour {
                                     // 스킬 시전 좌표 이동
                                     if (targetPosOnScreen.x > 0)
                                     {
-                                        if (Input.GetAxisRaw("P1_360_R_RightStick") <= -0.5f || Input.GetKeyDown(KeyCode.F))
+                                        if (Input.GetAxisRaw("P1_360_R_RightStick") <= -0.5f || Input.GetKey(KeyCode.F))
                                         {
 
                                             //Debug.Log("LeftStick!");
@@ -1321,7 +1321,7 @@ public class Elizabat : MonoBehaviour {
 
                                     if (targetPosOnScreen.x < Screen.width)
                                     {
-                                        if (Input.GetAxisRaw("P1_360_R_RightStick") >= 0.5f || Input.GetKeyDown(KeyCode.H))
+                                        if (Input.GetAxisRaw("P1_360_R_RightStick") >= 0.5f || Input.GetKey(KeyCode.H))
                                         {
 
                                             //Debug.Log("RightStick!");
@@ -1331,7 +1331,7 @@ public class Elizabat : MonoBehaviour {
 
                                     if (targetPosOnScreen.y > 0)
                                     {
-                                        if (Input.GetAxisRaw("P1_360_R_UpStick") >= 0.5f || Input.GetKeyDown(KeyCode.F))
+                                        if (Input.GetAxisRaw("P1_360_R_UpStick") >= 0.5f || Input.GetKey(KeyCode.G))
                                         {
 
                                             //Debug.Log("DownStick!");
@@ -1343,7 +1343,7 @@ public class Elizabat : MonoBehaviour {
                                     if (targetPosOnScreen.y < Screen.height)
                                     {
 
-                                        if (Input.GetAxisRaw("P1_360_R_UpStick") <= -0.5f || Input.GetKeyDown(KeyCode.T))
+                                        if (Input.GetAxisRaw("P1_360_R_UpStick") <= -0.5f || Input.GetKey(KeyCode.T))
                                         {
 
                                             //Debug.Log("UpStick!");

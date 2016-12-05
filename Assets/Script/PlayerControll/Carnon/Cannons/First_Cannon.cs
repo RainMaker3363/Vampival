@@ -153,7 +153,7 @@ public class First_Cannon : MonoBehaviour {
                                             }
                                             if (Input.GetKey(KeyCode.UpArrow))
                                             {
-                                                if (TargetDis >= 36.0f)
+                                                if (TargetDis >= 34.0f)
                                                 {
                                                     Cannons[0].transform.Rotate(new Vector3(90, 0, 0), 7 * Time.deltaTime);
 
@@ -168,37 +168,37 @@ public class First_Cannon : MonoBehaviour {
                                     case ViewControllMode.GamePad:
                                         {
                                             // 게임 패드 작업
-                                            if (Input.GetAxisRaw("P2_360_R_RightStick") >= 0.5f || Input.GetKeyDown(KeyCode.RightArrow))
+                                            if (Input.GetAxisRaw("P2_360_R_RightStick") >= 0.5f || Input.GetKey(KeyCode.RightArrow))
                                             {
 
                                                 //Debug.Log("RightStick!");
-
-                                                if (RotationPossibleValue <= RotationPossibleMax)
-                                                {
-                                                    RotationPossibleValue += 42.0f * Time.deltaTime;
-                                                    this.transform.Rotate(new Vector3(0, 0, 90), 60 * Time.deltaTime);
-                                                }
-                                                
-                                            }
-
-                                            if (Input.GetAxisRaw("P2_360_R_RightStick") <= -0.5f || Input.GetKeyDown(KeyCode.LeftArrow))
-                                            {
-
-                                               // Debug.Log("LeftStick!");
 
                                                 if (RotationPossibleValue >= RotationPossibleMin)
                                                 {
                                                     RotationPossibleValue -= 42.0f * Time.deltaTime;
                                                     this.transform.Rotate(new Vector3(0, 0, -90), 60 * Time.deltaTime);
                                                 }
+                                                
                                             }
 
-                                            if (Input.GetAxisRaw("P2_360_L_UpStick") <= -0.5f || Input.GetKeyDown(KeyCode.UpArrow))
+                                            if (Input.GetAxisRaw("P2_360_R_RightStick") <= -0.5f || Input.GetKey(KeyCode.LeftArrow))
+                                            {
+
+                                               // Debug.Log("LeftStick!");
+
+                                                if (RotationPossibleValue <= RotationPossibleMax)
+                                                {
+                                                    RotationPossibleValue += 42.0f * Time.deltaTime;
+                                                    this.transform.Rotate(new Vector3(0, 0, 90), 60 * Time.deltaTime);
+                                                }
+                                            }
+
+                                            if (Input.GetAxisRaw("P2_360_L_UpStick") <= -0.5f || Input.GetKey(KeyCode.UpArrow))
                                             {
 
                                                 //Debug.Log("UpStick!");
 
-                                                if (TargetDis >= 36.0f)
+                                                if (TargetDis >= 34.0f)
                                                 {
                                                     Cannons[0].transform.Rotate(new Vector3(90, 0, 0), 7 * Time.deltaTime);
 
@@ -208,7 +208,7 @@ public class First_Cannon : MonoBehaviour {
 
                                             }
 
-                                            if (Input.GetAxisRaw("P2_360_L_UpStick") >= 0.5f || Input.GetKeyDown(KeyCode.DownArrow))
+                                            if (Input.GetAxisRaw("P2_360_L_UpStick") >= 0.5f || Input.GetKey(KeyCode.DownArrow))
                                             {
 
                                                // Debug.Log("DownStick!");

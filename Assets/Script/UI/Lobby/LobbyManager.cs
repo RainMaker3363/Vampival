@@ -107,9 +107,9 @@ public class LobbyManager : MonoBehaviour {
         {
             case LobbySelectChar.CARON:
                 {
-                    Character_Portraits[0].sprite = Portraits[2];
+                    Character_Portraits[0].sprite = Portraits[1];
                     Character_Portraits[1].sprite = Portraits[0];
-                    Character_Portraits[2].sprite = Portraits[1];
+                    Character_Portraits[2].sprite = Portraits[2];
 
                     Portrait_BackLights[0].SetActive(false);
                     Portrait_BackLights[1].SetActive(true);

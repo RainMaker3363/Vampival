@@ -62,8 +62,15 @@ public class GameManager : MonoBehaviour {
 
     // 현재 어느 적이 리스폰이 되어야할지의 여부를 체크해준다.
     private float LevelChecker;
-    private bool RespawnCheck;
-    private int Level;
+    //private bool RespawnCheck;
+    //private int Level;
+    private int Now_East_RespawnCount;
+    private int Now_South_RespawnCount;
+    private int Now_North_RespawnCount;
+    private int Now_West_RespawnCount;
+
+    private bool SecondRespawnOn;
+    private bool FirstRespawnOn;
 
     // 스테이지 마다의 적군 처치 승리조건
     static public int EnemyCounter;
@@ -242,7 +249,7 @@ public class GameManager : MonoBehaviour {
         // 카로 조작 부분
         //===========================================================
 
-        BuffCannonStack = 50;
+        BuffCannonStack = 5;
 
         //===========================================================
         // 적들 리스폰 조작 (Stage01)
@@ -279,8 +286,15 @@ public class GameManager : MonoBehaviour {
         Respawns_North_Enemies[0].SetActive(true);
 
         LevelChecker = 0.0f;
-        Level = 0;
-        RespawnCheck = false;
+        //Level = 0;
+        //RespawnCheck = false;
+        Now_East_RespawnCount = 1;
+        Now_North_RespawnCount = 1;
+        Now_South_RespawnCount = 1;
+        Now_West_RespawnCount = 1;
+
+        SecondRespawnOn = false;
+        FirstRespawnOn = false;
 
         for(int i = 0; i<WaveMeters.Length; i++)
         {
@@ -374,7 +388,12 @@ public class GameManager : MonoBehaviour {
                     if (SoundChecker == false)
                     {
                         SoundChecker = true;
-                        audioSource.volume += 0.2f;
+                        //audioSource.volume += 0.2f;
+                    }
+
+                    if (audioSource.isPlaying == false)
+                    {
+                        audioSource.Play();
                     }
                     //if (InGameBGM != null)
                     //{
@@ -492,16 +511,56 @@ public class GameManager : MonoBehaviour {
 
                     // 리스폰 타이머
                     LevelChecker += Time.deltaTime;
+                    //print(LevelChecker);
 
-                    if (((LevelChecker / 14.0f) >= 1 ||
-                        (LevelChecker / 22.0f) >= 1) &&
-                        RespawnCheck == false)
+                    if ((((int)LevelChecker / 14) >= 1 ||
+                        ((int)LevelChecker / 22) >= 1))
                     {
-                        Stage01RespawnEnemies((int)(LevelChecker / 14),
-                            (int)(LevelChecker / 14),
-                            (int)(LevelChecker / 14),
-                            (int)(LevelChecker / 22));
+                        //print("RespawnTime");
+
+                        if (((int)LevelChecker / 14) >= Now_North_RespawnCount)
+                        {
+
+                            FirstRespawnOn = true;
+                            print("RespawnTime 14");
+                        }
+
+                        if (((int)LevelChecker / 22) >= Now_East_RespawnCount)
+                        {
+                            SecondRespawnOn = true;
+                            print("RespawnTime 22");
+                        }
+                        
                     }
+
+                    if(FirstRespawnOn == true)
+                    {
+                        Stage01RespawnEnemies(0, 0, 0, Now_North_RespawnCount);
+                        Now_North_RespawnCount++;
+
+                        FirstRespawnOn = false;
+                    }
+                    
+                    if (SecondRespawnOn == true)
+                    {
+                        Stage01RespawnEnemies(Now_East_RespawnCount, Now_South_RespawnCount, Now_West_RespawnCount, 0);
+
+                        Now_East_RespawnCount++;
+                        Now_South_RespawnCount++;
+                        Now_West_RespawnCount++;
+
+                        SecondRespawnOn = false;
+                    }
+
+                    //if (((LevelChecker / 14.0f) >= 1 ||
+                    //    (LevelChecker / 22.0f) >= 1) &&
+                    //    RespawnCheck == true)
+                    //{
+                    //    Stage01RespawnEnemies((int)(LevelChecker / 14),
+                    //        (int)(LevelChecker / 14),
+                    //        (int)(LevelChecker / 14),
+                    //        (int)(LevelChecker / 22));
+                    //}
 
                     // 리스폰 타이머
                     //if (RespawnTimer <= 0.0f)
@@ -664,7 +723,10 @@ public class GameManager : MonoBehaviour {
                     //{
                         
                     //}
-                    
+                    if(Input.anyKeyDown)
+                    {
+                        AutoFade.LoadLevel("StageLobbyScene", 0.3f, 0.01f, Color.black);
+                    }
 
                     GameVictory_BG.SetActive(true);
                 }
@@ -744,6 +806,8 @@ public class GameManager : MonoBehaviour {
             case 1:
                 {
                     Respawns_East_Enemies[1].SetActive(true);
+                    
+                    Respawns_East_Enemies[1].GetComponent<EnemySpawnChecker>().Revive();
                 }
                 break;
 
@@ -751,6 +815,7 @@ public class GameManager : MonoBehaviour {
                 {
                     WaveMeters[1].SetActive(true);
                     Respawns_East_Enemies[2].SetActive(true);
+                    Respawns_East_Enemies[2].GetComponent<EnemySpawnChecker>().Revive();
                 }
                 break;
 
@@ -764,6 +829,8 @@ public class GameManager : MonoBehaviour {
                 {
                     WaveMeters[2].SetActive(true);
                     Respawns_East_Enemies[3].SetActive(true);
+                    Respawns_East_Enemies[3].GetComponent<EnemySpawnChecker>().Revive();
+                    //Respawns_East_Enemies[3].GetComponent<EnemySpawnChecker>().Revive();
                 }
                 break;
 
@@ -779,6 +846,9 @@ public class GameManager : MonoBehaviour {
 
                     Respawns_East_Enemies[4].SetActive(true);
                     Respawns_East_Enemies[5].SetActive(true);
+
+                    Respawns_East_Enemies[4].GetComponent<EnemySpawnChecker>().Revive();
+                    Respawns_East_Enemies[5].GetComponent<EnemySpawnChecker>().Revive();
                 }
                 break;
 
@@ -786,6 +856,9 @@ public class GameManager : MonoBehaviour {
                 {
                     Respawns_East_Enemies[6].SetActive(true);
                     Respawns_East_Enemies[7].SetActive(true);
+
+                    Respawns_East_Enemies[6].GetComponent<EnemySpawnChecker>().Revive();
+                    Respawns_East_Enemies[7].GetComponent<EnemySpawnChecker>().Revive();
                 }
                 break;
 
@@ -799,6 +872,9 @@ public class GameManager : MonoBehaviour {
                 {
                     Respawns_East_Enemies[8].SetActive(true);
                     Respawns_East_Enemies[9].SetActive(true);
+
+                    Respawns_East_Enemies[8].GetComponent<EnemySpawnChecker>().Revive();
+                    Respawns_East_Enemies[9].GetComponent<EnemySpawnChecker>().Revive();
                 }
                 break;
 
@@ -815,12 +891,14 @@ public class GameManager : MonoBehaviour {
             case 1:
                 {
                     Respawn_South_Enemies[1].SetActive(true);
+                    Respawn_South_Enemies[1].GetComponent<EnemySpawnChecker>().Revive();
                 }
                 break;
 
             case 2:
                 {
                     Respawn_South_Enemies[2].SetActive(true);
+                    Respawn_South_Enemies[2].GetComponent<EnemySpawnChecker>().Revive();
                 }
                 break;
 
@@ -828,12 +906,17 @@ public class GameManager : MonoBehaviour {
                 {
                     Respawn_South_Enemies[3].SetActive(true);
                     Respawn_South_Enemies[4].SetActive(true);
+
+                    Respawn_South_Enemies[3].GetComponent<EnemySpawnChecker>().Revive();
+                    Respawn_South_Enemies[4].GetComponent<EnemySpawnChecker>().Revive();
                 }
                 break;
 
             case 4:
                 {
                     Respawn_South_Enemies[5].SetActive(true);
+
+                    Respawn_South_Enemies[5].GetComponent<EnemySpawnChecker>().Revive();
                 }
                 break;
 
@@ -841,6 +924,9 @@ public class GameManager : MonoBehaviour {
                 {
                     Respawn_South_Enemies[6].SetActive(true);
                     Respawn_South_Enemies[7].SetActive(true);
+
+                    Respawn_South_Enemies[6].GetComponent<EnemySpawnChecker>().Revive();
+                    Respawn_South_Enemies[7].GetComponent<EnemySpawnChecker>().Revive();
                 }
                 break;
 
@@ -848,6 +934,9 @@ public class GameManager : MonoBehaviour {
                 {
                     Respawn_South_Enemies[8].SetActive(true);
                     Respawn_South_Enemies[9].SetActive(true);
+
+                    Respawn_South_Enemies[8].GetComponent<EnemySpawnChecker>().Revive();
+                    Respawn_South_Enemies[9].GetComponent<EnemySpawnChecker>().Revive();
                 }
                 break;
 
@@ -855,6 +944,9 @@ public class GameManager : MonoBehaviour {
                 {
                     Respawn_South_Enemies[10].SetActive(true);
                     Respawn_South_Enemies[11].SetActive(true);
+
+                    Respawn_South_Enemies[10].GetComponent<EnemySpawnChecker>().Revive();
+                    Respawn_South_Enemies[11].GetComponent<EnemySpawnChecker>().Revive();
                 }
                 break;
 
@@ -862,6 +954,9 @@ public class GameManager : MonoBehaviour {
                 {
                     Respawn_South_Enemies[12].SetActive(true);
                     Respawn_South_Enemies[13].SetActive(true);
+
+                    Respawn_South_Enemies[12].GetComponent<EnemySpawnChecker>().Revive();
+                    Respawn_South_Enemies[13].GetComponent<EnemySpawnChecker>().Revive();
                 }
                 break;
 
@@ -869,6 +964,9 @@ public class GameManager : MonoBehaviour {
                 {
                     Respawn_South_Enemies[14].SetActive(true);
                     Respawn_South_Enemies[15].SetActive(true);
+
+                    Respawn_South_Enemies[14].GetComponent<EnemySpawnChecker>().Revive();
+                    Respawn_South_Enemies[15].GetComponent<EnemySpawnChecker>().Revive();
                 }
                 break;
 
@@ -885,18 +983,21 @@ public class GameManager : MonoBehaviour {
             case 1:
                 {
                     Respawns_West_Enemies[0].SetActive(true);
+                    Respawns_West_Enemies[0].GetComponent<EnemySpawnChecker>().Revive();
                 }
                 break;
 
             case 2:
                 {
                     Respawns_West_Enemies[1].SetActive(true);
+                    Respawns_West_Enemies[1].GetComponent<EnemySpawnChecker>().Revive();
                 }
                 break;
 
             case 3:
                 {
                     Respawns_West_Enemies[2].SetActive(true);
+                    Respawns_West_Enemies[2].GetComponent<EnemySpawnChecker>().Revive();
                 }
                 break;
 
@@ -910,12 +1011,17 @@ public class GameManager : MonoBehaviour {
                 {
                     Respawns_West_Enemies[3].SetActive(true);
                     Respawns_West_Enemies[4].SetActive(true);
+
+                    Respawns_West_Enemies[3].GetComponent<EnemySpawnChecker>().Revive();
+                    Respawns_West_Enemies[4].GetComponent<EnemySpawnChecker>().Revive();
                 }
                 break;
 
             case 6:
                 {
                     Respawns_West_Enemies[5].SetActive(true);
+
+                    Respawns_West_Enemies[5].GetComponent<EnemySpawnChecker>().Revive();
                 }
                 break;
 
@@ -929,6 +1035,9 @@ public class GameManager : MonoBehaviour {
                 {
                     Respawns_West_Enemies[6].SetActive(true);
                     Respawns_West_Enemies[7].SetActive(true);
+
+                    Respawns_West_Enemies[6].GetComponent<EnemySpawnChecker>().Revive();
+                    Respawns_West_Enemies[7].GetComponent<EnemySpawnChecker>().Revive();
                 }
                 break;
 
@@ -936,6 +1045,9 @@ public class GameManager : MonoBehaviour {
                 {
                     Respawns_West_Enemies[8].SetActive(true);
                     Respawns_West_Enemies[9].SetActive(true);
+
+                    Respawns_West_Enemies[8].GetComponent<EnemySpawnChecker>().Revive();
+                    Respawns_West_Enemies[9].GetComponent<EnemySpawnChecker>().Revive();
                 }
                 break;
 
@@ -958,18 +1070,21 @@ public class GameManager : MonoBehaviour {
             case 2:
                 {
                     Respawns_North_Enemies[1].SetActive(true);
+                    Respawns_North_Enemies[1].GetComponent<EnemySpawnChecker>().Revive();
                 }
                 break;
 
             case 3:
                 {
                     Respawns_North_Enemies[2].SetActive(true);
+                    Respawns_North_Enemies[2].GetComponent<EnemySpawnChecker>().Revive();
                 }
                 break;
 
             case 4:
                 {
                     Respawns_North_Enemies[3].SetActive(true);
+                    Respawns_North_Enemies[3].GetComponent<EnemySpawnChecker>().Revive();
                 }
                 break;
 
@@ -989,6 +1104,9 @@ public class GameManager : MonoBehaviour {
                 {
                     Respawns_North_Enemies[4].SetActive(true);
                     Respawns_North_Enemies[5].SetActive(true);
+
+                    Respawns_North_Enemies[4].GetComponent<EnemySpawnChecker>().Revive();
+                    Respawns_North_Enemies[5].GetComponent<EnemySpawnChecker>().Revive();
                 }
                 break;
 
@@ -996,6 +1114,9 @@ public class GameManager : MonoBehaviour {
                 {
                     Respawns_North_Enemies[6].SetActive(true);
                     Respawns_North_Enemies[7].SetActive(true);
+
+                    Respawns_North_Enemies[6].GetComponent<EnemySpawnChecker>().Revive();
+                    Respawns_North_Enemies[7].GetComponent<EnemySpawnChecker>().Revive();
                 }
                 break;
 
@@ -1003,6 +1124,9 @@ public class GameManager : MonoBehaviour {
                 {
                     Respawns_North_Enemies[8].SetActive(true);
                     Respawns_North_Enemies[9].SetActive(true);
+
+                    Respawns_North_Enemies[8].GetComponent<EnemySpawnChecker>().Revive();
+                    Respawns_North_Enemies[9].GetComponent<EnemySpawnChecker>().Revive();
                 }
                 break;
 
@@ -1013,8 +1137,8 @@ public class GameManager : MonoBehaviour {
                 break;
         }
 
-        // 리스폰 체크를 풀어준다.
-        RespawnCheck = false;
+        //// 리스폰 체크를 풀어준다.
+        //RespawnCheck = false;
     }
 
     void RespawnEnemy(int Level, int Type, int Location)

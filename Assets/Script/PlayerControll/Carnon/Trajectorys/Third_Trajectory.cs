@@ -447,6 +447,15 @@ public class Third_Trajectory : MonoBehaviour {
                                                                 NowCannonIdx++;
                                                                 //CannonCost--;
                                                             }
+
+                                                            if (GameManager.Soul_MP_Parameter <= 0.0f)
+                                                            {
+                                                                GameManager.Soul_MP_Parameter = 0.0f;
+                                                            }
+                                                            else
+                                                            {
+                                                                GameManager.Soul_MP_Parameter -= CannonCost;
+                                                            }
                                                             //Instantiate(CannonBall, this.transform.position, Quaternion.identity);
                                                         }
 
@@ -572,14 +581,14 @@ public class Third_Trajectory : MonoBehaviour {
                                             center = (transform.position + targetPoint) * 0.5f;
                                             center.y -= 50.0f + AimInterPol;
 
-                                            if (Input.GetAxisRaw("P2_360_L_UpStick") >= 0.5f || Input.GetKeyDown(KeyCode.DownArrow))
+                                            if (Input.GetAxisRaw("P2_360_L_UpStick") >= 0.5f || Input.GetKey(KeyCode.DownArrow))
                                             {
 
                                                 if (center.y <= -0.2)
                                                     AimInterPol += 1.0f * Time.deltaTime;
                                             }
 
-                                            if (Input.GetAxisRaw("P2_360_L_UpStick") <= -0.5f || Input.GetKeyDown(KeyCode.UpArrow))
+                                            if (Input.GetAxisRaw("P2_360_L_UpStick") <= -0.5f || Input.GetKey(KeyCode.UpArrow))
                                             {
 
                                                 if (center.y <= 1)

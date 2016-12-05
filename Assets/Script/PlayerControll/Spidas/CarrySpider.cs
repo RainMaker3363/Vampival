@@ -444,7 +444,7 @@ public class CarrySpider : MonoBehaviour {
                                 }
 
 
-                                if (Input.GetAxisRaw("P3_360_L_RightStick") >= 0.5f || Input.GetKeyDown(KeyCode.L))
+                                if (Input.GetAxisRaw("P3_360_L_RightStick") >= 0.5f || Input.GetKey(KeyCode.L))
                                 {
 
                                     //Debug.Log("RightStick!");
@@ -456,8 +456,15 @@ public class CarrySpider : MonoBehaviour {
 
                                     this.transform.Rotate(new Vector3(0, 180, 0), 160 * Time.deltaTime);
                                 }
+                                else if (Input.GetKeyUp(KeyCode.L))
+                                {
+                                    if (ani != null)
+                                    {
+                                        ani.SetBool("Walk", false);
+                                    }
+                                }
 
-                                if (Input.GetAxisRaw("P3_360_L_RightStick") <= -0.5f || Input.GetKeyDown(KeyCode.J))
+                                if (Input.GetAxisRaw("P3_360_L_RightStick") <= -0.5f || Input.GetKey(KeyCode.J))
                                 {
 
                                     //Debug.Log("LeftStick!");
@@ -469,8 +476,15 @@ public class CarrySpider : MonoBehaviour {
 
                                     this.transform.Rotate(new Vector3(0, -180, 0), 160 * Time.deltaTime);
                                 }
-                                
-                                if (Input.GetAxisRaw("P3_360_R_UpStick") <= -0.5f || Input.GetKeyDown(KeyCode.I))
+                                else if (Input.GetKeyUp(KeyCode.J))
+                                {
+                                    if (ani != null)
+                                    {
+                                        ani.SetBool("Walk", false);
+                                    }
+                                }
+
+                                if (Input.GetAxisRaw("P3_360_R_UpStick") <= -0.5f || Input.GetKey(KeyCode.I))
                                 {
 
                                     //Debug.Log("UpStick!");
@@ -493,8 +507,15 @@ public class CarrySpider : MonoBehaviour {
                                     }
 
                                 }
+                                else if (Input.GetKeyUp(KeyCode.I))
+                                {
+                                    if (ani != null)
+                                    {
+                                        ani.SetBool("Walk", false);
+                                    }
+                                }
 
-                                if (Input.GetAxisRaw("P3_360_R_UpStick") >= 0.5f || Input.GetKeyDown(KeyCode.K))
+                                if (Input.GetAxisRaw("P3_360_R_UpStick") >= 0.5f || Input.GetKey(KeyCode.K))
                                 {
 
                                     //Debug.Log("DownStick!");
@@ -514,6 +535,13 @@ public class CarrySpider : MonoBehaviour {
                                     if (!Physics.Raycast(EndObjectChecker.transform.position, (StartObjectChecker.transform.position - EndObjectChecker.transform.position).normalized, out Objecthit, 10.0f, ObjectLayerMask))
                                     {
                                         transform.Translate(new Vector3(0, 0, -5.0f) * normalMoveSpeed * Time.deltaTime);
+                                    }
+                                }
+                                else if (Input.GetKeyUp(KeyCode.K))
+                                {
+                                    if (ani != null)
+                                    {
+                                        ani.SetBool("Walk", false);
                                     }
                                 }
 
