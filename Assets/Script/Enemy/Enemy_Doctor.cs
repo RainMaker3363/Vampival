@@ -511,7 +511,7 @@ public class Enemy_Doctor : MonoBehaviour
                                 else
                                 {
                                     HP_bar.gameObject.SetActive(true);
-                                    HP_bar.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 2.2f, this.transform.position.z);
+                                    HP_bar.transform.position = new Vector3(this.transform.position.x, this.transform.position.y + 6.0f, this.transform.position.z);
                                     HP_bar.fillAmount = HP / 10.0f;
 
                                     CameraMarkingOn = true;

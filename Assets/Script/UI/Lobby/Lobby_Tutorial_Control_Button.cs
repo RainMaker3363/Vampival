@@ -43,6 +43,16 @@ public class Lobby_Tutorial_Control_Button : MonoBehaviour, IPointerEnterHandler
             case ViewControllMode.GamePad:
                 {
                     //Select_BG.color = new Color32(255, 255, 255, 255);
+
+                    if (Input.GetButtonDown("P1_360_AButton"))
+                    {
+                        SDManager.PlaySfx(SceneChange);
+
+                        LobbyManager.Skill_Button_On = false;
+                        LobbyManager.Controll_Button_On = true;
+
+                        LobbyManager.ExplainMovieOn();
+                    }
                 }
                 break;
         }
@@ -85,6 +95,8 @@ public class Lobby_Tutorial_Control_Button : MonoBehaviour, IPointerEnterHandler
 
                     LobbyManager.Skill_Button_On = false;
                     LobbyManager.Controll_Button_On = true;
+
+                    LobbyManager.ExplainMovieOn();
                 }
                 break;
 
