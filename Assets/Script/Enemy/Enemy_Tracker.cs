@@ -5,7 +5,7 @@ using System.Collections;
 public class Enemy_Tracker : MonoBehaviour
 {
 
-    NavMeshAgent Agent;
+    UnityEngine.AI.NavMeshAgent Agent;
 
     //private Rigidbody rigid;
 
@@ -165,7 +165,7 @@ public class Enemy_Tracker : MonoBehaviour
 
         if (Agent == null)
         {
-            Agent = GetComponent<NavMeshAgent>();
+            Agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         }
         else
         {
@@ -240,7 +240,7 @@ public class Enemy_Tracker : MonoBehaviour
 
         if (Agent == null)
         {
-            Agent = GetComponent<NavMeshAgent>();
+            Agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         }
         else
         {

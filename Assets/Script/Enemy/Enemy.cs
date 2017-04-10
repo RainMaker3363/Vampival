@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Enemy : MonoBehaviour {
 
-    NavMeshAgent Agent;
+    UnityEngine.AI.NavMeshAgent Agent;
 
     public GameObject Corpse;
     public GameObject Target;
@@ -25,7 +25,7 @@ public class Enemy : MonoBehaviour {
 
     void Awake()
     {
-        Agent = GetComponent<NavMeshAgent>();
+        Agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         
         EnemySpot.gameObject.SetActive(false);
         EnemyArrow.gameObject.SetActive(false);

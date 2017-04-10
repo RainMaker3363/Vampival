@@ -4,7 +4,7 @@ using System.Collections;
 
 public class Enemy_Militia : MonoBehaviour {
 
-    NavMeshAgent Agent;
+    UnityEngine.AI.NavMeshAgent Agent;
 
     //private Rigidbody rigid;
 
@@ -163,7 +163,7 @@ public class Enemy_Militia : MonoBehaviour {
 
         if (Agent == null)
         {
-            Agent = GetComponent<NavMeshAgent>();
+            Agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         }
         else
         {
@@ -238,7 +238,7 @@ public class Enemy_Militia : MonoBehaviour {
 
         if (Agent == null)
         {
-            Agent = GetComponent<NavMeshAgent>();
+            Agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         }
         else
         {

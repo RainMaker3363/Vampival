@@ -4,7 +4,7 @@ using System.Collections;
 
 public class PlayerTest : MonoBehaviour {
 
-    NavMeshAgent Agent;
+    UnityEngine.AI.NavMeshAgent Agent;
     CharacterController Controller;
     public Transform Target;
 
@@ -21,7 +21,7 @@ public class PlayerTest : MonoBehaviour {
     void Awake()
     {
         Controller = GetComponent<CharacterController>();
-        Agent = GetComponent<NavMeshAgent>();
+        Agent = GetComponent<UnityEngine.AI.NavMeshAgent>();
         EnemySpot.gameObject.SetActive(true);
         EnemyArrow.gameObject.SetActive(false);
 
