@@ -795,41 +795,50 @@ public class GameManager : MonoBehaviour {
                     {
                         case ViewControllMode.Mouse:
                             {
-                                if (Input.GetKeyDown(KeyCode.Escape))
+                                if (UIManager.Document_Open == false)
                                 {
-                                    if (Gamestate == GameState.GamePause)
+                                    if (Input.GetKeyDown(KeyCode.Escape))
                                     {
-                                        GamePauseOn = false;
-                                        Gamestate = GameState.GameStart;
-                                    }
-                                    else
-                                    {
-                                        GamePauseOn = true;
-                                        Gamestate = GameState.GamePause;
+                                        if (Gamestate == GameState.GamePause)
+                                        {
+                                            GamePauseOn = false;
+                                            Gamestate = GameState.GameStart;
+                                        }
+                                        else
+                                        {
+                                            GamePauseOn = true;
+                                            Gamestate = GameState.GamePause;
+                                        }
                                     }
                                 }
+
 
                             }
                             break;
 
                         case ViewControllMode.GamePad:
                             {
-                                if (Input.GetButtonDown("P1_360_StartButton") ||
-                                    Input.GetButtonDown("P2_360_StartButton") ||
-                                    Input.GetButtonDown("P3_360_StartButton") ||
-                                    Input.GetKeyDown(KeyCode.Escape))
+                                if (UIManager.Document_Open == false)
                                 {
-                                    if(Gamestate == GameState.GamePause)
+                                    if (Input.GetButtonDown("P1_360_StartButton") ||
+                                        Input.GetButtonDown("P2_360_StartButton") ||
+                                        Input.GetButtonDown("P3_360_StartButton") ||
+                                        Input.GetKeyDown(KeyCode.Escape))
                                     {
-                                        GamePauseOn = false;
-                                        Gamestate = GameState.GameStart;
-                                    }
-                                    else
-                                    {
-                                        GamePauseOn = true;
-                                        Gamestate = GameState.GamePause;
+                                        if (Gamestate == GameState.GamePause)
+                                        {
+                                            GamePauseOn = false;
+                                            Gamestate = GameState.GameStart;
+                                        }
+                                        else
+                                        {
+                                            GamePauseOn = true;
+                                            Gamestate = GameState.GamePause;
+                                        }
                                     }
                                 }
+
+
                             }
                             break;
                     }

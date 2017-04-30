@@ -26,6 +26,8 @@ public class UIManager : MonoBehaviour {
 
     // 현재 몇번째 문서를 읽었는지의 정보
     static public int Document_Number;
+    // 문서를 보고있는지의 여부
+    public static bool Document_Open;
     private bool DocumentRespawnChecker;
 
 	// Use this for initialization
@@ -40,6 +42,8 @@ public class UIManager : MonoBehaviour {
         Document_Number = -1;
         DocumentRespawnChecker = false;
         //Doc_Num = 0;
+
+        Document_Open = false;
 
         Main_BG.SetActive(false);
 
@@ -89,6 +93,8 @@ public class UIManager : MonoBehaviour {
                     {
                         audioSource.enabled = true;
 
+                        //Document_Open = true;
+
                         Minimap.SetActive(false);
                         Ok_Button.SetActive(true);
                         Document_BG.gameObject.SetActive(true);
@@ -97,7 +103,7 @@ public class UIManager : MonoBehaviour {
                         if (Input.GetKeyDown(KeyCode.Return) || Input.GetButtonDown("P1_360_AButton"))
                         {
                             GameManager.Gamestate = GameState.GameStart;
-
+                            Document_Open = false;
 
                             audioSource.enabled = false;
 
