@@ -5,6 +5,7 @@ using System.Collections;
 public class UIManager : MonoBehaviour {
 
     private GameState Gamestate;
+    private ViewControllMode ViewMode;
 
     // 읽은 문서의 고유 번호
     //private int Doc_Num;
@@ -19,6 +20,9 @@ public class UIManager : MonoBehaviour {
     public GameObject[] Documents_Icon;
 
     public GameObject Main_BG;
+    public GameObject[] Explain_Icon;
+    public Sprite[] PC_Explain_Icons;
+    public Sprite[] Pad_Explain_Icons;
 
     // 현재 몇번째 문서를 읽었는지의 정보
     static public int Document_Number;
@@ -27,6 +31,8 @@ public class UIManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         Gamestate = GameManager.Gamestate;
+        ViewMode = GameManager.ViewMode;
+
         audioSource = GetComponent<AudioSource>();
         audioSource.clip = Diary_BGM;
         audioSource.enabled = false;
@@ -35,7 +41,9 @@ public class UIManager : MonoBehaviour {
         DocumentRespawnChecker = false;
         //Doc_Num = 0;
 
-        if(GameManager.FirstBloodCheck == false)
+        Main_BG.SetActive(false);
+
+        if (GameManager.FirstBloodCheck == false)
         {
             Documents_Icon[1].SetActive(false);
         }
@@ -44,6 +52,26 @@ public class UIManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         Gamestate = GameManager.Gamestate;
+        ViewMode = GameManager.ViewMode;
+
+        switch(ViewMode)
+        {
+            case ViewControllMode.Mouse:
+                {
+                    Explain_Icon[0].GetComponent<Image>().sprite = PC_Explain_Icons[0];
+                    Explain_Icon[1].GetComponent<Image>().sprite = PC_Explain_Icons[1];
+                    Ok_Button.GetComponent<Image>().sprite = PC_Explain_Icons[0];
+                }
+                break;
+
+            case ViewControllMode.GamePad:
+                {
+                    Explain_Icon[0].GetComponent<Image>().sprite = Pad_Explain_Icons[0];
+                    Explain_Icon[1].GetComponent<Image>().sprite = Pad_Explain_Icons[1];
+                    Ok_Button.GetComponent<Image>().sprite = Pad_Explain_Icons[2];
+                }
+                break;
+        }
 
         switch (Gamestate)
         {

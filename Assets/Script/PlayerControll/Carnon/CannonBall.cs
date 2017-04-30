@@ -82,6 +82,10 @@ public class CannonBall : MonoBehaviour {
         layermask = (1 << LayerMask.NameToLayer("LayObjectCheck"));
         //layermask = (((1 << LayerMask.NameToLayer("LayCastIn")) | (1 << LayerMask.NameToLayer("LayObjectCheck"))));
 
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Projectile"), LayerMask.NameToLayer("LayObjectCheck"), true);
+        //Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Projectile"), LayerMask.NameToLayer("LayCastIn"), true);
+        
+
         //Explode_Particle.gameObject.SetActive(false);
         Explode_Particle.Stop();
 
@@ -467,5 +471,58 @@ public class CannonBall : MonoBehaviour {
                 
         }
 
+        //if (collision.gameObject.layer == LayerMask.NameToLayer("LayObjectCheck"))
+        //{
+        //    //_rotate = false;
+        //    //Destroy(this.gameObject, 0.2f);
+
+        //    Debug.Log("LayObjectCheck");
+
+        //    Explode_Particle.gameObject.SetActive(true);
+
+        //    Explode_Particle.Play();
+
+        //    Audio.Play();
+
+        //    //Explode_Particle.transform.position = collision.transform.position;
+
+        //    if (SphereCol != null)
+        //    {
+        //        SphereCol.enabled = false;
+        //    }
+
+        //    if (Explode_Particle.isStopped == true)
+        //    {
+        //        this.gameObject.SetActive(false);
+        //    }
+
+        //}
+
+        //if (collision.gameObject.layer == LayerMask.NameToLayer("LayCastIn"))
+        //{
+        //    //_rotate = false;
+        //    //Destroy(this.gameObject, 0.2f);
+
+        //    Debug.Log("LayCastIn");
+
+        //    Explode_Particle.gameObject.SetActive(true);
+
+        //    Explode_Particle.Play();
+
+        //    Audio.Play();
+
+        //    //Explode_Particle.transform.position = collision.transform.position;
+
+        //    if (SphereCol != null)
+        //    {
+        //        SphereCol.enabled = false;
+        //    }
+
+        //    if (Explode_Particle.isStopped == true)
+        //    {
+        //        this.gameObject.SetActive(false);
+        //    }
+
+        //}
     }
 }

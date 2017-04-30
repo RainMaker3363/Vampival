@@ -154,7 +154,7 @@ public class GameManager : MonoBehaviour {
     // 게임 내의 UI들
     public Image SoulMP_Parameter_Gage;
     public Image Capture_Parameter_Gage;
-    public Image GameOver_BG;
+    public GameObject GameOver_BG;
     public Text BuffSoulStack_Text;
     public GameObject GameVictory_BG;
 
@@ -180,6 +180,11 @@ public class GameManager : MonoBehaviour {
 
     private float Capture_Meter;
     private float Capture_Max;
+
+    // 맨 처음 시작할때 숫자를 세는 타이머
+    private float StartTimer;
+    // 맨 처음 시작할때 표기할 텍스트
+    public GameObject StartWait_UI;
 
     private bool SoundChecker;
 
@@ -327,8 +332,11 @@ public class GameManager : MonoBehaviour {
         FirstBloodCheck = false;
         FirstBloodPos = Vector3.zero;
 
-        //Gamestate = GameState.GameIntro;
-        Gamestate = GameState.GameStart;
+        StartTimer = 5.0f;
+        StartWait_UI.SetActive(true);
+
+        Gamestate = GameState.GameIntro;
+        //Gamestate = GameState.GameStart;
         ViewMode = ViewControllMode.Mouse;
         CannonControl_Number = CannonNumber.First;
         CannonWeapon_Toggle = CannonWeapon.Normal;
@@ -362,13 +370,25 @@ public class GameManager : MonoBehaviour {
         {
             case GameState.GameIntro:
                 {
-                    if (InGameBGM != null)
+                    //if (InGameBGM != null)
+                    //{
+                    //    if (audioSource.isPlaying == false)
+                    //    {
+                    //        audioSource.volume -= 0.2f;
+                    //        audioSource.Play();
+                    //    }
+                    //}
+
+                    if(StartTimer <= 0.0f)
                     {
-                        if (audioSource.isPlaying == false)
-                        {
-                            audioSource.volume -= 0.2f;
-                            audioSource.Play();
-                        }
+                        Gamestate = GameState.GameStart;
+                        StartWait_UI.SetActive(false);
+                        Main_UI.SetActive(true);
+                    }
+                    else
+                    {
+                        StartTimer -= Time.deltaTime;
+                        StartWait_UI.SetActive(true);
                     }
                 }
                 break;
@@ -439,12 +459,13 @@ public class GameManager : MonoBehaviour {
                         {
                             // 시연을 위해 잠깐 꺼둠
 
-                            //Gamestate = GameState.GameEnd;
+                            Gamestate = GameState.GameEnd;
 
                             //GameOver_BG.gameObject.SetActive(true);
-                            
-                            ////audioSource.clip = GameOverBGM;
-                            //audioSource.Stop();
+                            //GameOver_BG.SetActive(true);
+
+                            //audioSource.clip = GameOverBGM;
+                            audioSource.Stop();
                         }
                         else
                         {
@@ -629,14 +650,27 @@ public class GameManager : MonoBehaviour {
                                     
                                 }
 
-                                if (Input.GetKeyDown(KeyCode.P))
+                                //if (Input.GetKeyDown(KeyCode.P))
+                                //{
+                                //    if (Gamestate == GameState.GamePause)
+                                //    {
+                                //        GamePauseOn = false;
+                                //        Gamestate = GameState.GameStart;
+
+                                //        audioSource.Play();
+                                //    }
+                                //    else
+                                //    {
+                                //        GamePauseOn = true;
+                                //        Gamestate = GameState.GamePause;
+                                //    }
+                                //}
+                                if (Input.GetKeyDown(KeyCode.Escape))
                                 {
                                     if (Gamestate == GameState.GamePause)
                                     {
                                         GamePauseOn = false;
                                         Gamestate = GameState.GameStart;
-                                        
-                                        audioSource.Play();
                                     }
                                     else
                                     {
@@ -690,7 +724,7 @@ public class GameManager : MonoBehaviour {
                                 if (Input.GetButtonDown("P1_360_StartButton") ||
                                      Input.GetButtonDown("P2_360_StartButton") ||
                                      Input.GetButtonDown("P3_360_StartButton") ||
-                                    Input.GetKeyDown(KeyCode.P))
+                                    Input.GetKeyDown(KeyCode.Escape))
                                 {
                                     if (Gamestate == GameState.GamePause)
                                     {
@@ -728,6 +762,7 @@ public class GameManager : MonoBehaviour {
                         AutoFade.LoadLevel("StageLobbyScene", 0.3f, 0.01f, Color.black);
                     }
 
+                    Main_UI.SetActive(false);
                     GameVictory_BG.SetActive(true);
                 }
                 break;
@@ -738,10 +773,17 @@ public class GameManager : MonoBehaviour {
 
                     //GameOver_BG.gameObject.SetActive(true);
 
+
                     ////audioSource.clip = GameOverBGM;
                     //audioSource.Stop();
+                    if (Input.anyKeyDown)
+                    {
+                        AutoFade.LoadLevel("StageLobbyScene", 0.3f, 0.01f, Color.black);
+                    }
 
-                    Menu_UI.SetActive(true);
+                    Main_UI.SetActive(false);
+                    GameOver_BG.SetActive(true);
+                    //Menu_UI.SetActive(true);
                 }
                 break;
 
@@ -753,7 +795,7 @@ public class GameManager : MonoBehaviour {
                     {
                         case ViewControllMode.Mouse:
                             {
-                                if (Input.GetKeyDown(KeyCode.P))
+                                if (Input.GetKeyDown(KeyCode.Escape))
                                 {
                                     if (Gamestate == GameState.GamePause)
                                     {
@@ -766,6 +808,7 @@ public class GameManager : MonoBehaviour {
                                         Gamestate = GameState.GamePause;
                                     }
                                 }
+
                             }
                             break;
 
@@ -774,7 +817,7 @@ public class GameManager : MonoBehaviour {
                                 if (Input.GetButtonDown("P1_360_StartButton") ||
                                     Input.GetButtonDown("P2_360_StartButton") ||
                                     Input.GetButtonDown("P3_360_StartButton") ||
-                                    Input.GetKeyDown(KeyCode.P))
+                                    Input.GetKeyDown(KeyCode.Escape))
                                 {
                                     if(Gamestate == GameState.GamePause)
                                     {

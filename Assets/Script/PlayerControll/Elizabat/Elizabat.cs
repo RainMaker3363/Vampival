@@ -68,6 +68,12 @@ public class Elizabat : MonoBehaviour {
     public Image[] Skill_Decent_Commands;
     public Image[] Skill_Swarm_Commands;
 
+    // 0번이 PC
+    // 1번이 Pad
+    public Sprite[] PC_Skill_Icons;
+    public Sprite[] Pad_Skill_Icons;
+
+    public GameObject Skill_Cancel_Button;
     public Sprite[] Command_Arrows;
     public GameObject TimeClock;
     public Text ClockTimer;
@@ -283,6 +289,29 @@ public class Elizabat : MonoBehaviour {
 
         ViewMode = GameManager.ViewMode;
         Gamestate = GameManager.Gamestate;
+
+        switch(ViewMode)
+        {
+            case ViewControllMode.GamePad:
+                {
+                    Skill_Decent_Icon.GetComponent<Image>().sprite = Pad_Skill_Icons[2];
+                    Skill_Eclipse_Icon.GetComponent<Image>().sprite = Pad_Skill_Icons[1];
+                    Skill_SonicWave_Icon.GetComponent<Image>().sprite = Pad_Skill_Icons[0];
+                    Skill_Swarm_Icon.GetComponent<Image>().sprite = Pad_Skill_Icons[3];
+                }
+                break;
+
+            case ViewControllMode.Mouse:
+                {
+
+                    Skill_Decent_Icon.GetComponent<Image>().sprite = PC_Skill_Icons[2];
+                    Skill_Eclipse_Icon.GetComponent<Image>().sprite = PC_Skill_Icons[1];
+                    Skill_SonicWave_Icon.GetComponent<Image>().sprite = PC_Skill_Icons[0];
+                    Skill_Swarm_Icon.GetComponent<Image>().sprite = PC_Skill_Icons[3];
+                }
+                break;
+
+        }
 
         switch (Gamestate)
         {
@@ -676,8 +705,9 @@ public class Elizabat : MonoBehaviour {
                                     
 
                                     targetPosOnScreen = Camera.main.WorldToScreenPoint(CameraChecker.transform.position);
+                                    Skill_Cancel_Button.SetActive(true);
 
-                                    
+
 
                                     if (Physics.Raycast(this.transform.position, (Elizabat_Interpol.transform.position - this.transform.position).normalized * 300.0f, out hit, Mathf.Infinity, layermask))
                                     {
@@ -835,6 +865,10 @@ public class Elizabat : MonoBehaviour {
                                     CommandInputStart(NowSkillChecking);
 
                                     //TimeClock.SetActive(true);
+                                }
+                                else
+                                {
+                                    Skill_Cancel_Button.SetActive(false);
                                 }
  
                             }
@@ -1282,7 +1316,7 @@ public class Elizabat : MonoBehaviour {
                                     
 
                                     targetPosOnScreen = Camera.main.WorldToScreenPoint(CameraChecker.transform.position);
-
+                                    Skill_Cancel_Button.SetActive(true);
 
                                     if (Physics.Raycast(this.transform.position, (Elizabat_Interpol.transform.position - this.transform.position).normalized * 300.0f, out hit, Mathf.Infinity, layermask))
                                     {
@@ -1437,6 +1471,10 @@ public class Elizabat : MonoBehaviour {
                                     //TimeClock.SetActive(true);
 
 
+                                }
+                                else
+                                {
+                                    Skill_Cancel_Button.SetActive(false);
                                 }
                                 //rotationY = Mathf.Clamp(rotationY, -90, 90);
 

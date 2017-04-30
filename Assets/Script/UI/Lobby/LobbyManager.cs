@@ -43,6 +43,9 @@ public class LobbyManager : MonoBehaviour {
     public GameObject[] Portrait_BackLights;
     public Image[] Character_Portraits;
 
+    public Image[] PC_Cancel_Buttons;
+    public Sprite[] CancelButons;
+
 	void Awake()
     {
         SelectChar = LobbySelectChar.CARON;
@@ -69,6 +72,26 @@ public class LobbyManager : MonoBehaviour {
                 ViewMode = ViewControllMode.GamePad;
         }
 
+        switch (ViewMode)
+        {
+            case ViewControllMode.Mouse:
+                {
+                    PC_Cancel_Buttons[0].sprite = CancelButons[0];
+                    PC_Cancel_Buttons[1].sprite = CancelButons[0];
+                    PC_Cancel_Buttons[2].sprite = CancelButons[0];
+                }
+                break;
+
+            case ViewControllMode.GamePad:
+                {
+                    PC_Cancel_Buttons[0].sprite = CancelButons[1];
+                    PC_Cancel_Buttons[1].sprite = CancelButons[1];
+                    PC_Cancel_Buttons[2].sprite = CancelButons[1];
+
+                }
+                break;
+        }
+
         if (Tutorial_On == true)
         {
             switch (ViewMode)
@@ -81,6 +104,7 @@ public class LobbyManager : MonoBehaviour {
 
                 case ViewControllMode.GamePad:
                     {
+
                         if (Input.GetButton("P1_360_LeftBumper"))
                         {
                             if (SelectChar > LobbySelectChar.CARON)

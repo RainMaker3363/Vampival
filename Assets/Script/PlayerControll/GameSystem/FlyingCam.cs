@@ -21,20 +21,21 @@ public class FlyingCam : MonoBehaviour {
     private float ZoomInOut;
     private float StartYPos;
     private Vector3 StartZoomPos;
+    private Vector3 StartPos;
 
     private bool JoyPadZoomInOut;
 
     //private float rotationX = 0.0f;
     //private float rotationY = 0.0f;
 
-    //private float CameraMoveMinX = -5.0f;
-    //private float CameraMoveMinY = -5.0f;
-    //private float CameraMoveMaxX = 5.0f;
-    //private float CameraMoveMaxY = 5.0f;
+    private float CameraMoveMinX = -20.0f;
+    private float CameraMoveMaxX = 20.0f;
+    private float CameraMoveMinY = -20.0f;
+    private float CameraMoveMaxY = 20.0f;
 
     //private float CameraMovingPoint = 1.0f;
-    //private float NowCurrentCoordX = 0.0f;
-    //private float NowCurrentCoordY = 0.0f;
+    private float NowCurrentCoordX = 0.0f;
+    private float NowCurrentCoordY = 0.0f;
 
     private GameState Gamestate;
     private ViewControllMode ViewMode;
@@ -49,10 +50,18 @@ public class FlyingCam : MonoBehaviour {
         Gamestate = GameManager.Gamestate;
         ViewMode = GameManager.ViewMode;
 
-
+        StartPos = MainCameraRoot.transform.position;
         StartYPos = MainCameraRoot.transform.position.y;
         StartZoomPos = MainCameraRoot.transform.position;
         ZoomInOut = 0.0f;
+
+        CameraMoveMinX = -20.0f;
+        CameraMoveMaxX = 20.0f;
+        CameraMoveMinY = -20.0f;
+        CameraMoveMaxY = 20.0f;
+
+        NowCurrentCoordX = 0.0f;
+        NowCurrentCoordY = 0.0f;
 
         JoyPadZoomInOut = false;
         
@@ -86,7 +95,187 @@ public class FlyingCam : MonoBehaviour {
         {
             case GameState.GameIntro:
                 {
+                    switch (ViewMode)
+                    {
+                        case ViewControllMode.Mouse:
+                            {
+                                if ((NowCurrentCoordX <= CameraMoveMaxX))
+                                {
+                                    if (Input.GetKey(KeyCode.A))
+                                    {
+                                        MainCameraRoot.transform.Translate(new Vector3(3.3f, 0, 0) * normalMoveSpeed * Time.deltaTime);
 
+                                        NowCurrentCoordX += (5.0f * Time.deltaTime);
+
+                                    }
+                                }
+
+                                if ((NowCurrentCoordX >= CameraMoveMinX))
+                                {
+                                    if (Input.GetKey(KeyCode.D))
+                                    {
+                                        MainCameraRoot.transform.Translate(new Vector3(-3.3f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+
+
+                                        NowCurrentCoordX -= (5.0f * Time.deltaTime);
+                                    }
+                                }
+
+                                if ((NowCurrentCoordY >= CameraMoveMinY))
+                                {
+                                    if (Input.GetKey(KeyCode.W))
+                                    {
+
+                                        MainCameraRoot.transform.Translate(new Vector3(0, -4.2f, 0) * normalMoveSpeed * Time.deltaTime);
+
+                                        NowCurrentCoordY -= (5.0f * Time.deltaTime);
+                                    }
+                                }
+
+                                if ((NowCurrentCoordY <= CameraMoveMaxY))
+                                {
+                                    if (Input.GetKey(KeyCode.S))
+                                    {
+
+                                        MainCameraRoot.transform.Translate(new Vector3(0, 4.2f, 0) * normalMoveSpeed * Time.deltaTime);
+
+                                        NowCurrentCoordY += (5.0f * Time.deltaTime);
+                                    }
+                                }
+
+                                if (Input.GetKey(KeyCode.Q))
+                                {
+
+                                    MainCameraRoot.transform.Rotate(new Vector3(0, 0, -1), 50 * Time.deltaTime);
+                                }
+
+                                if (Input.GetKey(KeyCode.E))
+                                {
+                                    MainCameraRoot.transform.Rotate(new Vector3(0, 0, 1), 50 * Time.deltaTime);
+                                }
+
+                                // 줌 인 & 아웃 기능 구현
+                                if (Input.GetKey(KeyCode.R))
+                                {
+                                    if (ZoomInOut <= 2.9f)
+                                    {
+                                        ZoomInOut += 2.8f * Time.deltaTime;
+
+
+                                        MainCameraRoot.transform.Translate(new Vector3(0, 0, 48f) * Time.deltaTime);
+                                    }
+
+                                }
+
+                                if (Input.GetKey(KeyCode.F))
+                                {
+                                    if (ZoomInOut >= -2.9f)
+                                    {
+                                        ZoomInOut -= 2.8f * Time.deltaTime;
+
+                                        MainCameraRoot.transform.Translate(new Vector3(0, 0, -48f) * Time.deltaTime);
+                                    }
+                                }
+
+                                if (Input.GetKey(KeyCode.P))
+                                {
+                                    MainCameraRoot.transform.position = StartPos;
+                                    NowCurrentCoordX = 0.0f;
+                                    NowCurrentCoordY = 0.0f;
+                                }
+                            }
+                            break;
+
+                        case ViewControllMode.GamePad:
+                            {
+                                if ((NowCurrentCoordX <= CameraMoveMaxX))
+                                {
+                                    if (Input.GetKey(KeyCode.A) || Input.GetAxisRaw("P1_360_L_RightStick") <= -0.5f)
+                                    {
+                                        MainCameraRoot.transform.Translate(new Vector3(3.3f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+
+                                        NowCurrentCoordX += (5.0f * Time.deltaTime);
+
+                                    }
+                                }
+
+                                if ((NowCurrentCoordX >= CameraMoveMinX))
+                                {
+                                    if (Input.GetKey(KeyCode.D) || Input.GetAxisRaw("P1_360_L_RightStick") >= 0.5f)
+                                    {
+                                        MainCameraRoot.transform.Translate(new Vector3(-3.3f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+
+                                        NowCurrentCoordX -= (5.0f * Time.deltaTime);
+
+                                    }
+                                }
+
+                                if ((NowCurrentCoordY >= CameraMoveMinY))
+                                {
+                                    if (Input.GetKey(KeyCode.W) || Input.GetAxisRaw("P1_360_L_UpStick") <= -0.5f)
+                                    {
+
+                                        MainCameraRoot.transform.Translate(new Vector3(0, -4.2f, 0) * normalMoveSpeed * Time.deltaTime);
+
+                                        NowCurrentCoordY -= (5.0f * Time.deltaTime);
+
+                                    }
+                                }
+
+                                if ((NowCurrentCoordY <= CameraMoveMaxY))
+                                {
+                                    if (Input.GetKey(KeyCode.S) || Input.GetAxisRaw("P1_360_L_UpStick") >= 0.5f)
+                                    {
+
+                                        MainCameraRoot.transform.Translate(new Vector3(0, 4.2f, 0) * normalMoveSpeed * Time.deltaTime);
+
+                                        NowCurrentCoordY += (5.0f * Time.deltaTime);
+                                    }
+                                }
+
+                                // 회전 기능
+                                if (Input.GetButton("P1_360_LeftBumper") || Input.GetKey(KeyCode.Q))
+                                {
+
+                                    MainCameraRoot.transform.Rotate(new Vector3(0, 0, -1), 50 * Time.deltaTime);
+                                }
+
+                                if (Input.GetButton("P1_360_RightBumper") || Input.GetKey(KeyCode.E))
+                                {
+
+                                    MainCameraRoot.transform.Rotate(new Vector3(0, 0, 1), 50 * Time.deltaTime);
+                                }
+
+                                // 줌 인 & 줌 아웃 기능
+                                if (Input.GetAxis("P1_360_Trigger") > 0.001 || Input.GetKey(KeyCode.R))
+                                {
+                                    if (ZoomInOut <= 2.9f)
+                                    {
+                                        ZoomInOut += 2.8f * Time.deltaTime;
+
+                                        MainCameraRoot.transform.Translate(new Vector3(0, 0, 48.0f) * Time.deltaTime);
+                                    }
+                                }
+
+                                if (Input.GetAxis("P1_360_Trigger") < 0 || Input.GetKey(KeyCode.F))
+                                {
+                                    if (ZoomInOut >= -2.9f)
+                                    {
+                                        ZoomInOut -= 2.8f * Time.deltaTime;
+
+                                        MainCameraRoot.transform.Translate(new Vector3(0, 0, -48.0f) * Time.deltaTime);
+                                    }
+                                }
+
+                                if (Input.GetKey(KeyCode.P))
+                                {
+                                    MainCameraRoot.transform.position = StartPos;
+                                    NowCurrentCoordX = 0.0f;
+                                    NowCurrentCoordY = 0.0f;
+                                }
+                            }
+                            break;
+                    }
                 }
                 break;
 
@@ -107,54 +296,58 @@ public class FlyingCam : MonoBehaviour {
                         {
                             case ViewControllMode.Mouse:
                                 {
-                                    if ((CameraCheck.x >= 0))
+
+
+                                    if ((NowCurrentCoordX <= CameraMoveMaxX))
                                     {
                                         if (Input.GetKey(KeyCode.A))
                                         {
                                             MainCameraRoot.transform.Translate(new Vector3(3.3f, 0, 0) * normalMoveSpeed * Time.deltaTime);
 
 
-
-                                            MainCameraChecker.transform.Translate(new Vector3(1.7f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                            NowCurrentCoordX += (5.0f * Time.deltaTime);
+                                            //MainCameraChecker.transform.Translate(new Vector3(1.7f, 0, 0) * normalMoveSpeed * Time.deltaTime);
 
                                         }
                                     }
 
-                                    if ((CameraCheck.x <= Screen.width))
+                                    if ((NowCurrentCoordX >= CameraMoveMinX))
                                     {
                                         if (Input.GetKey(KeyCode.D))
                                         {
                                             MainCameraRoot.transform.Translate(new Vector3(-3.3f, 0, 0) * normalMoveSpeed * Time.deltaTime);
 
 
+                                            NowCurrentCoordX -= (5.0f * Time.deltaTime);
 
-
-                                            MainCameraChecker.transform.Translate(new Vector3(-1.7f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                            //MainCameraChecker.transform.Translate(new Vector3(-1.7f, 0, 0) * normalMoveSpeed * Time.deltaTime);
 
 
                                         }
                                     }
 
-                                    if ((CameraCheck.y <= Screen.height))
+                                    if ((NowCurrentCoordY >= CameraMoveMinY))
                                     {
                                         if (Input.GetKey(KeyCode.W))
                                         {
 
                                             MainCameraRoot.transform.Translate(new Vector3(0, -4.2f, 0) * normalMoveSpeed * Time.deltaTime);
 
-                                            MainCameraChecker.transform.Translate(new Vector3(0, -0.7f, 0) * normalMoveSpeed * Time.deltaTime);
+                                            NowCurrentCoordY -= (5.0f * Time.deltaTime);
+                                            //MainCameraChecker.transform.Translate(new Vector3(0, -0.7f, 0) * normalMoveSpeed * Time.deltaTime);
 
                                         }
                                     }
 
-                                    if ((CameraCheck.y >= 0))
+                                    if ((NowCurrentCoordY <= CameraMoveMaxY))
                                     {
                                         if (Input.GetKey(KeyCode.S))
                                         {
 
                                             MainCameraRoot.transform.Translate(new Vector3(0, 4.2f, 0) * normalMoveSpeed * Time.deltaTime);
 
-                                            MainCameraChecker.transform.Translate(new Vector3(0, 0.7f, 0) * normalMoveSpeed * Time.deltaTime);
+                                            NowCurrentCoordY += (5.0f * Time.deltaTime);
+                                            //MainCameraChecker.transform.Translate(new Vector3(0, 0.7f, 0) * normalMoveSpeed * Time.deltaTime);
                                         }
                                     }
 
@@ -213,6 +406,13 @@ public class FlyingCam : MonoBehaviour {
                                         //StartZoomPos = new Vector3(MainCameraRoot.transform.localPosition.x, StartYPos, MainCameraRoot.transform.localPosition.z);
                                     }
 
+                                    if(Input.GetKey(KeyCode.P))
+                                    {
+                                        MainCameraRoot.transform.position = StartPos;
+                                        NowCurrentCoordX = 0.0f;
+                                        NowCurrentCoordY = 0.0f;
+                                    }
+
                                     //if (Input.GetKey(KeyCode.R))
                                     //{
                                     //    if (ZoomInOut <= 2.5f)
@@ -251,54 +451,107 @@ public class FlyingCam : MonoBehaviour {
 
                             case ViewControllMode.GamePad:
                                 {
-                                    if ((CameraCheck.x >= 0))
+                                    //if ((CameraCheck.x >= 0))
+                                    //{
+                                    //    if (Input.GetKey(KeyCode.A) || Input.GetAxisRaw("P1_360_L_RightStick") <= -0.5f)
+                                    //    {
+                                    //        MainCameraRoot.transform.Translate(new Vector3(3.3f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+
+
+
+                                    //        MainCameraChecker.transform.Translate(new Vector3(1.7f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+
+                                    //    }
+                                    //}
+
+                                    //if ((CameraCheck.x <= Screen.width))
+                                    //{
+                                    //    if (Input.GetKey(KeyCode.D) || Input.GetAxisRaw("P1_360_L_RightStick") >= 0.5f)
+                                    //    {
+                                    //        MainCameraRoot.transform.Translate(new Vector3(-3.3f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+
+
+
+
+                                    //        MainCameraChecker.transform.Translate(new Vector3(-1.7f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+
+
+                                    //    }
+                                    //}
+
+                                    //if ((CameraCheck.y <= Screen.height))
+                                    //{
+                                    //    if (Input.GetKey(KeyCode.W) || Input.GetAxisRaw("P1_360_L_UpStick") <= -0.5f)
+                                    //    {
+
+                                    //        MainCameraRoot.transform.Translate(new Vector3(0, -4.0f, 0) * normalMoveSpeed * Time.deltaTime);
+
+                                    //        MainCameraChecker.transform.Translate(new Vector3(0, -0.7f, 0) * normalMoveSpeed * Time.deltaTime);
+
+                                    //    }
+                                    //}
+
+                                    //if ((CameraCheck.y >= 0))
+                                    //{
+                                    //    if (Input.GetKey(KeyCode.S) || Input.GetAxisRaw("P1_360_L_UpStick") >= 0.5f)
+                                    //    {
+
+                                    //        MainCameraRoot.transform.Translate(new Vector3(0, 4.0f, 0) * normalMoveSpeed * Time.deltaTime);
+
+                                    //        MainCameraChecker.transform.Translate(new Vector3(0, 0.7f, 0) * normalMoveSpeed * Time.deltaTime);
+                                    //    }
+                                    //}
+
+                                    if ((NowCurrentCoordX <= CameraMoveMaxX))
                                     {
                                         if (Input.GetKey(KeyCode.A) || Input.GetAxisRaw("P1_360_L_RightStick") <= -0.5f)
                                         {
                                             MainCameraRoot.transform.Translate(new Vector3(3.3f, 0, 0) * normalMoveSpeed * Time.deltaTime);
 
 
-
-                                            MainCameraChecker.transform.Translate(new Vector3(1.7f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                            NowCurrentCoordX += (5.0f * Time.deltaTime);
+                                            //MainCameraChecker.transform.Translate(new Vector3(1.7f, 0, 0) * normalMoveSpeed * Time.deltaTime);
 
                                         }
                                     }
 
-                                    if ((CameraCheck.x <= Screen.width))
+                                    if ((NowCurrentCoordX >= CameraMoveMinX))
                                     {
                                         if (Input.GetKey(KeyCode.D) || Input.GetAxisRaw("P1_360_L_RightStick") >= 0.5f)
                                         {
                                             MainCameraRoot.transform.Translate(new Vector3(-3.3f, 0, 0) * normalMoveSpeed * Time.deltaTime);
 
 
+                                            NowCurrentCoordX -= (5.0f * Time.deltaTime);
 
-
-                                            MainCameraChecker.transform.Translate(new Vector3(-1.7f, 0, 0) * normalMoveSpeed * Time.deltaTime);
+                                            //MainCameraChecker.transform.Translate(new Vector3(-1.7f, 0, 0) * normalMoveSpeed * Time.deltaTime);
 
 
                                         }
                                     }
 
-                                    if ((CameraCheck.y <= Screen.height))
+                                    if ((NowCurrentCoordY >= CameraMoveMinY))
                                     {
                                         if (Input.GetKey(KeyCode.W) || Input.GetAxisRaw("P1_360_L_UpStick") <= -0.5f)
                                         {
 
-                                            MainCameraRoot.transform.Translate(new Vector3(0, -4.0f, 0) * normalMoveSpeed * Time.deltaTime);
+                                            MainCameraRoot.transform.Translate(new Vector3(0, -4.2f, 0) * normalMoveSpeed * Time.deltaTime);
 
-                                            MainCameraChecker.transform.Translate(new Vector3(0, -0.7f, 0) * normalMoveSpeed * Time.deltaTime);
+                                            NowCurrentCoordY -= (5.0f * Time.deltaTime);
+                                            //MainCameraChecker.transform.Translate(new Vector3(0, -0.7f, 0) * normalMoveSpeed * Time.deltaTime);
 
                                         }
                                     }
 
-                                    if ((CameraCheck.y >= 0))
+                                    if ((NowCurrentCoordY <= CameraMoveMaxY))
                                     {
                                         if (Input.GetKey(KeyCode.S) || Input.GetAxisRaw("P1_360_L_UpStick") >= 0.5f)
                                         {
 
-                                            MainCameraRoot.transform.Translate(new Vector3(0, 4.0f, 0) * normalMoveSpeed * Time.deltaTime);
+                                            MainCameraRoot.transform.Translate(new Vector3(0, 4.2f, 0) * normalMoveSpeed * Time.deltaTime);
 
-                                            MainCameraChecker.transform.Translate(new Vector3(0, 0.7f, 0) * normalMoveSpeed * Time.deltaTime);
+                                            NowCurrentCoordY += (5.0f * Time.deltaTime);
+                                            //MainCameraChecker.transform.Translate(new Vector3(0, 0.7f, 0) * normalMoveSpeed * Time.deltaTime);
                                         }
                                     }
 
@@ -355,6 +608,14 @@ public class FlyingCam : MonoBehaviour {
 
                                         //StartZoomPos = new Vector3(MainCameraRoot.transform.localPosition.x, StartYPos, MainCameraRoot.transform.localPosition.z);
                                     }
+
+                                    if (Input.GetKey(KeyCode.P))
+                                    {
+                                        MainCameraRoot.transform.position = StartPos;
+                                        NowCurrentCoordX = 0.0f;
+                                        NowCurrentCoordY = 0.0f;
+                                    }
+
                                     //if (Input.GetAxis("P1_360_Trigger") > 0.001)
                                     //{
 
@@ -387,7 +648,7 @@ public class FlyingCam : MonoBehaviour {
                                     //    StartZoomPos = new Vector3(MainCameraRoot.transform.localPosition.x, StartYPos, MainCameraRoot.transform.localPosition.z);
 
                                     //    JoyPadZoomInOut = true;
-                                        
+
                                     //}
 
                                     //if (Input.GetAxis("P1_360_Trigger") == 0 && JoyPadZoomInOut == true)
@@ -397,8 +658,8 @@ public class FlyingCam : MonoBehaviour {
                                     //    JoyPadZoomInOut = false;
                                     //}
 
-                                    
-                                    
+
+
                                 }
                                 break;
                         }

@@ -32,6 +32,8 @@ public class CarrySpider : MonoBehaviour {
 
     public GameObject SpiderRayChecker;
     public GameObject SpiderSpot;
+    private Vector3 SpidasStartPosition;
+    private Vector3 SpidasPosBackup;
     //public GameObject Look;
 
     public GameObject Berserk_Particle;
@@ -93,7 +95,9 @@ public class CarrySpider : MonoBehaviour {
         BackRotationOn = false;
 
         Spider_Indicator.SetActive(false);
-	}
+        SpidasPosBackup = this.transform.position;
+        SpidasStartPosition = this.transform.position;
+    }
 	
 	// Update is called once per frame
 	void Update () 
@@ -148,13 +152,15 @@ public class CarrySpider : MonoBehaviour {
                                 //{
                                 //    print(hit.collider.tag);
                                 //}
-                                if (Physics.Raycast(SpiderRayChecker.transform.position, (this.transform.position - SpiderRayChecker.transform.position).normalized * 150.0f, out hit, Mathf.Infinity, layermask))
+                                if (Physics.Raycast(SpiderRayChecker.transform.position, (this.transform.position - SpiderRayChecker.transform.position).normalized, out hit, 5.0f, layermask))
                                 {
 
                                     if (hit.collider.tag.Equals("Ground") == true)
                                     {
                                         //print(hit.point.y);
+                                        
                                         this.transform.position = new Vector3(this.transform.position.x, hit.point.y + 3.0f, this.transform.position.z);
+                                        SpidasPosBackup = this.transform.position;
 
                                         if (Input.GetKeyDown(KeyCode.Y) && GameManager.Soul_MP_Parameter >= WebTrapCost && TrapSetOn == true)
                                         {
@@ -179,8 +185,14 @@ public class CarrySpider : MonoBehaviour {
                                             }
                                         }
                                     }
-                                }
 
+                                }
+                                else
+                                {
+                                    //Debug.Log("Is Not Ground");
+
+                                    this.transform.position = SpidasPosBackup;
+                                }
 
                                 //if (GameManager.Spidas_PowerUp_On == true)
                                 //{
@@ -194,6 +206,11 @@ public class CarrySpider : MonoBehaviour {
                                 //}
 
                                 //Debug.DrawRay(EndObjectChecker.transform.position, (StartObjectChecker.transform.position - EndObjectChecker.transform.position).normalized * 6.0f, Color.cyan);
+
+                                if(Input.GetKeyDown(KeyCode.P))
+                                {
+                                    this.transform.position = SpidasStartPosition;
+                                }
 
                                 if (Input.GetKey(KeyCode.I))
                                 {
@@ -402,13 +419,14 @@ public class CarrySpider : MonoBehaviour {
                                 // 게임 패드 작업
 
                                 //print("GamePad 3 On");
-                                if (Physics.Raycast(SpiderRayChecker.transform.position, (this.transform.position - SpiderRayChecker.transform.position).normalized * 150.0f, out hit, Mathf.Infinity, layermask))
+                                if (Physics.Raycast(SpiderRayChecker.transform.position, (this.transform.position - SpiderRayChecker.transform.position).normalized, out hit, 5.0f, layermask))
                                 {
 
                                     if (hit.collider.tag.Equals("Ground") == true)
                                     {
                                         //print(hit.point.y);
                                         this.transform.position = new Vector3(this.transform.position.x, hit.point.y + 3.0f, this.transform.position.z);
+                                        SpidasPosBackup = this.transform.position;
 
                                         if ((Input.GetButtonDown("P3_360_BButton") || Input.GetKeyDown(KeyCode.Y)) && GameManager.Soul_MP_Parameter >= WebTrapCost && TrapSetOn == true)
                                         {
@@ -433,6 +451,17 @@ public class CarrySpider : MonoBehaviour {
                                             }
                                         }
                                     }
+                                }
+                                else
+                                {
+                                    //Debug.Log("Is Not Ground");
+
+                                    this.transform.position = SpidasPosBackup;
+                                }
+
+                                if (Input.GetKeyDown(KeyCode.P))
+                                {
+                                    this.transform.position = SpidasStartPosition;
                                 }
 
                                 if (Input.GetAxisRaw("P3_360_L_RightStick") == 0 && Input.GetAxisRaw("P3_360_R_UpStick") == 0)
