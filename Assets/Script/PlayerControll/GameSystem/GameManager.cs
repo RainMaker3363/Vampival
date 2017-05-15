@@ -183,6 +183,9 @@ public class GameManager : MonoBehaviour {
 
     // 맨 처음 시작할때 숫자를 세는 타이머
     private float StartTimer;
+    // 게임이 끝날때 숫자를 세는 타이머
+    private float EndTimer;
+
     // 맨 처음 시작할때 표기할 텍스트
     public GameObject StartWait_UI;
 
@@ -200,6 +203,7 @@ public class GameManager : MonoBehaviour {
         
 
         RespawnTimer = 1.0f;
+        EndTimer = 0.0f;
         GameTimer = 0.0f;
 
         //light.intensity = 0.35f;
@@ -755,12 +759,21 @@ public class GameManager : MonoBehaviour {
                     //audioSource.Play();
                     //if(audioSource.isPlaying == false)
                     //{
-                        
+
                     //}
-                    if(Input.anyKeyDown)
+
+                    if(EndTimer <= 2.2f)
                     {
-                        AutoFade.LoadLevel("StageLobbyScene", 0.3f, 0.01f, Color.black);
+                        EndTimer += Time.deltaTime;
                     }
+                    else
+                    {
+                        if (Input.anyKeyDown)
+                        {
+                            AutoFade.LoadLevel("StageLobbyScene", 0.3f, 0.01f, Color.black);
+                        }
+                    }
+
 
                     Main_UI.SetActive(false);
                     GameVictory_BG.SetActive(true);
@@ -776,10 +789,20 @@ public class GameManager : MonoBehaviour {
 
                     ////audioSource.clip = GameOverBGM;
                     //audioSource.Stop();
-                    if (Input.anyKeyDown)
+
+                    if (EndTimer <= 2.2f)
                     {
-                        AutoFade.LoadLevel("StageLobbyScene", 0.3f, 0.01f, Color.black);
+                        EndTimer += Time.deltaTime;
                     }
+                    else
+                    {
+                        if (Input.anyKeyDown)
+                        {
+                            AutoFade.LoadLevel("StageLobbyScene", 0.3f, 0.01f, Color.black);
+                        }
+                    
+                    }
+
 
                     Main_UI.SetActive(false);
                     GameOver_BG.SetActive(true);
