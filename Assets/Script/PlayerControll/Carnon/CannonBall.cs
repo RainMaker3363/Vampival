@@ -444,6 +444,23 @@ public class CannonBall : MonoBehaviour {
             //{
             //    this.gameObject.SetActive(false);
             //}
+            Explode_Particle.gameObject.SetActive(true);
+
+            Explode_Particle.Play();
+
+            Audio.Play();
+
+            //Explode_Particle.transform.position = collision.transform.position;
+
+            if (SphereCol != null)
+            {
+                SphereCol.enabled = false;
+            }
+
+            if (Explode_Particle.isStopped == true)
+            {
+                this.gameObject.SetActive(false);
+            }
         }
 
         if (collision.transform.tag.Equals("Ground") == true)

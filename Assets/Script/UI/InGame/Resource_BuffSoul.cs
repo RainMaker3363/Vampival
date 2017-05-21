@@ -73,26 +73,32 @@ public class Resource_BuffSoul : MonoBehaviour {
     {
         if (other.transform.tag.Equals("Spidas") == true)
         {
-            if (Input.GetKeyDown(KeyCode.H))
-            {
-                print("Soul Recharging");
+            //if (Input.GetKeyDown(KeyCode.H))
+            //{
+            //    print("Soul Recharging");
 
-                this.gameObject.SetActive(false);
+            //    this.gameObject.SetActive(false);
 
-                GameManager.BuffCannonStack += 1;
+            //    GameManager.BuffCannonStack += 1;
 
-            }
+            //}
 
 
-            if (Input.GetButtonDown("P3_360_AButton"))
-            {
-                print("Soul Recharging");
+            //if (Input.GetButtonDown("P3_360_AButton"))
+            //{
+            //    print("Soul Recharging");
 
-                this.gameObject.SetActive(false);
+            //    this.gameObject.SetActive(false);
 
-                GameManager.BuffCannonStack += 1;
+            //    GameManager.BuffCannonStack += 1;
 
-            }
+            //}
+
+            print("Soul Recharging");
+
+            this.gameObject.SetActive(false);
+
+            GameManager.BuffCannonStack += 1;
 
         }
     }

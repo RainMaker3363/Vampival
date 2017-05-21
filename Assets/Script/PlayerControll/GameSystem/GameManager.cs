@@ -209,7 +209,7 @@ public class GameManager : MonoBehaviour {
         //light.intensity = 0.35f;
 
         CaptureTimer = 0.0f;
-        Capture_Max = 500.0f;
+        Capture_Max = 1500.0f;
         Capture_Meter = Capture_Max;
 
         Fear_Max = 50.0f;
@@ -538,27 +538,47 @@ public class GameManager : MonoBehaviour {
                     LevelChecker += Time.deltaTime;
                     //print(LevelChecker);
 
-                    if ((((int)LevelChecker / 14) >= 1 ||
-                        ((int)LevelChecker / 22) >= 1))
+                    //if ((((int)LevelChecker / 14) >= 1 ||
+                    //    ((int)LevelChecker / 22) >= 1))
+                    //{
+                    //    //print("RespawnTime");
+
+                    //    if (((int)LevelChecker / 14) >= Now_North_RespawnCount)
+                    //    {
+
+                    //        FirstRespawnOn = true;
+                    //        print("RespawnTime 14");
+                    //    }
+
+                    //    if (((int)LevelChecker / 22) >= Now_East_RespawnCount)
+                    //    {
+                    //        SecondRespawnOn = true;
+                    //        print("RespawnTime 22");
+                    //    }
+
+                    //}
+
+                    if ((((int)LevelChecker / 19) >= 1 ||
+                        ((int)LevelChecker / 28) >= 1))
                     {
                         //print("RespawnTime");
 
-                        if (((int)LevelChecker / 14) >= Now_North_RespawnCount)
+                        if (((int)LevelChecker / 19) >= Now_North_RespawnCount)
                         {
 
                             FirstRespawnOn = true;
-                            print("RespawnTime 14");
+                            print("RespawnTime 19");
                         }
 
-                        if (((int)LevelChecker / 22) >= Now_East_RespawnCount)
+                        if (((int)LevelChecker / 28) >= Now_East_RespawnCount)
                         {
                             SecondRespawnOn = true;
-                            print("RespawnTime 22");
+                            print("RespawnTime 28");
                         }
-                        
+
                     }
 
-                    if(FirstRespawnOn == true)
+                    if (FirstRespawnOn == true)
                     {
                         Stage01RespawnEnemies(0, 0, 0, Now_North_RespawnCount);
                         Now_North_RespawnCount++;

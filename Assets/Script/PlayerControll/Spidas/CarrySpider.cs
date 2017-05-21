@@ -117,13 +117,23 @@ public class CarrySpider : MonoBehaviour {
         {
             case GameState.GameIntro:
                 {
+                    if (ani != null)
+                    {
+                        ani.SetBool("Walk", false);
+                    }
 
+                    Spider_Indicator.gameObject.SetActive(false);
                 }
                 break;
 
             case GameState.GamePause:
                 {
+                    if (ani != null)
+                    {
+                        ani.SetBool("Walk", false);
+                    }
 
+                    Spider_Indicator.gameObject.SetActive(false);
                 }
                 break;
 
@@ -148,18 +158,21 @@ public class CarrySpider : MonoBehaviour {
                                 // 마우스 작업
                                 //print("Mouse");
 
-                                //if(Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, layermask))
+                                //if (Physics.Raycast(transform.position, Vector3.down, out hit, Mathf.Infinity, layermask))
                                 //{
                                 //    print(hit.collider.tag);
                                 //}
-                                if (Physics.Raycast(SpiderRayChecker.transform.position, (this.transform.position - SpiderRayChecker.transform.position).normalized, out hit, 5.0f, layermask))
+
+                                //if (Physics.Raycast(SpiderRayChecker.transform.position, (this.transform.position - SpiderRayChecker.transform.position).normalized, out hit, 5.0f, layermask))
+                                if (Physics.Raycast(this.transform.position, Vector3.down, out hit, 7.0f, layermask))
                                 {
 
                                     if (hit.collider.tag.Equals("Ground") == true)
                                     {
                                         //print(hit.point.y);
                                         
-                                        this.transform.position = new Vector3(this.transform.position.x, hit.point.y + 3.0f, this.transform.position.z);
+                                        //this.transform.position = new Vector3(this.transform.position.x, hit.point.y + 3.0f, this.transform.position.z);
+                                        this.transform.position = new Vector3(this.transform.position.x, hit.point.y + 1.5f, this.transform.position.z);
                                         SpidasPosBackup = this.transform.position;
 
                                         if (Input.GetKeyDown(KeyCode.Y) && GameManager.Soul_MP_Parameter >= WebTrapCost && TrapSetOn == true)
@@ -189,7 +202,7 @@ public class CarrySpider : MonoBehaviour {
                                 }
                                 else
                                 {
-                                    //Debug.Log("Is Not Ground");
+                                    Debug.Log("Is Not Ground");
 
                                     this.transform.position = SpidasPosBackup;
                                 }
@@ -205,9 +218,10 @@ public class CarrySpider : MonoBehaviour {
                                 //    normalMoveSpeed = 7.0f;
                                 //}
 
+                                //Debug.DrawRay(this.transform.position, Vector3.down * 7.0f, Color.green);
                                 //Debug.DrawRay(EndObjectChecker.transform.position, (StartObjectChecker.transform.position - EndObjectChecker.transform.position).normalized * 6.0f, Color.cyan);
 
-                                if(Input.GetKeyDown(KeyCode.P))
+                                if (Input.GetKeyDown(KeyCode.P))
                                 {
                                     this.transform.position = SpidasStartPosition;
                                 }
@@ -217,7 +231,11 @@ public class CarrySpider : MonoBehaviour {
 
                                     if (FrontRotationOn == false)
                                     {
-                                        ObjectCheckers.transform.Rotate(new Vector3(180.0f, 0.0f, 0.0f));
+                                        //ObjectCheckers.transform.Rotate(new Vector3(180.0f, 0.0f, 0.0f));
+                                        ObjectCheckers.transform.Rotate(new Vector3(0.0f, 180.0f, 0.0f));
+                                        
+
+
                                         BackRotationOn = false;
                                         FrontRotationOn = true;
                                     }
@@ -227,9 +245,9 @@ public class CarrySpider : MonoBehaviour {
                                         ani.SetBool("Walk", true);
                                     }
 
-                                    if (!Physics.Raycast(EndObjectChecker.transform.position, (StartObjectChecker.transform.position - EndObjectChecker.transform.position).normalized, out Objecthit, 6.0f, ObjectLayerMask))
+                                    if (!Physics.Raycast(EndObjectChecker.transform.position, (StartObjectChecker.transform.position - EndObjectChecker.transform.position).normalized, out Objecthit, 5.0f, ObjectLayerMask))
                                     {
-  
+
 
                                         transform.Translate(new Vector3(0, 0, 5.0f) * normalMoveSpeed * Time.deltaTime);
                                     }
@@ -240,7 +258,7 @@ public class CarrySpider : MonoBehaviour {
 
                                     //this.transform.position = new Vector3(this.transform.position.x, hit.point.y, this.transform.position.z);
 
-                                    
+
                                 }
                                 else if (Input.GetKeyUp(KeyCode.I))
                                 {
@@ -259,7 +277,10 @@ public class CarrySpider : MonoBehaviour {
 
                                     if (BackRotationOn == false)
                                     {
-                                        ObjectCheckers.transform.Rotate(new Vector3(180.0f, 0.0f, 0.0f));
+                                        //ObjectCheckers.transform.Rotate(new Vector3(180.0f, 0.0f, 0.0f));
+                                        ObjectCheckers.transform.Rotate(new Vector3(0.0f, 180.0f, 0.0f));
+                                        
+
                                         BackRotationOn = true;
                                         FrontRotationOn = false;
                                     }
@@ -273,7 +294,7 @@ public class CarrySpider : MonoBehaviour {
                                     {
 
 
-                                        transform.Translate(new Vector3(0, 0, -5.0f) * normalMoveSpeed * Time.deltaTime);
+                                        transform.Translate(new Vector3(0, 0, -2.5f) * normalMoveSpeed * Time.deltaTime);
                                     }
                                     
                                     
@@ -419,13 +440,15 @@ public class CarrySpider : MonoBehaviour {
                                 // 게임 패드 작업
 
                                 //print("GamePad 3 On");
-                                if (Physics.Raycast(SpiderRayChecker.transform.position, (this.transform.position - SpiderRayChecker.transform.position).normalized, out hit, 5.0f, layermask))
+                                //if (Physics.Raycast(SpiderRayChecker.transform.position, (this.transform.position - SpiderRayChecker.transform.position).normalized, out hit, 5.0f, layermask))
+                                if (Physics.Raycast(this.transform.position, Vector3.down, out hit, 7.0f, layermask))
                                 {
 
                                     if (hit.collider.tag.Equals("Ground") == true)
                                     {
                                         //print(hit.point.y);
-                                        this.transform.position = new Vector3(this.transform.position.x, hit.point.y + 3.0f, this.transform.position.z);
+                                        //this.transform.position = new Vector3(this.transform.position.x, hit.point.y + 3.0f, this.transform.position.z);
+                                        this.transform.position = new Vector3(this.transform.position.x, hit.point.y + 1.5f, this.transform.position.z);
                                         SpidasPosBackup = this.transform.position;
 
                                         if ((Input.GetButtonDown("P3_360_BButton") || Input.GetKeyDown(KeyCode.Y)) && GameManager.Soul_MP_Parameter >= WebTrapCost && TrapSetOn == true)
@@ -563,7 +586,7 @@ public class CarrySpider : MonoBehaviour {
 
                                     if (!Physics.Raycast(EndObjectChecker.transform.position, (StartObjectChecker.transform.position - EndObjectChecker.transform.position).normalized, out Objecthit, 10.0f, ObjectLayerMask))
                                     {
-                                        transform.Translate(new Vector3(0, 0, -5.0f) * normalMoveSpeed * Time.deltaTime);
+                                        transform.Translate(new Vector3(0, 0, -2.0f) * normalMoveSpeed * Time.deltaTime);
                                     }
                                 }
                                 else if (Input.GetKeyUp(KeyCode.K))
@@ -669,7 +692,12 @@ public class CarrySpider : MonoBehaviour {
 
             case GameState.GameEnd:
                 {
+                    if (ani != null)
+                    {
+                        ani.SetBool("Walk", false);
+                    }
 
+                    Spider_Indicator.gameObject.SetActive(false);
                 }
                 break;
         }
